@@ -10,6 +10,21 @@
     <Filter Include="src">
       <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PlayScene">
+      <UniqueIdentifier>{2bfd5dc8-dec8-4030-836b-9702e7b40872}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayScene\CharacterLayer">
+      <UniqueIdentifier>{64e35d0f-db68-4712-903a-121c478d9900}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayScene\StageLayer">
+      <UniqueIdentifier>{add1f535-7756-4ca1-a11e-e204d24e20af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayScene\UILayer">
+      <UniqueIdentifier>{892d2e48-3e58-4f7c-b288-4df800db7afb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayScene\BackgroundLayer">
+      <UniqueIdentifier>{07dc6480-582b-4d35-a083-ed2c51e2cd56}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -21,6 +36,45 @@
     <ClCompile Include="..\Classes\HelloWorldScene.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\CharacterLayer\CharacterLayer.cpp">
+      <Filter>PlayScene\CharacterLayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Character.cpp">
+      <Filter>PlayScene\CharacterLayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Rabbit.cpp">
+      <Filter>PlayScene\CharacterLayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\PlayScene.cpp">
+      <Filter>PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\BackgroundLayer\Background.cpp">
+      <Filter>PlayScene\BackgroundLayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\BackgroundLayer\BackgroundLayer.cpp">
+      <Filter>PlayScene\BackgroundLayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\StageLayer\Coin.cpp">
+      <Filter>PlayScene\StageLayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\StageLayer\CrayStage.cpp">
+      <Filter>PlayScene\StageLayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\StageLayer\Stage.cpp">
+      <Filter>PlayScene\StageLayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\StageLayer\StageLayer.cpp">
+      <Filter>PlayScene\StageLayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\UILayer\Distance.cpp">
+      <Filter>PlayScene\UILayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\UILayer\Score.cpp">
+      <Filter>PlayScene\UILayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\UILayer\UILayer.cpp">
+      <Filter>PlayScene\UILayer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -31,6 +85,45 @@
     </ClInclude>
     <ClInclude Include="..\Classes\HelloWorldScene.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\CharacterLayer\CharacterLayer.h">
+      <Filter>PlayScene\CharacterLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Character.h">
+      <Filter>PlayScene\CharacterLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Rabbit.h">
+      <Filter>PlayScene\CharacterLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\PlayScene.h">
+      <Filter>PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\BackgroundLayer\Background.h">
+      <Filter>PlayScene\BackgroundLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\BackgroundLayer\BackgroundLayer.h">
+      <Filter>PlayScene\BackgroundLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\StageLayer\Coin.h">
+      <Filter>PlayScene\StageLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\StageLayer\CrayStage.h">
+      <Filter>PlayScene\StageLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\StageLayer\Stage.h">
+      <Filter>PlayScene\StageLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\StageLayer\StageLayer.h">
+      <Filter>PlayScene\StageLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\UILayer\Distance.h">
+      <Filter>PlayScene\UILayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\UILayer\Score.h">
+      <Filter>PlayScene\UILayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\UILayer\UILayer.h">
+      <Filter>PlayScene\UILayer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -110,7 +110,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
       <Inputs>$(TargetFileName)</Inputs>
     </CustomBuildStep>
   </ItemDefinitionGroup>
-
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
@@ -149,14 +148,39 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
+    <ClCompile Include="..\Classes\PlayScene\BackgroundLayer\Background.cpp" />
+    <ClCompile Include="..\Classes\PlayScene\BackgroundLayer\BackgroundLayer.cpp" />
+    <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Character.cpp" />
+    <ClCompile Include="..\Classes\PlayScene\CharacterLayer\CharacterLayer.cpp" />
+    <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Rabbit.cpp" />
+    <ClCompile Include="..\Classes\PlayScene\PlayScene.cpp" />
+    <ClCompile Include="..\Classes\PlayScene\StageLayer\Coin.cpp" />
+    <ClCompile Include="..\Classes\PlayScene\StageLayer\CrayStage.cpp" />
+    <ClCompile Include="..\Classes\PlayScene\StageLayer\Stage.cpp" />
+    <ClCompile Include="..\Classes\PlayScene\StageLayer\StageLayer.cpp" />
+    <ClCompile Include="..\Classes\PlayScene\UILayer\Distance.cpp" />
+    <ClCompile Include="..\Classes\PlayScene\UILayer\Score.cpp" />
+    <ClCompile Include="..\Classes\PlayScene\UILayer\UILayer.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
+    <ClInclude Include="..\Classes\PlayScene\BackgroundLayer\Background.h" />
+    <ClInclude Include="..\Classes\PlayScene\BackgroundLayer\BackgroundLayer.h" />
+    <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Character.h" />
+    <ClInclude Include="..\Classes\PlayScene\CharacterLayer\CharacterLayer.h" />
+    <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Rabbit.h" />
+    <ClInclude Include="..\Classes\PlayScene\PlayScene.h" />
+    <ClInclude Include="..\Classes\PlayScene\StageLayer\Coin.h" />
+    <ClInclude Include="..\Classes\PlayScene\StageLayer\CrayStage.h" />
+    <ClInclude Include="..\Classes\PlayScene\StageLayer\Stage.h" />
+    <ClInclude Include="..\Classes\PlayScene\StageLayer\StageLayer.h" />
+    <ClInclude Include="..\Classes\PlayScene\UILayer\Distance.h" />
+    <ClInclude Include="..\Classes\PlayScene\UILayer\Score.h" />
+    <ClInclude Include="..\Classes\PlayScene\UILayer\UILayer.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
-  
   <ItemGroup>
     <ResourceCompile Include="game.rc" />
   </ItemGroup>
