@@ -75,6 +75,7 @@
     <ClCompile Include="..\Classes\PlayScene\UILayer\UILayer.cpp">
       <Filter>PlayScene\UILayer</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\GameManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -125,6 +126,7 @@
     <ClInclude Include="..\Classes\PlayScene\UILayer\UILayer.h">
       <Filter>PlayScene\UILayer</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\GameManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">

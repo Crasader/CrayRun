@@ -8,6 +8,8 @@
 #pragma once
 /* ---- ライブラリのインクルード ---------- */
 #include "cocos2d.h"
+#include "../../GameManager.h"
+
 
 class Score :public cocos2d::Node
 {
@@ -16,8 +18,11 @@ public:
 
 	CREATE_FUNC(Score);
 
+	//スコア・タイムの設定、描画
+	void ScoreIndicate(int Score);
 private:
-
+	//数字スプライト
+	cocos2d::Sprite* s_Number[5];
 
 };
 

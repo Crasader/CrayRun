@@ -17,7 +17,8 @@ public:
 	CREATE_FUNC(Distance);
 
 private:
-
+	//数字スプライト
+	cocos2d::Sprite* s_Number[];
 
 };
 

@@ -13,7 +13,6 @@ USING_NS_CC;
 using namespace cocos2d::experimental;
 
 
-
 bool Distance::init()
 {
 	if (!Node::init()) {
