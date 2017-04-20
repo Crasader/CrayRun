@@ -19,11 +19,11 @@
     <Filter Include="PlayScene\StageLayer">
       <UniqueIdentifier>{add1f535-7756-4ca1-a11e-e204d24e20af}</UniqueIdentifier>
     </Filter>
-    <Filter Include="PlayScene\UILayer">
-      <UniqueIdentifier>{892d2e48-3e58-4f7c-b288-4df800db7afb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="PlayScene\BackgroundLayer">
       <UniqueIdentifier>{07dc6480-582b-4d35-a083-ed2c51e2cd56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayScene\UILayer">
+      <UniqueIdentifier>{892d2e48-3e58-4f7c-b288-4df800db7afb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
