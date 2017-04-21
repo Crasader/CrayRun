@@ -22,12 +22,19 @@ public:
 
 
 private:
-	//タッチされたら
-	bool onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * pEvent);
-
-
+	//キャラクター
+	Character* character;
 	////毎フレーム呼び出される関数
 	void update(float delta)override;
+
+	//プレイヤーとステージのあたり判定
+	//void AfterHittingStage();
+	//プレイヤーとギミックのあたり判定
+	//void AfterHittingGimmick();
+	//プレイヤーと金型のあたり判定
+	//void AfterHittingMold();
+	//スケール計算
+	//void ScaleCalculation();
 
 };
 

@@ -19,7 +19,7 @@ bool CharacterLayer::init()
 	}
 
 	//レイヤーにノードを集約
-	Character* character = Character::create();
+	character = Character::create();
 	this->addChild(character);
 
 	//毎フレーム呼び出す
@@ -29,21 +29,14 @@ bool CharacterLayer::init()
 }
 
 /***************************************************************************
-*|	概要　	タッチされたら
-*|	引数　　無し
-*|　戻り値　無し
-****************************************************************************/
-bool CharacterLayer::onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * pEvent)
-{
-	return true;
-}
-
-/***************************************************************************
-*|	概要　	スコアのアクション関数を呼びだす　
+*|	概要　	毎フレーム呼び出す
 *|	引数　　無し
 *|　戻り値　無し
 ****************************************************************************/
 void CharacterLayer::update(float date)
 {
-
+	//移動する
+	character->Move();
+	//重力
+	character->Gravity();
 }

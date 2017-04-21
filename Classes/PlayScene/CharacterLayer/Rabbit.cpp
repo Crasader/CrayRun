@@ -12,15 +12,15 @@
 USING_NS_CC;
 using namespace cocos2d::experimental;
 
-
-
-bool Rabbit::init()
-{
-	if (!Node::init()) {
-
-		return false;
-	}
-
-	return true;
-}
+//
+//
+//bool Rabbit::init()
+//{
+//	if (!Node::init()) {
+//
+//		return false;
+//	}
+//
+//	return true;
+//}
 

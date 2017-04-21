@@ -14,8 +14,8 @@
 class Rabbit :public Character
 {
 public:
-	virtual bool init();
-
+	//Rabbit();
+	//~Rabbit();
 
 private:
 

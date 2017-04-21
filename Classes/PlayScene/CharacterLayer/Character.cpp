@@ -21,7 +21,38 @@ bool Character::init()
 		return false;
 	}
 
+	//プレイヤー作成
+	s_player = Sprite::create("Images/1.png");
+	s_player->setPosition(GameManager::PlayerPos);
+	s_player->setAnchorPoint(Vec2(0.5, 0));
+	this->addChild(s_player);
+
+
 	return true;
+}
+
+/***************************************************************************
+*|	概要　　移動する
+*|	引数　　無し
+*|　戻り値　無し
+****************************************************************************/
+void Character::Move()
+{
+	//座標に速度をたす
+	GameManager::PlayerPos += GameManager::PlayerSpd;
+	//座標を適用させる
+	s_player->setPosition(GameManager::PlayerPos);
+}
+
+
+/***************************************************************************
+*|	概要　　重力
+*|	引数　　無し
+*|　戻り値　無し
+****************************************************************************/
+void Character::Gravity()
+{
+	//GameManager::PlayerSpd.y -= 4.0f;
 }
 
 
