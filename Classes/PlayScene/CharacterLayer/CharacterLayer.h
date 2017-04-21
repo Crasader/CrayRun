@@ -9,6 +9,7 @@
 #pragma once 
 /* ---- ライブラリのインクルード ---------- */
 #include "cocos2d.h"
+#include "GameManager.h"
 #include "Character.h"
 #include "Rabbit.h"
 
@@ -29,6 +30,8 @@ private:
 
 	//プレイヤーとステージのあたり判定
 	//void AfterHittingStage();
+	//プレイヤーと斜面のあたり判定
+	void AfterHittingSlope();
 	//プレイヤーとギミックのあたり判定
 	//void AfterHittingGimmick();
 	//プレイヤーと金型のあたり判定

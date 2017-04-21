@@ -39,4 +39,26 @@ void CharacterLayer::update(float date)
 	character->Move();
 	//重力
 	character->Gravity();
+
+	//プレイヤーと斜面のあたり判定
+	AfterHittingSlope();
+}
+
+
+/***************************************************************************
+*|	概要　	プレイヤーと斜面のあたり判定
+*|	引数　　無し
+*|　戻り値　無し
+****************************************************************************/
+void CharacterLayer::AfterHittingSlope()
+{
+	Vec2 a = Vec2(200, 200);
+	Vec2 b = Vec2(600, 264);
+
+	if(GameManager::DiagonalCollisionDetermination
+	(a, b, GameManager::PlayerPos) == up)
+	{
+		GameManager::PlayerSpd.y = 0.0f;
+		GameManager::PlayerPos.y = GameManager::SlopePosY/* - GameManager::PlayerSize.y / 2*/;
+	}
 }

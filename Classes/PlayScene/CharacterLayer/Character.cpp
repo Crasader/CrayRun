@@ -27,6 +27,11 @@ bool Character::init()
 	s_player->setAnchorPoint(Vec2(0.5, 0));
 	this->addChild(s_player);
 
+	s_Sorp = Sprite::create("Images/c.png");
+	s_Sorp->setAnchorPoint(Vec2(0, 0));
+	s_Sorp->setPosition(Vec2(200, 200));
+
+	this->addChild(s_Sorp);
 
 	return true;
 }
@@ -52,7 +57,15 @@ void Character::Move()
 ****************************************************************************/
 void Character::Gravity()
 {
-	//GameManager::PlayerSpd.y -= 4.0f;
+	if (GameManager::SlopeFalg == true)
+	{
+		GameManager::PlayerSpd.y = 0.0f;
+	}
+	else
+	{
+		GameManager::PlayerSpd.y = -4.0f;
+	}
+	
 }
 
 

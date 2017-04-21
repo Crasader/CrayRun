@@ -38,6 +38,8 @@ public:
 	//	Vec2 LeftEnd[MAX_SLOPE];//左端
 	//	Vec2 RightEnd[MAX_SLOPE];//右端
 	//};
+	static float SlopePosY;//斜面座標Y
+	static bool SlopeFalg;
 	///////////////UIレイヤー///////////////
 	const static int SCORE_MAX_NUMBER;//スコアのスプライトの数
 	const static int DISTANCE_MAX_NUMBER;//スコアのスプライトの数

@@ -24,5 +24,7 @@ public:
 private:
 	cocos2d::Sprite* s_player;
 
+	//ƒeƒXƒgŽÎ–Ê
+	cocos2d::Sprite* s_Sorp;
 };
 

@@ -4,7 +4,7 @@ USING_NS_CC;
 
 //////////////キャラクターレイヤー//////
 //////////////キャラクター//////////////
-Vec2 GameManager::PlayerSpd = (Vec2(7.0f,0.0f));//速度
+Vec2 GameManager::PlayerSpd = (Vec2(3.0f,0.0f));//速度
 Vec2  GameManager::PlayerSize = Vec2(64, 64);//サイズ
 Vec2  GameManager::PlayerPos = Vec2(300.0f,300.0f);//座標
 float  GameManager::ScoreCorrection = 0.0f;//スコア補正
@@ -16,6 +16,8 @@ bool GameManager::GroundFlag = false;//地面についているか
 //	Vec2 LeftEnd;//左端
 //	Vec2 RightEnd;//右端
 //};
+float GameManager::SlopePosY = 0.0f;//斜面座標Y
+bool GameManager::SlopeFalg = false;
 
 
 int GameManager::ScoreMaxDigit = 0;//最大桁数
@@ -132,7 +134,8 @@ int GameManager::DiagonalCollisionDetermination(Vec2 Apos, Vec2 Bpos, Vec2 Objec
 	bool direction;
 
 	//キャラクターの中心を求める
-	Object.y += GameManager::PlayerSize.y / 2;
+	Object.y += GameManager::PlayerSize.y;
+	//Object.y -= GameManager::PlayerSize.y / 2;
 
 	v = Bpos - Apos;
 	A = Object - Apos;
@@ -144,7 +147,7 @@ int GameManager::DiagonalCollisionDetermination(Vec2 Apos, Vec2 Bpos, Vec2 Objec
 	d = v.cross(A) / w;
 
 	//マイナスの時
-	if (d > 0)
+	if (d < 0)
 	{
 		//整数に変える
 		d *= -1.0f;
@@ -162,6 +165,8 @@ int GameManager::DiagonalCollisionDetermination(Vec2 Apos, Vec2 Bpos, Vec2 Objec
 		{
 			if (direction == true)
 			{
+				GameManager::SlopePosY =  v.y /  v.x  * Object.x + Apos.y - 32;
+				//GameManager::SlopeFalg = true;
 				return up;
 			}
 			else
