@@ -11,6 +11,10 @@
 #include "../../GameManager.h"
 
 
+const int SCORE_MAX_NUMBER = 7;//スコアのスプライトの数
+
+
+
 class Score :public cocos2d::Node
 {
 public:
@@ -18,11 +22,11 @@ public:
 
 	CREATE_FUNC(Score);
 
-	//スコア・タイムの設定、描画
+	//スコアの設定、描画
 	void ScoreIndicate(int Score);
 private:
 	//数字スプライト
-	cocos2d::Sprite* s_Number[5];
+	cocos2d::Sprite* s_Number[SCORE_MAX_NUMBER];
 
 };
 

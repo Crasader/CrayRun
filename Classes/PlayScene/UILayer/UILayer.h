@@ -11,6 +11,8 @@
 #include "cocos2d.h"
 #include "Distance.h"
 #include "Score.h"
+#include "GameManager.h"
+
 
 
 class UiLayer :public cocos2d::Layer

@@ -8,6 +8,9 @@
 #pragma once
 /* ---- ライブラリのインクルード ---------- */
 #include "cocos2d.h"
+#include"../../GameManager.h"
+
+const int DISTANCE_MAX_NUMBER = 5;//距離のスプライトの数
 
 class Distance :public cocos2d::Node
 {
@@ -16,9 +19,12 @@ public:
 
 	CREATE_FUNC(Distance);
 
+	//距離の設定、描画
+	void DistanceIndicate(int distance);
+
 private:
 	//数字スプライト
-	cocos2d::Sprite* s_Number[];
+	cocos2d::Sprite* s_Number[DISTANCE_MAX_NUMBER];
 
 };
 
