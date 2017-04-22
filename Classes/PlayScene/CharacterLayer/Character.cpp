@@ -27,11 +27,9 @@ bool Character::init()
 	s_player->setAnchorPoint(Vec2(0.5, 0));
 	this->addChild(s_player);
 
-	s_Sorp = Sprite::create("Images/c.png");
-	s_Sorp->setAnchorPoint(Vec2(0, 0));
-	s_Sorp->setPosition(Vec2(200, 200));
 
-	this->addChild(s_Sorp);
+
+
 
 	return true;
 }
@@ -47,6 +45,18 @@ void Character::Move()
 	GameManager::PlayerPos += GameManager::PlayerSpd;
 	//座標を適用させる
 	s_player->setPosition(GameManager::PlayerPos);
+}
+
+/***************************************************************************
+*|	概要　  ジャンプ
+*|	引数　　無し
+*|　戻り値　無し
+****************************************************************************/
+void Character::Jump()
+{
+	JumpBy* jumpaction = JumpBy::create(0.5f, Vec2(0,0), 64.0f, 1);
+	this->runAction(jumpaction);
+
 }
 
 
@@ -65,7 +75,6 @@ void Character::Gravity()
 	{
 		GameManager::PlayerSpd.y = -4.0f;
 	}
-	
 }
 
 

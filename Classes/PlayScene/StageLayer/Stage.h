@@ -18,6 +18,8 @@ public:
 
 private:
 
+	//ƒeƒXƒgÎ–Ê
+	cocos2d::Sprite* s_Sorp;
 
 };
 

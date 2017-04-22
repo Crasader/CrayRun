@@ -18,13 +18,12 @@ public:
 	CREATE_FUNC(Character);
 
 	void Move();//移動
-	//virtual void Jump();//ジャンプする
+	virtual void Jump();//ジャンプする
 	void Gravity();//重力
 	//void Configuration();//設定
-private:
 	cocos2d::Sprite* s_player;
+private:
 
-	//テスト斜面
-	cocos2d::Sprite* s_Sorp;
+
 };
 

@@ -165,12 +165,12 @@ int GameManager::DiagonalCollisionDetermination(Vec2 Apos, Vec2 Bpos, Vec2 Objec
 		{
 			if (direction == true)
 			{
-				GameManager::SlopePosY =  v.y /  v.x  * Object.x + Apos.y - 32;
-				//GameManager::SlopeFalg = true;
+				GameManager::SlopePosY =  v.y /  v.x  * Object.x + Apos.y - GameManager::PlayerSize.y / 2;
 				return up;
 			}
 			else
 			{
+				GameManager::SlopePosY = v.y / v.x  * Object.x + Apos.y - GameManager::PlayerSize.y * 2;
 				return under;
 			}
 		}
