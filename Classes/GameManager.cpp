@@ -2,24 +2,36 @@
 
 USING_NS_CC;
 
+
+//プレイシーン
+
+const  int GameManager::BOX_COLLIDER = 10;			//あたり判定時に使用するタイルレイヤーの淵から少しだけ内側に入っているか確かめるための数
+
+
 //////////////キャラクターレイヤー//////
 //////////////キャラクター//////////////
-Vec2 GameManager::PlayerSpd = (Vec2(3.0f,0.0f));//速度
+Vec2 GameManager::PlayerSpd = (Vec2(3.0f,-4.0f));//速度
 Vec2  GameManager::PlayerSize = Vec2(64, 64);//サイズ
-Vec2  GameManager::PlayerPos = Vec2(300.0f,300.0f);//座標
+Vec2  GameManager::PlayerPos = Vec2(50.0f,600.0f);//座標
 float  GameManager::ScoreCorrection = 0.0f;//スコア補正
 bool GameManager::GroundFlag = false;//地面についているか
 
 ///////////////ステージレイヤー/////////
+const Vec2 GameManager::MAP_SIZE = Vec2(960 * 2, 640);//マップ大きさ
+const Vec2 GameManager::LAYRE_SIZE = Vec2(64,64);//レイヤーの大きさ
+int GameManager::FloorCnt = 0;//レイヤーカウント
+float* GameManager::FloorPosx;//床座標x
+float* GameManager::FloorPosy;//床座標y
+
 //struct GameManager::SlopePos
 //{
 //	Vec2 LeftEnd;//左端
 //	Vec2 RightEnd;//右端
 //};
 float GameManager::SlopePosY = 0.0f;//斜面座標Y
-bool GameManager::SlopeFalg = false;
 
 
+/////////////////UIレイヤー/////////////////
 int GameManager::ScoreMaxDigit = 0;//最大桁数
 int GameManager::DistanceMaxDigit = 0;//最大桁数
 int GameManager::Digit = 0;//桁数
@@ -41,7 +53,7 @@ GameManager::~GameManager()
 *|	引数　　オブジェクト座標,オブジェクトサイズ,プレイヤー座標,オブジェクトサイズ
 *|　戻り値　0:空中	1:マップレイヤーの上に乗った	2:マップレイヤーの右側に当たった
 *************************************************************************************/
-int  GameManager::CollisionDetermination(Vec2 Apos,Vec2 Asize, Vec2 Bpos,Vec2 Bsize)
+Direction  GameManager::CollisionDetermination(Vec2 Apos,Vec2 Asize, Vec2 Bpos,Vec2 Bsize)
 {
 	//マップレイヤーの上に乗ったか
 	if (Apos.x <= Bpos.x + Bsize.x / 2)
@@ -50,7 +62,7 @@ int  GameManager::CollisionDetermination(Vec2 Apos,Vec2 Asize, Vec2 Bpos,Vec2 Bs
 		{
 			if (Apos.y >= Bpos.y)
 			{
-				if (Apos.y - GameManager::PlayerSpd.y <= Bpos.y)
+				if (Apos.y - GameManager::BOX_COLLIDER <= Bpos.y)
 				{
 					{
 						return up;
@@ -67,7 +79,7 @@ int  GameManager::CollisionDetermination(Vec2 Apos,Vec2 Asize, Vec2 Bpos,Vec2 Bs
 		{
 			if (Apos.y - Asize.y <= Bpos.y + Bsize.y)
 			{
-				if (Apos.y - Asize.y + GameManager::PlayerSpd.y >= Bpos.y + Bsize.y)
+				if (Apos.y - Asize.y + GameManager::BOX_COLLIDER >= Bpos.y + Bsize.y)
 				{
 					{
 						return under;
@@ -78,7 +90,7 @@ int  GameManager::CollisionDetermination(Vec2 Apos,Vec2 Asize, Vec2 Bpos,Vec2 Bs
 	}
 
 	//マップレイヤーの左側に当たったか
-	if (Apos.x + GameManager::PlayerSpd.y >= Bpos.x + Bsize.x / 2)
+	if (Apos.x + GameManager::BOX_COLLIDER >= Bpos.x + Bsize.x / 2)
 	{
 		if (Apos.x <= Bpos.x + Bsize.x / 2)
 		{
@@ -96,7 +108,7 @@ int  GameManager::CollisionDetermination(Vec2 Apos,Vec2 Asize, Vec2 Bpos,Vec2 Bs
 
 
 	//マップレイヤーの右側に当たったか
-	if (Apos.x + Asize.x - GameManager::PlayerSpd.y <= Bpos.x - Bsize.x / 2)
+	if (Apos.x + Asize.x - GameManager::BOX_COLLIDER <= Bpos.x - Bsize.x / 2)
 	{
 		if (Apos.x + Asize.x >= Bpos.x - Bsize.x / 2)
 		{
@@ -124,7 +136,7 @@ int  GameManager::CollisionDetermination(Vec2 Apos,Vec2 Asize, Vec2 Bpos,Vec2 Bs
 *|	引数　　斜辺左端座標,斜辺右端座標,オブジェクト座標
 *|　戻り値　true当たった　false 当たってない
 *************************************************************************************/
-int GameManager::DiagonalCollisionDetermination(Vec2 Apos, Vec2 Bpos, Vec2 Object) {
+Direction GameManager::DiagonalCollisionDetermination(Vec2 Apos, Vec2 Bpos, Vec2 Object) {
 
 	Vec2 v;
 	Vec2 A;
@@ -135,7 +147,6 @@ int GameManager::DiagonalCollisionDetermination(Vec2 Apos, Vec2 Bpos, Vec2 Objec
 
 	//キャラクターの中心を求める
 	Object.y += GameManager::PlayerSize.y;
-	//Object.y -= GameManager::PlayerSize.y / 2;
 
 	v = Bpos - Apos;
 	A = Object - Apos;
@@ -158,16 +169,19 @@ int GameManager::DiagonalCollisionDetermination(Vec2 Apos, Vec2 Bpos, Vec2 Objec
 		direction = true;
 	}
 
-
+	//	当たっているか
 	if (d <= PlayerSize.y)
 	{
+		//延長線上の判定を除外する
 		if (A.dot(v) * B.dot(v) <= 0)
 		{
+			//プレイヤーが上から当たった場合
 			if (direction == true)
 			{
-				GameManager::SlopePosY =  v.y /  v.x  * Object.x + Apos.y - GameManager::PlayerSize.y / 2;
+				GameManager::SlopePosY =  v.y /  v.x  * Object.x + Apos.y - GameManager::PlayerSize.y + 15;
 				return up;
 			}
+			//プレイヤーが下から当たった場合
 			else
 			{
 				GameManager::SlopePosY = v.y / v.x  * Object.x + Apos.y - GameManager::PlayerSize.y * 2;

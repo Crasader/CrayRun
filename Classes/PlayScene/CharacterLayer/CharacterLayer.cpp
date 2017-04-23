@@ -50,7 +50,8 @@ void CharacterLayer::update(float date)
 	character->Move();
 	//重力
 	character->Gravity();
-
+	//プレイヤーと床の衝突判定
+	AfterHittingFloor();
 	//プレイヤーと斜面のあたり判定
 	AfterHittingSlope();
 }
@@ -100,19 +101,57 @@ void CharacterLayer::onTouchesCancelled(const std::vector<cocos2d::Touch*>& touc
 
 
 
+/***************************************************************************
+*|	概要　	プレイヤーと床の衝突判定
+*|	引数　　無し
+*|　戻り値　無し
+****************************************************************************/
+void CharacterLayer::AfterHittingFloor()
+{
+	//床の数だけループ
+	for (int i = 0; i < GameManager::FloorCnt; i++)
+	{
+		switch (GameManager::CollisionDetermination
+		(Vec2(GameManager::FloorPosx[i], GameManager::FloorPosy[i]), GameManager::LAYRE_SIZE,
+			GameManager::PlayerPos, GameManager::PlayerSize))
+		{
+		case right:
+			GameManager::PlayerPos.x = GameManager::FloorPosx[i] + GameManager::LAYRE_SIZE.x + GameManager::PlayerSize.x / 2 + 1;
+			GameManager::PlayerSpd.x = 0.0f;
+			break;
+		case left:
+			GameManager::PlayerPos.x = GameManager::FloorPosx[i] - GameManager::PlayerSize.x / 2;
+			GameManager::PlayerSpd.x = 0.0f;
+			break;
+		case up:
+			GameManager::PlayerPos.y = GameManager::FloorPosy[i];
+			GameManager::PlayerSpd.y = 0.0f;
+			//GameManager::JumpFlag = true;
+			break;
+		case under:
+			GameManager::PlayerPos.y = GameManager::FloorPosy[i] - GameManager::LAYRE_SIZE.y - GameManager::PlayerSize.y - 1;
+			GameManager::PlayerSpd.y = 0.0f;
+			break;
+		case exception:
+			break;
+
+		}
+	}
+	
+}
 
 /***************************************************************************
-*|	概要　	プレイヤーと斜面のあたり判定
+*|	概要　	プレイヤーと斜面の衝突判定
 *|	引数　　無し
 *|　戻り値　無し
 ****************************************************************************/
 void CharacterLayer::AfterHittingSlope()
 {
-	Vec2 a = Vec2(200, 200);
-	Vec2 b = Vec2(600, 264);
+	Vec2 a = Vec2(300, 400);
+	Vec2 b = Vec2(700, 464);
 
 	//衝突判定（斜面）
-	int HitFlag = GameManager::DiagonalCollisionDetermination(a, b, GameManager::PlayerPos);
+	Direction HitFlag = GameManager::DiagonalCollisionDetermination(a, b, character->s_player->getPosition());
 
 	//上に乗った時
 	if(HitFlag == up)
@@ -127,6 +166,7 @@ void CharacterLayer::AfterHittingSlope()
 	else if (HitFlag == under)
 	{
 		////ジャンプアクションを止める
+		character->s_player->stopAllActions();
 		//埋まった分を押し出す
 		GameManager::PlayerPos.y = GameManager::SlopePosY;
 	}

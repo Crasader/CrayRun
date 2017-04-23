@@ -56,25 +56,7 @@ void Character::Jump()
 {
 	JumpBy* jumpaction = JumpBy::create(0.5f, Vec2(0,0), 64.0f, 1);
 	this->runAction(jumpaction);
-
 }
 
-
-/***************************************************************************
-*|	概要　　重力
-*|	引数　　無し
-*|　戻り値　無し
-****************************************************************************/
-void Character::Gravity()
-{
-	if (GameManager::SlopeFalg == true)
-	{
-		GameManager::PlayerSpd.y = 0.0f;
-	}
-	else
-	{
-		GameManager::PlayerSpd.y = -4.0f;
-	}
-}
 
 

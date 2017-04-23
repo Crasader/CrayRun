@@ -19,7 +19,12 @@ public:
 
 	void Move();//移動
 	virtual void Jump();//ジャンプする
-	void Gravity();//重力
+	//重力
+	void Character::Gravity()
+	{
+		GameManager::PlayerSpd.x = 5.0f;
+		GameManager::PlayerSpd.y = -3.0f;
+	}
 	//void Configuration();//設定
 	cocos2d::Sprite* s_player;
 private:

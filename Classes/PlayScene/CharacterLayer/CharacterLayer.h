@@ -39,7 +39,7 @@ private:
 
 
 	//プレイヤーとステージのあたり判定
-	//void AfterHittingStage();
+	void AfterHittingFloor();
 	//プレイヤーと斜面のあたり判定
 	void AfterHittingSlope();
 	//プレイヤーとギミックのあたり判定

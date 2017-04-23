@@ -8,6 +8,7 @@
 #pragma once
 /* ---- ライブラリのインクルード ---------- */
 #include "cocos2d.h"
+#include "GameManager.h"
 
 class Stage :public cocos2d::Node
 {
@@ -15,7 +16,8 @@ public:
 	virtual bool init();
 
 	CREATE_FUNC(Stage);
-
+		static float* FloorPosx[];//床座標x
+	static float* FloorPosy[];//床座標y
 private:
 
 	//テスト斜面
