@@ -16,8 +16,7 @@ public:
 	virtual bool init();
 
 	CREATE_FUNC(Stage);
-		static float* FloorPosx[];//床座標x
-	static float* FloorPosy[];//床座標y
+
 private:
 
 	//テスト斜面

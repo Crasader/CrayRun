@@ -12,6 +12,7 @@
 #include "Coin.h"
 #include "CrayStage.h"
 #include "Stage.h"
+#include "GameManager.h"
 
 class StageLayer :public cocos2d::Layer
 {
@@ -26,7 +27,11 @@ private:
 
 	////毎フレーム呼び出される関数
 	void update(float delta)override;
+	//プレイヤーとコインの当たり判定後
+	void AfterHittingCoin();
 
+
+	Coin* coin;
 };
 
 

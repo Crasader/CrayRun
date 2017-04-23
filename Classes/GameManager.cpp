@@ -12,11 +12,12 @@ const  int GameManager::BOX_COLLIDER = 10;			//‚ ‚½‚è”»’è‚Ég—p‚·‚éƒ^ƒCƒ‹ƒŒƒCƒ
 //////////////ƒLƒƒƒ‰ƒNƒ^[//////////////
 Vec2 GameManager::PlayerSpd = (Vec2(3.0f,-4.0f));//‘¬“x
 Vec2  GameManager::PlayerSize = Vec2(64, 64);//ƒTƒCƒY
-Vec2  GameManager::PlayerPos = Vec2(50.0f,600.0f);//À•W
+Vec2  GameManager::PlayerPos = Vec2(50.0f,20.0f);//À•W
 float  GameManager::ScoreCorrection = 0.0f;//ƒXƒRƒA•â³
 bool GameManager::GroundFlag = false;//’n–Ê‚É‚Â‚¢‚Ä‚¢‚é‚©
 
 ///////////////ƒXƒe[ƒWƒŒƒCƒ„[/////////
+TMXTiledMap*  GameManager::map = nullptr;//ƒ}ƒbƒv
 const Vec2 GameManager::MAP_SIZE = Vec2(960 * 2, 640);//ƒ}ƒbƒv‘å‚«‚³
 const Vec2 GameManager::LAYRE_SIZE = Vec2(64,64);//ƒŒƒCƒ„[‚Ì‘å‚«‚³
 int GameManager::FloorCnt = 0;//ƒŒƒCƒ„[ƒJƒEƒ“ƒg
@@ -28,7 +29,11 @@ float* GameManager::FloorPosy;//°À•Wy
 //	Vec2 LeftEnd;//¶’[
 //	Vec2 RightEnd;//‰E’[
 //};
+///////////////°/////////////////////
 float GameManager::SlopePosY = 0.0f;//Î–ÊÀ•WY
+//////////////ƒRƒCƒ“//////////////
+
+int  GameManager::CoinCnt = 0;//ƒRƒCƒ“‚ğƒJƒEƒ“ƒg
 
 
 /////////////////UIƒŒƒCƒ„[/////////////////

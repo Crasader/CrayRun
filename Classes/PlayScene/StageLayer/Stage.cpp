@@ -28,20 +28,9 @@ bool Stage::init()
 		this->addChild(s_Sorp);
 
 
-		/////////マップ描画////////
-
-		//タイルマップの読み込み
-		//マップチップ
-		TMXTiledMap*  map = TMXTiledMap::create("floor.tmx");
-		//タイルマップの中心座標を設定
-		map->setAnchorPoint(Vec2(0, 0));
-		//タイルマップの座標設定
-		map->setPosition(Point(0, 0));
-		//画像の描画
-		this->addChild(map);
 		//レイヤー取得
-		TMXLayer* layer = map->getLayer("FloorLayer");
-
+		TMXLayer* layer = GameManager::map->getLayer("FloorLayer");
+		
 		bool flag = true;
 
 		//一回目:レイヤーの数を調べる,2回目:座標を設定する
@@ -55,7 +44,7 @@ bool Stage::init()
 					unsigned int gid = layer->getTileGIDAt(Vec2(j, i));
 
 					// 指定したタイル番号のプロパティのセットを取得
-					cocos2d::Value value = map->getPropertiesForGID(gid);
+					cocos2d::Value value = GameManager::map->getPropertiesForGID(gid);
 
 					if (value.isNull() == false)
 					{

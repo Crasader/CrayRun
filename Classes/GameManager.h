@@ -11,7 +11,7 @@ enum Direction
 	exception
 };
 
-class GameManager
+class GameManager 
 {
 public:
 	////////////////プレイシーン/////////////
@@ -36,13 +36,14 @@ public:
 	static bool GroundFlag;//地面についているか
 
 	///////////////ステージレイヤー/////////
+	static cocos2d::TMXTiledMap*  map;//マップ
 	static const cocos2d::Vec2 MAP_SIZE;//マップ大きさ
 	static const cocos2d::Vec2 LAYRE_SIZE;//レイヤーの大きさ
+	
+	//////////////床///////////////////////
 	static int FloorCnt;//レイヤーカウント
 	static float* FloorPosx;//床座標x
 	static float* FloorPosy;//床座標y
-	//////////////床///////////////////////
-
 	//const static int MAX_SLOPE = 50;
 	////斜面座標
 	//static struct SlopePos
@@ -51,7 +52,9 @@ public:
 	//	Vec2 RightEnd[MAX_SLOPE];//右端
 	//};
 	static float SlopePosY;//斜面座標Y
+	//////////////コイン//////////////
 
+	static int CoinCnt;//コインをカウント
 	///////////////UIレイヤー///////////////
 	const static int SCORE_MAX_NUMBER;//スコアのスプライトの数
 	const static int DISTANCE_MAX_NUMBER;//スコアのスプライトの数
