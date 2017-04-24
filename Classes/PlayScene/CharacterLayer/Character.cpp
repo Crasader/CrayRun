@@ -21,6 +21,14 @@ bool Character::init()
 		return false;
 	}
 
+	//std::string filename = "Images/1.png";
+	//if (!Sprite::initWithFile(filename))
+	//{
+
+	//	return false;
+	//}
+
+
 	//プレイヤー作成
 	s_player = Sprite::create("Images/1.png");
 	s_player->setPosition(GameManager::PlayerPos);
@@ -30,9 +38,24 @@ bool Character::init()
 
 
 
-
 	return true;
 }
+
+//Character * Character::create()
+//{
+//	Character *pRet = new(std::nothrow) Character();
+//	if (pRet && pRet->init())
+//	{
+//		pRet->autorelease();
+//		return pRet;
+//	}
+//	else
+//	{
+//		delete pRet;
+//		pRet = nullptr;
+//		return nullptr;
+//	}
+//}
 
 /***************************************************************************
 *|	概要　　移動する
@@ -54,8 +77,20 @@ void Character::Move()
 ****************************************************************************/
 void Character::Jump()
 {
-	JumpBy* jumpaction = JumpBy::create(0.5f, Vec2(0,0), 64.0f, 1);
-	this->runAction(jumpaction);
+	//JumpBy* jumpaction = JumpBy::create(0.5f, Vec2(0,0), 64.0f, 1);
+	//s_player->runAction(jumpaction);
+	GameManager::JumpCnt++;
+
+	if (GameManager::JumpFlag == true)
+	{
+		GameManager::PlayerSpd.y = 9.0f;
+	}
+
+	if (GameManager::JumpCnt == 2)
+	{
+		GameManager::JumpCnt = 0;
+		GameManager::JumpFlag = false;
+	}
 }
 
 

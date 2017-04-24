@@ -7,8 +7,10 @@
 ****************************************************************************/
 /* ---- ライブラリのインクルード ---------- */
 #include "CharacterLayer.h"
-
+#include "Manager.h"
 USING_NS_CC;
+
+
 
 bool CharacterLayer::init()
 {
@@ -21,6 +23,7 @@ bool CharacterLayer::init()
 	//レイヤーにノードを集約
 	character = Character::create();
 	this->addChild(character);
+
 
 	//毎フレーム呼び出す
 	this->scheduleUpdate();
@@ -50,6 +53,8 @@ void CharacterLayer::update(float date)
 	character->Move();
 	//重力
 	character->Gravity();
+	//プレイヤーの座標を取得する
+	//character->GetPos();
 	//プレイヤーと床の衝突判定
 	AfterHittingFloor();
 	//プレイヤーと斜面のあたり判定
@@ -64,9 +69,9 @@ void CharacterLayer::update(float date)
 ****************************************************************************/
 void CharacterLayer::onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event * unused_event)
 {
+	
 	log("onTouchesBegan");
 	character->Jump();
-
 }
 
 /***************************************************************************
@@ -108,31 +113,37 @@ void CharacterLayer::onTouchesCancelled(const std::vector<cocos2d::Touch*>& touc
 ****************************************************************************/
 void CharacterLayer::AfterHittingFloor()
 {
+
+	Vector<Vec2>::iterator Iterator;
+	//Vector<Vec2>::iterator Iterator2;
 	//床の数だけループ
-	for (int i = 0; i < GameManager::FloorCnt; i++)
+	for (Iterator = GameManager::FloorPos.begin(); Iterator != GameManager::FloorPos.end(); ++Iterator)
 	{
+		Vec2 vec = *Iterator;
 		switch (GameManager::CollisionDetermination
-		(Vec2(GameManager::FloorPosx[i], GameManager::FloorPosy[i]), GameManager::LAYRE_SIZE,
+		(vec, GameManager::LAYRE_SIZE,
 			GameManager::PlayerPos, GameManager::PlayerSize))
 		{
 		case right:
-			GameManager::PlayerPos.x = GameManager::FloorPosx[i] + GameManager::LAYRE_SIZE.x + GameManager::PlayerSize.x / 2 + 1;
+			GameManager::PlayerPos.x = vec.x + GameManager::LAYRE_SIZE.x + GameManager::PlayerSize.x / 2 + 1;
 			GameManager::PlayerSpd.x = 0.0f;
 			break;
 		case left:
-			GameManager::PlayerPos.x = GameManager::FloorPosx[i] - GameManager::PlayerSize.x / 2;
-			GameManager::PlayerSpd.x = 0.0f;
+			/*GameManager::PlayerPos.x = GameManager::FloorPosx[i] - GameManager::PlayerSize.x / 2;*/
+			GameManager::RightFlag = true;
+			GameManager::PlayerSpd.x = -6.0f;
 			break;
 		case up:
-			GameManager::PlayerPos.y = GameManager::FloorPosy[i];
+			GameManager::PlayerPos.y = vec.y;
 			GameManager::PlayerSpd.y = 0.0f;
-			//GameManager::JumpFlag = true;
+			//ジャンプ可能にする
+			GameManager::JumpFlag = true;
 			break;
-		case under:
+		/*case under:
 			GameManager::PlayerPos.y = GameManager::FloorPosy[i] - GameManager::LAYRE_SIZE.y - GameManager::PlayerSize.y - 1;
 			GameManager::PlayerSpd.y = 0.0f;
-			break;
-		case exception:
+			break;*/
+		 default:
 			break;
 
 		}
@@ -159,16 +170,18 @@ void CharacterLayer::AfterHittingSlope()
 		GameManager::PlayerSpd.y = 0.0f;
 		//埋まった分を押し出す
 		GameManager::PlayerPos.y = GameManager::SlopePosY;
-		////
-		//character->stopAllActions();
+		//ジャンプ可能にする
+		GameManager::JumpFlag = true;
+		//////
+		//character->s_player->stopAllActions();
 	}
 	//下からぶつかったとき
 	else if (HitFlag == under)
 	{
 		////ジャンプアクションを止める
-		character->s_player->stopAllActions();
+		//character->s_player->stopAllActions();
 		//埋まった分を押し出す
-		GameManager::PlayerPos.y = GameManager::SlopePosY;
+		/*GameManager::PlayerPos.y = GameManager::SlopePosY;*/
 	}
 
 

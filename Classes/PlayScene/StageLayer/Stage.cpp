@@ -34,8 +34,6 @@ bool Stage::init()
 		bool flag = true;
 
 		//一回目:レイヤーの数を調べる,2回目:座標を設定する
-		for (int k = 0; k < 2; k++)
-		{
 			for (int i = 0; i < GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y; i++)
 			{
 				for (int j = 0; j < GameManager::MAP_SIZE.x / GameManager::LAYRE_SIZE.x; j++)
@@ -57,43 +55,24 @@ bool Stage::init()
 							if (str == "floor")
 							{
 
-								if (k == 0)
-								{
-									//床カウントをインクリメント
-									GameManager::FloorCnt++;
-								}
-								else if (flag == true)
-								{
-									//動的に配列を作成
-									GameManager::FloorPosx = new float[GameManager::FloorCnt];
-									//動的に配列を作成
-									GameManager::FloorPosy = new float[GameManager::FloorCnt];
 
-									//床の数を初期化する
-									GameManager::FloorCnt = 0;
+								if (flag == true)
+								{
+
 
 									//座標を設定する
-									GameManager::FloorPosx[GameManager::FloorCnt] = j * GameManager::LAYRE_SIZE.x;
-									GameManager::FloorPosy[GameManager::FloorCnt] = (GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y - i) * GameManager::LAYRE_SIZE.y;
+									GameManager::FloorPos.push_back(Vec2(j * GameManager::LAYRE_SIZE.x, GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y - i) * GameManager::LAYRE_SIZE.y);
 									//床カウントをインクリメント
 									GameManager::FloorCnt++;
 
 									//次のループでメモリ確保をさせない
 									flag = false;
 								}
-								else
-								{
-									//座標を設定する
-									GameManager::FloorPosx[GameManager::FloorCnt] = j * GameManager::LAYRE_SIZE.x;
-									GameManager::FloorPosy[GameManager::FloorCnt] = (GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y - i) * GameManager::LAYRE_SIZE.y;
-									//床カウントをインクリメント
-									GameManager::FloorCnt++;
-								}
+
 							}
 						}
 					}
 				}
-			}
 		}
 
 	return true;

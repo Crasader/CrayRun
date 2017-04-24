@@ -52,11 +52,14 @@ bool Coin::init()
 							{
 							case 1:
 								s_Coin = Sprite::create("Images/coin1.png");
+								GameManager::CoinPoint.push_back(10);
 								break;
 							case 2:
 								s_Coin = Sprite::create("Images/Coin2.png");
+								GameManager::CoinPoint.push_back(20);
 							case 3:
 								s_Coin = Sprite::create("Images/Coin3.png");
+								GameManager::CoinPoint.push_back(30);
 								break;
 							default:
 								break;
@@ -68,7 +71,9 @@ bool Coin::init()
 
 							s_Coin->setTag(GameManager::CoinCnt);
 
+						
 							this->addChild(s_Coin);
+
 
 							//床カウントをインクリメント
 							GameManager::CoinCnt++;

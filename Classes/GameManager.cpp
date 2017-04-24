@@ -10,19 +10,20 @@ const  int GameManager::BOX_COLLIDER = 10;			//‚ ‚½‚è”»’è‚Ég—p‚·‚éƒ^ƒCƒ‹ƒŒƒCƒ
 
 //////////////ƒLƒƒƒ‰ƒNƒ^[ƒŒƒCƒ„[//////
 //////////////ƒLƒƒƒ‰ƒNƒ^[//////////////
-Vec2 GameManager::PlayerSpd = (Vec2(3.0f,-4.0f));//‘¬“x
+Vec2 GameManager::PlayerSpd = (Vec2(6.0f,-4.0f));//‘¬“x
 Vec2  GameManager::PlayerSize = Vec2(64, 64);//ƒTƒCƒY
-Vec2  GameManager::PlayerPos = Vec2(50.0f,20.0f);//À•W
+Vec2  GameManager::PlayerPos = Vec2(50.0f,300.0f);//À•W
 float  GameManager::ScoreCorrection = 0.0f;//ƒXƒRƒA•â³
-bool GameManager::GroundFlag = false;//’n–Ê‚É‚Â‚¢‚Ä‚¢‚é‚©
+bool GameManager::JumpFlag = false;//’n–Ê‚É‚Â‚¢‚Ä‚¢‚é‚©
+bool GameManager::RightFlag = false;//‰E‘¤‚É“–‚½‚Á‚½‚©
+int  GameManager::JumpCnt = 0;//ƒWƒƒƒ“ƒvƒtƒ‰ƒO
 
 ///////////////ƒXƒe[ƒWƒŒƒCƒ„[/////////
 TMXTiledMap*  GameManager::map = nullptr;//ƒ}ƒbƒv
 const Vec2 GameManager::MAP_SIZE = Vec2(960 * 2, 640);//ƒ}ƒbƒv‘å‚«‚³
 const Vec2 GameManager::LAYRE_SIZE = Vec2(64,64);//ƒŒƒCƒ„[‚Ì‘å‚«‚³
 int GameManager::FloorCnt = 0;//ƒŒƒCƒ„[ƒJƒEƒ“ƒg
-float* GameManager::FloorPosx;//°À•Wx
-float* GameManager::FloorPosy;//°À•Wy
+std::vector<Vec2> GameManager::FloorPos;//°À•W
 
 //struct GameManager::SlopePos
 //{
@@ -34,6 +35,7 @@ float GameManager::SlopePosY = 0.0f;//Î–ÊÀ•WY
 //////////////ƒRƒCƒ“//////////////
 
 int  GameManager::CoinCnt = 0;//ƒRƒCƒ“‚ğƒJƒEƒ“ƒg
+std::vector<int>  GameManager::CoinPoint;//ƒRƒCƒ“‚Ìƒ|ƒCƒ“ƒg
 
 
 /////////////////UIƒŒƒCƒ„[/////////////////
@@ -44,6 +46,10 @@ int GameManager::SaveDistance = 0;//‹——£‚ğ•Û‘¶‚·‚é
 int GameManager::SaveScore = 0;//ƒXƒRƒA‚ğ•Û‘¶‚·‚é
 int GameManager::SpriteCnt = 0;//‰½ŒÂ–Ú‚ÌƒXƒvƒ‰ƒCƒg‚©ƒJƒEƒ“ƒg‚·‚é
 bool GameManager::UsedFlag = false;//‚±‚ÌŠÖ”‚ª‚·‚Å‚ÉŒÄ‚Î‚ê‚½‚©
+
+/////////////////ƒJƒƒ‰//////////////////////.
+float GameManager::m_cameraposx = 480.0f;
+const float GameManager::m_cameraspdx = GameManager::PlayerSpd.x;
 
 GameManager::GameManager()
 {
@@ -209,9 +215,9 @@ bool GameManager::HitJudgment(Vec2 Apos, Vec2 Asize, Vec2 Bpos, Vec2 Bsize)
 {
 
 	if ((Apos.x <= Bpos.x + Bsize.x / 2)
-		|| (Apos.x + Asize.x >= Bpos.x - Bsize.x / 2)
-		|| (Apos.y >= Bpos.y)
-		|| (Apos.y - Asize.y <= Bpos.y + Bsize.y))
+		&& (Apos.x + Asize.x >= Bpos.x - Bsize.x / 2)
+		&& (Apos.y >= Bpos.y)
+		&& (Apos.y - Asize.y  /2  <= Bpos.y + Bsize.y))
 	{
 		return true;
 	}

@@ -14,21 +14,29 @@ class Character :public cocos2d::Node
 {
 public:
 	virtual bool init();
-
 	CREATE_FUNC(Character);
+
+	//static Character* create();
 
 	void Move();//移動
 	virtual void Jump();//ジャンプする
 	//重力
 	void Character::Gravity()
 	{
-		GameManager::PlayerSpd.x = 5.0f;
-		GameManager::PlayerSpd.y = -3.0f;
+		if (GameManager::RightFlag == false)
+		{
+			GameManager::PlayerSpd.x = 6.0f;
+		}
+		GameManager::PlayerSpd.y -= 0.4f;
 	}
 	//void Configuration();//設定
 	cocos2d::Sprite* s_player;
+	//座標を取得する
+	void GetPos() {
+		GameManager::PlayerPos = s_player->getPosition();
+	}
 private:
-
-
+	int F;
+	float y_prev;
 };
 

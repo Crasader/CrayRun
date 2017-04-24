@@ -22,9 +22,9 @@ public:
 	CREATE_FUNC(CharacterLayer);
 
 
+
 private:
-	//キャラクター
-	Character* character;
+
 	////毎フレーム呼び出される関数
 	void update(float delta)override;
 	//タッチ時に呼び出される
@@ -48,6 +48,8 @@ private:
 	//void AfterHittingMold();
 	//スケール計算
 	//void ScaleCalculation();
+
+	Character* character;
 
 };
 

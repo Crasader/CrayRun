@@ -33,8 +33,9 @@ public:
 	static cocos2d::Vec2 PlayerPos;//座標
 	static  cocos2d::Vec2 PlayerSize;//サイズ
 	static float ScoreCorrection;//スコア補正
-	static bool GroundFlag;//地面についているか
-
+	static bool JumpFlag;//地面についているか
+	static bool RightFlag;//右側に当たったか
+	static int JumpCnt;//ジャンプフラグ
 	///////////////ステージレイヤー/////////
 	static cocos2d::TMXTiledMap*  map;//マップ
 	static const cocos2d::Vec2 MAP_SIZE;//マップ大きさ
@@ -42,8 +43,7 @@ public:
 	
 	//////////////床///////////////////////
 	static int FloorCnt;//レイヤーカウント
-	static float* FloorPosx;//床座標x
-	static float* FloorPosy;//床座標y
+	static std::vector<cocos2d::Vec2> FloorPos;//床座標
 	//const static int MAX_SLOPE = 50;
 	////斜面座標
 	//static struct SlopePos
@@ -65,8 +65,15 @@ public:
 	static int SaveDistance;//距離を保存する
 	static int SpriteCnt;//何個目のスプライトかカウントする
 	static bool UsedFlag;//この関数がすでに呼ばれたか
+	static std::vector<int> CoinPoint;//コインのポイント
+	///////////////////カメラ/////////////////////////
+
+	static float m_cameraposx;
+	const static float m_cameraspdx;
 
 private:
 
 };
+
+
 

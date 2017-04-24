@@ -18,21 +18,21 @@ using namespace cocos2d::experimental;
 *|	引数　　無し
 *|　戻り値　シーンのアドレス
 ****************************************************************************/
-cocos2d::Scene * PlayScene::createScene()
-{
-	// シーンを作成する
-
-	auto scene = Scene::create();
-	// レイヤーを作成する
-
-	auto layer = PlayScene::create();
-	// レイヤーをシーンに追加する
-
-	scene->addChild(layer);
-	// シーンを返す
-
-	return scene;
-}
+//cocos2d::Scene * PlayScene::createScene()
+//{
+//	// シーンを作成する
+//
+//	auto scene = Scene::create();
+//	// レイヤーを作成する
+//
+//	auto layer = PlayScene::create();
+//	// レイヤーをシーンに追加する
+//
+//	scene->addChild(layer);
+//	// シーンを返す
+//
+//	return scene;
+//}
 
 /***************************************************************************
 *|	概要　　プレイシーンのレイヤーを呼びだす
@@ -64,11 +64,26 @@ bool PlayScene::init()
 	this->addChild(uilayer);
 
 
-
-	
-
+	//update関数を呼ぶ
+	this->scheduleUpdate();
 
 	return true;
+}
+
+/***************************************************************************
+*|	概要　　毎フレーム呼ばれる
+*|	引数　　無し
+*|　戻り値　無し
+****************************************************************************/
+void PlayScene::update(float data)
+{
+	//デフォルトカメラを設定する
+	PlayScene::m_camera = this->getDefaultCamera();
+	//カメラ座標を、毎フレーム動かす
+	GameManager::m_cameraposx += GameManager::m_cameraspdx;
+	//カメラの座標をセット
+	PlayScene::m_camera->setPositionX(GameManager::m_cameraposx);
+
 }
 
 

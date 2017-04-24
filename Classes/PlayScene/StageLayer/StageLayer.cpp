@@ -7,6 +7,8 @@
 ****************************************************************************/
 /* ---- ライブラリのインクルード ---------- */
 #include "StageLayer.h"
+#include "../CharacterLayer/CharacterLayer.h"]
+#include "Manager.h"
 
 USING_NS_CC;
 
@@ -70,16 +72,26 @@ void StageLayer::update(float data) {
 void StageLayer::AfterHittingCoin()
 {
 	
-	//for (int i = 1; i < GameManager::CoinCnt; i++)
-	//{
-	//
-	//	//プレイヤーのコイン
-	//	if (GameManager::HitJudgment
-	//	(coin->s_Coin->getChildByTag(i)->getPosition(), coin->s_Coin->getChildByTag(i)->getContentSize(),
-	//		GameManager::PlayerPos, GameManager::PlayerSize) == true)
-	//	{
-	//		//当たったコインを削除
-	//		coin->s_Coin->getChildByTag(i)->removeFromParent();
-	//	}
-	//}
+
+
+
+	for (int i = 0; i < GameManager::CoinCnt; i++)
+	{
+		Node* q = coin->getChildByTag(i);
+		if (q != nullptr)
+		{
+			q->getPosition();
+			q->getContentSize();
+
+			//プレイヤーのコイン
+			if (GameManager::HitJudgment
+			(q->getPosition(), q->getContentSize(),
+				GameManager::PlayerPos, GameManager::PlayerSize) == true)
+			{
+				//当たったコインを削除
+				coin->getChildByTag(i)->removeFromParent();
+				GameManager::SaveScore = GameManager::CoinPoint[i];
+			}
+		}
+	}
 };
