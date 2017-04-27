@@ -25,7 +25,7 @@ bool Distance::init()
 	//レクトを設定する
 	s_Number[GameManager::SpriteCnt]->setTextureRect(Rect(0 * 64, 0, 64, 64));
 	//座標
-	s_Number[GameManager::SpriteCnt]->setPosition(Vec2(800 + 64 * GameManager::SpriteCnt, 580));
+	s_Number[GameManager::SpriteCnt]->setPosition(Vec2(600 + 64 * GameManager::SpriteCnt, 580));
 	this->addChild(s_Number[GameManager::SpriteCnt]);
 	//最大桁数を記憶
 	GameManager::DistanceMaxDigit = GameManager::SpriteCnt;
@@ -84,7 +84,7 @@ void Distance::DistanceIndicate(int distance)
 			//数字のスプライトを作成する
 			s_Number[GameManager::SpriteCnt] = Sprite::create("Images/Number.png");
 			//座標
-			s_Number[GameManager::SpriteCnt]->setPosition(Vec2(200 + 64 * GameManager::SpriteCnt, 580));
+			s_Number[GameManager::SpriteCnt]->setPosition(Vec2(600 + 64 * GameManager::SpriteCnt, 580));
 			this->addChild(s_Number[GameManager::SpriteCnt]);
 			//最大桁数を更新する
 			GameManager::DistanceMaxDigit = GameManager::SpriteCnt;

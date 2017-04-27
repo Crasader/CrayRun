@@ -48,8 +48,12 @@ private:
 	//void AfterHittingMold();
 	//スケール計算
 	//void ScaleCalculation();
+	//ジャンプするか調べる
+	void JumpInvestigate();
 
 	Character* character;
 
+	cocos2d::Label* n;
+	int a = 19;
 };
 

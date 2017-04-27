@@ -20,6 +20,8 @@ public:
 
 	void Move();//移動
 	virtual void Jump();//ジャンプする
+
+
 	//重力
 	void Character::Gravity()
 	{
@@ -27,16 +29,23 @@ public:
 		{
 			GameManager::PlayerSpd.x = 6.0f;
 		}
-		GameManager::PlayerSpd.y -= 0.4f;
+		//重力加速度に上限を設ける
+		if (GameManager::PlayerSpd.y >= -4.5f)
+		{
+			GameManager::PlayerSpd.y -= 0.4f;
+		}
+		//ジャンプがないときは関係なく加速度をつける
+		else if (GameManager::JumpFlag == false)
+		{
+			GameManager::PlayerSpd.y -= 0.4f;
+		}
 	}
+
+	
 	//void Configuration();//設定
 	cocos2d::Sprite* s_player;
-	//座標を取得する
-	void GetPos() {
-		GameManager::PlayerPos = s_player->getPosition();
-	}
+
 private:
-	int F;
-	float y_prev;
+
 };
 

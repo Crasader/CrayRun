@@ -2,7 +2,6 @@
 
 USING_NS_CC;
 
-
 //プレイシーン
 
 const  int GameManager::BOX_COLLIDER = 10;			//あたり判定時に使用するタイルレイヤーの淵から少しだけ内側に入っているか確かめるための数
@@ -18,18 +17,26 @@ bool GameManager::JumpFlag = false;//地面についているか
 bool GameManager::RightFlag = false;//右側に当たったか
 int  GameManager::JumpCnt = 0;//ジャンプフラグ
 
+
+int GameManager::FirstTouchCnt = 0;//最初のタッチからどれだけ経過したか
+bool GameManager::FirstTouchFlag = false;//最初のタッチが呼ばれたか
+
 ///////////////ステージレイヤー/////////
 TMXTiledMap*  GameManager::map = nullptr;//マップ
 const Vec2 GameManager::MAP_SIZE = Vec2(960 * 2, 640);//マップ大きさ
 const Vec2 GameManager::LAYRE_SIZE = Vec2(64,64);//レイヤーの大きさ
-int GameManager::FloorCnt = 0;//レイヤーカウント
 std::vector<Vec2> GameManager::FloorPos;//床座標
 
-//struct GameManager::SlopePos
-//{
-//	Vec2 LeftEnd;//左端
-//	Vec2 RightEnd;//右端
-//};
+
+//斜面
+
+std::vector<Vec2> GameManager::LeftPos;//左端
+std::vector<Vec2> GameManager::RightPos;//右端
+
+										//イテレータの値を格納する
+cocos2d::Vec2 GameManager::SaveRight;
+cocos2d::Vec2 GameManager::SaveLeft;
+
 ///////////////床/////////////////////
 float GameManager::SlopePosY = 0.0f;//斜面座標Y
 //////////////コイン//////////////
@@ -39,13 +46,20 @@ std::vector<int>  GameManager::CoinPoint;//コインのポイント
 
 
 /////////////////UIレイヤー/////////////////
+/////////////////スコア////////////////
+std::vector<cocos2d::Sprite*> GameManager::s_score;//コイン
 int GameManager::ScoreMaxDigit = 0;//最大桁数
+int GameManager::Score = 0;//スコア
+int GameManager::SaveScore = 0;//スコアを保存する
+/////////////////場所////////////////////////
 int GameManager::DistanceMaxDigit = 0;//最大桁数
 int GameManager::Digit = 0;//桁数
+int GameManager::Distance = 0;//距離
+
 int GameManager::SaveDistance = 0;//距離を保存する
-int GameManager::SaveScore = 0;//スコアを保存する
 int GameManager::SpriteCnt = 0;//何個目のスプライトかカウントする
 bool GameManager::UsedFlag = false;//この関数がすでに呼ばれたか
+
 
 /////////////////カメラ//////////////////////.
 float GameManager::m_cameraposx = 480.0f;

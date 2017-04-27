@@ -36,32 +36,44 @@ public:
 	static bool JumpFlag;//地面についているか
 	static bool RightFlag;//右側に当たったか
 	static int JumpCnt;//ジャンプフラグ
+
+	static int FirstTouchCnt;//最初のタッチからどれだけ経過したか
+	static bool FirstTouchFlag;//最初のタッチが呼ばれたか
+	
 	///////////////ステージレイヤー/////////
 	static cocos2d::TMXTiledMap*  map;//マップ
 	static const cocos2d::Vec2 MAP_SIZE;//マップ大きさ
 	static const cocos2d::Vec2 LAYRE_SIZE;//レイヤーの大きさ
 	
 	//////////////床///////////////////////
-	static int FloorCnt;//レイヤーカウント
 	static std::vector<cocos2d::Vec2> FloorPos;//床座標
 	//const static int MAX_SLOPE = 50;
 	////斜面座標
-	//static struct SlopePos
-	//{
-	//	Vec2 LeftEnd[MAX_SLOPE];//左端
-	//	Vec2 RightEnd[MAX_SLOPE];//右端
-	//};
+
+	static std::vector<cocos2d::Vec2> LeftPos;//左端
+	static std::vector<cocos2d::Vec2> RightPos;//右端
+
+	//イテレータの値を格納する
+	static cocos2d::Vec2 SaveRight;
+	static cocos2d::Vec2 SaveLeft;
+
 	static float SlopePosY;//斜面座標Y
 	//////////////コイン//////////////
 
 	static int CoinCnt;//コインをカウント
 	///////////////UIレイヤー///////////////
+	///////////////スコア///////////////////
+	static std::vector<cocos2d::Sprite*> s_score;//コイン
 	const static int SCORE_MAX_NUMBER;//スコアのスプライトの数
-	const static int DISTANCE_MAX_NUMBER;//スコアのスプライトの数
 	static int ScoreMaxDigit;//最大桁数
+	static int Score;//スコア
+	static int SaveScore;//スコアを保存する
+
+	//////////////距離//////////////////
+	const static int DISTANCE_MAX_NUMBER;//スコアのスプライトの数
 	static int DistanceMaxDigit;//最大桁数
 	static int Digit;//桁数
-	static int SaveScore;//スコアを保存する
+	static int Distance;//距離
 	static int SaveDistance;//距離を保存する
 	static int SpriteCnt;//何個目のスプライトかカウントする
 	static bool UsedFlag;//この関数がすでに呼ばれたか

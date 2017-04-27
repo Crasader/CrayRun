@@ -10,7 +10,7 @@
 #include "cocos2d.h"
 #include"../../GameManager.h"
 
-const int DISTANCE_MAX_NUMBER = 5;//距離のスプライトの数
+const int DISTANCE_MAX_NUMBER = 10;//距離のスプライトの数
 
 class Distance :public cocos2d::Node
 {

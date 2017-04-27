@@ -26,7 +26,7 @@ bool Score::init()
 	//レクトを設定する
 	s_Number[GameManager::SpriteCnt]->setTextureRect(Rect(0 * 64, 0, 64, 64));
 	//座標
-	s_Number[GameManager::SpriteCnt]->setPosition(Vec2(800 + 64 * GameManager::SpriteCnt, 580));
+	s_Number[GameManager::SpriteCnt]->setPosition(Vec2(200 + 64 * GameManager::SpriteCnt, 580));
 	this->addChild(s_Number[GameManager::SpriteCnt]);
 	//最大桁数を記憶
 	GameManager::ScoreMaxDigit = GameManager::SpriteCnt;
@@ -36,9 +36,15 @@ bool Score::init()
 }
 
 
-//スコアの設定、描画
+/***************************************************************************
+*|	概要　　スコアの設定、描画
+*|	引数　　無し
+*|　戻り値　無し
+****************************************************************************/
 void Score::ScoreIndicate(int Score)
 {
+
+
 	//桁数を初期化する
 	GameManager::Digit = 1;
 	//スプライトカウントを初期化する
@@ -83,13 +89,15 @@ void Score::ScoreIndicate(int Score)
 		//最大桁数を上回ったか→桁が上がったか
 		if (GameManager::ScoreMaxDigit < GameManager::SpriteCnt)
 		{
-			//数字のスプライトを作成する
-			s_Number[GameManager::SpriteCnt] = Sprite::create("Images/Number.png");
-			//座標
-			s_Number[GameManager::SpriteCnt]->setPosition(Vec2(200 + 64 * GameManager::SpriteCnt, 580));
-			this->addChild(s_Number[GameManager::SpriteCnt]);
-			//最大桁数を更新する
-			GameManager::ScoreMaxDigit = GameManager::SpriteCnt;
+			
+				//数字のスプライトを作成する
+				s_Number[GameManager::SpriteCnt] = Sprite::create("Images/Number.png");
+				//座標
+				s_Number[GameManager::SpriteCnt]->setPosition(Vec2(200 + 64 * GameManager::SpriteCnt, 580));
+				this->addChild(s_Number[GameManager::SpriteCnt]);
+				//最大桁数を更新する
+				GameManager::ScoreMaxDigit++;
+				s_Number[GameManager::SpriteCnt]->setTextureRect(Rect(Score * 64, 0, 64, 64));
 		}
 		//レクトを設定する
 		s_Number[GameManager::SpriteCnt]->setTextureRect(Rect(Score * 64, 0, 64, 64));

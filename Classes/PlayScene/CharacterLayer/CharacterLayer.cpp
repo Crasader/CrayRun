@@ -39,6 +39,11 @@ bool CharacterLayer::init()
 	_director->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 	//_touchListener = listener;
 
+	String* b = String::createWithFormat("%i", a);
+	n = Label::createWithSystemFont(b->getCString(), "arial", 60);
+	n->setScale(4.0f);
+	n->setPosition(300, 200);
+	this->addChild(n);
 	return true;
 }
 
@@ -53,12 +58,13 @@ void CharacterLayer::update(float date)
 	character->Move();
 	//重力
 	character->Gravity();
-	//プレイヤーの座標を取得する
-	//character->GetPos();
 	//プレイヤーと床の衝突判定
 	AfterHittingFloor();
 	//プレイヤーと斜面のあたり判定
 	AfterHittingSlope();
+	JumpInvestigate();
+	n->setString(StringUtils::toString(a));
+	n->setPosition(GameManager::PlayerPos);
 }
 
 
@@ -68,10 +74,36 @@ void CharacterLayer::update(float date)
 *|　戻り値　無し
 ****************************************************************************/
 void CharacterLayer::onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event * unused_event)
-{
+{	
+
+
+	for (auto &item : touches)
+	{
+		//タッチのアドレスを格納する
+		auto touch = item;
 	
+		if (GameManager::FirstTouchFlag == false)
+		{
+			
+			//最初のタッチが呼ばれたら真
+			//次のタッチまでのカウントを始める
+			GameManager::FirstTouchFlag = true;
+			
+		}
+		else
+		{
+			//最初のタッチフラグを偽にする
+			GameManager::FirstTouchFlag = false;
+			//最初のタッチカウントを初期化する
+			GameManager::FirstTouchCnt = 0;
+		}
+		
+
+
+	
+	}
 	log("onTouchesBegan");
-	character->Jump();
+	
 }
 
 /***************************************************************************
@@ -82,6 +114,13 @@ void CharacterLayer::onTouchesBegan(const std::vector<cocos2d::Touch*>& touches,
 void CharacterLayer::onTouchesMoved(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event * unused_event)
 {
 	log("onTouchesMoved");
+	for (auto &item : touches)
+	{
+		auto touch = item;
+		a = touch->getID();
+		
+	}
+
 }
 
 /***************************************************************************
@@ -115,7 +154,6 @@ void CharacterLayer::AfterHittingFloor()
 {
 
 	Vector<Vec2>::iterator Iterator;
-	//Vector<Vec2>::iterator Iterator2;
 	//床の数だけループ
 	for (Iterator = GameManager::FloorPos.begin(); Iterator != GameManager::FloorPos.end(); ++Iterator)
 	{
@@ -172,17 +210,35 @@ void CharacterLayer::AfterHittingSlope()
 		GameManager::PlayerPos.y = GameManager::SlopePosY;
 		//ジャンプ可能にする
 		GameManager::JumpFlag = true;
-		//////
-		//character->s_player->stopAllActions();
+
 	}
-	//下からぶつかったとき
-	else if (HitFlag == under)
+
+
+
+}
+
+/***************************************************************************
+*|	概要　	ジャンプするか調べる
+*|	引数　　無し
+*|　戻り値　無し
+****************************************************************************/
+void CharacterLayer::JumpInvestigate()
+{
+
+	//最初のタッチフラグが真なら
+	if (GameManager::FirstTouchFlag == true)
 	{
-		////ジャンプアクションを止める
-		//character->s_player->stopAllActions();
-		//埋まった分を押し出す
-		/*GameManager::PlayerPos.y = GameManager::SlopePosY;*/
+		GameManager::FirstTouchCnt++;
 	}
+	//一回目のタッチから1秒以上経過したなら
 
-
+	if (GameManager::FirstTouchCnt > 4)
+	{
+		//ジャンプ関数を呼ぶ
+		character->Jump();
+		//最初のタッチフラグを偽にする
+		GameManager::FirstTouchFlag = false;
+		//最初のタッチカウントを初期化する
+		GameManager::FirstTouchCnt = 0;
+	}
 }

@@ -76,6 +76,9 @@
       <Filter>PlayScene\UILayer</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\GameManager.cpp" />
+    <ClCompile Include="..\Classes\PlayScene\StageLayer\Slope.cpp">
+      <Filter>PlayScene\StageLayer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -127,6 +130,9 @@
       <Filter>PlayScene\UILayer</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GameManager.h" />
+    <ClInclude Include="..\Classes\PlayScene\StageLayer\Slope.h">
+      <Filter>PlayScene\StageLayer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">

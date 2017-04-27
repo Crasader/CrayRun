@@ -56,12 +56,14 @@ bool StageLayer::init()
 
 
 /***************************************************************************
-*|	概要　　
+*|	概要　　毎フレーム呼ばれる
 *|	引数　　無し
 *|　戻り値　無し
 ****************************************************************************/
 void StageLayer::update(float data) {
 	AfterHittingCoin();
+
+
 }
 
 /***************************************************************************
@@ -72,8 +74,6 @@ void StageLayer::update(float data) {
 void StageLayer::AfterHittingCoin()
 {
 	
-
-
 
 	for (int i = 0; i < GameManager::CoinCnt; i++)
 	{
@@ -90,7 +90,8 @@ void StageLayer::AfterHittingCoin()
 			{
 				//当たったコインを削除
 				coin->getChildByTag(i)->removeFromParent();
-				GameManager::SaveScore = GameManager::CoinPoint[i];
+				//スコアにとったコインのポイントをたす
+				GameManager::Score += GameManager::CoinPoint[i];
 			}
 		}
 	}

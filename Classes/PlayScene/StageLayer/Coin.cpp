@@ -24,8 +24,6 @@ bool Coin::init()
 	bool flag = true;
 
 	//ˆê‰ñ–Ú:ƒŒƒCƒ„[‚Ì”‚ğ’²‚×‚é,2‰ñ–Ú:À•W‚ğİ’è‚·‚é
-	for (int k = 0; k < 2; k++)
-	{
 		for (int i = 0; i < GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y; i++)
 		{
 			for (int j = 0; j < GameManager::MAP_SIZE.x / GameManager::LAYRE_SIZE.x; j++)
@@ -83,7 +81,6 @@ bool Coin::init()
 						}
 					}
 				}
-			}
 		}
 	}
 

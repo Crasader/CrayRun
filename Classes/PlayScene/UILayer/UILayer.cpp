@@ -1,6 +1,6 @@
 /***************************************************************************
 *|
-*|	概要　　リザルトレイヤー
+*|	概要　　UIレイヤーの定義
 *|　作成者　GS2 16 中田湧介
 *|　作成日　2017/4/20
 *|___________________________________________________________________________
@@ -19,14 +19,16 @@ bool UiLayer::init()
 	}
 
 	//レイヤーにノードを集約
-	Distance * distance = Distance::create();
+    distance = Distance::create();
 	this->addChild(distance);
 
 	//レイヤーにノードを集約
-	Score* score = Score::create();
+	score = Score::create();
 	this->addChild(score);
 
+
 	this->scheduleUpdate();
+
 
 
 	return true;
@@ -36,4 +38,21 @@ bool UiLayer::init()
 
 
 
-void UiLayer::update(float data) {};
+/***************************************************************************
+*|	概要　　アップデート関数
+*|	引数　　無し
+*|　戻り値　無し
+****************************************************************************/
+void UiLayer::update(float data) {
+	//スコアを描画
+	score->ScoreIndicate(GameManager::Score);
+
+	//プレイヤーの速度xが正の時
+	if (GameManager::PlayerSpd.x > 0.0f)
+	{
+		//距離の更新
+		GameManager::Distance = (GameManager::PlayerPos.x) - 50;
+	}
+	//距離を描画
+	distance->DistanceIndicate(GameManager::Distance);
+};

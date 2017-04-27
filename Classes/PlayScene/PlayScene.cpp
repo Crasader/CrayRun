@@ -1,8 +1,8 @@
 /***************************************************************************
 *|
-*|	概要　　TitleSceneクラスの定義
+*|	概要　　プレイシーンクラスの定義
 *|　作成者　GF3 17 中田湧介
-*|　作成日　2017/4/08
+*|　作成日　2017/4/20
 *|___________________________________________________________________________
 ****************************************************************************/
 
@@ -59,10 +59,13 @@ bool PlayScene::init()
 	// 背景レイヤー関連のレイヤ
 	this->addChild(characterlayer);
 	// UIレイヤー呼び出し
-	auto uilayer = UiLayer::create();
+	uilayer = UiLayer::create();
 	// UIレイヤー関連のレイヤ
 	this->addChild(uilayer);
 
+	Camera* camera = Camera::create();
+	camera->setCameraFlag(CameraFlag::USER1);
+	this->addChild(camera);
 
 	//update関数を呼ぶ
 	this->scheduleUpdate();
@@ -83,6 +86,9 @@ void PlayScene::update(float data)
 	GameManager::m_cameraposx += GameManager::m_cameraspdx;
 	//カメラの座標をセット
 	PlayScene::m_camera->setPositionX(GameManager::m_cameraposx);
+
+
+	uilayer->setCameraMask((unsigned short)CameraFlag::USER1);
 
 }
 

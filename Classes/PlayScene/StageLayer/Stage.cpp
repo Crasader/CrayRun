@@ -1,6 +1,6 @@
 /***************************************************************************
 *|
-*|	概要　スコアクラスの定義
+*|	概要　ステージクラスの定義
 *|　作成者　GS2 16 中田湧介
 *|　作成日　2017/4/20
 *|___________________________________________________________________________
@@ -54,21 +54,8 @@ bool Stage::init()
 							std::string str = properties["floor"].asString();
 							if (str == "floor")
 							{
-
-
-								if (flag == true)
-								{
-
-
-									//座標を設定する
-									GameManager::FloorPos.push_back(Vec2(j * GameManager::LAYRE_SIZE.x, GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y - i) * GameManager::LAYRE_SIZE.y);
-									//床カウントをインクリメント
-									GameManager::FloorCnt++;
-
-									//次のループでメモリ確保をさせない
-									flag = false;
-								}
-
+								//座標を設定する
+								GameManager::FloorPos.push_back(Vec2(j * GameManager::LAYRE_SIZE.x, (GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y - i) * GameManager::LAYRE_SIZE.y));
 							}
 						}
 					}
