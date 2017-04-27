@@ -177,6 +177,10 @@ Direction GameManager::DiagonalCollisionDetermination(Vec2 Apos, Vec2 Bpos, Vec2
 	A = Object - Apos;
 	B = Object - Bpos;
 
+	//v.normalize();
+
+	float f = v.y;
+
 	//AposとBposの距離
 	w = Apos.distance(Bpos);
 	//
@@ -203,13 +207,14 @@ Direction GameManager::DiagonalCollisionDetermination(Vec2 Apos, Vec2 Bpos, Vec2
 			//プレイヤーが上から当たった場合
 			if (direction == true)
 			{
-				GameManager::SlopePosY =  v.y /  v.x  * Object.x + Apos.y - GameManager::PlayerSize.y + 15;
+				GameManager::SlopePosY = v.y / v.x  * (Object.x - Apos.x ) + Apos.y; /*- GameManager::PlayerSize.y */ 
+
 				return up;
 			}
 			//プレイヤーが下から当たった場合
 			else
 			{
-				GameManager::SlopePosY = v.y / v.x  * Object.x + Apos.y - GameManager::PlayerSize.y * 2;
+				//GameManager::SlopePosY = v.y / v.x  * Object.x + Apos.y - GameManager::PlayerSize.y * 2;
 				return under;
 			}
 		}

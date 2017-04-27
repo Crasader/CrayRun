@@ -196,22 +196,26 @@ void CharacterLayer::AfterHittingFloor()
 ****************************************************************************/
 void CharacterLayer::AfterHittingSlope()
 {
-	Vec2 a = Vec2(300, 400);
-	Vec2 b = Vec2(700, 464);
-
-	//衝突判定（斜面）
-	Direction HitFlag = GameManager::DiagonalCollisionDetermination(a, b, character->s_player->getPosition());
-
-	//上に乗った時
-	if(HitFlag == up)
+	//最初の斜面右端を格納する
+	IteratorLeft = GameManager::LeftPos.begin();
+	//vectorの数だけループ
+	for (IteratorRight = GameManager::RightPos.begin(); IteratorRight != GameManager::RightPos.end();  ++IteratorRight)
 	{
-		GameManager::PlayerSpd.y = 0.0f;
-		//埋まった分を押し出す
-		GameManager::PlayerPos.y = GameManager::SlopePosY;
-		//ジャンプ可能にする
-		GameManager::JumpFlag = true;
+		//衝突判定（斜面）
+		Direction HitFlag = GameManager::DiagonalCollisionDetermination(*IteratorLeft, *IteratorRight, GameManager::PlayerPos/*character->s_player->getPosition()*/);
+		//上に乗った時
+		if (HitFlag == up)
+		{
+			GameManager::PlayerSpd.y = 0.0f;
+			//埋まった分を押し出す
+			GameManager::PlayerPos.y = GameManager::SlopePosY;
+			//ジャンプ可能にする
+			GameManager::JumpFlag = true;
 
+		}
+		IteratorLeft++;
 	}
+	
 
 
 

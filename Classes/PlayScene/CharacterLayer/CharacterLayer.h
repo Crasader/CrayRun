@@ -55,5 +55,12 @@ private:
 
 	cocos2d::Label* n;
 	int a = 19;
+
+
+	//イテレータ
+	cocos2d::Vector<cocos2d::Vec2>::iterator IteratorRight;
+	cocos2d::Vector<cocos2d::Vec2>::iterator IteratorLeft;
+
+
 };
 

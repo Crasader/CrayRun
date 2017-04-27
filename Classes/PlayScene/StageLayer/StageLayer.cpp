@@ -46,6 +46,9 @@ bool StageLayer::init()
 	//レイヤーにノードを集約
 	coin = Coin::create();
 	this->addChild(coin);
+	//レイヤーにノードを集約
+	Slope* slope = Slope::create();
+	this->addChild(slope);
 
 	this->scheduleUpdate();
 
@@ -67,7 +70,7 @@ void StageLayer::update(float data) {
 }
 
 /***************************************************************************
-*|	概要　　
+*|	概要　　コインあたり判定後
 *|	引数　　無し
 *|　戻り値　無し
 ****************************************************************************/

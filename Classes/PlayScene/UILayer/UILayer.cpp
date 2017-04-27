@@ -54,5 +54,5 @@ void UiLayer::update(float data) {
 		GameManager::Distance = (GameManager::PlayerPos.x) - 50;
 	}
 	//‹——£‚ð•`‰æ
-	distance->DistanceIndicate(GameManager::Distance);
+	distance->DistanceIndicate(GameManager::SlopePosY);
 };

@@ -28,5 +28,6 @@ private:
 
 	//“o‚è
 	bool ClimbingFlag;
-
+	//Î–ÊƒJƒEƒ“ƒg
+	int SlopeCnt;
 };
