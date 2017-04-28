@@ -11,7 +11,7 @@
 #include "cocos2d.h"
 #include "Distance.h"
 #include "Score.h"
-#include "GameManager.h"
+#include "../../GameManager.h"
 
 
 
@@ -30,6 +30,7 @@ private:
 	void update(float delta)override;
 	Score* score;//スコア
 	Distance * distance;//距離
+	float m_distanceSpd;//	距離に足す値
 };
 
 

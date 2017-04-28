@@ -9,11 +9,11 @@
 
 
 #include "cocos2d.h"
-#include "StageLayer\StageLayer.h"
-#include "BackgroundLayer\BackgroundLayer.h"
-#include "CharacterLayer\CharacterLayer.h"
-#include "UILayer\UILayer.h"
-#include "GameManager.h"
+#include "StageLayer/StageLayer.h"
+#include "BackgroundLayer/BackgroundLayer.h"
+#include "CharacterLayer/CharacterLayer.h"
+#include "UILayer/UILayer.h"
+#include "../GameManager.h"
 
 
 class PlayScene :public cocos2d::Scene

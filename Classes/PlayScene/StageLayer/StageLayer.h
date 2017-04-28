@@ -12,7 +12,6 @@
 #include "Coin.h"
 #include "CrayStage.h"
 #include "Stage.h"
-#include "GameManager.h"
 #include "Slope.h"
 
 class StageLayer :public cocos2d::Layer

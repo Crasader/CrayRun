@@ -9,7 +9,7 @@
 #pragma once 
 /* ---- ライブラリのインクルード ---------- */
 #include "cocos2d.h"
-#include "GameManager.h"
+#include "../../GameManager.h"
 #include "Character.h"
 #include "Rabbit.h"
 

@@ -8,8 +8,7 @@
 #pragma once
 /* ---- ライブラリのインクルード ---------- */
 #include "cocos2d.h"
-#include "GameManager.h"
-
+#include "../../GameManager.h"
 class Slope :public cocos2d::Node
 {
 public:

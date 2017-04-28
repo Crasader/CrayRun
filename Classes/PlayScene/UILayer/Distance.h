@@ -26,5 +26,6 @@ private:
 	//数字スプライト
 	cocos2d::Sprite* s_Number[DISTANCE_MAX_NUMBER];
 
+
 };
 

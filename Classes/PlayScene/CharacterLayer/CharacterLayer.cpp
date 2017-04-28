@@ -19,6 +19,7 @@ bool CharacterLayer::init()
 		return false;
 
 	}
+	log("############################### CHARsCTERLAYER created");
 
 	//レイヤーにノードを集約
 	character = Character::create();
@@ -118,7 +119,6 @@ void CharacterLayer::onTouchesMoved(const std::vector<cocos2d::Touch*>& touches,
 	{
 		auto touch = item;
 		a = touch->getID();
-		
 	}
 
 }

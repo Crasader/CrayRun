@@ -20,6 +20,7 @@ bool Distance::init()
 		return false;
 	}
 
+
 	//数字のスプライトを作成する
 	s_Number[GameManager::SpriteCnt] = Sprite::create("Images/Number.png");
 	//レクトを設定する

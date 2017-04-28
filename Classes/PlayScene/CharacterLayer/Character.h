@@ -23,7 +23,7 @@ public:
 
 
 	//d—Í
-	void Character::Gravity()
+	void Gravity()
 	{
 		if (GameManager::RightFlag == false)
 		{

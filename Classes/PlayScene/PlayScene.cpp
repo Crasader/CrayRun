@@ -46,6 +46,7 @@ bool PlayScene::init()
 	{
 		return false;
 	}
+	log("############################### PlayScene created");
 	// 背景レイヤー呼び出し
 	auto backgroundlayer = BackgroundLayer::create();
 	// 背景レイヤー関連のレイヤー
@@ -54,6 +55,7 @@ bool PlayScene::init()
 	auto stagelayer = StageLayer::create();
 	// ステージレイヤー関連のレイヤー
 	this->addChild(stagelayer);
+
 	// キャラクターレイヤー呼び出し
 	auto characterlayer = CharacterLayer::create();
 	// 背景レイヤー関連のレイヤ
@@ -80,6 +82,8 @@ bool PlayScene::init()
 ****************************************************************************/
 void PlayScene::update(float data)
 {
+	log("############################### PlayScene update");
+
 	//デフォルトカメラを設定する
 	PlayScene::m_camera = this->getDefaultCamera();
 	//カメラ座標を、毎フレーム動かす

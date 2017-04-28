@@ -17,6 +17,10 @@ bool UiLayer::init()
 		return false;
 
 	}
+	log("############################### UILSYER created");
+
+	//初期化
+	m_distanceSpd = 0.18;
 
 	//レイヤーにノードを集約
     distance = Distance::create();
@@ -50,9 +54,10 @@ void UiLayer::update(float data) {
 	//プレイヤーの速度xが正の時
 	if (GameManager::PlayerSpd.x > 0.0f)
 	{
-		//距離の更新
-		GameManager::Distance = (GameManager::PlayerPos.x) - 50;
+		//距離を増やす
+		GameManager::Distance += m_distanceSpd;
+		//距離を描画
+		distance->DistanceIndicate(GameManager::Distance);
 	}
-	//距離を描画
-	distance->DistanceIndicate(GameManager::SlopePosY);
+
 };

@@ -7,8 +7,8 @@
 ****************************************************************************/
 /* ---- ライブラリのインクルード ---------- */
 #include "StageLayer.h"
-#include "../CharacterLayer/CharacterLayer.h"]
-#include "Manager.h"
+#include "../CharacterLayer/CharacterLayer.h"
+#include "../../GameManager.h"
 
 USING_NS_CC;
 
@@ -19,6 +19,7 @@ bool StageLayer::init()
 		return false;
 
 	}
+	log("############################### StageLayer created");
 
 	/////////マップ描画////////
 
@@ -76,16 +77,11 @@ void StageLayer::update(float data) {
 ****************************************************************************/
 void StageLayer::AfterHittingCoin()
 {
-	
-
 	for (int i = 0; i < GameManager::CoinCnt; i++)
 	{
 		Node* q = coin->getChildByTag(i);
 		if (q != nullptr)
 		{
-			q->getPosition();
-			q->getContentSize();
-
 			//プレイヤーのコイン
 			if (GameManager::HitJudgment
 			(q->getPosition(), q->getContentSize(),
