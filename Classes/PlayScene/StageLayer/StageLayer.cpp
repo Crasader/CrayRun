@@ -90,7 +90,7 @@ void StageLayer::AfterHittingCoin()
 				//当たったコインを削除
 				coin->getChildByTag(i)->removeFromParent();
 				//スコアにとったコインのポイントをたす
-				GameManager::Score += GameManager::CoinPoint[i];
+				GameManager::Score += GameManager::CoinPoint[i] * GameManager::ScoreCorrection;
 			}
 		}
 	}
