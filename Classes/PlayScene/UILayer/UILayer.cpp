@@ -17,7 +17,6 @@ bool UiLayer::init()
 		return false;
 
 	}
-	log("############################### UILSYER created");
 
 	//‰Šú‰»
 	m_distanceSpd = 0.18;
