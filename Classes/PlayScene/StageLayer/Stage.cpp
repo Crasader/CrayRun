@@ -20,12 +20,7 @@ bool Stage::init()
 
 	}
 
-
-		s_Sorp = Sprite::create("Images/c.png");
-		s_Sorp->setAnchorPoint(Vec2(0, 0));
-		s_Sorp->setPosition(Vec2(300, 400));
-
-		this->addChild(s_Sorp);
+	
 
 
 		//ƒŒƒCƒ„[æ“¾
