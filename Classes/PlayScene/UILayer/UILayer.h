@@ -30,6 +30,7 @@ private:
 	void update(float delta)override;
 	Score* score;//スコア
 	Distance * distance;//距離
+	float m_distanceSpd;//	距離に足す値
 };
 
 

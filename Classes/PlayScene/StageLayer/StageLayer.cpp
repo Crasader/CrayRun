@@ -83,9 +83,6 @@ void StageLayer::AfterHittingCoin()
 		Node* q = coin->getChildByTag(i);
 		if (q != nullptr)
 		{
-			q->getPosition();
-			q->getContentSize();
-
 			//プレイヤーのコイン
 			if (GameManager::HitJudgment
 			(q->getPosition(), q->getContentSize(),
