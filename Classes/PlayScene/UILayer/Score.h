@@ -21,6 +21,7 @@ public:
 
 	//スコアの設定、描画
 	void ScoreIndicate(int Score);
+
 private:
 	//数字スプライト
 	cocos2d::Sprite* s_Number[MAX_NUMBER];

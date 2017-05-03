@@ -63,9 +63,30 @@ void CharacterLayer::update(float date)
 	AfterHittingFloor();
 	//プレイヤーと斜面のあたり判定
 	AfterHittingSlope();
+	//ジャンプするか調べる
 	JumpInvestigate();
-	n->setString(StringUtils::toString(a));
-	n->setPosition(GameManager::PlayerPos);
+	////プレイヤーのサイズ
+	//if (GameManager::PlayerSize.x < character->PLAYER_MAX_SIZE)
+	//{
+	//	GameManager::PlayerSize.x += 0.01f;
+	//}
+	//else if (GameManager::PlayerSize.x > character->PLAYER_MAX_SIZE)
+	//{
+	//	GameManager::PlayerSize.x = 32.0f;
+	//}
+
+
+	//if (GameManager::PlayerSize.y < character->PLAYER_MAX_SIZE)
+	//{
+	//	GameManager::PlayerSize.x += 00.1;
+	//}
+	//else if (GameManager::PlayerSize.y > character->PLAYER_MAX_SIZE)
+	//{
+	//	GameManager::PlayerSize.y = 32.0f;
+	//}
+	character->s_player->setScale(GameManager::PlayerSize.x / character->PLAYER_MAX_SIZE, GameManager::PlayerSize.y / character->PLAYER_MAX_SIZE);
+
+
 }
 
 
@@ -115,11 +136,95 @@ void CharacterLayer::onTouchesBegan(const std::vector<cocos2d::Touch*>& touches,
 void CharacterLayer::onTouchesMoved(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event * unused_event)
 {
 	log("onTouchesMoved");
+	//タッチの数だけループ
 	for (auto &item : touches)
 	{
+		//タッチのIDを取得する
 		auto touch = item;
-		a = touch->getID();
+		m_touch_id = touch->getID();
+	
+		//3つ目以上のタッチは受け付けない
+		if (m_touch_id < 2)
+		{
+			//座標を取得する
+			touchpos[m_touch_id] = touch->getLocation();
+			touchpos[m_touch_id].x += GameManager::m_cameraposx - 480;
+		}
 	}
+
+
+	//二回以上タッチされたら
+	if (m_touch_id >= 1)
+	{
+	
+		//タッチとプレイヤーのあたり判定
+		m_touch_collision_direction[0] = GameManager::CollisionDetermination(
+			touchpos[0] -= Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2), TOUCH_SIZE,
+			GameManager::PlayerPos, GameManager::PlayerSize);
+		
+		//タッチ2とプレイヤーのあたり判定
+		m_touch_collision_direction[1] = GameManager::CollisionDetermination(
+			touchpos[1] -= Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2), TOUCH_SIZE,
+			GameManager::PlayerPos, GameManager::PlayerSize);
+
+		
+		switch (m_touch_collision_direction[1])
+		{
+		case up:
+			//デバック
+			n->setString(StringUtils::toString(0));
+			n->setPositionX(GameManager::PlayerPos.x + 400.0f);
+			n->setPositionY(400.0f);
+			break;
+		case under:
+			n->setString(StringUtils::toString(1));
+			n->setPositionX(GameManager::PlayerPos.x + 400.0f);
+			n->setPositionY(400.0f);
+			break;
+		case exception:
+			n->setString(StringUtils::toString(4));
+			n->setPositionX(GameManager::PlayerPos.x + 400.0f);
+			n->setPositionY(400.0f);
+			break;
+		default:
+			n->setString(StringUtils::toString(5));
+			n->setPositionX(GameManager::PlayerPos.x + 400.0f);
+			n->setPositionY(400.0f);
+			break;
+		}
+	
+
+		//上下でプレイヤーを挟んだ時
+		if (m_touch_collision_direction[0] == up && m_touch_collision_direction[1] == under)
+		{
+			//デバック
+			n->setString(StringUtils::toString(a));
+			n->setPosition(GameManager::PlayerPos);
+
+			GameManager::PlayerSize.y = touchpos[1].y  - touchpos[0].y ;
+		}
+		else if(m_touch_collision_direction[0] == under && m_touch_collision_direction[1] == up)
+		{
+			
+			//デバック
+			n->setString(StringUtils::toString(a));
+			n->setPosition(GameManager::PlayerPos);
+
+			GameManager::PlayerSize.y = touchpos[0].y - touchpos[1].y;
+		}
+		////左右でプレイヤーを挟んだ時
+		//else if ((m_touch_collision_direction[0] == left && m_touch_collision_direction[1] == right)
+		//	|| (m_touch_collision_direction[0] == right && m_touch_collision_direction[1] == left))
+		//{
+
+		//}
+		//初期化する
+		touchpos[0] = Vec2(0.0f, 0.0f);
+		touchpos[1] = Vec2(0.0f, 0.0f);
+	
+	}
+
+	
 
 }
 

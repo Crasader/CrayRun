@@ -4,13 +4,13 @@ USING_NS_CC;
 
 //プレイシーン
 
-const  int GameManager::BOX_COLLIDER = 10;			//あたり判定時に使用するタイルレイヤーの淵から少しだけ内側に入っているか確かめるための数
+const  int GameManager::BOX_COLLIDER = 40;			//あたり判定時に使用するタイルレイヤーの淵から少しだけ内側に入っているか確かめるための数
 
 
 //////////////キャラクターレイヤー//////
 //////////////キャラクター//////////////
 Vec2 GameManager::PlayerSpd = (Vec2(6.0f,-4.0f));//速度
-Vec2  GameManager::PlayerSize = Vec2(64, 64);//サイズ
+Vec2  GameManager::PlayerSize = Vec2(96, 96);//サイズ
 Vec2  GameManager::PlayerPos = Vec2(50.0f,300.0f);//座標
 float  GameManager::ScoreCorrection = 0.0f;//スコア補正
 bool GameManager::JumpFlag = false;//地面についているか
@@ -96,6 +96,8 @@ Direction  GameManager::CollisionDetermination(Vec2 Apos,Vec2 Asize, Vec2 Bpos,V
 			}
 		}
 	}
+
+
 
 	//マップレイヤーの下に乗ったか
 	if (Apos.x <= Bpos.x + Bsize.x / 2)

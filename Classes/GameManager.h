@@ -68,7 +68,6 @@ public:
 	static int ScoreMaxDigit;//最大桁数
 	static int Score;//スコア
 	static int SaveScore;//スコアを保存する
-
 	//////////////距離//////////////////
 	const static int DISTANCE_MAX_NUMBER;//スコアのスプライトの数
 	static int DistanceMaxDigit;//最大桁数

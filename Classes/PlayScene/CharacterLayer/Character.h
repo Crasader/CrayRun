@@ -16,12 +16,8 @@ public:
 	virtual bool init();
 	CREATE_FUNC(Character);
 
-	//static Character* create();
-
 	void Move();//移動
 	virtual void Jump();//ジャンプする
-
-
 	//重力
 	void Gravity()
 	{
@@ -41,9 +37,11 @@ public:
 		}
 	}
 
-	
-	//void Configuration();//設定
+	void setScale();//サイズ設定
+	//プレイヤー
 	cocos2d::Sprite* s_player;
+
+	static const int PLAYER_MAX_SIZE = 64;
 
 private:
 
