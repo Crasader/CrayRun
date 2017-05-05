@@ -17,12 +17,16 @@ public:
 	////////////////プレイシーン/////////////
 	//衝突判定(ブロック)
 	static Direction  CollisionDetermination(cocos2d::Vec2 Apos, cocos2d::Vec2 Asize, cocos2d::Vec2 Bpos, cocos2d::Vec2 Bsize);
+	//衝突判定2(ブロック)
+	static Direction  CollisionDetermination2(cocos2d::Vec2 Apos, cocos2d::Vec2 Asize, cocos2d::Vec2 Bpos, cocos2d::Vec2 Bsize);
+
 	//衝突判定(斜面)
 	static Direction DiagonalCollisionDetermination(cocos2d::Vec2 Apos, cocos2d::Vec2 Bpos, cocos2d::Vec2 Object);
 	//当たり判定
 	static bool HitJudgment(cocos2d::Vec2 Apos, cocos2d::Vec2 Asize, cocos2d::Vec2 Bpos, cocos2d::Vec2 Bsize);
 	
 	static const int BOX_COLLIDER;			//あたり判定時に使用するタイルレイヤーの淵から少しだけ内側に入っているか確かめるための数
+	static const int BOX_COLLIDER2;			//あたり判定時に使用するタイルレイヤーの淵から少しだけ内側に入っているか確かめるための数
 
 	GameManager();
 

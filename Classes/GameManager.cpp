@@ -4,13 +4,14 @@ USING_NS_CC;
 
 //プレイシーン
 
-const  int GameManager::BOX_COLLIDER = 40;			//あたり判定時に使用するタイルレイヤーの淵から少しだけ内側に入っているか確かめるための数
+const  int GameManager::BOX_COLLIDER = 15;			//あたり判定時に使用するタイルレイヤーの淵から少しだけ内側に入っているか確かめるための数
+const  int GameManager::BOX_COLLIDER2 = 50;			//あたり判定時に使用するタイルレイヤーの淵から少しだけ内側に入っているか確かめるための数
 
 
 //////////////キャラクターレイヤー//////
 //////////////キャラクター//////////////
 Vec2 GameManager::PlayerSpd = (Vec2(6.0f,-4.0f));//速度
-Vec2  GameManager::PlayerSize = Vec2(96, 96);//サイズ
+Vec2  GameManager::PlayerSize = Vec2(64, 64);//サイズ
 Vec2  GameManager::PlayerPos = Vec2(50.0f,300.0f);//座標
 float  GameManager::ScoreCorrection = 0.0f;//スコア補正
 bool GameManager::JumpFlag = false;//地面についているか
@@ -156,6 +157,91 @@ Direction  GameManager::CollisionDetermination(Vec2 Apos,Vec2 Asize, Vec2 Bpos,V
 	//何にも当たっていない
 	return exception;
 }
+
+/************************************************************************************
+*|	概要　　衝突判定判定
+*|	引数　　オブジェクト座標,オブジェクトサイズ,プレイヤー座標,オブジェクトサイズ
+*|　戻り値　0:空中	1:マップレイヤーの上に乗った	2:マップレイヤーの右側に当たった
+*************************************************************************************/
+Direction  GameManager::CollisionDetermination2(Vec2 Apos, Vec2 Asize, Vec2 Bpos, Vec2 Bsize)
+{
+	//マップレイヤーの上に乗ったか
+	if (Apos.x <= Bpos.x + Bsize.x / 2)
+	{
+		if (Apos.x + Asize.x >= Bpos.x - Bsize.x / 2)
+		{
+			if (Apos.y >= Bpos.y)
+			{
+				if (Apos.y - GameManager::BOX_COLLIDER2 <= Bpos.y)
+				{
+					{
+						return up;
+					}
+				}
+			}
+		}
+	}
+
+
+
+	//マップレイヤーの下に乗ったか
+	if (Apos.x <= Bpos.x + Bsize.x / 2)
+	{
+		if (Apos.x + Asize.x >= Bpos.x - Bsize.x / 2)
+		{
+			if (Apos.y - Asize.y <= Bpos.y + Bsize.y)
+			{
+				if (Apos.y - Asize.y + GameManager::BOX_COLLIDER2 >= Bpos.y + Bsize.y)
+				{
+					{
+						return under;
+					}
+				}
+			}
+		}
+	}
+
+	//マップレイヤーの左側に当たったか
+	if (Apos.x + GameManager::BOX_COLLIDER2 >= Bpos.x + Bsize.x / 2)
+	{
+		if (Apos.x <= Bpos.x + Bsize.x / 2)
+		{
+			if (Apos.y >= Bpos.y)
+			{
+				if (Apos.y - Asize.y <= Bpos.y + Bsize.y)
+				{
+					{
+						return left;
+					}
+				}
+			}
+		}
+	}
+
+
+	//マップレイヤーの右側に当たったか
+	if (Apos.x + Asize.x - GameManager::BOX_COLLIDER2 <= Bpos.x - Bsize.x / 2)
+	{
+		if (Apos.x + Asize.x >= Bpos.x - Bsize.x / 2)
+		{
+			if (Apos.y >= Bpos.y)
+			{
+				if (Apos.y - Asize.y <= Bpos.y + Bsize.y)
+				{
+					{
+						return right;
+					}
+				}
+			}
+		}
+	}
+
+
+
+	//何にも当たっていない
+	return exception;
+}
+
 
 
 /************************************************************************************

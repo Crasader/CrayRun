@@ -60,7 +60,7 @@ private:
 	//デバック用
 	cocos2d::Label* n;
 	int a = 19;
-
+	int b = 0;
 	
 
 	//タッチID格納
