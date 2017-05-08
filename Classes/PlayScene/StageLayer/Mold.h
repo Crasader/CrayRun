@@ -37,7 +37,7 @@ public:
 			GameManager::MoldSpd.y -= 0.4f;
 		}
 		//ƒWƒƒƒ“ƒv‚ª‚È‚¢‚Æ‚«‚ÍŠÖŒW‚È‚­‰Á‘¬“x‚ð‚Â‚¯‚é
-		else if (GameManager::JumpFlag == false)
+		else
 		{
 			GameManager::MoldSpd.y -= 0.4f;
 		}

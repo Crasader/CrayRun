@@ -1,6 +1,6 @@
 /***************************************************************************
 *|
-*|	概要　スコアクラスの定義
+*|	概要　ウサギクラスの定義
 *|　作成者　GS2 16 中田湧介,GS2 24 山本悠雅
 *|　作成日　2017/4/20
 *|___________________________________________________________________________
@@ -8,7 +8,7 @@
 /* ---- ライブラリのインクルード ---------- */
 #include "Rabbit.h"
 
-
+/* ---- 名前空間を解放 -------------------- */
 USING_NS_CC;
 using namespace cocos2d::experimental;
 
@@ -22,7 +22,7 @@ bool Rabbit::init()
 		return false;
 	}
 
-	GameManager::ScoreCorrection = 1.0f;
+	GameManager::ScoreCorrection = 10.0f;
 	// 普通の画像から変更
 	Texture2D* texture = TextureCache::sharedTextureCache()->addImage("Images/Rabbit_Chara.png");
 
@@ -36,16 +36,16 @@ void Rabbit::Jump()
 {
 	//JumpBy* jumpaction = JumpBy::create(0.5f, Vec2(0,0), 64.0f, 1);
 	//s_player->runAction(jumpaction);
-	GameManager::JumpCnt++;
+	JumpCnt++;
 
-	if (GameManager::JumpFlag == true)
+	if (JumpFlag == true)
 	{
 		GameManager::PlayerSpd.y = 18.0f;
 	}
 
-	if (GameManager::JumpCnt == 2)
+	if (JumpCnt == 2)
 	{
-		GameManager::JumpCnt = 0;
-		GameManager::JumpFlag = false;
+		JumpCnt = 0;
+		JumpFlag = false;
 	}
 }

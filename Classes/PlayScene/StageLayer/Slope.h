@@ -8,8 +8,7 @@
 #pragma once
 /* ---- ライブラリのインクルード ---------- */
 #include "cocos2d.h"
-#include "GameManager.h"
-
+#include "../../GameManager.h"
 class Slope :public cocos2d::Node
 {
 public:
@@ -28,6 +27,11 @@ private:
 
 	//登り
 	bool ClimbingFlag;
-	//斜面カウント
-	int SlopeCnt;
+
+
+	//イテレータの値を格納する
+	cocos2d::Vec2 SaveRight;
+	cocos2d::Vec2 SaveLeft;
+
+
 };

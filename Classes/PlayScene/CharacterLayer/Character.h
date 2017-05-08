@@ -1,6 +1,6 @@
 /***************************************************************************
 *|
-*|	概要　　スコアクラスの宣言
+*|	概要　　キャラクタクラスの宣言
 *|　作成者　GS2 16 中田湧介
 *|　作成日　2017/4/20
 *|___________________________________________________________________________
@@ -16,14 +16,10 @@ public:
 	virtual bool init();
 	CREATE_FUNC(Character);
 
-	//static Character* create();
-
 	void Move();//移動
 	virtual void Jump();//ジャンプする
-
-
 	//重力
-	void Character::Gravity()
+	void Gravity()
 	{
 		if (GameManager::RightFlag == false)
 		{
@@ -35,17 +31,21 @@ public:
 			GameManager::PlayerSpd.y -= 0.4f;
 		}
 		//ジャンプがないときは関係なく加速度をつける
-		else if (GameManager::JumpFlag == false)
+		else if (JumpFlag == false)
 		{
 			GameManager::PlayerSpd.y -= 0.4f;
 		}
 	}
 
-	
-	//void Configuration();//設定
+	void setScale();//サイズ設定
+	//プレイヤー
 	cocos2d::Sprite* s_player;
+	//プレイヤーの最大サイズ
+	const int PLAYER_MAX_SIZE = 64;
 
-private:
+	bool JumpFlag;//地面についているか
+protected:
+	int JumpCnt;//ジャンプフラグ
 
 };
 

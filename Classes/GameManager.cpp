@@ -4,7 +4,8 @@ USING_NS_CC;
 
 //ƒvƒŒƒCƒV[ƒ“
 
-const  int GameManager::BOX_COLLIDER = 10;			//‚ ‚½‚è”»’è‚Ég—p‚·‚éƒ^ƒCƒ‹ƒŒƒCƒ„[‚Ì•£‚©‚ç­‚µ‚¾‚¯“à‘¤‚É“ü‚Á‚Ä‚¢‚é‚©Šm‚©‚ß‚é‚½‚ß‚Ì”
+const  int GameManager::BOX_COLLIDER = 15;			//‚ ‚½‚è”»’è‚Ég—p‚·‚éƒ^ƒCƒ‹ƒŒƒCƒ„[‚Ì•£‚©‚ç­‚µ‚¾‚¯“à‘¤‚É“ü‚Á‚Ä‚¢‚é‚©Šm‚©‚ß‚é‚½‚ß‚Ì”
+const  int GameManager::BOX_COLLIDER2 = 50;			//‚ ‚½‚è”»’è‚Ég—p‚·‚éƒ^ƒCƒ‹ƒŒƒCƒ„[‚Ì•£‚©‚ç­‚µ‚¾‚¯“à‘¤‚É“ü‚Á‚Ä‚¢‚é‚©Šm‚©‚ß‚é‚½‚ß‚Ì”
 
 
 //////////////ƒLƒƒƒ‰ƒNƒ^[ƒŒƒCƒ„[//////
@@ -12,29 +13,26 @@ const  int GameManager::BOX_COLLIDER = 10;			//‚ ‚½‚è”»’è‚Ég—p‚·‚éƒ^ƒCƒ‹ƒŒƒCƒ
 Vec2 GameManager::PlayerSpd = (Vec2(6.0f,-4.0f));//‘¬“x
 Vec2  GameManager::PlayerSize = Vec2(64, 64);//ƒTƒCƒY
 Vec2  GameManager::PlayerPos = Vec2(50.0f,300.0f);//À•W
-float  GameManager::ScoreCorrection = 0.0f;//ƒXƒRƒA•â³
-bool GameManager::JumpFlag = false;//’n–Ê‚É‚Â‚¢‚Ä‚¢‚é‚©
+float  GameManager::ScoreCorrection = 1.0f;//ƒXƒRƒA•â³
 bool GameManager::RightFlag = false;//‰E‘¤‚É“–‚½‚Á‚½‚©
-int  GameManager::JumpCnt = 0;//ƒWƒƒƒ“ƒvƒtƒ‰ƒO
 
 int GameManager::FirstTouchCnt = 0;//Å‰‚Ìƒ^ƒbƒ`‚©‚ç‚Ç‚ê‚¾‚¯Œo‰ß‚µ‚½‚©
 bool GameManager::FirstTouchFlag = false;//Å‰‚Ìƒ^ƒbƒ`‚ªŒÄ‚Î‚ê‚½‚©
+
 
 ///////////////ƒXƒe[ƒWƒŒƒCƒ„[/////////
 TMXTiledMap*  GameManager::map = nullptr;//ƒ}ƒbƒv
 const Vec2 GameManager::MAP_SIZE = Vec2(960 * 2, 640);//ƒ}ƒbƒv‘å‚«‚³
 const Vec2 GameManager::LAYRE_SIZE = Vec2(64,64);//ƒŒƒCƒ„[‚Ì‘å‚«‚³
-std::vector<Vec2> GameManager::FloorPos;//°À•W
+int  GameManager::StageLoopCnt = 0;//ƒXƒe[ƒW‚ğƒ‹[ƒv‚³‚¹‚½‰ñ”
 
+std::vector<std::vector<Vec2>> GameManager::FloorPos;//°À•W
+std::vector < Vec2>  GameManager::FloorPos2;//°À•W
 
 //Î–Ê
-
+int  GameManager::SlopeCnt = 0;//Î–ÊƒJƒEƒ“ƒg
 std::vector<Vec2> GameManager::LeftPos;//¶’[
 std::vector<Vec2> GameManager::RightPos;//‰E’[
-
-										//ƒCƒeƒŒ[ƒ^‚Ì’l‚ğŠi”[‚·‚é
-cocos2d::Vec2 GameManager::SaveRight;
-cocos2d::Vec2 GameManager::SaveLeft;
 
 ///////////////°/////////////////////
 float GameManager::SlopePosY = 0.0f;//Î–ÊÀ•WY
@@ -55,23 +53,15 @@ std::vector<cocos2d::Vec2> GameManager::MoldPos;//‹àŒ^‚ÌÀ•W
 Vec2 GameManager::MoldSpd = Vec2(0, -4);
 /////////////////UIƒŒƒCƒ„[/////////////////
 /////////////////ƒXƒRƒA////////////////
-std::vector<cocos2d::Sprite*> GameManager::s_score;//ƒRƒCƒ“
-int GameManager::ScoreMaxDigit = 0;//Å‘åŒ…”
 int GameManager::Score = 0;//ƒXƒRƒA
-int GameManager::SaveScore = 0;//ƒXƒRƒA‚ğ•Û‘¶‚·‚é
 /////////////////êŠ////////////////////////
-int GameManager::DistanceMaxDigit = 0;//Å‘åŒ…”
-int GameManager::Digit = 0;//Œ…”
-float GameManager::Distance = 0;//‹——£
+float GameManager::m_cameraposx = 0.0f;
+const float GameManager::m_cameraspdx = GameManager::PlayerSpd.x;
 
 int GameManager::SaveDistance = 0;//‹——£‚ğ•Û‘¶‚·‚é
-int GameManager::SpriteCnt = 0;//‰½ŒÂ–Ú‚ÌƒXƒvƒ‰ƒCƒg‚©ƒJƒEƒ“ƒg‚·‚é
-bool GameManager::UsedFlag = false;//‚±‚ÌŠÖ”‚ª‚·‚Å‚ÉŒÄ‚Î‚ê‚½‚©
 
 
 /////////////////ƒJƒƒ‰//////////////////////.
-float GameManager::m_cameraposx = 480.0f;
-const float GameManager::m_cameraspdx = GameManager::PlayerSpd.x;
 
 GameManager::GameManager()
 {
@@ -104,6 +94,8 @@ Direction  GameManager::CollisionDetermination(Vec2 Apos,Vec2 Asize, Vec2 Bpos,V
 			}
 		}
 	}
+
+
 
 	//ƒ}ƒbƒvƒŒƒCƒ„[‚Ì‰º‚Éæ‚Á‚½‚©
 	if (Apos.x <= Bpos.x + Bsize.x / 2)
@@ -162,6 +154,91 @@ Direction  GameManager::CollisionDetermination(Vec2 Apos,Vec2 Asize, Vec2 Bpos,V
 	//‰½‚É‚à“–‚½‚Á‚Ä‚¢‚È‚¢
 	return exception;
 }
+
+/************************************************************************************
+*|	ŠT—v@@Õ“Ë”»’è”»’è
+*|	ˆø”@@ƒIƒuƒWƒFƒNƒgÀ•W,ƒIƒuƒWƒFƒNƒgƒTƒCƒY,ƒvƒŒƒCƒ„[À•W,ƒIƒuƒWƒFƒNƒgƒTƒCƒY
+*|@–ß‚è’l@0:‹ó’†	1:ƒ}ƒbƒvƒŒƒCƒ„[‚Ìã‚Éæ‚Á‚½	2:ƒ}ƒbƒvƒŒƒCƒ„[‚Ì‰E‘¤‚É“–‚½‚Á‚½
+*************************************************************************************/
+Direction  GameManager::CollisionDetermination2(Vec2 Apos, Vec2 Asize, Vec2 Bpos, Vec2 Bsize)
+{
+	//ƒ}ƒbƒvƒŒƒCƒ„[‚Ìã‚Éæ‚Á‚½‚©
+	if (Apos.x <= Bpos.x + Bsize.x / 2)
+	{
+		if (Apos.x + Asize.x >= Bpos.x - Bsize.x / 2)
+		{
+			if (Apos.y >= Bpos.y)
+			{
+				if (Apos.y - GameManager::BOX_COLLIDER2 <= Bpos.y)
+				{
+					{
+						return up;
+					}
+				}
+			}
+		}
+	}
+
+
+
+	//ƒ}ƒbƒvƒŒƒCƒ„[‚Ì‰º‚Éæ‚Á‚½‚©
+	if (Apos.x <= Bpos.x + Bsize.x / 2)
+	{
+		if (Apos.x + Asize.x >= Bpos.x - Bsize.x / 2)
+		{
+			if (Apos.y - Asize.y <= Bpos.y + Bsize.y)
+			{
+				if (Apos.y - Asize.y + GameManager::BOX_COLLIDER2 >= Bpos.y + Bsize.y)
+				{
+					{
+						return under;
+					}
+				}
+			}
+		}
+	}
+
+	//ƒ}ƒbƒvƒŒƒCƒ„[‚Ì¶‘¤‚É“–‚½‚Á‚½‚©
+	if (Apos.x + GameManager::BOX_COLLIDER2 >= Bpos.x + Bsize.x / 2)
+	{
+		if (Apos.x <= Bpos.x + Bsize.x / 2)
+		{
+			if (Apos.y >= Bpos.y)
+			{
+				if (Apos.y - Asize.y <= Bpos.y + Bsize.y)
+				{
+					{
+						return left;
+					}
+				}
+			}
+		}
+	}
+
+
+	//ƒ}ƒbƒvƒŒƒCƒ„[‚Ì‰E‘¤‚É“–‚½‚Á‚½‚©
+	if (Apos.x + Asize.x - GameManager::BOX_COLLIDER2 <= Bpos.x - Bsize.x / 2)
+	{
+		if (Apos.x + Asize.x >= Bpos.x - Bsize.x / 2)
+		{
+			if (Apos.y >= Bpos.y)
+			{
+				if (Apos.y - Asize.y <= Bpos.y + Bsize.y)
+				{
+					{
+						return right;
+					}
+				}
+			}
+		}
+	}
+
+
+
+	//‰½‚É‚à“–‚½‚Á‚Ä‚¢‚È‚¢
+	return exception;
+}
+
 
 
 /************************************************************************************
@@ -222,7 +299,6 @@ Direction GameManager::DiagonalCollisionDetermination(Vec2 Apos, Vec2 Bpos, Vec2
 			//ƒvƒŒƒCƒ„[‚ª‰º‚©‚ç“–‚½‚Á‚½ê‡
 			else
 			{
-				//GameManager::SlopePosY = v.y / v.x  * Object.x + Apos.y - GameManager::PlayerSize.y * 2;
 				return under;
 			}
 		}

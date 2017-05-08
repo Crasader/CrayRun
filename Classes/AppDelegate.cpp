@@ -1,6 +1,5 @@
 #include "AppDelegate.h"
-#include "HelloWorldScene.h"
-#include "PlayScene\PlayScene.h"
+#include "PlayScene/PlayScene.h"
 USING_NS_CC;
 
 AppDelegate::AppDelegate() {
@@ -23,6 +22,7 @@ void AppDelegate::initGLContextAttrs()
 }
 
 bool AppDelegate::applicationDidFinishLaunching() {
+	log("############################### AppDelegate started");
     // initialize director
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
@@ -30,21 +30,24 @@ bool AppDelegate::applicationDidFinishLaunching() {
         glview = GLViewImpl::createWithRect("CrayRun", Rect(0, 0, 960, 640));
         director->setOpenGLView(glview);
     }
-
     director->getOpenGLView()->setDesignResolutionSize(960, 640, ResolutionPolicy::SHOW_ALL);
 
     // turn on display FPS
     director->setDisplayStats(true);
 
     // set FPS. the default value is 1.0/60 if you don't call this
-    director->setAnimationInterval(1.0 / 60);
+    director->setAnimationInterval(1.0f / 60);
+	log("############################### glview created");
 
     FileUtils::getInstance()->addSearchPath("res");
 
     // create a scene. it's an autorelease object
-    auto scene = PlayScene::create();
+	
 
+
+    auto scene = PlayScene::create();
     // run
+	log("############################### PlayScene created");
     director->runWithScene(scene);
 
     return true;

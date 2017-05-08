@@ -1,6 +1,6 @@
 /***************************************************************************
 *|
-*|	概要　　ResultLayer
+*|	概要　　ステージレイヤーの宣言
 *|　作成者　GS2 16 中田湧介
 *|　作成日　2017/4/20
 *|___________________________________________________________________________
@@ -13,7 +13,6 @@
 #include "RabbitMold.h"
 #include "CrayStage.h"
 #include "Stage.h"
-#include "GameManager.h"
 #include "Slope.h"
 
 class StageLayer :public cocos2d::Layer
@@ -36,8 +35,12 @@ private:
 	//金型と床のあたり判定
 	void AfterHittingFloorToMold();
 
-	Coin* coin;
 	RabbitMold* Rmold;
+
+	//コイン
+	Coin* coin;
+
+	int loop;
 };
 
 

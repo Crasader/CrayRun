@@ -8,11 +8,9 @@
 /* ---- ライブラリのインクルード ---------- */
 #include "Score.h"
 
-
+/* ---- 名前空間を解放 -------------------- */
 USING_NS_CC;
 using namespace cocos2d::experimental;
-
-
 
 bool Score::init()
 {
@@ -21,15 +19,19 @@ bool Score::init()
 		return false;
 	}
 
+	ScoreMaxDigit = 0;//最大桁数
+	SaveScore = 0;//スコアを保存する
+	SpriteCnt = 0;
+
 	//数字のスプライトを作成する
-	s_Number[GameManager::SpriteCnt] = Sprite::create("Images/Number.png");
+	s_Number[SpriteCnt] = Sprite::create("Images/Number.png");
 	//レクトを設定する
-	s_Number[GameManager::SpriteCnt]->setTextureRect(Rect(0 * 64, 0, 64, 64));
+	s_Number[SpriteCnt]->setTextureRect(Rect(0 * 64, 0, 64, 64));
 	//座標
-	s_Number[GameManager::SpriteCnt]->setPosition(Vec2(200 + 64 * GameManager::SpriteCnt, 580));
-	this->addChild(s_Number[GameManager::SpriteCnt]);
+	s_Number[SpriteCnt]->setPosition(Vec2(200 + 64 * SpriteCnt, 580));
+	this->addChild(s_Number[SpriteCnt]);
 	//最大桁数を記憶
-	GameManager::ScoreMaxDigit = GameManager::SpriteCnt;
+	ScoreMaxDigit = SpriteCnt;
 
 
 	return true;
@@ -46,36 +48,36 @@ void Score::ScoreIndicate(int Score)
 
 
 	//桁数を初期化する
-	GameManager::Digit = 1;
+	Digit = 1;
 	//スプライトカウントを初期化する
-	GameManager::SpriteCnt = 0;
+	SpriteCnt = 0;
 	//対象のスコアを保存する
-	GameManager::SaveScore = Score;
+	SaveScore = Score;
 
 	//スコアが何桁あるのか求める
 	//整数がなくなるまで10で除算する
 	//スコアが0じゃないとき
-	if ((Score - GameManager::SaveScore != Score))
+	if ((Score - SaveScore != Score))
 	{
-		while (Score - GameManager::SaveScore != Score)
+		while (Score - SaveScore != Score)
 		{
-			GameManager::SaveScore /= 10;
+			SaveScore /= 10;
 			//何回ループしたかカウントする
-			GameManager::Digit *= 10;
+			Digit *= 10;
 		}
 		//小数になるまでかけたが、桁数を知りたいので10で割る
-		GameManager::Digit /= 10;
+		Digit /= 10;
 	}
 
 	//対象のスコアを保存する
-	GameManager::SaveScore = Score;
+	SaveScore = Score;
 
 	//桁数が0でないか
-	while (GameManager::Digit != 0)
+	while (Digit != 0)
 	{
 		//残りの値が0になる時、「Digit桁の値を求める」でエラーになる
 		//残りの値が0になる時、桁数分の0を表示して
-		if (GameManager::SaveScore <= 0)
+		if (SaveScore <= 0)
 		{
 			//Digit桁の値を求める
 			Score = 0;
@@ -83,32 +85,32 @@ void Score::ScoreIndicate(int Score)
 		else
 		{
 			//Digit桁の値を求める
-			Score /= GameManager::Digit;
+			Score /= Digit;
 		}
 
 		//最大桁数を上回ったか→桁が上がったか
-		if (GameManager::ScoreMaxDigit < GameManager::SpriteCnt)
+		if (ScoreMaxDigit < SpriteCnt)
 		{
 			
 				//数字のスプライトを作成する
-				s_Number[GameManager::SpriteCnt] = Sprite::create("Images/Number.png");
+				s_Number[SpriteCnt] = Sprite::create("Images/Number.png");
 				//座標
-				s_Number[GameManager::SpriteCnt]->setPosition(Vec2(200 + 64 * GameManager::SpriteCnt, 580));
-				this->addChild(s_Number[GameManager::SpriteCnt]);
+				s_Number[SpriteCnt]->setPosition(Vec2(200 + 64 * SpriteCnt, 580));
+				this->addChild(s_Number[SpriteCnt]);
 				//最大桁数を更新する
-				GameManager::ScoreMaxDigit++;
-				s_Number[GameManager::SpriteCnt]->setTextureRect(Rect(Score * 64, 0, 64, 64));
+				ScoreMaxDigit++;
+				s_Number[SpriteCnt]->setTextureRect(Rect(Score * 64, 0, 64, 64));
 		}
 		//レクトを設定する
-		s_Number[GameManager::SpriteCnt]->setTextureRect(Rect(Score * 64, 0, 64, 64));
+		s_Number[SpriteCnt]->setTextureRect(Rect(Score * 64, 0, 64, 64));
 
 		//スコアから求めた値を引く
-		GameManager::SaveScore -= Score * GameManager::Digit;
+		SaveScore -= Score * Digit;
 		//スコアを復元する
-		Score = GameManager::SaveScore;
+		Score = SaveScore;
 		//次はDigit-1桁を見る
-		GameManager::Digit /= 10;
+		Digit /= 10;
 		//何個目のスプライトかカウントするをインクリメント
-		GameManager::SpriteCnt++;
+		SpriteCnt++;
 	}
 }

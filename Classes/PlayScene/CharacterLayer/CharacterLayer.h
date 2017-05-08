@@ -1,6 +1,6 @@
 /***************************************************************************
 *|
-*|	概要　　ResultLayer
+*|	概要　　キャラクターレイヤーの宣言
 *|　作成者　GS2 16 中田湧介
 *|　作成日　2017/4/20
 *|___________________________________________________________________________
@@ -9,10 +9,14 @@
 #pragma once 
 /* ---- ライブラリのインクルード ---------- */
 #include "cocos2d.h"
-#include "GameManager.h"
+#include "../../GameManager.h"
 #include "Character.h"
 #include "Rabbit.h"
 
+
+
+//有効なタッチの数
+static const int EFFECTIVENESS_TOUCH = 2;
 class CharacterLayer :public cocos2d::Layer
 {
 
@@ -54,14 +58,29 @@ private:
 
 	Character* character;
 
+	//デバック用
 	cocos2d::Label* n;
 	int a = 19;
+	int b = 0;
+	
 
+	//タッチID格納
+	int m_touch_id;
+	
+	//タッチ座標
+	cocos2d::Vec2 touchpos[EFFECTIVENESS_TOUCH];
+	//タッチが当たった方向
+	Direction m_touch_collision_direction[EFFECTIVENESS_TOUCH];
 
 	//イテレータ
 	cocos2d::Vector<cocos2d::Vec2>::iterator IteratorRight;
 	cocos2d::Vector<cocos2d::Vec2>::iterator IteratorLeft;
 
+
+	//タッチサイズ
+	const cocos2d::Vec2 TOUCH_SIZE = cocos2d::Vec2(64, 64);
+	int FirstTouchCnt;//最初のタッチからどれだけ経過したか
+	bool FirstTouchFlag = false;//最初のタッチが呼ばれたか
 
 };
 

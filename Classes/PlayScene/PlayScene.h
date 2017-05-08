@@ -7,13 +7,13 @@
 ****************************************************************************/
 #pragma once
 
-
+/* ---- ライブラリのインクルード ---------- */
 #include "cocos2d.h"
-#include "StageLayer\StageLayer.h"
-#include "BackgroundLayer\BackgroundLayer.h"
-#include "CharacterLayer\CharacterLayer.h"
-#include "UILayer\UILayer.h"
-#include "GameManager.h"
+#include "StageLayer/StageLayer.h"
+#include "BackgroundLayer/BackgroundLayer.h"
+#include "CharacterLayer/CharacterLayer.h"
+#include "UILayer/UILayer.h"
+#include "../GameManager.h"
 
 
 class PlayScene :public cocos2d::Scene
@@ -30,4 +30,5 @@ private:
 	void update(float data)override;
 	cocos2d::Camera* m_camera;
 	cocos2d::Layer* uilayer;
+
 };

@@ -8,7 +8,7 @@
 #pragma once
 /* ---- ライブラリのインクルード ---------- */
 #include "cocos2d.h"
-#include "GameManager.h"
+#include ".../../GameManager.h"
 
 class Stage :public cocos2d::Node
 {
@@ -19,8 +19,7 @@ public:
 
 private:
 
-	//テスト斜面
-	cocos2d::Sprite* s_Sorp;
+
 
 };
 

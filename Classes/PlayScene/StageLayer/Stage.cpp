@@ -8,7 +8,7 @@
 /* ---- ライブラリのインクルード ---------- */
 #include "Stage.h"
 
-
+/* ---- 名前空間を解放 -------------------- */
 USING_NS_CC;
 
 
@@ -20,7 +20,6 @@ bool Stage::init()
 
 	}
 
-	
 
 
 		//レイヤー取得
@@ -50,13 +49,15 @@ bool Stage::init()
 							if (str == "floor")
 							{
 								//座標を設定する
-								GameManager::FloorPos.push_back(Vec2(j * GameManager::LAYRE_SIZE.x, (GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y - i) * GameManager::LAYRE_SIZE.y));
+								GameManager::FloorPos2.push_back(Vec2(j * GameManager::LAYRE_SIZE.x + GameManager::StageLoopCnt * 1920,
+									(GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y - i) * GameManager::LAYRE_SIZE.y));
 							}
 						}
 					}
 				}
 		}
-
+			//今回のループの座標を格納する
+			GameManager::FloorPos.push_back(GameManager::FloorPos2);
 	return true;
 }
 

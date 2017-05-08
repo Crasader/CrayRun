@@ -11,7 +11,7 @@
 #include "cocos2d.h"
 #include "Distance.h"
 #include "Score.h"
-#include "GameManager.h"
+#include "../../GameManager.h"
 
 
 

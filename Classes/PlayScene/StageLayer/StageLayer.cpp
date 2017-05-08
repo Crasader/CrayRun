@@ -1,6 +1,6 @@
 /***************************************************************************
 *|
-*|	概要　　リザルトレイヤー
+*|	概要　　ステージレイヤー
 *|　作成者　GS2 16 中田湧介
 *|　作成日　2017/4/20
 *|___________________________________________________________________________
@@ -8,7 +8,7 @@
 /* ---- ライブラリのインクルード ---------- */
 #include "StageLayer.h"
 #include "../CharacterLayer/CharacterLayer.h"
-#include "Manager.h"
+#include "../../GameManager.h"
 
 USING_NS_CC;
 
@@ -19,6 +19,7 @@ bool StageLayer::init()
 		return false;
 
 	}
+	log("############################### StageLayer created");
 
 	/////////マップ描画////////
 
@@ -58,6 +59,7 @@ bool StageLayer::init()
 	this->scheduleUpdate();
 
 
+	loop = 0;
 	return true;
 
 }
@@ -87,6 +89,30 @@ void StageLayer::update(float data)
 
 	AfterHittingCoin();
 	AfterHittingMold();
+	AfterHittingFloorToMold();
+	if (loop == 0)
+	{
+		GameManager::StageLoopCnt++;
+		//GameManager::FloorPos.push_back(GameManager::StageLoopCnt);
+		//タイルマップの読み込み
+		//マップチップ
+		GameManager::map = TMXTiledMap::create("floor.tmx");
+		//タイルマップの中心座標を設定
+		GameManager::map->setAnchorPoint(Vec2(0, 0));
+		//タイルマップの座標設定
+		GameManager::map->setPosition(Point(1920, 0));
+		//画像の描画
+		this->addChild(GameManager::map);
+		////レイヤーにノードを集約
+		Stage* stage = Stage::create();
+		this->addChild(stage);
+		//Rmold = RabbitMold::create();
+		//this->addChild(Rmold);
+		loop = 1;
+	
+	}
+
+
 }
 
 /***************************************************************************
@@ -109,7 +135,7 @@ void StageLayer::AfterHittingCoin()
 				//当たったコインを削除
 				coin->getChildByTag(i)->removeFromParent();
 				//スコアにとったコインのポイントをたす
-				GameManager::Score += GameManager::CoinPoint[i];
+				GameManager::Score += GameManager::CoinPoint[i] * GameManager::ScoreCorrection;
 			}
 		}
 	}
@@ -150,26 +176,30 @@ void StageLayer::AfterHittingMold()
 void StageLayer::AfterHittingFloorToMold()
 {
 
-	Vector<Vec2>::iterator Iterator;
-	//床の数だけループ
-	for (Iterator = GameManager::FloorPos.begin(); Iterator != GameManager::FloorPos.end(); ++Iterator)
+	std::vector<Vec2>::iterator Iterator;
+
+	//マップの数だけループ
+	for (int j = 0; j <= GameManager::StageLoopCnt; j++)
 	{
-		for (int i = 0; i < GameManager::MoldCnt; i++)
+		//床の数だけループ
+		for (Iterator = GameManager::FloorPos[j].begin(); Iterator != GameManager::FloorPos[j].end(); ++Iterator)
 		{
-			Node* q = Rmold->getChildByTag(i);
-			if (q != nullptr) {
-				Vec2 vec = *Iterator;
-				switch (GameManager::CollisionDetermination
-				(vec, GameManager::LAYRE_SIZE,
-					q->getPosition(), q->getContentSize())
-					)
-				{
-				case up:
-					q->setPositionY(vec.y);
-					GameManager::MoldSpd.y = 0.0f;
+			for (int i = 0; i < GameManager::MoldCnt; i++)
+			{
+				Node* q = Rmold->getChildByTag(i);
+				if (q != nullptr) {
+					Vec2 vec = *Iterator;
+					switch (GameManager::CollisionDetermination
+					(vec, GameManager::LAYRE_SIZE,
+						q->getPosition(), q->getContentSize())
+						)
+					{
+					case up:
+						q->setPositionY(vec.y);
+						GameManager::MoldSpd.y = 0.0f;
+					}
 				}
 			}
 		}
 	}
-
 }
