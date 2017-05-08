@@ -65,7 +65,7 @@ void StageLayer::update(float data) {
 	AfterHittingCoin();
 
 
-	if (static_cast<int>(GameManager::m_cameraposx - 480 + GameManager::MAP_SIZE.x) % static_cast<int>(GameManager::MAP_SIZE.x) == 0)
+	if (static_cast<int>(GameManager::m_cameraposx + 480 ) % static_cast<int>(GameManager::MAP_SIZE.x) == 0)
 	{
 		GameManager::StageLoopCnt++;
 		//GameManager::FloorPos.push_back(GameManager::StageLoopCnt);
@@ -75,7 +75,7 @@ void StageLayer::update(float data) {
 		//タイルマップの中心座標を設定
 		GameManager::map->setAnchorPoint(Vec2(0, 0));
 		//タイルマップの座標設定
-		GameManager::map->setPosition(Point(GameManager::m_cameraposx + GameManager::MAP_SIZE.x, 0));
+		GameManager::map->setPosition(Point(GameManager::m_cameraposx + 480, 0));
 		//画像の描画
 		this->addChild(GameManager::map);
 		////レイヤーにノードを集約
