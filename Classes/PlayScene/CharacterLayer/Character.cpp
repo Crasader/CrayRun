@@ -87,7 +87,7 @@ void Character::setScale()
 	}
 	else if (GameManager::PlayerSize.x > PLAYER_MAX_SIZE)
 	{
-		GameManager::PlayerSize.x = 32.0f;
+		GameManager::PlayerSize.x = 64.0f;
 	}
 
 	//プレイヤーのサイズYが通常より小さいとき
@@ -97,7 +97,7 @@ void Character::setScale()
 	}
 	else if (GameManager::PlayerSize.y > PLAYER_MAX_SIZE)
 	{
-		GameManager::PlayerSize.y = 32.0f;
+		GameManager::PlayerSize.y = 64.0f;
 	}
 
 	//サイズを適用する
