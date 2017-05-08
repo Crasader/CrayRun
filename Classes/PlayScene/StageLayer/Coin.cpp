@@ -44,7 +44,6 @@ bool Coin::init()
 						std::string str = properties["Coin"].asString();
 						if (str == "coin")
 						{
-
 							//画像をランダムで設定する
 							switch (rand() % 3 + 1)
 							{
@@ -68,8 +67,6 @@ bool Coin::init()
 								(GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y - i) * GameManager::LAYRE_SIZE.y);
 							//コインにタグをつける
 							s_Coin->setTag(GameManager::CoinCnt);
-
-						
 							this->addChild(s_Coin);
 
 

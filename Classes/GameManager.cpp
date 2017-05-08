@@ -55,7 +55,7 @@ Vec2 GameManager::MoldSpd = Vec2(0, -4);
 /////////////////スコア////////////////
 int GameManager::Score = 0;//スコア
 /////////////////場所////////////////////////
-float GameManager::m_cameraposx = 0.0f;
+float GameManager::m_cameraposx = 480.0f;
 const float GameManager::m_cameraspdx = GameManager::PlayerSpd.x;
 
 int GameManager::SaveDistance = 0;//距離を保存する

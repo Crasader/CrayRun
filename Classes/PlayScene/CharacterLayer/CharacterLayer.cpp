@@ -102,8 +102,10 @@ void CharacterLayer::update(float date)
 	count++;
 	//サイズ変更
 	character->setScale();
-	//n->setString(StringUtils::toString(b));
-	//n->setPosition(GameManager::PlayerPos + Vec2(300, 0));
+
+	n->setString(StringUtils::toString(b));
+	n->setPosition(GameManager::PlayerPos + Vec2(300, 0));
+
 }
 
 
@@ -163,7 +165,7 @@ void CharacterLayer::onTouchesMoved(const std::vector<cocos2d::Touch*>& touches,
 		{
 			//座標を取得する
 			touchpos[m_touch_id] = touch->getLocation();
-			touchpos[m_touch_id].x += GameManager::m_cameraposx;
+			touchpos[m_touch_id].x += GameManager::m_cameraposx - 480;
 		}
 	}
 
@@ -171,7 +173,7 @@ void CharacterLayer::onTouchesMoved(const std::vector<cocos2d::Touch*>& touches,
 	//二回以上タッチされたら
 	if (m_touch_id >= 1)
 	{
-	
+		b = 6;
 		//タッチとプレイヤーのあたり判定
 		m_touch_collision_direction[0] = GameManager::CollisionDetermination2(
 			touchpos[0] - Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2), TOUCH_SIZE,
@@ -182,14 +184,14 @@ void CharacterLayer::onTouchesMoved(const std::vector<cocos2d::Touch*>& touches,
 			touchpos[1] - Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2), TOUCH_SIZE,
 			GameManager::PlayerPos, GameManager::PlayerSize);
 
-	
+
 
 		//上下でプレイヤーを挟んだ時
 		if (m_touch_collision_direction[0] == up && m_touch_collision_direction[1] == under)
 		{
 		
-		/*	b = 3;
-			GameManager::PlayerSize.y = touchpos[1].y - touchpos[0].y;*/
+			b = 3;
+			//GameManager::PlayerSize.y = touchpos[1].y - touchpos[0].y;
 			GameManager::PlayerSize.y = 32.0f;
 		}
 		else if(m_touch_collision_direction[0] == under && m_touch_collision_direction[1] == up)

@@ -1,12 +1,7 @@
 /***************************************************************************
 *|
-<<<<<<< HEAD
-*|	概要　スコアクラスの定義
-*|　作成者　GS2 16 中田湧介,GS2 24 山本悠雅
-=======
 *|	概要　キャラクタクラスの定義
-*|　作成者　GS2 16 中田湧介
->>>>>>> 73f5664562b5428b0256e7da9b5fc524ae485f14
+*|　作成者　GS2 16 中田湧介,GS2 24 山本悠雅
 *|　作成日　2017/4/20
 *|___________________________________________________________________________
 ****************************************************************************/
@@ -106,7 +101,7 @@ void Character::setScale()
 	}
 	else if (GameManager::PlayerSize.x > PLAYER_MAX_SIZE)
 	{
-		GameManager::PlayerSize.x = 32.0f;
+		GameManager::PlayerSize.x = 64.0f;
 	}
 
 	//プレイヤーのサイズYが通常より小さいとき
@@ -116,7 +111,7 @@ void Character::setScale()
 	}
 	else if (GameManager::PlayerSize.y > PLAYER_MAX_SIZE)
 	{
-		GameManager::PlayerSize.y = 32.0f;
+		GameManager::PlayerSize.y = 64.0f;
 	}
 
 	//サイズを適用する
