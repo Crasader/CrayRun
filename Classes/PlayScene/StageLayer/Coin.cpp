@@ -8,7 +8,7 @@
 /* ---- ライブラリのインクルード ---------- */
 #include "Coin.h"
 
-
+/* ---- 名前空間を解放 -------------------- */
 USING_NS_CC;
 
 bool Coin::init()
@@ -66,7 +66,7 @@ bool Coin::init()
 							s_Coin->
 								setPosition(j * GameManager::LAYRE_SIZE.x,
 								(GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y - i) * GameManager::LAYRE_SIZE.y);
-
+							//コインにタグをつける
 							s_Coin->setTag(GameManager::CoinCnt);
 
 						

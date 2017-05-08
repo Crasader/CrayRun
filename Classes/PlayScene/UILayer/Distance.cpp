@@ -8,7 +8,7 @@
 /* ---- ライブラリのインクルード ---------- */
 #include "Distance.h"
 
-
+/* ---- 名前空間を解放 -------------------- */
 USING_NS_CC;
 using namespace cocos2d::experimental;
 
@@ -20,16 +20,18 @@ bool Distance::init()
 		return false;
 	}
 
+	int Digit = 0;//桁数
+	int SpriteCnt = 0;//何個目のスプライトかカウントする
 
 	//数字のスプライトを作成する
-	s_Number[GameManager::SpriteCnt] = Sprite::create("Images/Number.png");
+	s_Number[SpriteCnt] = Sprite::create("Images/Number.png");
 	//レクトを設定する
-	s_Number[GameManager::SpriteCnt]->setTextureRect(Rect(0 * 64, 0, 64, 64));
+	s_Number[SpriteCnt]->setTextureRect(Rect(0 * 64, 0, 64, 64));
 	//座標
-	s_Number[GameManager::SpriteCnt]->setPosition(Vec2(600 + 64 * GameManager::SpriteCnt, 580));
-	this->addChild(s_Number[GameManager::SpriteCnt]);
+	s_Number[SpriteCnt]->setPosition(Vec2(600 + 64 * SpriteCnt, 580));
+	this->addChild(s_Number[SpriteCnt]);
 	//最大桁数を記憶
-	GameManager::DistanceMaxDigit = GameManager::SpriteCnt;
+	DistanceMaxDigit = SpriteCnt;
 
 	return true;
 }
@@ -39,9 +41,9 @@ bool Distance::init()
 void Distance::DistanceIndicate(int distance)
 {
 	//桁数を初期化する
-	GameManager::Digit = 1;
+	Digit = 1;
 	//スプライトカウントを初期化する
-	GameManager::SpriteCnt = 0;
+	SpriteCnt = 0;
 	//対象の距離を保存する
 	GameManager::SaveDistance = distance;
 
@@ -54,17 +56,17 @@ void Distance::DistanceIndicate(int distance)
 		{
 			GameManager::SaveDistance /= 10;
 			//何回ループしたかカウントする
-			GameManager::Digit *= 10;
+			Digit *= 10;
 		}
 		//小数になるまでかけたが、桁数を知りたいので10で割る
-		GameManager::Digit /= 10;
+		Digit /= 10;
 	}
 
 	//対象の距離を保存する
 	GameManager::SaveDistance = distance;
 
 	//桁数が0でないか
-	while (GameManager::Digit != 0)
+	while (Digit != 0)
 	{
 		//残りの値が0になる時、「Digit桁の値を求める」でエラーになる
 		//残りの値が0になる時、桁数分の0を表示して
@@ -76,30 +78,30 @@ void Distance::DistanceIndicate(int distance)
 		else
 		{
 			//Digit桁の値を求める
-			distance /= GameManager::Digit;
+			distance /= Digit;
 		}
 
 		//最大桁数を上回ったか→桁が上がったか
-		if (GameManager::DistanceMaxDigit < GameManager::SpriteCnt)
+		if (DistanceMaxDigit < SpriteCnt)
 		{
 			//数字のスプライトを作成する
-			s_Number[GameManager::SpriteCnt] = Sprite::create("Images/Number.png");
+			s_Number[SpriteCnt] = Sprite::create("Images/Number.png");
 			//座標
-			s_Number[GameManager::SpriteCnt]->setPosition(Vec2(600 + 64 * GameManager::SpriteCnt, 580));
-			this->addChild(s_Number[GameManager::SpriteCnt]);
+			s_Number[SpriteCnt]->setPosition(Vec2(600 + 64 * SpriteCnt, 580));
+			this->addChild(s_Number[SpriteCnt]);
 			//最大桁数を更新する
-			GameManager::DistanceMaxDigit = GameManager::SpriteCnt;
+			DistanceMaxDigit = SpriteCnt;
 		}
 		//レクトを設定する
-		s_Number[GameManager::SpriteCnt]->setTextureRect(Rect(distance * 64, 0, 64, 64));
+		s_Number[SpriteCnt]->setTextureRect(Rect(distance * 64, 0, 64, 64));
 
 		//距離から求めた値を引く
-		GameManager::SaveDistance -= distance * GameManager::Digit;
+		GameManager::SaveDistance -= distance * Digit;
 		//距離を復元する
 		distance = GameManager::SaveDistance;
 		//次はDigit-1桁を見る
-		GameManager::Digit /= 10;
+		Digit /= 10;
 		//何個目のスプライトかカウントするをインクリメント
-		GameManager::SpriteCnt++;
+		SpriteCnt++;
 	}
 }

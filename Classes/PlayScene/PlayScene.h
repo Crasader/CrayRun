@@ -7,7 +7,7 @@
 ****************************************************************************/
 #pragma once
 
-
+/* ---- ライブラリのインクルード ---------- */
 #include "cocos2d.h"
 #include "StageLayer/StageLayer.h"
 #include "BackgroundLayer/BackgroundLayer.h"
@@ -30,4 +30,5 @@ private:
 	void update(float data)override;
 	cocos2d::Camera* m_camera;
 	cocos2d::Layer* uilayer;
+
 };

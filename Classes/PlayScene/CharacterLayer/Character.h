@@ -1,6 +1,6 @@
 /***************************************************************************
 *|
-*|	概要　　スコアクラスの宣言
+*|	概要　　キャラクタクラスの宣言
 *|　作成者　GS2 16 中田湧介
 *|　作成日　2017/4/20
 *|___________________________________________________________________________
@@ -31,7 +31,7 @@ public:
 			GameManager::PlayerSpd.y -= 0.4f;
 		}
 		//ジャンプがないときは関係なく加速度をつける
-		else if (GameManager::JumpFlag == false)
+		else if (JumpFlag == false)
 		{
 			GameManager::PlayerSpd.y -= 0.4f;
 		}
@@ -40,10 +40,12 @@ public:
 	void setScale();//サイズ設定
 	//プレイヤー
 	cocos2d::Sprite* s_player;
+	//プレイヤーの最大サイズ
+	const int PLAYER_MAX_SIZE = 64;
 
-	static const int PLAYER_MAX_SIZE = 64;
-
+	bool JumpFlag;//地面についているか
 private:
+	int JumpCnt;//ジャンプフラグ
 
 };
 

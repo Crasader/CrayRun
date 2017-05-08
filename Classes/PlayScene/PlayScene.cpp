@@ -8,32 +8,11 @@
 
 /* ---- ライブラリのインクルード ---------- */
 #include "PlayScene.h"
-
+/* ---- 名前空間を解放 -------------------- */
 USING_NS_CC;
 using namespace cocos2d::experimental;
 
 /* ---- メンバー関数の定義 ---------------- */
-/***************************************************************************
-*|	概要　　シーンを作成する。
-*|	引数　　無し
-*|　戻り値　シーンのアドレス
-****************************************************************************/
-//cocos2d::Scene * PlayScene::createScene()
-//{
-//	// シーンを作成する
-//
-//	auto scene = Scene::create();
-//	// レイヤーを作成する
-//
-//	auto layer = PlayScene::create();
-//	// レイヤーをシーンに追加する
-//
-//	scene->addChild(layer);
-//	// シーンを返す
-//
-//	return scene;
-//}
-
 /***************************************************************************
 *|	概要　　プレイシーンのレイヤーを呼びだす
 *|	引数　　無し
@@ -58,13 +37,14 @@ bool PlayScene::init()
 
 	// キャラクターレイヤー呼び出し
 	auto characterlayer = CharacterLayer::create();
-	// 背景レイヤー関連のレイヤ
+	// キャラクターレイヤー関連のレイヤ
 	this->addChild(characterlayer);
 	// UIレイヤー呼び出し
 	uilayer = UiLayer::create();
 	// UIレイヤー関連のレイヤ
 	this->addChild(uilayer);
 
+	//カメラを作成する
 	Camera* camera = Camera::create();
 	camera->setCameraFlag(CameraFlag::USER1);
 	this->addChild(camera);
@@ -91,7 +71,7 @@ void PlayScene::update(float data)
 	//カメラの座標をセット
 	PlayScene::m_camera->setPositionX(GameManager::m_cameraposx);
 
-
+	//UI専用のカメラにする
 	uilayer->setCameraMask((unsigned short)CameraFlag::USER1);
 
 }

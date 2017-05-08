@@ -8,7 +8,7 @@
 /* ---- ライブラリのインクルード ---------- */
 #include "CrayStage.h"
 
-
+/* ---- 名前空間を解放 -------------------- */
 USING_NS_CC;
 using namespace cocos2d::experimental;
 

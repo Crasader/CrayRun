@@ -25,6 +25,10 @@ public:
 private:
 	//数字スプライト
 	cocos2d::Sprite* s_Number[MAX_NUMBER];
+	int ScoreMaxDigit;//最大桁数
+	int SaveScore;//スコアを保存する
+	int Digit;//桁数
+	int SpriteCnt;//何個目のスプライトかカウントする
 
 };
 

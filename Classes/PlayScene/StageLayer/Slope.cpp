@@ -8,7 +8,7 @@
 /* ---- ライブラリのインクルード ---------- */
 #include "Slope.h"
 
-
+/* ---- 名前空間を解放 -------------------- */
 USING_NS_CC;
 bool Slope::init()
 {
@@ -17,8 +17,7 @@ bool Slope::init()
 		return false;
 	}
 
-	//初期化
-	SlopeCnt = 0;
+
 
 	//レイヤー取得
 	TMXLayer* layer = GameManager::map->getLayer("SlopeLayer");
@@ -61,13 +60,13 @@ bool Slope::init()
 								IteratorLeft = GameManager::LeftPos.begin();
 								IteratorRight = GameManager::RightPos.begin();
 								//イテレータにどこを見るか教える
-								IteratorRight += SlopeCnt;
-								IteratorLeft += SlopeCnt;
+								IteratorRight += GameManager::SlopeCnt;
+								IteratorLeft += GameManager::SlopeCnt;
 								//イテレータを格納する
-								GameManager::SaveLeft = *IteratorLeft;
-								GameManager::SaveRight = *IteratorRight;
+								SaveLeft = *IteratorLeft;
+								SaveRight = *IteratorRight;
 								//斜面のスプライトの座標を設定する
-								s_slope->setPosition(Vec2(GameManager::SaveLeft.x + SlopeSize.x / 2, GameManager::SaveLeft.y + SlopeSize.y/2));
+								s_slope->setPosition(Vec2(SaveLeft.x + SlopeSize.x / 2, SaveLeft.y + SlopeSize.y/2));
 							}
 							else
 							{
@@ -84,17 +83,17 @@ bool Slope::init()
 								IteratorLeft = GameManager::LeftPos.begin();
 								IteratorRight = GameManager::RightPos.begin();
 								//イテレータにどこを見るか教える
-								IteratorRight+=SlopeCnt;
-								IteratorLeft+=SlopeCnt;
+								IteratorRight+= GameManager::SlopeCnt;
+								IteratorLeft+= GameManager::SlopeCnt;
 								//イテレータを格納する
-								GameManager::SaveLeft = *IteratorLeft;
-								GameManager::SaveRight = *IteratorRight;
+								SaveLeft = *IteratorLeft;
+								SaveRight = *IteratorRight;
 								//斜面のスプライトの座標を設定する
-								s_slope->setPosition(Vec2(GameManager::SaveLeft.x + SlopeSize.x / 2, GameManager::SaveLeft.y - SlopeSize.y / 2));
+								s_slope->setPosition(Vec2(SaveLeft.x + SlopeSize.x / 2,SaveLeft.y - SlopeSize.y / 2));
 							}
 
 							//斜面カウントをインクリメント
-							SlopeCnt++;
+							GameManager::SlopeCnt++;
 							this->addChild(s_slope);
 
 							//次のループでメモリ確保をさせない

@@ -27,6 +27,11 @@ private:
 
 	//登り
 	bool ClimbingFlag;
-	//斜面カウント
-	int SlopeCnt;
+
+
+	//イテレータの値を格納する
+	cocos2d::Vec2 SaveRight;
+	cocos2d::Vec2 SaveLeft;
+
+
 };

@@ -1,6 +1,6 @@
 /***************************************************************************
 *|
-*|	概要　スコアクラスの定義
+*|	概要　キャラクタクラスの定義
 *|　作成者　GS2 16 中田湧介
 *|　作成日　2017/4/20
 *|___________________________________________________________________________
@@ -8,7 +8,7 @@
 /* ---- ライブラリのインクルード ---------- */
 #include "Character.h"
 
-
+/* ---- 名前空間を解放 -------------------- */
 USING_NS_CC;
 
 
@@ -20,13 +20,6 @@ bool Character::init()
 		return false;
 	}
 
-	//std::string filename = "Images/1.png";
-	//if (!Sprite::initWithFile(filename))
-	//{
-
-	//	return false;
-	//}
-
 
 	//プレイヤー作成
 	s_player = Sprite::create("Images/1.png");
@@ -34,27 +27,13 @@ bool Character::init()
 	s_player->setAnchorPoint(Vec2(0.5, 0));
 	this->addChild(s_player);
 
+	bool JumpFlag = false;//地面についているか
+	int  JumpCnt = 0;//ジャンプフラグ
 
 
 
 	return true;
 }
-
-//Character * Character::create()
-//{
-//	Character *pRet = new(std::nothrow) Character();
-//	if (pRet && pRet->init())
-//	{
-//		pRet->autorelease();
-//		return pRet;
-//	}
-//	else
-//	{
-//		delete pRet;
-//		pRet = nullptr;
-//		return nullptr;
-//	}
-//}
 
 /***************************************************************************
 *|	概要　　移動する
@@ -76,19 +55,20 @@ void Character::Move()
 ****************************************************************************/
 void Character::Jump()
 {
-	//JumpBy* jumpaction = JumpBy::create(0.5f, Vec2(0,0), 64.0f, 1);
-	//s_player->runAction(jumpaction);
-	GameManager::JumpCnt++;
 
-	if (GameManager::JumpFlag == true)
+	//ジャンプした回数をインクリメント
+	JumpCnt++;
+
+	//ジャンプ可能ならジャンプさせる
+	if (JumpFlag == true)
 	{
 		GameManager::PlayerSpd.y = 9.0f;
 	}
-
-	if (GameManager::JumpCnt == 2)
+	//二回ジャンプしたらジャンプ負荷にする
+	if (JumpCnt == 2)
 	{
-		GameManager::JumpCnt = 0;
-		GameManager::JumpFlag = false;
+		JumpCnt = 0;
+		JumpFlag = false;
 	}
 }
 
@@ -99,6 +79,32 @@ void Character::Jump()
 ****************************************************************************/
 void Character::setScale()
 {
+	//プレイヤーのサイズXが通常より小さいとき
+	if (GameManager::PlayerSize.x < PLAYER_MAX_SIZE)
+	{
+		//少しずつ大きくする
+		GameManager::PlayerSize.x += 0.1f;
+	}
+	else if (GameManager::PlayerSize.x > PLAYER_MAX_SIZE)
+	{
+		GameManager::PlayerSize.x = 32.0f;
+	}
+
+	//プレイヤーのサイズYが通常より小さいとき
+	if (GameManager::PlayerSize.y < PLAYER_MAX_SIZE)
+	{
+		GameManager::PlayerSize.y += 0.1f;
+	}
+	else if (GameManager::PlayerSize.y > PLAYER_MAX_SIZE)
+	{
+		GameManager::PlayerSize.y = 32.0f;
+	}
+
+	//サイズを適用する
+	s_player->setScale(GameManager::PlayerSize.x / PLAYER_MAX_SIZE, GameManager::PlayerSize.y / PLAYER_MAX_SIZE);
+	
+
+
 }
 
 

@@ -1,6 +1,6 @@
 /***************************************************************************
 *|
-*|	概要　　リザルトレイヤー
+*|	概要　　ステージレイヤー
 *|　作成者　GS2 16 中田湧介
 *|　作成日　2017/4/20
 *|___________________________________________________________________________
@@ -54,6 +54,7 @@ bool StageLayer::init()
 	this->scheduleUpdate();
 
 
+	loop = 0;
 	return true;
 
 }
@@ -68,6 +69,27 @@ void StageLayer::update(float data) {
 	AfterHittingCoin();
 
 
+	if (loop == 0)
+	{
+		GameManager::StageLoopCnt++;
+		//GameManager::FloorPos.push_back(GameManager::StageLoopCnt);
+		//タイルマップの読み込み
+		//マップチップ
+		GameManager::map = TMXTiledMap::create("floor.tmx");
+		//タイルマップの中心座標を設定
+		GameManager::map->setAnchorPoint(Vec2(0, 0));
+		//タイルマップの座標設定
+		GameManager::map->setPosition(Point(1920, 0));
+		//画像の描画
+		this->addChild(GameManager::map);
+		////レイヤーにノードを集約
+		Stage* stage = Stage::create();
+		this->addChild(stage);
+		loop = 1;
+	
+	}
+
+
 }
 
 /***************************************************************************
@@ -77,6 +99,7 @@ void StageLayer::update(float data) {
 ****************************************************************************/
 void StageLayer::AfterHittingCoin()
 {
+
 	for (int i = 0; i < GameManager::CoinCnt; i++)
 	{
 		Node* q = coin->getChildByTag(i);
