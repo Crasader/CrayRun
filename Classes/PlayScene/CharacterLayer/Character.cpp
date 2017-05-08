@@ -1,7 +1,7 @@
 /***************************************************************************
 *|
 *|	概要　スコアクラスの定義
-*|　作成者　GS2 16 中田湧介
+*|　作成者　GS2 16 中田湧介,GS2 24 山本悠雅
 *|　作成日　2017/4/20
 *|___________________________________________________________________________
 ****************************************************************************/
@@ -28,16 +28,20 @@ bool Character::init()
 	//	return false;
 	//}
 
+	if (s_player == nullptr){
+		//プレイヤー作成
+		s_player = Sprite::create("Images/1.png");
+		s_player->setPosition(GameManager::PlayerPos);
+		s_player->setAnchorPoint(Vec2(0.5, 0));
+		this->addChild(s_player);
 
-	//プレイヤー作成
-	s_player = Sprite::create("Images/1.png");
-	s_player->setPosition(GameManager::PlayerPos);
-	s_player->setAnchorPoint(Vec2(0.5, 0));
-	this->addChild(s_player);
+	}else{
+		Texture2D* texture = TextureCache::sharedTextureCache()->addImage("Images/1.png");
 
-
-
-
+		s_player->setTexture(texture);
+		s_player->setContentSize(texture->getContentSize());
+	}
+		
 	return true;
 }
 

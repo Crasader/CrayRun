@@ -24,6 +24,7 @@ public:
 
 
 private:
+	int count;
 
 	////–ˆƒtƒŒ[ƒ€ŒÄ‚Ño‚³‚ê‚éŠÖ”
 	void update(float delta)override;

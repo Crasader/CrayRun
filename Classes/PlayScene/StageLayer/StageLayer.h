@@ -10,6 +10,7 @@
 /* ---- ライブラリのインクルード ---------- */
 #include "cocos2d.h"
 #include "Coin.h"
+#include "RabbitMold.h"
 #include "CrayStage.h"
 #include "Stage.h"
 #include "GameManager.h"
@@ -30,9 +31,13 @@ private:
 	void update(float delta)override;
 	//プレイヤーとコインの当たり判定後
 	void AfterHittingCoin();
-
+	//プレイヤと金型のあたり判定
+	void AfterHittingMold();
+	//金型と床のあたり判定
+	void AfterHittingFloorToMold();
 
 	Coin* coin;
+	RabbitMold* Rmold;
 };
 
 

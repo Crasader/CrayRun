@@ -17,7 +17,6 @@ bool GameManager::JumpFlag = false;//地面についているか
 bool GameManager::RightFlag = false;//右側に当たったか
 int  GameManager::JumpCnt = 0;//ジャンプフラグ
 
-
 int GameManager::FirstTouchCnt = 0;//最初のタッチからどれだけ経過したか
 bool GameManager::FirstTouchFlag = false;//最初のタッチが呼ばれたか
 
@@ -41,10 +40,19 @@ cocos2d::Vec2 GameManager::SaveLeft;
 float GameManager::SlopePosY = 0.0f;//斜面座標Y
 //////////////コイン//////////////
 
-int  GameManager::CoinCnt = 0;//コインをカウント
+int GameManager::CoinCnt = 0;//コインをカウント
 std::vector<int>  GameManager::CoinPoint;//コインのポイント
 
+/////////////金型////////////////
 
+int GameManager::Mold = 0;//金型
+bool GameManager::ChangeMold = false;//金型変化あるか
+
+int GameManager::MoldCnt = 0;
+
+std::vector<cocos2d::Vec2> GameManager::MoldPos;//金型の座標
+
+Vec2 GameManager::MoldSpd = Vec2(0, -4);
 /////////////////UIレイヤー/////////////////
 /////////////////スコア////////////////
 std::vector<cocos2d::Sprite*> GameManager::s_score;//コイン
