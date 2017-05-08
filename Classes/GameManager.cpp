@@ -16,6 +16,8 @@ Vec2  GameManager::PlayerPos = Vec2(50.0f,300.0f);//座標
 float  GameManager::ScoreCorrection = 1.0f;//スコア補正
 bool GameManager::RightFlag = false;//右側に当たったか
 
+int GameManager::FirstTouchCnt = 0;//最初のタッチからどれだけ経過したか
+bool GameManager::FirstTouchFlag = false;//最初のタッチが呼ばれたか
 
 
 ///////////////ステージレイヤー/////////
@@ -36,10 +38,19 @@ std::vector<Vec2> GameManager::RightPos;//右端
 float GameManager::SlopePosY = 0.0f;//斜面座標Y
 //////////////コイン//////////////
 
-int  GameManager::CoinCnt = 0;//コインをカウント
+int GameManager::CoinCnt = 0;//コインをカウント
 std::vector<int>  GameManager::CoinPoint;//コインのポイント
 
+/////////////金型////////////////
 
+int GameManager::Mold = 0;//金型
+bool GameManager::ChangeMold = false;//金型変化あるか
+
+int GameManager::MoldCnt = 0;
+
+std::vector<cocos2d::Vec2> GameManager::MoldPos;//金型の座標
+
+Vec2 GameManager::MoldSpd = Vec2(0, -4);
 /////////////////UIレイヤー/////////////////
 /////////////////スコア////////////////
 int GameManager::Score = 0;//スコア

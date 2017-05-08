@@ -39,6 +39,9 @@ public:
 	static float ScoreCorrection;//スコア補正
 	static bool RightFlag;//右側に当たったか
 
+	static int FirstTouchCnt;//最初のタッチからどれだけ経過したか
+	static bool FirstTouchFlag;//最初のタッチが呼ばれたか
+	
 	///////////////ステージレイヤー/////////
 	static cocos2d::TMXTiledMap*  map;//マップ
 	static const cocos2d::Vec2 MAP_SIZE;//マップ大きさ
@@ -60,6 +63,16 @@ public:
 	//////////////コイン//////////////
 	std::vector<cocos2d::Sprite*> s_score;//コイン
 	static int CoinCnt;//コインをカウント
+
+	/////////////金型/////////////////
+	static int Mold;//どの金型で型を取っているか
+					//0：普通
+					//1：兎型
+	static bool ChangeMold;//金型がかわっているかどうか,true：変化あり,false：変化なし
+
+	static int MoldCnt;//金型のカウント
+	static std::vector<cocos2d::Vec2> MoldPos;//金型の座標
+	static cocos2d::Vec2 MoldSpd;//金型の速度
 	///////////////UIレイヤー///////////////
 	///////////////スコア///////////////////
 	static int Score;//スコア

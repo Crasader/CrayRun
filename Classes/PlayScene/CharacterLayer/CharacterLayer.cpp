@@ -26,6 +26,7 @@ bool CharacterLayer::init()
 	this->addChild(character);
 
 
+
 	//毎フレーム呼び出す
 	this->scheduleUpdate();
 
@@ -39,6 +40,7 @@ bool CharacterLayer::init()
 
 	_director->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 	//_touchListener = listener;
+	count = 0;
 
 	//デバック
 	String* b = String::createWithFormat("%i", a);
@@ -60,6 +62,29 @@ bool CharacterLayer::init()
 ****************************************************************************/
 void CharacterLayer::update(float date)
 {
+	//金型が変更されている場合
+	if (GameManager::ChangeMold == true) {
+		switch (GameManager::Mold)
+		{
+		case 0:
+			character->removeFromParent();
+			character = Character::create();
+			//変更したので戻す
+			GameManager::ChangeMold = false;
+
+			break;
+
+		case 1:
+			character->removeFromParent();
+			character = Rabbit::create();
+			//変更したので戻す
+			GameManager::ChangeMold = false;
+			break;
+		}
+		//変更したのでaddChildする
+		this->addChild(character);
+	}
+
 	//移動する
 	character->Move();
 	//重力
@@ -70,6 +95,11 @@ void CharacterLayer::update(float date)
 	AfterHittingSlope();
 	//ジャンプするか調べる
 	JumpInvestigate();
+
+	n->setString(StringUtils::toString(a));
+	n->setPosition(GameManager::PlayerPos);
+
+	count++;
 	//サイズ変更
 	character->setScale();
 

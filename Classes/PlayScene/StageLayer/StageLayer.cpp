@@ -45,9 +45,14 @@ bool StageLayer::init()
 	//レイヤーにノードを集約
 	coin = Coin::create();
 	this->addChild(coin);
+
 	//レイヤーにノードを集約
 	Slope* slope = Slope::create();
 	this->addChild(slope);
+
+	//レイヤーにノードを集約
+	Rmold = RabbitMold::create();
+	this->addChild(Rmold);
 
 	this->scheduleUpdate();
 
@@ -61,9 +66,27 @@ bool StageLayer::init()
 *|	引数　　無し
 *|　戻り値　無し
 ****************************************************************************/
-void StageLayer::update(float data) {
-	AfterHittingCoin();
+void StageLayer::update(float data) 
+{
+	Rmold->Gravity();
+	Vector<Vec2>::iterator Iterator;
 
+	int i = 0;
+	//床の数だけループ
+	for (Iterator = GameManager::MoldPos.begin(); Iterator != GameManager::MoldPos.end(); ++Iterator)
+	{
+		Node* q = Rmold->getChildByTag(i);
+		Vec2 vec = *Iterator;
+		vec += GameManager::MoldSpd;
+		q->setPosition(vec);
+
+		i++;
+	}
+
+
+	AfterHittingCoin();
+	AfterHittingMold();
+	AfterHittingFloorToMold();
 
 	if (static_cast<int>(GameManager::m_cameraposx + 480 ) % static_cast<int>(GameManager::MAP_SIZE.x) == 0)
 	{
@@ -93,7 +116,6 @@ void StageLayer::update(float data) {
 ****************************************************************************/
 void StageLayer::AfterHittingCoin()
 {
-
 	for (int i = 0; i < GameManager::CoinCnt; i++)
 	{
 		Node* q = coin->getChildByTag(i);
@@ -112,3 +134,66 @@ void StageLayer::AfterHittingCoin()
 		}
 	}
 };
+
+//__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/
+//	概　要：金型あたり判定後
+//	引　数：無し
+//　戻り値：無し
+//__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/
+void StageLayer::AfterHittingMold()
+{
+	for (int i = 0; i < GameManager::MoldCnt; i++)
+	{
+		Node* q = Rmold->getChildByTag(i);
+		if (q != nullptr)
+		{
+			//金型
+			if (GameManager::HitJudgment
+			(q->getPosition(), q->getContentSize(),
+				GameManager::PlayerPos, GameManager::PlayerSize) == true)
+			{
+				//当たった金型を削除
+				Rmold->getChildByTag(i)->removeFromParent();
+				//兎型のキャラクターに変更
+				GameManager::Mold = 1;
+				GameManager::ChangeMold = true;
+			}
+		}
+	}
+};
+
+/***************************************************************************
+*|	概要　	金型と床の衝突判定
+*|	引数　　無し
+*|　戻り値　無し
+****************************************************************************/
+void StageLayer::AfterHittingFloorToMold()
+{
+
+	std::vector<Vec2>::iterator Iterator;
+
+	//マップの数だけループ
+	for (int j = 0; j <= GameManager::StageLoopCnt; j++)
+	{
+		//床の数だけループ
+		for (Iterator = GameManager::FloorPos[j].begin(); Iterator != GameManager::FloorPos[j].end(); ++Iterator)
+		{
+			for (int i = 0; i < GameManager::MoldCnt; i++)
+			{
+				Node* q = Rmold->getChildByTag(i);
+				if (q != nullptr) {
+					Vec2 vec = *Iterator;
+					switch (GameManager::CollisionDetermination
+					(vec, GameManager::LAYRE_SIZE,
+						q->getPosition(), q->getContentSize())
+						)
+					{
+					case up:
+						q->setPositionY(vec.y);
+						GameManager::MoldSpd.y = 0.0f;
+					}
+				}
+			}
+		}
+	}
+}

@@ -44,7 +44,7 @@ public:
 	const int PLAYER_MAX_SIZE = 64;
 
 	bool JumpFlag;//地面についているか
-private:
+protected:
 	int JumpCnt;//ジャンプフラグ
 
 };
