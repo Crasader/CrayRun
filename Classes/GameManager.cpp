@@ -18,13 +18,15 @@ bool GameManager::RightFlag = false;//右側に当たったか
 
 int GameManager::FirstTouchCnt = 0;//最初のタッチからどれだけ経過したか
 bool GameManager::FirstTouchFlag = false;//最初のタッチが呼ばれたか
+int GameManager::PlayerMapPos = 0;//何番目の座標にいるか
 
 
 ///////////////ステージレイヤー/////////
-TMXTiledMap*  GameManager::map = nullptr;//マップ
+std::vector<cocos2d::TMXTiledMap*>  GameManager::map;//マップ
+
 const Vec2 GameManager::MAP_SIZE = Vec2(960 * 2, 640);//マップ大きさ
 const Vec2 GameManager::LAYRE_SIZE = Vec2(64,64);//レイヤーの大きさ
-int  GameManager::StageLoopCnt = 0;//ステージをループさせた回数
+int  GameManager::MapLoopCnt = 0;//ステージをループさせた回数
 
 std::vector<std::vector<Vec2>> GameManager::AllFloorPos;//床座標
 

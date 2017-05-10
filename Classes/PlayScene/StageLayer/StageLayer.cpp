@@ -11,7 +11,7 @@
 #include "../../GameManager.h"
 /* ---- 名前空間を解放 -------------------- */
 USING_NS_CC;
-
+using namespace std;
 bool StageLayer::init()
 {
 	if (!Layer::init()) {
@@ -25,33 +25,30 @@ bool StageLayer::init()
 
 	//タイルマップの読み込み
 	//マップチップ
-	GameManager::map = TMXTiledMap::create("floor.tmx");
+	GameManager::map.push_back(TMXTiledMap::create("floor.tmx"));
+	IteratorMap = GameManager::map.begin();
+	TMXTiledMap* g_Map = *IteratorMap;
 	//タイルマップの中心座標を設定
-	GameManager::map->setAnchorPoint(Vec2(0, 0));
+	g_Map->setAnchorPoint(Vec2(0, 0));
 	//タイルマップの座標設定
-	GameManager::map->setPosition(Point(0, 0));
+	g_Map->setPosition(Point(0, 0));
 	//画像の描画
-	this->addChild(GameManager::map);
-
+	this->addChild(g_Map);
 	//レイヤーにノードを集約
 	CrayStage* craystage = CrayStage::create();
 	this->addChild(craystage);
-
-
 	//レイヤーにノードを集約
 	stage = Stage::create();
 	this->addChild(stage);
-
 	//レイヤーにノードを集約
 	coin.push_back(Coin::create());
 	IteratorCoin = coin.begin();
 	this->addChild(*IteratorCoin);
-
 	//レイヤーにノードを集約
-	Slope* slope = Slope::create();
-	this->addChild(slope);
-
-	////レイヤーにノードを集約
+	slope.push_back(Slope::create());
+	IteratorSlope = slope.begin();
+	this->addChild(*IteratorSlope);
+	//レイヤーにノードを集約
 	Rmold = RabbitMold::create();
 	this->addChild(Rmold);
 
@@ -90,37 +87,81 @@ void StageLayer::update(float data)
 
 	if (static_cast<int>(GameManager::m_cameraposx + 480 ) % static_cast<int>(GameManager::MAP_SIZE.x) == 0)
 	{
-		GameManager::StageLoopCnt++;
-		//GameManager::AllFloorPos.push_back(GameManager::StageLoopCnt);
-		//タイルマップの読み込み
-		//マップチップ
-		GameManager::map = TMXTiledMap::create("floor.tmx");
-		//タイルマップの中心座標を設定
-		GameManager::map->setAnchorPoint(Vec2(0, 0));
-		//タイルマップの座標設定
-		GameManager::map->setPosition(Point(GameManager::m_cameraposx + 480, 0));
-		//画像の描画
-		this->addChild(GameManager::map);
-
-		//ステージ座標を取得
-		stage->init();
-
-		//vectorにコインオブジェクトのアドレスを格納する
-		coin.push_back(Coin::create());
-		//イテレータにコインの最初の要素を格納する
-		IteratorCoin = coin.begin();
-		//ループさせたステージの数を見る
-		IteratorCoin += GameManager::StageLoopCnt;
-		this->addChild(*IteratorCoin);
-
-
-		//斜面座標を取得
-		slope->init();
+		//マップ生成
+		MapCreate();
+		if (GameManager::MapLoopCnt > 2)
+		{
+			//マップ削除
+			MapDelete();
+		}
 
 	}
-
-
 }
+
+/***************************************************************************
+*|	概要　  ステージ生成
+*|	引数　　無し
+*|　戻り値　無し
+****************************************************************************/
+void StageLayer::MapCreate()
+{
+	GameManager::MapLoopCnt++;
+	//タイルマップの読み込み
+	//マップチップ
+	GameManager::map.push_back(TMXTiledMap::create("floor.tmx"));
+	IteratorMap = GameManager::map.begin();
+	IteratorMap += GameManager::MapLoopCnt;
+//	TMXTiledMap* g_Map = *IteratorMap;
+	//タイルマップの中心座標を設定
+	(*IteratorMap)->setAnchorPoint(Vec2(0, 0));
+	//タイルマップの座標設定
+	(*IteratorMap)->setPosition(Point(GameManager::m_cameraposx + 480, 0));
+	//画像の描画
+	this->addChild((*IteratorMap));
+
+	//ステージ座標を取得
+	stage->init();
+
+	//vectorにコインオブジェクトのアドレスを格納する
+	coin.push_back(Coin::create());
+	//イテレータにコインの最初の要素を格納する
+	IteratorCoin = coin.begin();
+	//ループさせたステージの数を見る
+	IteratorCoin += GameManager::MapLoopCnt;
+	this->addChild(*IteratorCoin);
+
+
+	//斜面座標を取得
+	slope.push_back(Slope::create());
+	IteratorSlope = slope.begin();
+	IteratorSlope += GameManager::MapLoopCnt;
+	this->addChild(*IteratorSlope);
+}
+/***************************************************************************
+*|	概要  　ステージ削除　
+*|	引数　　無し
+*|　戻り値　無し
+****************************************************************************/
+void StageLayer::MapDelete()
+{
+	//マップの削除
+	IteratorMap = GameManager::map.begin();
+	IteratorMap += GameManager::MapLoopCnt - 2;
+	(*IteratorMap)->removeFromParent();
+	//ステージの削除
+	GameManager::AllFloorPos[GameManager::MapLoopCnt - 2].crend();
+	//斜面ノードの削除
+	IteratorSlope -= 2;
+	Slope* g_slope = *IteratorSlope;
+	g_slope->removeFromParent();
+
+	//斜面座標の削除
+	GameManager::AllLeftPos[GameManager::MapLoopCnt - 2].crend();
+	GameManager::AllRightPos[GameManager::MapLoopCnt - 2].crend();
+	//コイン削除
+	coin[GameManager::MapLoopCnt - 2]->removeFromParent();
+}
+
 
 /***************************************************************************
 *|	概要　　コインあたり判定
@@ -130,10 +171,12 @@ void StageLayer::update(float data)
 void StageLayer::CollisionResponseCoin()
 {
 	//コインレイヤーの数だけループ
-	for (IteratorCoin = coin.begin(); IteratorCoin < coin.end(); ++IteratorCoin)
-	{
-		int g_LoopCnt = 0;
-		//コインのデータを一時的に保存する
+	//for (IteratorCoin = coin.begin(); IteratorCoin < coin.end(); ++IteratorCoin)
+	//{
+	int g_LoopCnt = 0;
+	IteratorCoin = coin.begin();
+	IteratorCoin += GameManager::PlayerMapPos;
+		////コインのデータを一時的に保存する
 		Coin* m_SaveCoin = *IteratorCoin;
 		for (int i = 0; i < m_SaveCoin->m_CoinCnt; i++)
 		{
@@ -155,7 +198,7 @@ void StageLayer::CollisionResponseCoin()
 			//ループカウントをインクリメント
 			g_LoopCnt++;
 		}
-	}
+	//}
 }
 
 
@@ -194,30 +237,31 @@ void StageLayer::HittingMold()
 void StageLayer::HittingFloorToMold()
 {
 
-	std::vector<Vec2>::iterator Iterator;
+	//std::vector<Vec2>::iterator Iterator;
 
-	//マップの数だけループ
-	for (int j = 0; j <= GameManager::StageLoopCnt; j++)
-	{
-		//床の数だけループ
-		for (Iterator = GameManager::AllFloorPos[j].begin(); Iterator != GameManager::AllFloorPos[j].end(); ++Iterator)
-		{
-			for (int i = 0; i < GameManager::MoldCnt; i++)
-			{
-				Node* q = Rmold->getChildByTag(i);
-				if (q != nullptr) {
-					Vec2 vec = *Iterator;
-					switch (GameManager::CollisionDetermination
-					(vec, GameManager::LAYRE_SIZE,
-						q->getPosition(), q->getContentSize())
-						)
-					{
-					case up:
-						q->setPositionY(vec.y);
-						GameManager::MoldSpd.y = 0.0f;
-					}
-				}
-			}
-		}
-	}
+	////マップの数だけループ
+	//for (int j = 0; j <= GameManager::MapLoopCnt; j++)
+	//{
+	//	//床の数だけループ
+	//	for (Iterator = GameManager::AllFloorPos[j].begin(); Iterator != GameManager::AllFloorPos[j].end(); ++Iterator)
+	//	{
+	//		for (int i = 0; i < GameManager::MoldCnt; i++)
+	//		{
+	//			Node* q = Rmold->getChildByTag(i);
+	//			if (q != nullptr) {
+	//				Vec2 vec = *Iterator;
+	//				switch (GameManager::CollisionDetermination
+	//				(vec, GameManager::LAYRE_SIZE,
+	//					q->getPosition(), q->getContentSize())
+	//					)
+	//				{
+	//				case up:
+	//					q->setPositionY(vec.y);
+	//					GameManager::MoldSpd.y = 0.0f;
+	//				}
+	//			}
+	//		}
+	//	}
+	//}
 }
+

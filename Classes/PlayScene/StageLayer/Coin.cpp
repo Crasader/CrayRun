@@ -19,7 +19,7 @@ bool Coin::init()
 	}
 
 	//レイヤー取得
-	TMXLayer* layer2 = GameManager::map->getLayer("CoinLayer");
+	TMXLayer* layer2 = GameManager::map[GameManager::MapLoopCnt]->getLayer("CoinLayer");
 
 	bool flag = true;
 	m_CoinCnt = 0;
@@ -32,7 +32,7 @@ bool Coin::init()
 				unsigned int gid = layer2->getTileGIDAt(Vec2(j, i));
 
 				// 指定したタイル番号のプロパティのセットを取得
-				cocos2d::Value value = GameManager::map->getPropertiesForGID(gid);
+				cocos2d::Value value = GameManager::map[GameManager::MapLoopCnt]->getPropertiesForGID(gid);
 
 				if (value.isNull() == false)
 				{
@@ -63,7 +63,7 @@ bool Coin::init()
 							}
 							//座標を設定する
 							s_Coin->
-								setPosition(j * GameManager::LAYRE_SIZE.x + GameManager::StageLoopCnt * 1920,
+								setPosition(j * GameManager::LAYRE_SIZE.x + GameManager::MapLoopCnt * 1920,
 								(GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y - i) * GameManager::LAYRE_SIZE.y);
 							//コインにタグをつける
 							s_Coin->setTag(m_CoinCnt);

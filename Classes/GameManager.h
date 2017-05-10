@@ -44,11 +44,14 @@ public:
 	static int FirstTouchCnt;//最初のタッチからどれだけ経過したか
 	static bool FirstTouchFlag;//最初のタッチが呼ばれたか
 	
+	static int PlayerMapPos;//何番目の座標にいるか
 	///////////////ステージレイヤー/////////
-	static cocos2d::TMXTiledMap*  map;//マップ
+	//static cocos2d::TMXTiledMap*  map;//マップ
+	static std::vector<cocos2d::TMXTiledMap*> map;//マップ
+
 	static const cocos2d::Vec2 MAP_SIZE;//マップ大きさ
 	static const cocos2d::Vec2 LAYRE_SIZE;//レイヤーの大きさ
-	static int StageLoopCnt;//ステージをループさせた回数
+	static int MapLoopCnt;//ステージをループさせた回数
 	//////////////床///////////////////////
 	static std::vector < std::vector< cocos2d::Vec2 >> AllFloorPos;//床座標
 

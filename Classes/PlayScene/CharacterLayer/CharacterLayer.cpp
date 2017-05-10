@@ -89,12 +89,15 @@ void CharacterLayer::update(float date)
 	character->Move();
 	//重力
 	character->Gravity();
+	//何番目のマップにいるか求める
+	character->GetLoopPos();
 	//プレイヤーと床の衝突判定
 	CollisionResponseFloor();
 	//プレイヤーと斜面のあたり判定
 	CollisionResponseSlope();
 	//ジャンプするか調べる
 	JumpInvestigate();
+
 
 	n->setString(StringUtils::toString(a));
 	n->setPosition(GameManager::PlayerPos);
@@ -254,43 +257,45 @@ void CharacterLayer::CollisionResponseFloor()
 
 	std::vector<Vec2>::iterator Iterator;
 
-	//マップの数だけループ
-	for (int i = 0; i <= GameManager::StageLoopCnt; i++)
-	{
+	//////マップの数だけループ
+	//for (int i = GameManager::MapLoopCnt - 2; i <= GameManager::MapLoopCnt; i++)
+	//{
 		//床の数だけループ
-		for (Iterator = GameManager::AllFloorPos[i].begin(); Iterator != GameManager::AllFloorPos[i].end(); ++Iterator)
+		for (Iterator = GameManager::AllFloorPos[GameManager::PlayerMapPos].begin(); Iterator != GameManager::AllFloorPos[GameManager::PlayerMapPos].end(); ++Iterator)
 		{
-			Vec2 vec = *Iterator;
-			switch (GameManager::CollisionDetermination
-			(vec, GameManager::LAYRE_SIZE,
-				GameManager::PlayerPos, GameManager::PlayerSize))
-			{
-			case right:
-				GameManager::PlayerPos.x = vec.x + GameManager::LAYRE_SIZE.x + GameManager::PlayerSize.x / 2 + 1;
-				GameManager::PlayerSpd.x = 0.0f;
-				break;
-			case left:
-				/*GameManager::PlayerPos.x = GameManager::AllFloorPosx[i] - GameManager::PlayerSize.x / 2;*/
-				GameManager::RightFlag = true;
-				GameManager::PlayerSpd.x = -6.0f;
-				break;
-			case up:
-				GameManager::PlayerPos.y = vec.y;
-				GameManager::PlayerSpd.y = 0.0f;
-				//ジャンプ可能にする
-				character->JumpFlag = true;
-				break;
-				/*case under:
-				GameManager::PlayerPos.y = GameManager::AllFloorPosy[i] - GameManager::LAYRE_SIZE.y - GameManager::PlayerSize.y - 1;
-				GameManager::PlayerSpd.y = 0.0f;
-				break;*/
-			default:
-				break;
 
-			}
+			Vec2 vec = *Iterator;
+			
+				switch (GameManager::CollisionDetermination
+				(vec, GameManager::LAYRE_SIZE,
+					GameManager::PlayerPos, GameManager::PlayerSize))
+				{
+				case right:
+					GameManager::PlayerPos.x = vec.x + GameManager::LAYRE_SIZE.x + GameManager::PlayerSize.x / 2 + 1;
+					GameManager::PlayerSpd.x = 0.0f;
+					break;
+				case left:
+					/*GameManager::PlayerPos.x = GameManager::AllFloorPosx[i] - GameManager::PlayerSize.x / 2;*/
+					GameManager::RightFlag = true;
+					GameManager::PlayerSpd.x = -6.0f;
+					break;
+				case up:
+					GameManager::PlayerPos.y = vec.y;
+					GameManager::PlayerSpd.y = 0.0f;
+					//ジャンプ可能にする
+					character->JumpFlag = true;
+					break;
+					/*case under:
+					GameManager::PlayerPos.y = GameManager::AllFloorPosy[i] - GameManager::LAYRE_SIZE.y - GameManager::PlayerSize.y - 1;
+					GameManager::PlayerSpd.y = 0.0f;
+					break;*/
+				default:
+					break;
+
+				}
 		}
 
-	}
+	//}
 	
 }
 
@@ -301,12 +306,9 @@ void CharacterLayer::CollisionResponseFloor()
 ****************************************************************************/
 void CharacterLayer::CollisionResponseSlope()
 {
-	for (int i = 0; i <= GameManager::StageLoopCnt; i++)
+	for (int i = 0; i <= GameManager::MapLoopCnt; i++)
 	{
-		if (i > 0)
-		{
-			int a = 0;
-		}
+
 		//最初の斜面右端を格納する
 		IteratorLeft = GameManager::AllLeftPos[i].begin();
 		//vectorの数だけループ
