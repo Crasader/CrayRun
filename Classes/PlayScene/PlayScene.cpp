@@ -68,6 +68,7 @@ void PlayScene::update(float data)
 	PlayScene::m_camera = this->getDefaultCamera();
 	//カメラ座標を、毎フレーム動かす
 	GameManager::m_cameraposx += GameManager::m_cameraspdx;
+	GameManager::WorldPosX += GameManager::m_cameraspdx;
 	//カメラの座標をセット
 	PlayScene::m_camera->setPositionX(GameManager::m_cameraposx);
 

@@ -10,16 +10,18 @@
 #include "cocos2d.h"
 #include "../../GameManager.h"
 
+
 class Coin :public cocos2d::Node
 {
 public:
 	virtual bool init();
 
 	CREATE_FUNC(Coin);
-	cocos2d::Sprite* s_Coin;//コイン
 	
-private:
+	cocos2d::Sprite* s_Coin;//コイン
+	int m_CoinCnt;//コインをカウント
 
+private:
 
 };
 

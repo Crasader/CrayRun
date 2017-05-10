@@ -19,4 +19,6 @@ bool Mold::init(){
 
 		return false;
 	}
+
+	return true;
 }

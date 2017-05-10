@@ -29,18 +29,20 @@ private:
 	////毎フレーム呼び出される関数
 	void update(float delta)override;
 	//プレイヤーとコインの当たり判定後
-	void AfterHittingCoin();
+	void CollisionResponseCoin();
 	//プレイヤと金型のあたり判定
-	void AfterHittingMold();
+	void HittingMold();
 	//金型と床のあたり判定
-	void AfterHittingFloorToMold();
+	void HittingFloorToMold();
 
 	RabbitMold* Rmold;
-
+	//Slope* slope;
+	Stage* stage;
 	//コイン
-	Coin* coin;
-
-	int loop;
+	std::vector<Coin*> coin;
+	//コインイテレータ
+	cocos2d::Vector<Coin*>::iterator IteratorCoin;
+	
 };
 
 

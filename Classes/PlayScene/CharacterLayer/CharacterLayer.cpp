@@ -90,9 +90,9 @@ void CharacterLayer::update(float date)
 	//重力
 	character->Gravity();
 	//プレイヤーと床の衝突判定
-	AfterHittingFloor();
+	CollisionResponseFloor();
 	//プレイヤーと斜面のあたり判定
-	AfterHittingSlope();
+	CollisionResponseSlope();
 	//ジャンプするか調べる
 	JumpInvestigate();
 
@@ -249,17 +249,16 @@ void CharacterLayer::onTouchesCancelled(const std::vector<cocos2d::Touch*>& touc
 *|	引数　　無し
 *|　戻り値　無し
 ****************************************************************************/
-void CharacterLayer::AfterHittingFloor()
+void CharacterLayer::CollisionResponseFloor()
 {
 
 	std::vector<Vec2>::iterator Iterator;
-	//std::vector<std::vector<vec>>::iterator Iterator;
 
 	//マップの数だけループ
 	for (int i = 0; i <= GameManager::StageLoopCnt; i++)
 	{
 		//床の数だけループ
-		for (Iterator = GameManager::FloorPos[i].begin(); Iterator != GameManager::FloorPos[i].end(); ++Iterator)
+		for (Iterator = GameManager::AllFloorPos[i].begin(); Iterator != GameManager::AllFloorPos[i].end(); ++Iterator)
 		{
 			Vec2 vec = *Iterator;
 			switch (GameManager::CollisionDetermination
@@ -271,7 +270,7 @@ void CharacterLayer::AfterHittingFloor()
 				GameManager::PlayerSpd.x = 0.0f;
 				break;
 			case left:
-				/*GameManager::PlayerPos.x = GameManager::FloorPosx[i] - GameManager::PlayerSize.x / 2;*/
+				/*GameManager::PlayerPos.x = GameManager::AllFloorPosx[i] - GameManager::PlayerSize.x / 2;*/
 				GameManager::RightFlag = true;
 				GameManager::PlayerSpd.x = -6.0f;
 				break;
@@ -282,7 +281,7 @@ void CharacterLayer::AfterHittingFloor()
 				character->JumpFlag = true;
 				break;
 				/*case under:
-				GameManager::PlayerPos.y = GameManager::FloorPosy[i] - GameManager::LAYRE_SIZE.y - GameManager::PlayerSize.y - 1;
+				GameManager::PlayerPos.y = GameManager::AllFloorPosy[i] - GameManager::LAYRE_SIZE.y - GameManager::PlayerSize.y - 1;
 				GameManager::PlayerSpd.y = 0.0f;
 				break;*/
 			default:
@@ -300,29 +299,35 @@ void CharacterLayer::AfterHittingFloor()
 *|	引数　　無し
 *|　戻り値　無し
 ****************************************************************************/
-void CharacterLayer::AfterHittingSlope()
+void CharacterLayer::CollisionResponseSlope()
 {
-	//最初の斜面右端を格納する
-	IteratorLeft = GameManager::LeftPos.begin();
-	//vectorの数だけループ
-	for (IteratorRight = GameManager::RightPos.begin(); IteratorRight != GameManager::RightPos.end();  ++IteratorRight)
+	for (int i = 0; i <= GameManager::StageLoopCnt; i++)
 	{
-		//衝突判定（斜面）
-		Direction HitFlag = GameManager::DiagonalCollisionDetermination(*IteratorLeft, *IteratorRight, GameManager::PlayerPos/*character->s_player->getPosition()*/);
-		//上に乗った時
-		if (HitFlag == up)
+		if (i > 0)
 		{
-			GameManager::PlayerSpd.y = 0.0f;
-			//埋まった分を押し出す
-			GameManager::PlayerPos.y = GameManager::SlopePosY;
-			//ジャンプ可能にする
-			character->JumpFlag = true;
-
+			int a = 0;
 		}
-		IteratorLeft++;
-	}
-	
+		//最初の斜面右端を格納する
+		IteratorLeft = GameManager::AllLeftPos[i].begin();
+		//vectorの数だけループ
+		for (IteratorRight = GameManager::AllRightPos[i].begin(); IteratorRight != GameManager::AllRightPos[i].end(); ++IteratorRight)
+		{
+			//衝突判定（斜面）
+			Direction HitFlag = GameManager::DiagonalCollisionDetermination(*IteratorLeft, *IteratorRight, GameManager::PlayerPos/*character->s_player->getPosition()*/);
+			//上に乗った時
+			if (HitFlag == up)
+			{
+				GameManager::PlayerSpd.y = 0.0f;
+				//埋まった分を押し出す
+				GameManager::PlayerPos.y = GameManager::SlopePosY;
+				//ジャンプ可能にする
+				character->JumpFlag = true;
 
+			}
+			IteratorLeft++;
+		}
+
+	}
 
 
 }

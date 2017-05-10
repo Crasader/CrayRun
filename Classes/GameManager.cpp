@@ -1,12 +1,12 @@
 #include "GameManager.h"
 
 USING_NS_CC;
-
 //プレイシーン
 
 const  int GameManager::BOX_COLLIDER = 15;			//あたり判定時に使用するタイルレイヤーの淵から少しだけ内側に入っているか確かめるための数
 const  int GameManager::BOX_COLLIDER2 = 50;			//あたり判定時に使用するタイルレイヤーの淵から少しだけ内側に入っているか確かめるための数
 
+float GameManager::WorldPosX = 0.0f;
 
 //////////////キャラクターレイヤー//////
 //////////////キャラクター//////////////
@@ -26,20 +26,20 @@ const Vec2 GameManager::MAP_SIZE = Vec2(960 * 2, 640);//マップ大きさ
 const Vec2 GameManager::LAYRE_SIZE = Vec2(64,64);//レイヤーの大きさ
 int  GameManager::StageLoopCnt = 0;//ステージをループさせた回数
 
-std::vector<std::vector<Vec2>> GameManager::FloorPos;//床座標
-std::vector < Vec2>  GameManager::FloorPos2;//床座標
+std::vector<std::vector<Vec2>> GameManager::AllFloorPos;//床座標
 
-//斜面
+//////////////斜面////////////////////
 int  GameManager::SlopeCnt = 0;//斜面カウント
-std::vector<Vec2> GameManager::LeftPos;//左端
-std::vector<Vec2> GameManager::RightPos;//右端
+std::vector<std::vector<Vec2>> GameManager::AllLeftPos;
+std::vector<std::vector<Vec2>> GameManager::AllRightPos;
+
 
 ///////////////床/////////////////////
 float GameManager::SlopePosY = 0.0f;//斜面座標Y
 //////////////コイン//////////////
-
-int GameManager::CoinCnt = 0;//コインをカウント
 std::vector<int>  GameManager::CoinPoint;//コインのポイント
+std::vector<std::vector<Vec2>> AllLeftPos;//全ての斜面左端の座標
+std::vector<std::vector<Vec2>> AllRightPos;//全ての斜面右端の座標
 
 /////////////金型////////////////
 
@@ -55,13 +55,16 @@ Vec2 GameManager::MoldSpd = Vec2(0, -4);
 /////////////////スコア////////////////
 int GameManager::Score = 0;//スコア
 /////////////////場所////////////////////////
-float GameManager::m_cameraposx = 480.0f;
-const float GameManager::m_cameraspdx = GameManager::PlayerSpd.x;
-
 int GameManager::SaveDistance = 0;//距離を保存する
 
 
 /////////////////カメラ//////////////////////.
+
+float GameManager::m_cameraposx = 480.0f;
+const float GameManager::m_cameraspdx = GameManager::PlayerSpd.x;
+
+
+
 
 GameManager::GameManager()
 {
