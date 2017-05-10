@@ -20,7 +20,7 @@ bool Stage::init()
 
 	}
 		//レイヤー取得
-		TMXLayer* layer = GameManager::map->getLayer("FloorLayer");
+		TMXLayer* layer = GameManager::map[GameManager::MapLoopCnt]->getLayer("FloorLayer");
 		
 		bool flag = true;
 
@@ -33,7 +33,7 @@ bool Stage::init()
 					unsigned int gid = layer->getTileGIDAt(Vec2(j, i));
 
 					// 指定したタイル番号のプロパティのセットを取得
-					cocos2d::Value value = GameManager::map->getPropertiesForGID(gid);
+					cocos2d::Value value = GameManager::map[GameManager::MapLoopCnt]->getPropertiesForGID(gid);
 
 					if (value.isNull() == false)
 					{
@@ -46,7 +46,7 @@ bool Stage::init()
 							if (str == "floor")
 							{
 								//座標を設定する
-								m_FloorPos.push_back(Vec2(j * GameManager::LAYRE_SIZE.x + GameManager::StageLoopCnt * 1920,
+								m_FloorPos.push_back(Vec2(j * GameManager::LAYRE_SIZE.x + GameManager::MapLoopCnt * 1920,
 									(GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y - i) * GameManager::LAYRE_SIZE.y));
 							}
 						}

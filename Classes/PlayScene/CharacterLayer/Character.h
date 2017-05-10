@@ -44,8 +44,19 @@ public:
 	const int PLAYER_MAX_SIZE = 64;
 
 	bool JumpFlag;//地面についているか
-	int JumpCnt;//ジャンプフラグ
+
+	//何番目のマップにいるか求める
+	void GetLoopPos()
+	{
+		GameManager::PlayerMapPos = GameManager::PlayerPos.x / GameManager::MAP_SIZE.x;
+	/*if (static_cast<int>(GameManager::PlayerPos.x) % static_cast<int>(GameManager::MAP_SIZE.x) != 0)
+		{
+			GameManager::PlayerMapPos++;
+		}*/
+	
+	}
 protected:
+	int JumpCnt;//ジャンプフラグ
 
 };
 

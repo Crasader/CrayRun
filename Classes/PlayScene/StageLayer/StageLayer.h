@@ -34,15 +34,30 @@ private:
 	void HittingMold();
 	//金型と床のあたり判定
 	void HittingFloorToMold();
+	//ステージ生成
+	void MapCreate();
+	//ステージ削除
+	void MapDelete();
+
+
 
 	RabbitMold* Rmold;
+<<<<<<< HEAD
 	Slope* slope;
+=======
+	
+>>>>>>> eb5b5cb02019439b4b6297fa3b3ec5d79ce0de9c
 	Stage* stage;
 	//コイン
 	std::vector<Coin*> coin;
+	//斜面
+	std::vector<Slope*>slope;
+	//マップイテレーター
+	cocos2d::Vector<cocos2d::TMXTiledMap*>::iterator IteratorMap;
 	//コインイテレータ
 	cocos2d::Vector<Coin*>::iterator IteratorCoin;
-	
+	//斜面イテレーター
+	cocos2d::Vector<Slope*>::iterator IteratorSlope;
 };
 
 

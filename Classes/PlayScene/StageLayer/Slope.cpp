@@ -18,7 +18,7 @@ bool Slope::init()
 	}
 
 	//レイヤー取得
-	TMXLayer* layer = GameManager::map->getLayer("SlopeLayer");
+	TMXLayer* layer = GameManager::map[GameManager::MapLoopCnt]->getLayer("SlopeLayer");
 	bool flag = true;
 	GameManager::SlopeCnt = 0;
 
@@ -30,7 +30,7 @@ bool Slope::init()
 				unsigned int gid = layer->getTileGIDAt(Vec2(j, i));
 
 				// 指定したタイル番号のプロパティのセットを取得
-				cocos2d::Value value = GameManager::map->getPropertiesForGID(gid);
+				cocos2d::Value value = GameManager::map[GameManager::MapLoopCnt]->getPropertiesForGID(gid);
 
 				if (value.isNull() == false)
 				{
@@ -50,9 +50,9 @@ bool Slope::init()
 								//スロープのサイズを取得する
 								SlopeSize = s_slope->getContentSize();
 								//座標を設定する
-								m_LeftPos.push_back(Vec2(j * GameManager::LAYRE_SIZE.x - SlopeSize.x / 2 + GameManager::LAYRE_SIZE.x / 2 + GameManager::StageLoopCnt * 1920,
+								m_LeftPos.push_back(Vec2(j * GameManager::LAYRE_SIZE.x - SlopeSize.x / 2 + GameManager::LAYRE_SIZE.x / 2 + GameManager::MapLoopCnt * 1920,
 									(GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y - i) * GameManager::LAYRE_SIZE.y - SlopeSize.y / 2 - GameManager::LAYRE_SIZE.y/2));
-								m_RightPos.push_back(Vec2(j * GameManager::LAYRE_SIZE.x + SlopeSize.x/2+ GameManager::LAYRE_SIZE.x / 2 + GameManager::StageLoopCnt * 1920,
+								m_RightPos.push_back(Vec2(j * GameManager::LAYRE_SIZE.x + SlopeSize.x/2+ GameManager::LAYRE_SIZE.x / 2 + GameManager::MapLoopCnt * 1920,
 									(GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y - i) * GameManager::LAYRE_SIZE.y + SlopeSize.y / 2 - GameManager::LAYRE_SIZE.y/2));
 								//vectorの最初の情報を格納する
 								IteratorLeft = m_LeftPos.begin();

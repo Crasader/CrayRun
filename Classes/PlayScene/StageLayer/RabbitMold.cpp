@@ -24,7 +24,7 @@ bool RabbitMold::init() {
 	bool flag = true;
 
 	//レイヤー取得
-	TMXLayer* layer2 = GameManager::map->getLayer("MoldLayer");
+	TMXLayer* layer2 = GameManager::map[GameManager::MapLoopCnt]->getLayer("MoldLayer");
 
 	//一回目:レイヤーの数を調べる,2回目:座標を設定する
 	for (int i = 0; i < GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y; i++)
@@ -35,7 +35,7 @@ bool RabbitMold::init() {
 			unsigned int gid = layer2->getTileGIDAt(Vec2(j, i));
 
 			// 指定したタイル番号のプロパティのセットを取得
-			cocos2d::Value value = GameManager::map->getPropertiesForGID(gid);
+			cocos2d::Value value = GameManager::map[GameManager::MapLoopCnt]->getPropertiesForGID(gid);
 
 			if (value.isNull() == false)
 			{
