@@ -31,6 +31,8 @@ public:
 	GameManager();
 
 	~GameManager();
+	static float GameManager::WorldPosX;//画面座標
+
 	//////////////キャラクターレイヤー//////
 	/////////////キャラクター/////////////
 	static cocos2d::Vec2 PlayerSpd;//速度
@@ -48,22 +50,16 @@ public:
 	static const cocos2d::Vec2 LAYRE_SIZE;//レイヤーの大きさ
 	static int StageLoopCnt;//ステージをループさせた回数
 	//////////////床///////////////////////
-	static std::vector < std::vector< cocos2d::Vec2 >> FloorPos;//床座標
-	static std::vector < cocos2d::Vec2> FloorPos2;//床座標
+	static std::vector < std::vector< cocos2d::Vec2 >> AllFloorPos;//床座標
 
 
-	////斜面座標
+	/////////////斜面//////////////
 	static int SlopeCnt;//斜面カウント
-
-	static std::vector<cocos2d::Vec2> LeftPos;//左端
-	static std::vector<cocos2d::Vec2> RightPos;//右端
-
+	static std::vector<std::vector<cocos2d::Vec2>> AllLeftPos;
+	static std::vector<std::vector<cocos2d::Vec2>> AllRightPos;
 
 	static float SlopePosY;//斜面座標Y
 	//////////////コイン//////////////
-	std::vector<cocos2d::Sprite*> s_score;//コイン
-	static int CoinCnt;//コインをカウント
-
 	/////////////金型/////////////////
 	static int Mold;//どの金型で型を取っているか
 					//0：普通

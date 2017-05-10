@@ -19,6 +19,7 @@ public:
 
 private:
 
+	std::vector < cocos2d::Vec2> m_FloorPos;//è∞ç¿ïW
 
 
 };

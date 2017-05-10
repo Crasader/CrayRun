@@ -30,8 +30,12 @@ private:
 
 
 	//イテレータの値を格納する
-	cocos2d::Vec2 SaveRight;
-	cocos2d::Vec2 SaveLeft;
+	cocos2d::Vec2 m_SaveRight;
+	cocos2d::Vec2 m_SaveLeft;
+
+
+	std::vector<cocos2d::Vec2> m_LeftPos;//左端
+	std::vector<cocos2d::Vec2> m_RightPos;//右端
 
 
 };

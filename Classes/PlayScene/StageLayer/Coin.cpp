@@ -22,7 +22,7 @@ bool Coin::init()
 	TMXLayer* layer2 = GameManager::map->getLayer("CoinLayer");
 
 	bool flag = true;
-
+	m_CoinCnt = 0;
 	//一回目:レイヤーの数を調べる,2回目:座標を設定する
 		for (int i = 0; i < GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y; i++)
 		{
@@ -63,16 +63,12 @@ bool Coin::init()
 							}
 							//座標を設定する
 							s_Coin->
-								setPosition(j * GameManager::LAYRE_SIZE.x,
+								setPosition(j * GameManager::LAYRE_SIZE.x + GameManager::StageLoopCnt * 1920,
 								(GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y - i) * GameManager::LAYRE_SIZE.y);
 							//コインにタグをつける
-							s_Coin->setTag(GameManager::CoinCnt);
+							s_Coin->setTag(m_CoinCnt);
 							this->addChild(s_Coin);
-
-
-							//床カウントをインクリメント
-							GameManager::CoinCnt++;
-
+							m_CoinCnt++;
 							//次のループでメモリ確保をさせない
 							flag = false;
 						}

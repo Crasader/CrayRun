@@ -39,18 +39,19 @@ bool StageLayer::init()
 
 
 	//レイヤーにノードを集約
-	Stage* stage = Stage::create();
+	stage = Stage::create();
 	this->addChild(stage);
 
 	//レイヤーにノードを集約
-	coin = Coin::create();
-	this->addChild(coin);
+	coin.push_back(Coin::create());
+	IteratorCoin = coin.begin();
+	this->addChild(*IteratorCoin);
 
 	//レイヤーにノードを集約
-	Slope* slope = Slope::create();
+	slope = Slope::create();
 	this->addChild(slope);
 
-	//レイヤーにノードを集約
+	////レイヤーにノードを集約
 	Rmold = RabbitMold::create();
 	this->addChild(Rmold);
 
@@ -79,19 +80,18 @@ void StageLayer::update(float data)
 		Vec2 vec = *Iterator;
 		vec += GameManager::MoldSpd;
 		q->setPosition(vec);
-
 		i++;
 	}
 
-
-	AfterHittingCoin();
-	AfterHittingMold();
-	AfterHittingFloorToMold();
+	//コインあたり判定
+	CollisionResponseCoin();
+	HittingMold();
+	HittingFloorToMold();
 
 	if (static_cast<int>(GameManager::m_cameraposx + 480 ) % static_cast<int>(GameManager::MAP_SIZE.x) == 0)
 	{
 		GameManager::StageLoopCnt++;
-		//GameManager::FloorPos.push_back(GameManager::StageLoopCnt);
+		//GameManager::AllFloorPos.push_back(GameManager::StageLoopCnt);
 		//タイルマップの読み込み
 		//マップチップ
 		GameManager::map = TMXTiledMap::create("floor.tmx");
@@ -101,46 +101,69 @@ void StageLayer::update(float data)
 		GameManager::map->setPosition(Point(GameManager::m_cameraposx + 480, 0));
 		//画像の描画
 		this->addChild(GameManager::map);
-		////レイヤーにノードを集約
-		Stage* stage = Stage::create();
-		this->addChild(stage);
+
+		//ステージ座標を取得
+		stage->init();
+
+		//vectorにコインオブジェクトのアドレスを格納する
+		coin.push_back(Coin::create());
+		//イテレータにコインの最初の要素を格納する
+		IteratorCoin = coin.begin();
+		//ループさせたステージの数を見る
+		IteratorCoin += GameManager::StageLoopCnt;
+		this->addChild(*IteratorCoin);
+
+		//斜面座標を取得
+		slope->init();
+
 	}
 
 
 }
 
 /***************************************************************************
-*|	概要　　コインあたり判定後
+*|	概要　　コインあたり判定
 *|	引数　　無し
 *|　戻り値　無し
 ****************************************************************************/
-void StageLayer::AfterHittingCoin()
+void StageLayer::CollisionResponseCoin()
 {
-	for (int i = 0; i < GameManager::CoinCnt; i++)
+	//コインレイヤーの数だけループ
+	for (IteratorCoin = coin.begin(); IteratorCoin < coin.end(); ++IteratorCoin)
 	{
-		Node* q = coin->getChildByTag(i);
-		if (q != nullptr)
+		int g_LoopCnt = 0;
+		//コインのデータを一時的に保存する
+		Coin* m_SaveCoin = *IteratorCoin;
+		for (int i = 0; i < m_SaveCoin->m_CoinCnt; i++)
 		{
-			//プレイヤーのコイン
-			if (GameManager::HitJudgment
-			(q->getPosition(), q->getContentSize(),
-				GameManager::PlayerPos, GameManager::PlayerSize) == true)
+			//ループした数番目のコインを取得
+			Node* n_coin = m_SaveCoin->getChildByTag(g_LoopCnt);
+			if (n_coin != nullptr)
 			{
-				//当たったコインを削除
-				coin->getChildByTag(i)->removeFromParent();
-				//スコアにとったコインのポイントをたす
-				GameManager::Score += GameManager::CoinPoint[i] * GameManager::ScoreCorrection;
+				//プレイヤーとコインの当たり判定
+				if (GameManager::HitJudgment
+				(n_coin->getPosition(), n_coin->getContentSize(),
+					GameManager::PlayerPos, GameManager::PlayerSize) == true)
+				{
+					//当たったコインを削除
+					m_SaveCoin->getChildByTag(g_LoopCnt)->removeFromParent();
+					//スコアにとったコインのポイントをたす
+					GameManager::Score += GameManager::CoinPoint[g_LoopCnt] * GameManager::ScoreCorrection;
+				}
 			}
+			//ループカウントをインクリメント
+			g_LoopCnt++;
 		}
 	}
-};
+}
+
 
 //__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/
-//	概　要：金型あたり判定後
+//	概　要：金型あたり判定
 //	引　数：無し
 //　戻り値：無し
 //__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/
-void StageLayer::AfterHittingMold()
+void StageLayer::HittingMold()
 {
 	for (int i = 0; i < GameManager::MoldCnt; i++)
 	{
@@ -167,7 +190,7 @@ void StageLayer::AfterHittingMold()
 *|	引数　　無し
 *|　戻り値　無し
 ****************************************************************************/
-void StageLayer::AfterHittingFloorToMold()
+void StageLayer::HittingFloorToMold()
 {
 
 	std::vector<Vec2>::iterator Iterator;
@@ -176,7 +199,7 @@ void StageLayer::AfterHittingFloorToMold()
 	for (int j = 0; j <= GameManager::StageLoopCnt; j++)
 	{
 		//床の数だけループ
-		for (Iterator = GameManager::FloorPos[j].begin(); Iterator != GameManager::FloorPos[j].end(); ++Iterator)
+		for (Iterator = GameManager::AllFloorPos[j].begin(); Iterator != GameManager::AllFloorPos[j].end(); ++Iterator)
 		{
 			for (int i = 0; i < GameManager::MoldCnt; i++)
 			{

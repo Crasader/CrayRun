@@ -17,11 +17,10 @@ bool Slope::init()
 		return false;
 	}
 
-
-
 	//レイヤー取得
 	TMXLayer* layer = GameManager::map->getLayer("SlopeLayer");
 	bool flag = true;
+	GameManager::SlopeCnt = 0;
 
 		for (int i = 0; i < GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y; i++)
 		{
@@ -42,8 +41,7 @@ bool Slope::init()
 						// "type"プロパティを文字列として取得
 						std::string str = properties["Coin"].asString();
 						if (str == "coin")
-						{/*
-							 ClimbingFlag = rand() %2;*/
+						{
 							ClimbingFlag = true;
 							if (ClimbingFlag == true)
 							{
@@ -52,50 +50,51 @@ bool Slope::init()
 								//スロープのサイズを取得する
 								SlopeSize = s_slope->getContentSize();
 								//座標を設定する
-								GameManager::LeftPos.push_back(Vec2(j * GameManager::LAYRE_SIZE.x - SlopeSize.x / 2 + GameManager::LAYRE_SIZE.x / 2, 
+								m_LeftPos.push_back(Vec2(j * GameManager::LAYRE_SIZE.x - SlopeSize.x / 2 + GameManager::LAYRE_SIZE.x / 2 + GameManager::StageLoopCnt * 1920,
 									(GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y - i) * GameManager::LAYRE_SIZE.y - SlopeSize.y / 2 - GameManager::LAYRE_SIZE.y/2));
-								GameManager::RightPos.push_back(Vec2(j * GameManager::LAYRE_SIZE.x + SlopeSize.x/2+ GameManager::LAYRE_SIZE.x / 2,
+								m_RightPos.push_back(Vec2(j * GameManager::LAYRE_SIZE.x + SlopeSize.x/2+ GameManager::LAYRE_SIZE.x / 2 + GameManager::StageLoopCnt * 1920,
 									(GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y - i) * GameManager::LAYRE_SIZE.y + SlopeSize.y / 2 - GameManager::LAYRE_SIZE.y/2));
 								//vectorの最初の情報を格納する
-								IteratorLeft = GameManager::LeftPos.begin();
-								IteratorRight = GameManager::RightPos.begin();
+								IteratorLeft = m_LeftPos.begin();
+								IteratorRight = m_RightPos.begin();
 								//イテレータにどこを見るか教える
 								IteratorRight += GameManager::SlopeCnt;
 								IteratorLeft += GameManager::SlopeCnt;
 								//イテレータを格納する
-								SaveLeft = *IteratorLeft;
-								SaveRight = *IteratorRight;
+								m_SaveLeft = *IteratorLeft;
+								m_SaveRight = *IteratorRight;
 								//斜面のスプライトの座標を設定する
-								s_slope->setPosition(Vec2(SaveLeft.x + SlopeSize.x / 2, SaveLeft.y + SlopeSize.y/2));
+								s_slope->setPosition(Vec2(m_SaveLeft.x + SlopeSize.x / 2, 
+									m_SaveLeft.y + SlopeSize.y/2));
 							}
-							else
-							{
-								//画像を設定する
-								s_slope = Sprite::create("Images/Slope.png");
-								//スロープのサイズを取得する
-								SlopeSize = s_slope->getContentSize();
-								//座標を設定する
-								GameManager::LeftPos.push_back(Vec2(j * GameManager::LAYRE_SIZE.x - SlopeSize.x / 2 + GameManager::LAYRE_SIZE.x / 2,
-									(GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y - i) * GameManager::LAYRE_SIZE.y + SlopeSize.y / 2 - GameManager::LAYRE_SIZE.y / 2));
-								GameManager::RightPos.push_back(Vec2(j * GameManager::LAYRE_SIZE.x + SlopeSize.x + SlopeSize.x / 2  +GameManager::LAYRE_SIZE.x / 2, 
-									(GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y - i) * GameManager::LAYRE_SIZE.y - SlopeSize.y / 2 - GameManager::LAYRE_SIZE.y / 2));
-								//vectorの最初の情報を格納する
-								IteratorLeft = GameManager::LeftPos.begin();
-								IteratorRight = GameManager::RightPos.begin();
-								//イテレータにどこを見るか教える
-								IteratorRight+= GameManager::SlopeCnt;
-								IteratorLeft+= GameManager::SlopeCnt;
-								//イテレータを格納する
-								SaveLeft = *IteratorLeft;
-								SaveRight = *IteratorRight;
-								//斜面のスプライトの座標を設定する
-								s_slope->setPosition(Vec2(SaveLeft.x + SlopeSize.x / 2,SaveLeft.y - SlopeSize.y / 2));
-							}
+							//else
+							//{
+							//	//画像を設定する
+							//	s_slope = Sprite::create("Images/Slope.png");
+							//	//スロープのサイズを取得する
+							//	SlopeSize = s_slope->getContentSize();
+							//	//座標を設定する
+							//	m_LeftPos.push_back(Vec2(j * GameManager::LAYRE_SIZE.x - SlopeSize.x / 2 + GameManager::LAYRE_SIZE.x / 2,
+							//		(GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y - i) * GameManager::LAYRE_SIZE.y + SlopeSize.y / 2 - GameManager::LAYRE_SIZE.y / 2));
+							//	m_RightPos.push_back(Vec2(j * GameManager::LAYRE_SIZE.x + SlopeSize.x + SlopeSize.x / 2  +GameManager::LAYRE_SIZE.x / 2, 
+							//		(GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y - i) * GameManager::LAYRE_SIZE.y - SlopeSize.y / 2 - GameManager::LAYRE_SIZE.y / 2));
+							//	//vectorの最初の情報を格納する
+							//	IteratorLeft = m_LeftPos.begin();
+							//	IteratorRight = m_RightPos.begin();
+							//	//イテレータにどこを見るか教える
+							//	IteratorRight+= GameManager::SlopeCnt;
+							//	IteratorLeft+= GameManager::SlopeCnt;
+							//	//イテレータを格納する
+							//	m_SaveLeft = *IteratorLeft;
+							//	m_SaveLeft = *IteratorRight;
+							//	//斜面のスプライトの座標を設定する
+							//	s_slope->setPosition(Vec2(m_SaveLeft.x + SlopeSize.x / 2,m_SaveLeft.y - SlopeSize.y / 2));
+							//}
+
 
 							//斜面カウントをインクリメント
 							GameManager::SlopeCnt++;
 							this->addChild(s_slope);
-
 							//次のループでメモリ確保をさせない
 							flag = false;
 						}
@@ -104,7 +103,9 @@ bool Slope::init()
 		}
 	}
 
-
+		//今回のマップ上にある全ての斜面座標を格納する
+		GameManager::AllLeftPos.push_back(m_LeftPos);
+		GameManager::AllRightPos.push_back(m_RightPos);
 
 	return true;
 }

@@ -19,9 +19,6 @@ bool Stage::init()
 		return false;
 
 	}
-
-
-
 		//レイヤー取得
 		TMXLayer* layer = GameManager::map->getLayer("FloorLayer");
 		
@@ -49,7 +46,7 @@ bool Stage::init()
 							if (str == "floor")
 							{
 								//座標を設定する
-								GameManager::FloorPos2.push_back(Vec2(j * GameManager::LAYRE_SIZE.x + GameManager::StageLoopCnt * 1920,
+								m_FloorPos.push_back(Vec2(j * GameManager::LAYRE_SIZE.x + GameManager::StageLoopCnt * 1920,
 									(GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y - i) * GameManager::LAYRE_SIZE.y));
 							}
 						}
@@ -57,7 +54,7 @@ bool Stage::init()
 				}
 		}
 			//今回のループの座標を格納する
-			GameManager::FloorPos.push_back(GameManager::FloorPos2);
+			GameManager::AllFloorPos.push_back(m_FloorPos);
 	return true;
 }
 

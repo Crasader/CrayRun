@@ -45,9 +45,9 @@ private:
 	void ChangeMold();
 
 	//プレイヤーとステージのあたり判定
-	void AfterHittingFloor();
+	void CollisionResponseFloor();
 	//プレイヤーと斜面のあたり判定
-	void AfterHittingSlope();
+	void  CollisionResponseSlope();
 	//プレイヤーとギミックのあたり判定
 	//void AfterHittingGimmick();
 	//プレイヤーと金型のあたり判定
