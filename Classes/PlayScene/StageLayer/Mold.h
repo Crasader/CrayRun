@@ -25,23 +25,6 @@ public:
 
 
 	//重力
-	void Gravity()
-	{
-		if (GameManager::RightFlag == false)
-		{
-			GameManager::MoldSpd.x = 6.0f;
-		}
-		//重力加速度に上限を設ける
-		if (GameManager::MoldSpd.y >= -4.5f)
-		{
-			GameManager::MoldSpd.y -= 0.4f;
-		}
-		//ジャンプがないときは関係なく加速度をつける
-		else
-		{
-			GameManager::MoldSpd.y -= 0.4f;
-		}
-	}
 
 
 private:

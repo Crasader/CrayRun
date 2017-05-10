@@ -7,7 +7,8 @@
 ****************************************************************************/
 
 /* ---- ライブラリのインクルード ---------- */
-#include "PlayScene.h"
+#include "Classes/PlayScene/PlayScene.h"
+#include "Classes/ResultScene/ResultScene.h"
 /* ---- 名前空間を解放 -------------------- */
 USING_NS_CC;
 using namespace cocos2d::experimental;
@@ -73,6 +74,12 @@ void PlayScene::update(float data)
 
 	//UI専用のカメラにする
 	uilayer->setCameraMask((unsigned short)CameraFlag::USER1);
+
+	if (GameManager::PlayerPos.y < 0) {
+		Scene* nextScene = ResultScene::create();
+
+		_director->replaceScene(nextScene);
+	}
 
 }
 

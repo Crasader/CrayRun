@@ -38,11 +38,12 @@ bool Character::init()
 		int  JumpCnt = 0;//ジャンプフラグ
 
 
-	}else{
+	}
+	else {
 		Texture2D* texture = TextureCache::sharedTextureCache()->addImage("Images/1.png");
 
-	bool JumpFlag = false;//地面についているか
-	int  JumpCnt = 0;//ジャンプフラグ
+		bool JumpFlag = false;//地面についているか
+		int  JumpCnt = 0;//ジャンプフラグ
 
 	}
 		

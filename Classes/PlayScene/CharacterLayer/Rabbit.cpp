@@ -40,7 +40,7 @@ void Rabbit::Jump()
 
 	if (JumpFlag == true)
 	{
-		GameManager::PlayerSpd.y = 18.0f;
+		GameManager::PlayerSpd.y = 14.0f;
 	}
 
 	if (JumpCnt == 2)

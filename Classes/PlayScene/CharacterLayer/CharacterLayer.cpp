@@ -64,25 +64,7 @@ void CharacterLayer::update(float date)
 {
 	//金型が変更されている場合
 	if (GameManager::ChangeMold == true) {
-		switch (GameManager::Mold)
-		{
-		case 0:
-			character->removeFromParent();
-			character = Character::create();
-			//変更したので戻す
-			GameManager::ChangeMold = false;
-
-			break;
-
-		case 1:
-			character->removeFromParent();
-			character = Rabbit::create();
-			//変更したので戻す
-			GameManager::ChangeMold = false;
-			break;
-		}
-		//変更したのでaddChildする
-		this->addChild(character);
+		ChangeMold();
 	}
 
 	//移動する
@@ -242,6 +224,30 @@ void CharacterLayer::onTouchesCancelled(const std::vector<cocos2d::Touch*>& touc
 	log("onTouchesCancelled");
 }
 
+void CharacterLayer::ChangeMold()
+{
+		switch (GameManager::Mold)
+		{
+		case 0:
+			character->removeFromParent();
+			character = Character::create();
+			//変更したので戻す
+			GameManager::ChangeMold = false;
+
+			break;
+
+		case 1:
+			character->removeFromParent();
+			character = Rabbit::create();
+			//変更したので戻す
+			GameManager::ChangeMold = false;
+			break;
+		}
+		//変更したのでaddChildする
+		this->addChild(character);
+
+}
+
 
 
 /***************************************************************************
@@ -279,6 +285,7 @@ void CharacterLayer::AfterHittingFloor()
 				GameManager::PlayerPos.y = vec.y;
 				GameManager::PlayerSpd.y = 0.0f;
 				//ジャンプ可能にする
+				character->JumpCnt = 0;
 				character->JumpFlag = true;
 				break;
 				/*case under:
@@ -316,6 +323,7 @@ void CharacterLayer::AfterHittingSlope()
 			//埋まった分を押し出す
 			GameManager::PlayerPos.y = GameManager::SlopePosY;
 			//ジャンプ可能にする
+			character->JumpCnt = 0;
 			character->JumpFlag = true;
 
 		}
