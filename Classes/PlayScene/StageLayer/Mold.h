@@ -21,7 +21,7 @@ public:
 
 	CREATE_FUNC(Mold);
 	cocos2d::Sprite* s_Mold;//ÉRÉCÉì
-
+	int m_MoldCnt = 0;
 
 
 	//èdóÕ

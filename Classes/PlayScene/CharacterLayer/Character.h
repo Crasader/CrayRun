@@ -55,7 +55,6 @@ public:
 		}*/
 	
 	}
-protected:
 	int JumpCnt;//ジャンプフラグ
 
 };

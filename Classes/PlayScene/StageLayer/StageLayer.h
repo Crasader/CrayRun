@@ -42,11 +42,6 @@ private:
 
 
 	RabbitMold* Rmold;
-<<<<<<< HEAD
-	Slope* slope;
-=======
-	
->>>>>>> eb5b5cb02019439b4b6297fa3b3ec5d79ce0de9c
 	Stage* stage;
 	//ƒRƒCƒ“
 	std::vector<Coin*> coin;

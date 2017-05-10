@@ -270,7 +270,6 @@ void CharacterLayer::CollisionResponseFloor()
 		//床の数だけループ
 		for (Iterator = GameManager::AllFloorPos[GameManager::PlayerMapPos].begin(); Iterator != GameManager::AllFloorPos[GameManager::PlayerMapPos].end(); ++Iterator)
 		{
-<<<<<<< HEAD
 			Vec2 vec = *Iterator;
 			switch (GameManager::CollisionDetermination
 			(vec, GameManager::LAYRE_SIZE,
@@ -298,36 +297,6 @@ void CharacterLayer::CollisionResponseFloor()
 				break;*/
 			default:
 				break;
-=======
->>>>>>> eb5b5cb02019439b4b6297fa3b3ec5d79ce0de9c
-
-			Vec2 vec = *Iterator;
-			
-				switch (GameManager::CollisionDetermination
-				(vec, GameManager::LAYRE_SIZE,
-					GameManager::PlayerPos, GameManager::PlayerSize))
-				{
-				case right:
-					GameManager::PlayerPos.x = vec.x + GameManager::LAYRE_SIZE.x + GameManager::PlayerSize.x / 2 + 1;
-					GameManager::PlayerSpd.x = 0.0f;
-					break;
-				case left:
-					/*GameManager::PlayerPos.x = GameManager::AllFloorPosx[i] - GameManager::PlayerSize.x / 2;*/
-					GameManager::RightFlag = true;
-					GameManager::PlayerSpd.x = -6.0f;
-					break;
-				case up:
-					GameManager::PlayerPos.y = vec.y;
-					GameManager::PlayerSpd.y = 0.0f;
-					//ジャンプ可能にする
-					character->JumpFlag = true;
-					break;
-					/*case under:
-					GameManager::PlayerPos.y = GameManager::AllFloorPosy[i] - GameManager::LAYRE_SIZE.y - GameManager::PlayerSize.y - 1;
-					GameManager::PlayerSpd.y = 0.0f;
-					break;*/
-				default:
-					break;
 
 				}
 		}

@@ -44,18 +44,12 @@ bool StageLayer::init()
 	coin.push_back(Coin::create());
 	IteratorCoin = coin.begin();
 	this->addChild(*IteratorCoin);
-	//レイヤーにノードを集約
-<<<<<<< HEAD
-	slope = Slope::create();
-	this->addChild(slope);
 
 	////レイヤーにノードを集約
-=======
 	slope.push_back(Slope::create());
 	IteratorSlope = slope.begin();
-	this->addChild(*IteratorSlope);
+	this->addChild((*IteratorSlope));
 	//レイヤーにノードを集約
->>>>>>> eb5b5cb02019439b4b6297fa3b3ec5d79ce0de9c
 	Rmold = RabbitMold::create();
 	this->addChild(Rmold);
 
@@ -94,33 +88,6 @@ void StageLayer::update(float data)
 
 	if (static_cast<int>(GameManager::m_cameraposx + 480 ) % static_cast<int>(GameManager::MAP_SIZE.x) == 0)
 	{
-<<<<<<< HEAD
-		GameManager::StageLoopCnt++;
-		//GameManager::AllFloorPos.push_back(GameManager::StageLoopCnt);
-		//タイルマップの読み込み
-		//マップチップ
-		GameManager::map = TMXTiledMap::create("floor.tmx");
-		//タイルマップの中心座標を設定
-		GameManager::map->setAnchorPoint(Vec2(0, 0));
-		//タイルマップの座標設定
-		GameManager::map->setPosition(Point(GameManager::m_cameraposx + 480, 0));
-		//画像の描画
-		this->addChild(GameManager::map);
-
-		//ステージ座標を取得
-		stage->init();
-
-		//vectorにコインオブジェクトのアドレスを格納する
-		coin.push_back(Coin::create());
-		//イテレータにコインの最初の要素を格納する
-		IteratorCoin = coin.begin();
-		//ループさせたステージの数を見る
-		IteratorCoin += GameManager::StageLoopCnt;
-		this->addChild(*IteratorCoin);
-
-		//斜面座標を取得
-		slope->init();
-=======
 		//マップ生成
 		MapCreate();
 		if (GameManager::MapLoopCnt > 2)
@@ -128,7 +95,6 @@ void StageLayer::update(float data)
 			//マップ削除
 			MapDelete();
 		}
->>>>>>> eb5b5cb02019439b4b6297fa3b3ec5d79ce0de9c
 
 	}
 }
