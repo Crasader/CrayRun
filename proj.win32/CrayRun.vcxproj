@@ -164,7 +164,9 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClCompile Include="..\Classes\PlayScene\UILayer\Distance.cpp" />
     <ClCompile Include="..\Classes\PlayScene\UILayer\Score.cpp" />
     <ClCompile Include="..\Classes\PlayScene\UILayer\UILayer.cpp" />
+    <ClCompile Include="..\Classes\ResultScene\ResultLayer.cpp" />
     <ClCompile Include="..\Classes\ResultScene\ResultScene.cpp" />
+    <ClCompile Include="..\Classes\ResultScene\ResultScore.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -186,7 +188,9 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClInclude Include="..\Classes\PlayScene\UILayer\Distance.h" />
     <ClInclude Include="..\Classes\PlayScene\UILayer\Score.h" />
     <ClInclude Include="..\Classes\PlayScene\UILayer\UILayer.h" />
+    <ClInclude Include="..\Classes\ResultScene\ResultLayer.h" />
     <ClInclude Include="..\Classes\ResultScene\ResultScene.h" />
+    <ClInclude Include="..\Classes\ResultScene\ResultScore.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>

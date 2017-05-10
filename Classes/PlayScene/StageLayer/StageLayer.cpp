@@ -7,11 +7,11 @@
 ****************************************************************************/
 /* ---- ライブラリのインクルード ---------- */
 #include "StageLayer.h"
-#include "../CharacterLayer/CharacterLayer.h"
+//#include "../CharacterLayer/CharacterLayer.h"
 #include "../../GameManager.h"
 /* ---- 名前空間を解放 -------------------- */
 USING_NS_CC;
-using namespace std;
+//using namespace std;
 bool StageLayer::init()
 {
 	if (!Layer::init()) {
@@ -44,11 +44,10 @@ bool StageLayer::init()
 	coin.push_back(Coin::create());
 	IteratorCoin = coin.begin();
 	this->addChild(*IteratorCoin);
-
-	////レイヤーにノードを集約
+	//レイヤーにノードを集約
 	slope.push_back(Slope::create());
 	IteratorSlope = slope.begin();
-	this->addChild((*IteratorSlope));
+	this->addChild(*IteratorSlope);
 	//レイヤーにノードを集約
 	Rmold = RabbitMold::create();
 	this->addChild(Rmold);
@@ -67,7 +66,6 @@ bool StageLayer::init()
 ****************************************************************************/
 void StageLayer::update(float data) 
 {
-	
 	Vector<Vec2>::iterator Iterator;
 
 	int i = 0;

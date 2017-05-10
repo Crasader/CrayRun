@@ -25,7 +25,7 @@
     <Filter Include="PlayScene\UILayer">
       <UniqueIdentifier>{892d2e48-3e58-4f7c-b288-4df800db7afb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ResultScene">
+    <Filter Include="src\ResultScene">
       <UniqueIdentifier>{b8938125-1ae2-4bde-94a4-6dd852b37db9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -86,7 +86,13 @@
       <Filter>PlayScene\StageLayer</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\ResultScene\ResultScene.cpp">
-      <Filter>ResultScene</Filter>
+      <Filter>src\ResultScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ResultScene\ResultLayer.cpp">
+      <Filter>src\ResultScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ResultScene\ResultScore.cpp">
+      <Filter>src\ResultScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -146,7 +152,13 @@
       <Filter>PlayScene\StageLayer</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\ResultScene\ResultScene.h">
-      <Filter>ResultScene</Filter>
+      <Filter>src\ResultScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ResultScene\ResultLayer.h">
+      <Filter>src\ResultScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ResultScene\ResultScore.h">
+      <Filter>src\ResultScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -7,7 +7,7 @@
 ****************************************************************************/
 /* ---- ライブラリのインクルード ---------- */
 #include "CharacterLayer.h"
-#include "Manager.h"
+
 USING_NS_CC;
 
 
@@ -329,6 +329,7 @@ void CharacterLayer::CollisionResponseSlope()
 				//埋まった分を押し出す
 				GameManager::PlayerPos.y = GameManager::SlopePosY;
 				//ジャンプ可能にする
+				character->JumpCnt = 0;
 				character->JumpFlag = true;
 
 			}

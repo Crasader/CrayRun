@@ -41,7 +41,6 @@ private:
 
 	void onTouchesCancelled(const std::vector<cocos2d::Touch*>&touches, cocos2d::Event *unused_event);
 
-
 	void ChangeMold();
 
 	//プレイヤーとステージのあたり判定

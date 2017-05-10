@@ -31,7 +31,7 @@ public:
 	GameManager();
 
 	~GameManager();
-	static float GameManager::WorldPosX;//画面座標
+	static float WorldPosX;//画面座標
 
 	//////////////キャラクターレイヤー//////
 	/////////////キャラクター/////////////
