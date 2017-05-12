@@ -1,3 +1,11 @@
+/***************************************************************************
+*|
+*|	概要　リザルトシーンの宣言
+*|　作成者　GS2 16 中田湧介
+*|　作成日　2017/5/10
+*|___________________________________________________________________________
+****************************************************************************/
+
 #pragma once
 
 /* ---- ライブラリのインクルード ---------- */
@@ -8,14 +16,14 @@ class ResultScene :public cocos2d::Scene
 {
 public:
 	//シーンを作成する
-	//static cocos2d::Scene* createScene();
-
-	CREATE_FUNC(ResultScene);
+	static cocos2d::Scene* create(int score);
 	//初期化する
-	virtual bool init();
+	 bool init(int score);
 
 private:
-	//毎フレーム呼ばれる
-	void update(float data)override;
+	//タッチされたら
+	bool onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * pEvent);
+	////毎フレーム呼ばれる
+	//void update(float data)override;
 
 };

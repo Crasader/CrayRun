@@ -4,15 +4,15 @@ USING_NS_CC;
 //プレイシーン
 
 const  int GameManager::BOX_COLLIDER = 15;			//あたり判定時に使用するタイルレイヤーの淵から少しだけ内側に入っているか確かめるための数
-const  int GameManager::BOX_COLLIDER2 = 50;			//あたり判定時に使用するタイルレイヤーの淵から少しだけ内側に入っているか確かめるための数
+const  int GameManager::BOX_COLLIDER2 = 30;			//あたり判定時に使用するタイルレイヤーの淵から少しだけ内側に入っているか確かめるための数
 
 float GameManager::WorldPosX = 0.0f;
 
 //////////////キャラクターレイヤー//////
 //////////////キャラクター//////////////
 Vec2 GameManager::PlayerSpd = (Vec2(6.0f,-4.0f));//速度
-Vec2  GameManager::PlayerSize = Vec2(64, 64);//サイズ
-Vec2  GameManager::PlayerPos = Vec2(50.0f,300.0f);//座標
+Vec2  GameManager::PlayerSize = Vec2(96, 96);//サイズ
+Vec2  GameManager::PlayerPos = Vec2(300.0f,300.0f);//座標
 float  GameManager::ScoreCorrection = 1.0f;//スコア補正
 bool GameManager::RightFlag = false;//右側に当たったか
 
@@ -27,7 +27,6 @@ std::vector<cocos2d::TMXTiledMap*>  GameManager::map;//マップ
 const Vec2 GameManager::MAP_SIZE = Vec2(960 * 2, 640);//マップ大きさ
 const Vec2 GameManager::LAYRE_SIZE = Vec2(64,64);//レイヤーの大きさ
 int  GameManager::MapLoopCnt = 0;//ステージをループさせた回数
-
 std::vector<std::vector<Vec2>> GameManager::AllFloorPos;//床座標
 
 //////////////斜面////////////////////
@@ -38,6 +37,11 @@ std::vector<std::vector<Vec2>> GameManager::AllRightPos;
 
 ///////////////床/////////////////////
 float GameManager::SlopePosY = 0.0f;//斜面座標Y
+
+/////////////粘土ステージ////////
+std::vector<std::vector<cocos2d::Vec2>>  GameManager::AllCrayFloorPos;//粘土床座標
+
+
 //////////////コイン//////////////
 std::vector<int>  GameManager::CoinPoint;//コインのポイント
 std::vector<std::vector<Vec2>> AllLeftPos;//全ての斜面左端の座標

@@ -7,7 +7,7 @@
 ****************************************************************************/
 /* ---- ライブラリのインクルード ---------- */
 #include "CharacterLayer.h"
-#include "Manager.h"
+
 USING_NS_CC;
 
 
@@ -160,6 +160,15 @@ void CharacterLayer::onTouchesMoved(const std::vector<cocos2d::Touch*>& touches,
 	if (m_touch_id >= 1)
 	{
 		b = 6;
+
+		m_touch_collision[0]= GameManager::HitJudgment(
+			touchpos[0] - Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2), TOUCH_SIZE,
+			GameManager::PlayerPos, GameManager::PlayerSize);
+
+		m_touch_collision[1] = GameManager::HitJudgment(
+			touchpos[0] - Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2), TOUCH_SIZE,
+			GameManager::PlayerPos, GameManager::PlayerSize);
+
 		//タッチとプレイヤーのあたり判定
 		m_touch_collision_direction[0] = GameManager::CollisionDetermination2(
 			touchpos[0] - Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2), TOUCH_SIZE,
@@ -172,36 +181,47 @@ void CharacterLayer::onTouchesMoved(const std::vector<cocos2d::Touch*>& touches,
 
 
 
-		//上下でプレイヤーを挟んだ時
-		if (m_touch_collision_direction[0] == up && m_touch_collision_direction[1] == under)
+		////上下でプレイヤーを挟んだ時
+		if (m_touch_collision[0] == true && m_touch_collision[1] == true)
 		{
-		
-			b = 3;
-			//GameManager::PlayerSize.y = touchpos[1].y - touchpos[0].y;
-			GameManager::PlayerSize.y = 32.0f;
+			if (m_touch_collision_direction[0] == up || m_touch_collision_direction[1] == under || m_touch_collision_direction[0] == under || m_touch_collision_direction[1] == up)
+			{
+				GameManager::PlayerSize.y = 32.0f;
+			}
+			else if (m_touch_collision_direction[0] == left || m_touch_collision_direction[1] == left || m_touch_collision_direction[0] == right || m_touch_collision_direction[1] == right)
+			{
+				GameManager::PlayerSize.x = 30;
+			}
 		}
-		else if(m_touch_collision_direction[0] == under && m_touch_collision_direction[1] == up)
-		{
-			
-			b = 2;
-			//GameManager::PlayerSize.y = touchpos[0].y - touchpos[1].y;
-			GameManager::PlayerSize.y = 32.0f;
-		}
-		//左右でプレイヤーを挟んだ時
-		if ((m_touch_collision_direction[0] == left && m_touch_collision_direction[1] == right)
-			|| (m_touch_collision_direction[0] == right && m_touch_collision_direction[1] == left))
-		{
-			GameManager::PlayerSize.x = 30;
-		}
-		else if ((m_touch_collision_direction[1] == left && m_touch_collision_direction[0] == right)
-			|| (m_touch_collision_direction[1] == right && m_touch_collision_direction[0] == left))
-		{
-			GameManager::PlayerSize.x = 30;
-		}
+
+		//if (m_touch_collision_direction[0] == up && m_touch_collision_direction[1] == under)
+		//{
+		//
+		//	b = 3;
+		//	//GameManager::PlayerSize.y = touchpos[1].y - touchpos[0].y;
+		//	GameManager::PlayerSize.y = 32.0f;
+		//}
+		//else if(m_touch_collision_direction[0] == under && m_touch_collision_direction[1] == up)
+		//{
+		//	
+		//	b = 2;
+		//	//GameManager::PlayerSize.y = touchpos[0].y - touchpos[1].y;
+		//	GameManager::PlayerSize.y = 32.0f;
+		//}
+		////左右でプレイヤーを挟んだ時
+		//if ((m_touch_collision_direction[0] == left && m_touch_collision_direction[1] == right)
+		//	|| (m_touch_collision_direction[0] == right && m_touch_collision_direction[1] == left))
+		//{
+		//	GameManager::PlayerSize.x = 30;
+		//}
+		//else if ((m_touch_collision_direction[1] == left && m_touch_collision_direction[0] == right)
+		//	|| (m_touch_collision_direction[1] == right && m_touch_collision_direction[0] == left))
+		//{
+		//	GameManager::PlayerSize.x = 30;
+		//}
 		//初期化する
 		touchpos[0] = Vec2(0.0f, 0.0f);
 		touchpos[1] = Vec2(0.0f, 0.0f);
-	
 	}
 
 	
@@ -274,8 +294,6 @@ void CharacterLayer::CollisionResponseFloor()
 	std::vector<Vec2>::iterator Iterator;
 
 	//////マップの数だけループ
-	//for (int i = GameManager::MapLoopCnt - 2; i <= GameManager::MapLoopCnt; i++)
-	//{
 		//床の数だけループ
 		for (Iterator = GameManager::AllFloorPos[GameManager::PlayerMapPos].begin(); Iterator != GameManager::AllFloorPos[GameManager::PlayerMapPos].end(); ++Iterator)
 		{
@@ -308,10 +326,7 @@ void CharacterLayer::CollisionResponseFloor()
 				break;
 
 				}
-		}
-
-	//}
-	
+		}	
 }
 
 /***************************************************************************
@@ -338,6 +353,7 @@ void CharacterLayer::CollisionResponseSlope()
 				//埋まった分を押し出す
 				GameManager::PlayerPos.y = GameManager::SlopePosY;
 				//ジャンプ可能にする
+				character->JumpCnt = 0;
 				character->JumpFlag = true;
 
 			}
@@ -345,8 +361,6 @@ void CharacterLayer::CollisionResponseSlope()
 		}
 
 	}
-
-
 }
 
 /***************************************************************************
