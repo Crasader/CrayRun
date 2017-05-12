@@ -39,7 +39,7 @@ std::vector<std::vector<Vec2>> GameManager::AllRightPos;
 float GameManager::SlopePosY = 0.0f;//斜面座標Y
 
 /////////////粘土ステージ////////
-std::vector<std::vector<cocos2d::Vec2>> AllCrayFloorPos;//粘土床座標
+std::vector<std::vector<cocos2d::Vec2>>  GameManager::AllCrayFloorPos;//粘土床座標
 
 
 //////////////コイン//////////////
