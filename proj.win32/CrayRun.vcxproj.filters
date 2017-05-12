@@ -4,9 +4,6 @@
     <Filter Include="win32">
       <UniqueIdentifier>{84a8ebd7-7cf0-47f6-b75e-d441df67da40}</UniqueIdentifier>
     </Filter>
-    <Filter Include="resource">
-      <UniqueIdentifier>{715254bc-d70b-4ec5-bf29-467dd3ace079}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src">
       <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
     </Filter>
@@ -25,8 +22,11 @@
     <Filter Include="PlayScene\UILayer">
       <UniqueIdentifier>{892d2e48-3e58-4f7c-b288-4df800db7afb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\ResultScene">
+    <Filter Include="ResultScene">
       <UniqueIdentifier>{b8938125-1ae2-4bde-94a4-6dd852b37db9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resource">
+      <UniqueIdentifier>{715254bc-d70b-4ec5-bf29-467dd3ace079}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -75,7 +75,6 @@
     <ClCompile Include="..\Classes\PlayScene\UILayer\UILayer.cpp">
       <Filter>PlayScene\UILayer</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\GameManager.cpp" />
     <ClCompile Include="..\Classes\PlayScene\StageLayer\Slope.cpp">
       <Filter>PlayScene\StageLayer</Filter>
     </ClCompile>
@@ -86,13 +85,19 @@
       <Filter>PlayScene\StageLayer</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\ResultScene\ResultScene.cpp">
-      <Filter>src\ResultScene</Filter>
+      <Filter>ResultScene</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\ResultScene\ResultLayer.cpp">
-      <Filter>src\ResultScene</Filter>
+      <Filter>ResultScene</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\ResultScene\ResultScore.cpp">
-      <Filter>src\ResultScene</Filter>
+      <Filter>ResultScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\EventListenerGesture.cpp">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -141,7 +146,6 @@
     <ClInclude Include="..\Classes\PlayScene\UILayer\UILayer.h">
       <Filter>PlayScene\UILayer</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\GameManager.h" />
     <ClInclude Include="..\Classes\PlayScene\StageLayer\Slope.h">
       <Filter>PlayScene\StageLayer</Filter>
     </ClInclude>
@@ -152,13 +156,19 @@
       <Filter>PlayScene\StageLayer</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\ResultScene\ResultScene.h">
-      <Filter>src\ResultScene</Filter>
+      <Filter>ResultScene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\ResultScene\ResultLayer.h">
-      <Filter>src\ResultScene</Filter>
+      <Filter>ResultScene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\ResultScene\ResultScore.h">
-      <Filter>src\ResultScene</Filter>
+      <Filter>ResultScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameManager.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\EventListenerGesture.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

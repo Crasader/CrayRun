@@ -61,6 +61,10 @@ public:
 	static std::vector<std::vector<cocos2d::Vec2>> AllLeftPos;
 	static std::vector<std::vector<cocos2d::Vec2>> AllRightPos;
 
+
+	/////////////粘土ステージ////////
+	static std::vector<std::vector<cocos2d::Vec2>> AllCrayFloorPos;//粘土床座標
+
 	static float SlopePosY;//斜面座標Y
 	//////////////コイン//////////////
 	/////////////金型/////////////////

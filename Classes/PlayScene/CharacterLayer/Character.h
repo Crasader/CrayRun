@@ -41,7 +41,7 @@ public:
 	//プレイヤー
 	cocos2d::Sprite* s_player;
 	//プレイヤーの最大サイズ
-	const int PLAYER_MAX_SIZE = 64;
+	const int PLAYER_MAX_SIZE = 96;
 
 	bool JumpFlag;//地面についているか
 
@@ -53,7 +53,6 @@ public:
 		{
 			GameManager::PlayerMapPos++;
 		}*/
-	
 	}
 	int JumpCnt;//ジャンプフラグ
 

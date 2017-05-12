@@ -52,6 +52,8 @@ bool StageLayer::init()
 	Rmold = RabbitMold::create();
 	this->addChild(Rmold);
 
+
+
 	this->scheduleUpdate();
 
 	return true;

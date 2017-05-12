@@ -29,7 +29,7 @@ bool Character::init()
 
 	if (s_player == nullptr){
 		//プレイヤー作成
-		s_player = Sprite::create("Images/1.png");
+		s_player = Sprite::create("Images/Player2.png");
 		s_player->setPosition(GameManager::PlayerPos);
 		s_player->setAnchorPoint(Vec2(0.5, 0));
 		this->addChild(s_player);
@@ -40,7 +40,7 @@ bool Character::init()
 
 	}
 	else {
-		Texture2D* texture = TextureCache::sharedTextureCache()->addImage("Images/1.png");
+		Texture2D* texture = TextureCache::sharedTextureCache()->addImage("Images/Player2.png");
 
 		bool JumpFlag = false;//地面についているか
 		int  JumpCnt = 0;//ジャンプフラグ
@@ -102,7 +102,7 @@ void Character::setScale()
 	}
 	else if (GameManager::PlayerSize.x > PLAYER_MAX_SIZE)
 	{
-		GameManager::PlayerSize.x = 64.0f;
+		GameManager::PlayerSize.x = 96;
 	}
 
 	//プレイヤーのサイズYが通常より小さいとき
@@ -112,7 +112,7 @@ void Character::setScale()
 	}
 	else if (GameManager::PlayerSize.y > PLAYER_MAX_SIZE)
 	{
-		GameManager::PlayerSize.y = 64.0f;
+		GameManager::PlayerSize.y = 96;
 	}
 
 	//サイズを適用する

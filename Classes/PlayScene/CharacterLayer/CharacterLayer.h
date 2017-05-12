@@ -71,14 +71,14 @@ private:
 	cocos2d::Vec2 touchpos[EFFECTIVENESS_TOUCH];
 	//タッチが当たった方向
 	Direction m_touch_collision_direction[EFFECTIVENESS_TOUCH];
-
+	bool m_touch_collision[EFFECTIVENESS_TOUCH];
 	//イテレータ
 	cocos2d::Vector<cocos2d::Vec2>::iterator IteratorRight;
 	cocos2d::Vector<cocos2d::Vec2>::iterator IteratorLeft;
 
 
 	//タッチサイズ
-	const cocos2d::Vec2 TOUCH_SIZE = cocos2d::Vec2(64, 64);
+	const cocos2d::Vec2 TOUCH_SIZE = cocos2d::Vec2(60,60);
 	int FirstTouchCnt;//最初のタッチからどれだけ経過したか
 	bool FirstTouchFlag = false;//最初のタッチが呼ばれたか
 

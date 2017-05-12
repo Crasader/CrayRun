@@ -1,8 +1,8 @@
 /***************************************************************************
 *|
-*|	概要　スコアクラスの定義
+*|	概要　リザルトスコアクラスの定義
 *|　作成者　GS2 16 中田湧介
-*|　作成日　2017/4/20
+*|　作成日　2017/5/10
 *|___________________________________________________________________________
 ****************************************************************************/
 /* ---- ライブラリのインクルード ---------- */
@@ -24,14 +24,8 @@ bool ResultScore::init()
 	}
 
 
-	m_node_cnt = 0;
 	////数字のスプライトを作成する
 	s_Number = Sprite::create("Images/Number.png");
-	////レクトを設定する
-	//s_Number->setTextureRect(Rect(0 * 64, 0, 64, 64));
-	////座標
-	//s_Number->setPosition(Vec2(200 + 64 * SpriteCnt, 580));
-	//this->addChild(s_Number);
 	//最大桁数を記憶
 	ScoreMaxDigit = SpriteCnt;
 
@@ -105,86 +99,6 @@ void ResultScore::ScoreResister()
 	userDefault->setIntegerForKey("name5", RankingScore[Fifth]);
 	userDefault->flush();
 }
-
-
-/***************************************************************************
-*|	概要　　スコアの設定、描画
-*|	引数　　無し
-*|　戻り値　無し
-****************************************************************************/
-//void ResultScore::ScoreIndicate(int Score)
-//{
-//
-//
-//	//桁数を初期化する
-//	Digit = 1;
-//	//スプライトカウントを初期化する
-//	SpriteCnt = 0;
-//	//対象のスコアを保存する
-//	SaveScore = Score;
-//
-//	//スコアが何桁あるのか求める
-//	//整数がなくなるまで10で除算する
-//	//スコアが0じゃないとき
-//	if ((Score - SaveScore != Score))
-//	{
-//		while (Score - SaveScore != Score)
-//		{
-//			SaveScore /= 10;
-//			//何回ループしたかカウントする
-//			Digit *= 10;
-//		}
-//		//小数になるまでかけたが、桁数を知りたいので10で割る
-//		Digit /= 10;
-//	}
-//
-//	//対象のスコアを保存する
-//	SaveScore = Score;
-//
-//	//桁数が0でないか
-//	while (Digit != 0)
-//	{
-//		//残りの値が0になる時、「Digit桁の値を求める」でエラーになる
-//		//残りの値が0になる時、桁数分の0を表示して
-//		if (SaveScore <= 0)
-//		{
-//			//Digit桁の値を求める
-//			Score = 0;
-//		}
-//		else
-//		{
-//			//Digit桁の値を求める
-//			Score /= Digit;
-//		}
-//
-//		//最大桁数を上回ったか→桁が上がったか
-//		if (ScoreMaxDigit < SpriteCnt)
-//		{
-//
-//			//数字のスプライトを作成する
-//			s_Number = Sprite::create("Images/Number.png");
-//			//座標
-//			s_Number->setPosition(Vec2(200 + 64 * SpriteCnt, 580));
-//		/*	this->addChild(s_Number[SpriteCnt]);*/
-//			//最大桁数を更新する
-//			ScoreMaxDigit++;
-//			s_Number->setTextureRect(Rect(Score * 64, 0, 64, 64));
-//		}
-//		//レクトを設定する
-//		s_Number->setTextureRect(Rect(Score * 64, 0, 64, 64));
-//		//基盤ノードにぶら下げる
-//		node_number[m_node_cnt]->addChild(s_Number);
-//		this->addChild(node_number[m_node_cnt]);
-//		//スコアから求めた値を引く
-//		SaveScore -= Score * Digit;
-//		//スコアを復元する
-//		Score = SaveScore;
-//		//次はDigit-1桁を見る
-//		Digit /= 10;
-//		//何個目のスプライトかカウントするをインクリメント
-//		SpriteCnt++;
-//	}
-//}
 
 
 /***************************************************************************
