@@ -69,7 +69,6 @@ public:
 					//1：兎型
 	static bool ChangeMold;//金型がかわっているかどうか,true：変化あり,false：変化なし
 
-	static int MoldCnt;//金型のカウント
 	static std::vector<cocos2d::Vec2> MoldPos;//金型の座標
 	static cocos2d::Vec2 MoldSpd;//金型の速度
 	///////////////UIレイヤー///////////////

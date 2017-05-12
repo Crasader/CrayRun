@@ -58,14 +58,15 @@ bool RabbitMold::init() {
 
 						GameManager::MoldPos.push_back(s_Mold->getPosition());
 
-						s_Mold->setTag(GameManager::MoldCnt);
+						s_Mold->setTag(m_MoldCnt);
 
 
 						this->addChild(s_Mold);
 
 
 						//床カウントをインクリメント
-						GameManager::MoldCnt++;
+
+						m_MoldCnt++;
 
 						this->addChild(s_Mold);
 
@@ -76,18 +77,6 @@ bool RabbitMold::init() {
 			}
 		}
 	}
-
-	////毎フレーム呼び出す
-	//this->scheduleUpdate();
-
 	return true;
 }
-
-//void RabbitMold::update(float delta)
-//{
-//	RabbitMold::Gravity();
-//
-//	s_Mold->setPosition(getPositionX() + GameManager::MoldSpd.x,
-//		getPositionY() + GameManager::MoldSpd.y);
-//}
 

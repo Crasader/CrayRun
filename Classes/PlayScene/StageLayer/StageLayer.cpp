@@ -49,9 +49,12 @@ bool StageLayer::init()
 	slope.push_back(Slope::create());
 	IteratorSlope = slope.begin();
 	this->addChild((*IteratorSlope));
+	
 	//レイヤーにノードを集約
-	Rmold = RabbitMold::create();
-	this->addChild(Rmold);
+	Rmold.push_back(RabbitMold::create());
+	IteratorRmold = Rmold.begin();
+	this->addChild(*IteratorRmold);
+	
 
 	this->scheduleUpdate();
 
@@ -67,19 +70,6 @@ bool StageLayer::init()
 ****************************************************************************/
 void StageLayer::update(float data) 
 {
-	
-	Vector<Vec2>::iterator Iterator;
-
-	int i = 0;
-	//床の数だけループ
-	for (Iterator = GameManager::MoldPos.begin(); Iterator != GameManager::MoldPos.end(); ++Iterator)
-	{
-		Node* q = Rmold->getChildByTag(i);
-		Vec2 vec = *Iterator;
-		vec += GameManager::MoldSpd;
-		q->setPosition(vec);
-		i++;
-	}
 
 	//コインあたり判定
 	CollisionResponseCoin();
@@ -131,6 +121,14 @@ void StageLayer::MapCreate()
 	IteratorCoin += GameManager::MapLoopCnt;
 	this->addChild(*IteratorCoin);
 
+	//vectorに兎の金型オブジェクトのアドレスを格納する
+	Rmold.push_back(RabbitMold::create());
+	//イテレータに兎の金型の最初の要素を格納する
+	IteratorRmold = Rmold.begin();
+	//ループさせたステージの数を見る
+	IteratorRmold += GameManager::MapLoopCnt;
+	this->addChild(*IteratorRmold);
+
 
 	//斜面座標を取得
 	slope.push_back(Slope::create());
@@ -161,6 +159,8 @@ void StageLayer::MapDelete()
 	GameManager::AllRightPos[GameManager::MapLoopCnt - 2].crend();
 	//コイン削除
 	coin[GameManager::MapLoopCnt - 2]->removeFromParent();
+
+	Rmold[GameManager::MapLoopCnt - 2]->removeFromParent();
 }
 
 
@@ -210,23 +210,32 @@ void StageLayer::CollisionResponseCoin()
 //__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/
 void StageLayer::HittingMold()
 {
-	for (int i = 0; i < GameManager::MoldCnt; i++)
+	int g_LoopCnt = 0;
+	IteratorRmold = Rmold.begin();
+	IteratorRmold += GameManager::PlayerMapPos;
+	////コインのデータを一時的に保存する
+	RabbitMold* m_SaveRmold = *IteratorRmold;
+	for (int i = 0; i < m_SaveRmold->m_MoldCnt; i++)
 	{
-		Node* q = Rmold->getChildByTag(i);
-		if (q != nullptr)
+		//ループした数番目の金型を取得
+		Node* n_Rmold = m_SaveRmold->getChildByTag(g_LoopCnt);
+		if (n_Rmold != nullptr)
 		{
-			//金型
+			//プレイヤーと金型の当たり判定
 			if (GameManager::HitJudgment
-			(q->getPosition(), q->getContentSize(),
+			(n_Rmold->getPosition(), n_Rmold->getContentSize(),
 				GameManager::PlayerPos, GameManager::PlayerSize) == true)
 			{
-				//当たった金型を削除
-				Rmold->getChildByTag(i)->removeFromParent();
-				//兎型のキャラクターに変更
-				GameManager::Mold = 1;
+				//当たったうさぎの金型を削除
+				m_SaveRmold->getChildByTag(g_LoopCnt)->removeFromParent();
+				
+				//金型の変更の反映
 				GameManager::ChangeMold = true;
+				GameManager::Mold = 1;
 			}
 		}
+		//ループカウントをインクリメント
+		g_LoopCnt++;
 	}
 };
 

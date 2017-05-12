@@ -48,7 +48,6 @@ std::vector<std::vector<Vec2>> AllRightPos;//全ての斜面右端の座標
 int GameManager::Mold = 0;//金型
 bool GameManager::ChangeMold = false;//金型変化あるか
 
-int GameManager::MoldCnt = 0;
 
 std::vector<cocos2d::Vec2> GameManager::MoldPos;//金型の座標
 

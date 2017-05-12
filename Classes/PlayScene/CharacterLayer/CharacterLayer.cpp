@@ -228,6 +228,15 @@ void CharacterLayer::onTouchesCancelled(const std::vector<cocos2d::Touch*>& touc
 	log("onTouchesCancelled");
 }
 
+//__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/
+//
+//概要：金型の変更
+//
+//引数：なし
+//
+//戻り値：なし
+//
+//__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/
 void CharacterLayer::ChangeMold()
 {
 		switch (GameManager::Mold)

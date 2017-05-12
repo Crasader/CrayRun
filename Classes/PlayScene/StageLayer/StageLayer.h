@@ -41,18 +41,21 @@ private:
 
 
 
-	RabbitMold* Rmold;
 	Stage* stage;
 	//コイン
 	std::vector<Coin*> coin;
 	//斜面
 	std::vector<Slope*>slope;
+	//兎の金型
+	std::vector<RabbitMold*>Rmold;
 	//マップイテレーター
 	cocos2d::Vector<cocos2d::TMXTiledMap*>::iterator IteratorMap;
 	//コインイテレータ
 	cocos2d::Vector<Coin*>::iterator IteratorCoin;
 	//斜面イテレーター
 	cocos2d::Vector<Slope*>::iterator IteratorSlope;
+	//兎の金型イテレータ
+	cocos2d::Vector<RabbitMold*>::iterator IteratorRmold;
 };
 
 
