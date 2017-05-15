@@ -154,6 +154,7 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Character.cpp" />
     <ClCompile Include="..\Classes\PlayScene\CharacterLayer\CharacterLayer.cpp" />
     <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Rabbit.cpp" />
+    <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Slime.cpp" />
     <ClCompile Include="..\Classes\PlayScene\PlayScene.cpp" />
     <ClCompile Include="..\Classes\PlayScene\StageLayer\Coin.cpp" />
     <ClCompile Include="..\Classes\PlayScene\StageLayer\CrayStage.cpp" />
@@ -179,6 +180,7 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Character.h" />
     <ClInclude Include="..\Classes\PlayScene\CharacterLayer\CharacterLayer.h" />
     <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Rabbit.h" />
+    <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Slime.h" />
     <ClInclude Include="..\Classes\PlayScene\PlayScene.h" />
     <ClInclude Include="..\Classes\PlayScene\StageLayer\Coin.h" />
     <ClInclude Include="..\Classes\PlayScene\StageLayer\CrayStage.h" />
