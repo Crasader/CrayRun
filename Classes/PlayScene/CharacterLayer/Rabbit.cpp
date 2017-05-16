@@ -24,7 +24,7 @@ bool Rabbit::init()
 
 	GameManager::ScoreCorrection = 10.0f;
 	// •’Ê‚Ì‰æ‘œ‚©‚ç•ÏX
-	Texture2D* texture = TextureCache::sharedTextureCache()->addImage("Images/Rabbit_Chara.png");
+	Texture2D* texture = TextureCache::sharedTextureCache()->addImage("Images/Rabbit_Chara2.png");
 
 	s_player->setTexture(texture);
 	s_player->setContentSize(texture->getContentSize());

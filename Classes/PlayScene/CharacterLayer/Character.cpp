@@ -27,7 +27,7 @@ bool Character::init()
 		s_player->setAnchorPoint(Vec2(0.5, 0));
 		this->addChild(s_player);
 
-		bool JumpFlag = false;//地面についているか
+		bool JumpFlag = true;//地面についているか
 		int  JumpCnt = 0;//ジャンプフラグ
 
 
@@ -110,10 +110,10 @@ void Character::setScale()
 		GameManager::PlayerSize.y = 96;
 	}
 
+
+
 	//サイズを適用する
 	s_player->setScale(GameManager::PlayerSize.x / PLAYER_MAX_SIZE, GameManager::PlayerSize.y / PLAYER_MAX_SIZE);
-	
-
 
 }
 

@@ -11,6 +11,16 @@ enum Direction
 	exception
 };
 
+//キャラクター
+enum CharacterKind
+{
+	Normal,
+	Rabbit,
+	Gnome,
+	Phoenix,
+	Slime
+};
+
 class GameManager 
 {
 public:
@@ -64,7 +74,10 @@ public:
 
 	/////////////粘土ステージ////////
 	static std::vector<std::vector<cocos2d::Vec2>> AllCrayFloorPos;//粘土床座標
-
+	static const cocos2d::Vec2 MAX_CRAYSTAGESIZE;//粘土床の最大サイズ
+	static std::vector<cocos2d::Vec2>  CrayFloorSize;//粘土床の大きさ
+	static int CraySizeChangeCnt;//どの粘土床のサイズを変更するか
+	static bool CraySizeChangeFlag;//粘土床のサイズ変更するか
 	static float SlopePosY;//斜面座標Y
 	//////////////コイン//////////////
 	/////////////金型/////////////////

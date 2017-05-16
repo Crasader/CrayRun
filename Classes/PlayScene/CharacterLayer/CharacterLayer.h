@@ -28,7 +28,7 @@ public:
 
 
 private:
-	int count;
+
 
 	////毎フレーム呼び出される関数
 	void update(float delta)override;
@@ -38,27 +38,27 @@ private:
 	void onTouchesMoved(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *unused_event);
 	//タッチが離された
 	void onTouchesEnded(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *unused_event);
-
+	//タッチ異常終了
 	void onTouchesCancelled(const std::vector<cocos2d::Touch*>&touches, cocos2d::Event *unused_event);
+
+	//キャラクターのマルチタッチ判定
+	void  MultiTouchCharacter();
 
 
 	//金型の変更
-
 	void ChangeMold();
-
 	//プレイヤーとステージのあたり判定
 	void CollisionResponseFloor();
+	//プレイヤーと粘土床のあたり判定
+	void CollisionResponseCrayFloor();
 	//プレイヤーと斜面のあたり判定
 	void  CollisionResponseSlope();
 	//プレイヤーとギミックのあたり判定
 	//void AfterHittingGimmick();
-	//プレイヤーと金型のあたり判定
-	//void AfterHittingMold();
-	//スケール計算
-	//void ScaleCalculation();
+
 	//ジャンプするか調べる
 	void JumpInvestigate();
-
+	//キャラクターオブジェクト
 	Character* character;
 
 	//デバック用
@@ -72,9 +72,6 @@ private:
 	
 	//タッチ座標
 	cocos2d::Vec2 touchpos[EFFECTIVENESS_TOUCH];
-	//タッチが当たった方向
-	Direction m_touch_collision_direction[EFFECTIVENESS_TOUCH];
-	bool m_touch_collision[EFFECTIVENESS_TOUCH];
 	//イテレータ
 	cocos2d::Vector<cocos2d::Vec2>::iterator IteratorRight;
 	cocos2d::Vector<cocos2d::Vec2>::iterator IteratorLeft;

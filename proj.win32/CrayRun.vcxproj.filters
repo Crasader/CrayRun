@@ -81,9 +81,6 @@
     <ClCompile Include="..\Classes\PlayScene\StageLayer\Mold.cpp">
       <Filter>PlayScene\StageLayer</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\PlayScene\StageLayer\RabbitMold.cpp">
-      <Filter>PlayScene\StageLayer</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\ResultScene\ResultScene.cpp">
       <Filter>ResultScene</Filter>
     </ClCompile>
@@ -153,9 +150,6 @@
       <Filter>PlayScene\StageLayer</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\PlayScene\StageLayer\Mold.h">
-      <Filter>PlayScene\StageLayer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\PlayScene\StageLayer\RabbitMold.h">
       <Filter>PlayScene\StageLayer</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\ResultScene\ResultScene.h">

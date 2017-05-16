@@ -26,14 +26,14 @@ public:
 			GameManager::PlayerSpd.x = 6.0f;
 		}
 		//重力加速度に上限を設ける
-		if (GameManager::PlayerSpd.y >= -4.5f)
+		if (GameManager::PlayerSpd.y >= -7.0f)
 		{
 			GameManager::PlayerSpd.y -= 0.4f;
 		}
 		//ジャンプがないときは関係なく加速度をつける
 		else if (JumpFlag == false)
 		{
-			GameManager::PlayerSpd.y -= 0.4f;
+			//GameManager::PlayerSpd.y -= 0.4f;
 		}
 	}
 
