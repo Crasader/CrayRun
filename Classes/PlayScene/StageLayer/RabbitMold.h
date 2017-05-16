@@ -19,10 +19,6 @@ public:
 
 	CREATE_FUNC(RabbitMold);
 
-
-	//–ˆƒtƒŒ[ƒ€ŒÄ‚Ño‚³‚ê‚éŠÖ”
-	//void update(float delta)override;
-
 private:
 	
 };

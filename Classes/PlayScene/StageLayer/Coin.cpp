@@ -24,60 +24,59 @@ bool Coin::init()
 	bool flag = true;
 	m_CoinCnt = 0;
 	//一回目:レイヤーの数を調べる,2回目:座標を設定する
-		for (int i = 0; i < GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y; i++)
+	for (int i = 0; i < GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y; i++)
+	{
+		for (int j = 0; j < GameManager::MAP_SIZE.x / GameManager::LAYRE_SIZE.x; j++)
 		{
-			for (int j = 0; j < GameManager::MAP_SIZE.x / GameManager::LAYRE_SIZE.x; j++)
+			//タイルの番号
+			unsigned int gid = layer2->getTileGIDAt(Vec2(j, i));
+
+			// 指定したタイル番号のプロパティのセットを取得
+			cocos2d::Value value = GameManager::map[GameManager::MapLoopCnt]->getPropertiesForGID(gid);
+
+			if (value.isNull() == false)
 			{
-				//タイルの番号
-				unsigned int gid = layer2->getTileGIDAt(Vec2(j, i));
-
-				// 指定したタイル番号のプロパティのセットを取得
-				cocos2d::Value value = GameManager::map[GameManager::MapLoopCnt]->getPropertiesForGID(gid);
-
-				if (value.isNull() == false)
+				// 配列として解釈
+				cocos2d::ValueMap properties = value.asValueMap();
+				if (properties.empty() == false)
 				{
-					// 配列として解釈
-					cocos2d::ValueMap properties = value.asValueMap();
-					if (properties.empty() == false)
+					// "type"プロパティを文字列として取得
+					std::string str = properties["Coin"].asString();
+					if (str == "coin")
 					{
-						// "type"プロパティを文字列として取得
-						std::string str = properties["Coin"].asString();
-						if (str == "coin")
+						//画像をランダムで設定する
+						switch (rand() % 3 + 1)
 						{
-							//画像をランダムで設定する
-							switch (rand() % 3 + 1)
-							{
-							case 1:
-								s_Coin = Sprite::create("Images/coin1.png");
-								GameManager::CoinPoint.push_back(10);
-								break;
-							case 2:
-								s_Coin = Sprite::create("Images/Coin2.png");
-								GameManager::CoinPoint.push_back(20);
-							case 3:
-								s_Coin = Sprite::create("Images/Coin3.png");
-								GameManager::CoinPoint.push_back(30);
-								break;
-							default:
-								break;
-							}
-							//座標を設定する
-							s_Coin->
-								setPosition(j * GameManager::LAYRE_SIZE.x + GameManager::MapLoopCnt * 1920,
-								(GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y - i) * GameManager::LAYRE_SIZE.y);
-							//コインにタグをつける
-							s_Coin->setTag(m_CoinCnt);
-							this->addChild(s_Coin);
-							m_CoinCnt++;
-							//次のループでメモリ確保をさせない
-							flag = false;
+						case 1:
+							s_Coin = Sprite::create("Images/coin1.png");
+							GameManager::CoinPoint.push_back(10);
+							break;
+						case 2:
+							s_Coin = Sprite::create("Images/Coin2.png");
+							GameManager::CoinPoint.push_back(20);
+						case 3:
+							s_Coin = Sprite::create("Images/Coin3.png");
+							GameManager::CoinPoint.push_back(30);
+							break;
+						default:
+							break;
 						}
+						//座標を設定する
+						s_Coin->
+							setPosition(j * GameManager::LAYRE_SIZE.x + GameManager::MapLoopCnt * 1920,
+							(GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y - i) * GameManager::LAYRE_SIZE.y);
+						//コインにタグをつける
+						s_Coin->setTag(m_CoinCnt);
+						this->addChild(s_Coin);
+						m_CoinCnt++;
+						//次のループでメモリ確保をさせない
+						flag = false;
 					}
 				}
+			}
 		}
+		
 	}
-
-
 	return true;
 }
 

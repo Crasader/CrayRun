@@ -40,9 +40,12 @@ private:
 	void onTouchesEnded(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *unused_event);
 	//タッチ異常終了
 	void onTouchesCancelled(const std::vector<cocos2d::Touch*>&touches, cocos2d::Event *unused_event);
+
 	//キャラクターのマルチタッチ判定
 	void  MultiTouchCharacter();
-	//キャラクター変更
+
+
+	//金型の変更
 	void ChangeMold();
 	//プレイヤーとステージのあたり判定
 	void CollisionResponseFloor();

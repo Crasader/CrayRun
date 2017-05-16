@@ -65,6 +65,7 @@ bool StageLayer::init()
 
 	m_data = 0;
 
+	
 
 	this->scheduleUpdate();
 
@@ -81,7 +82,6 @@ bool StageLayer::init()
 void StageLayer::update(float data) 
 {
 	Vector<Vec2>::iterator Iterator;
-
 	int i = 0;
 	////床の数だけループ
 	//for (Iterator = GameManager::MoldPos.begin(); Iterator != GameManager::MoldPos.end(); ++Iterator)
@@ -109,7 +109,6 @@ void StageLayer::update(float data)
 	//コインあたり判定
 	CollisionResponseCoin();
 	HittingMold();
-	HittingFloorToMold();
 
 	if (static_cast<int>(GameManager::m_cameraposx + 480 ) % static_cast<int>(GameManager::MAP_SIZE.x) == 0)
 	{
@@ -168,6 +167,7 @@ void StageLayer::MapCreate()
 	this->addChild(*IteratorCoin);
 
 
+
 	//斜面座標を取得
 	slope.push_back(Slope::create());
 	IteratorSlope = slope.begin();
@@ -209,10 +209,11 @@ void StageLayer::MapDelete()
 	GameManager::AllLeftPos[GameManager::MapLoopCnt - 2].crend();
 	GameManager::AllRightPos[GameManager::MapLoopCnt - 2].crend();
 	//コイン削除
-//	coin[GameManager::MapLoopCnt - 2]->removeFromParent();
 
 	//金型削除
 	mold[GameManager::MapLoopCnt - 2]->removeFromParent();
+	//coin[GameManager::MapLoopCnt - 2]->removeFromParent();
+
 }
 
 
@@ -254,49 +255,33 @@ void StageLayer::CollisionResponseCoin()
 }
 
 
-//__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/
-//	概　要：金型あたり判定
-//	引　数：無し
-//　戻り値：無し
-//__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/
+////__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/
+////	概　要：金型あたり判定
+////	引　数：無し
+////　戻り値：無し
+////__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/
 void StageLayer::HittingMold()
 {
 
-		if (mold[GameManager::MapLoopCnt]->s_Mold != nullptr)
+
+	if (mold[GameManager::MapLoopCnt]->s_Mold != nullptr)
+	{
+		//金型とプレイヤーが当たっているか
+		if (GameManager::HitJudgment
+		(mold[GameManager::MapLoopCnt]->s_Mold->getPosition(), mold[GameManager::MapLoopCnt]->SIZE,
+			GameManager::PlayerPos, GameManager::PlayerSize) == true)
 		{
-			//金型とプレイヤーが当たっているか
-			if (GameManager::HitJudgment
-			(mold[GameManager::MapLoopCnt]->s_Mold->getPosition(), mold[GameManager::MapLoopCnt]->SIZE,
-				GameManager::PlayerPos, GameManager::PlayerSize) == true)
-			{
-				////当たった金型を削除
-				//mold[GameManager::MapLoopCnt]->removeFromParent();
-				//兎型のキャラクターに変更
-				GameManager::Mold = mold[GameManager::MapLoopCnt]->m_kind;
-				GameManager::ChangeMold = true;
-			}
+			////当たった金型を削除
+			//mold[GameManager::MapLoopCnt]->removeFromParent();
+			//兎型のキャラクターに変更
+			GameManager::Mold = mold[GameManager::MapLoopCnt]->m_kind;
+			GameManager::ChangeMold = true;
+
 		}
+	}
 }
 
-/***************************************************************************
-*|	概要　	金型と床の衝突判定
-*|	引数　　無し
-*|　戻り値　無し
-****************************************************************************/
-void StageLayer::HittingFloorToMold()
-{
-	
-			//switch (GameManager::CollisionDetermination
-			//(, GameManager::LAYRE_SIZE,
-			//	mold[GameManager::MapLoopCnt]->s_Mold->getPosition(), q->getContentSize())
-			//	)
-			//{
-			//case up:
-			//	q->setPositionY(vec.y);
-			//	GameManager::MoldSpd.y = 0.0f;
-			//}
-	
-}
+
 
 /***************************************************************************
 *|	概要　タッチが動いたとき
@@ -310,7 +295,7 @@ void StageLayer::onTouchesMoved(const std::vector<cocos2d::Touch*>& touches, coc
 	//有効なタッチの数
 	const int EFFECTIVENESS_TOUCH = 2;
 	//タッチ座標
-	cocos2d::Vec2 touchpos[EFFECTIVENESS_TOUCH];
+	Vec2 touchpos[EFFECTIVENESS_TOUCH];
 	//タッチID格納
 	int g_touch_id;
 

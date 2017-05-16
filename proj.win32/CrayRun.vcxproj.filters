@@ -96,6 +96,9 @@
     <ClCompile Include="..\Classes\EventListenerGesture.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Slime.cpp">
+      <Filter>PlayScene\CharacterLayer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -163,6 +166,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\EventListenerGesture.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Slime.h">
+      <Filter>PlayScene\CharacterLayer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

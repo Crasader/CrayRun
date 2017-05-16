@@ -34,12 +34,11 @@ private:
 	void CollisionResponseCoin();
 	//プレイヤと金型のあたり判定
 	void HittingMold();
-	//金型と床のあたり判定
-	void HittingFloorToMold();
 	//ステージ生成
 	void MapCreate();
 	//ステージ削除
 	void MapDelete();
+
 
 
 	//金型オブジェクト

@@ -75,8 +75,9 @@ void PlayScene::update(float data)
 
 	//UI専用のカメラにする
 	uilayer->setCameraMask((unsigned short)CameraFlag::USER1);
-
-	if (GameManager::PlayerPos.y < 0) {
+	
+	//画面左もしくは画面下に出たらリザルトシーンへ移行
+	if (GameManager::PlayerPos.y < 0 ||  GameManager::PlayerPos.x <= GameManager::WorldPosX) {
 		Scene* nextScene = ResultScene::create(GameManager::Score);
 
 		_director->replaceScene(nextScene);
