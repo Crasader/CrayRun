@@ -16,10 +16,7 @@ class Rabbit :public Character
 public:
 	bool init();
 	CREATE_FUNC(Rabbit);
-	//Rabbit();
-	//~Rabbit();
 
-	void Jump();//ƒWƒƒƒ“ƒv‚·‚é
 private:
 
 

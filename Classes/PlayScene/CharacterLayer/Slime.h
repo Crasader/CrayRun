@@ -15,7 +15,6 @@ public:
 	bool init();
 	CREATE_FUNC(Slime);
 
-	void Jump();//ƒWƒƒƒ“ƒv‚·‚é
 
 private:
 };

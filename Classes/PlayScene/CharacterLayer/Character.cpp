@@ -20,13 +20,6 @@ bool Character::init()
 		return false;
 	}
 
-	//std::string filename = "Images/1.png";
-	//if (!Sprite::initWithFile(filename))
-	//{
-
-	//	return false;
-	//}
-
 	if (s_player == nullptr){
 		//プレイヤー作成
 		s_player = Sprite::create("Images/Player2.png");
@@ -46,6 +39,8 @@ bool Character::init()
 		int  JumpCnt = 0;//ジャンプフラグ
 
 	}
+
+	JumpSize = 9.0f;
 		
 	return true;
 }
@@ -77,9 +72,9 @@ void Character::Jump()
 	//ジャンプ可能ならジャンプさせる
 	if (JumpFlag == true)
 	{
-		GameManager::PlayerSpd.y = 9.0f;
+		GameManager::PlayerSpd.y = JumpSize;
 	}
-	//二回ジャンプしたらジャンプ負荷にする
+	//二回ジャンプしたらジャンプ不能にする
 	if (JumpCnt == 2)
 	{
 		JumpCnt = 0;

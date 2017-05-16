@@ -17,7 +17,7 @@ public:
 	CREATE_FUNC(Character);
 
 	void Move();//移動
-	virtual void Jump();//ジャンプする
+	void Jump();//ジャンプする
 	//重力
 	void Gravity()
 	{

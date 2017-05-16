@@ -29,23 +29,7 @@ bool Rabbit::init()
 	s_player->setTexture(texture);
 	s_player->setContentSize(texture->getContentSize());
 
+	JumpSize = 14.0f;
+
 	return true;
-}
-
-void Rabbit::Jump()
-{
-	//JumpBy* jumpaction = JumpBy::create(0.5f, Vec2(0,0), 64.0f, 1);
-	//s_player->runAction(jumpaction);
-	JumpCnt++;
-
-	if (JumpFlag == true)
-	{
-		GameManager::PlayerSpd.y = 14.0f;
-	}
-
-	if (JumpCnt == 2)
-	{
-		JumpCnt = 0;
-		JumpFlag = false;
-	}
 }
