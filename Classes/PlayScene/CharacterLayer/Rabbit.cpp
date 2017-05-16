@@ -24,11 +24,11 @@ bool Rabbit::init()
 
 	GameManager::ScoreCorrection = 10.0f;
 	// •’Ê‚Ì‰æ‘œ‚©‚ç•ÏX
-	Texture2D* texture = TextureCache::sharedTextureCache()->addImage("Images/Rabbit_Chara.png");
+	Texture2D* texture = TextureCache::sharedTextureCache()->addImage("Images/Rabbit_Chara2.png");
 
 	s_player->setTexture(texture);
 	s_player->setContentSize(texture->getContentSize());
-
+	
 	return true;
 }
 
@@ -40,7 +40,7 @@ void Rabbit::Jump()
 
 	if (JumpFlag == true)
 	{
-		GameManager::PlayerSpd.y = 14.0f;
+		GameManager::PlayerSpd.y = 13.0f;
 	}
 
 	if (JumpCnt == 2)

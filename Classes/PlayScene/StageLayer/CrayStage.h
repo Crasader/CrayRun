@@ -16,13 +16,15 @@ public:
 
 	CREATE_FUNC(CrayStage);
 	//粘土床
-	cocos2d::Sprite* cryfloor;
+	std::vector<cocos2d::Sprite*> crayfloor;
 	//サイズ変更
-	void SetScale();
+	//void SetScale();
+	//サイズ
+	std::vector<cocos2d::Vec2>CrayStageSize;
 private:
 	//粘土床のカウント
 	int CryFloorCnt;
-	//
+	//今回の座標
 	std::vector<cocos2d::Vec2> CrayStagePos;
 
 

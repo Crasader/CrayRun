@@ -3,8 +3,8 @@
 USING_NS_CC;
 //プレイシーン
 
-const  int GameManager::BOX_COLLIDER = 15;			//あたり判定時に使用するタイルレイヤーの淵から少しだけ内側に入っているか確かめるための数
-const  int GameManager::BOX_COLLIDER2 = 30;			//あたり判定時に使用するタイルレイヤーの淵から少しだけ内側に入っているか確かめるための数
+const  int GameManager::BOX_COLLIDER = 10;			//あたり判定時に使用するタイルレイヤーの淵から少しだけ内側に入っているか確かめるための数
+const  int GameManager::BOX_COLLIDER2 = 40;			//あたり判定時に使用するタイルレイヤーの淵から少しだけ内側に入っているか確かめるための数
 
 float GameManager::WorldPosX = 0.0f;
 
@@ -40,6 +40,11 @@ float GameManager::SlopePosY = 0.0f;//斜面座標Y
 
 /////////////粘土ステージ////////
 std::vector<std::vector<cocos2d::Vec2>>  GameManager::AllCrayFloorPos;//粘土床座標
+const Vec2   GameManager::MAX_CRAYSTAGESIZE = Vec2(192, 320);////粘土床の最大サイズ
+
+std::vector<Vec2>   GameManager::CrayFloorSize;//粘土床の大きさ
+int GameManager::CraySizeChangeCnt = 0;//どの粘土床のサイズを変更するか
+bool GameManager::CraySizeChangeFlag = false;//粘土床のサイズ変更するか
 
 
 //////////////コイン//////////////

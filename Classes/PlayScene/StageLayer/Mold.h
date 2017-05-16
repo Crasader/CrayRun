@@ -1,8 +1,8 @@
 //__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/
 //
-//　ファイル名：RabbitMold.h
+//　ファイル名：Mold.h
 //
-//	概　　　要：兎型の金型
+//	概　　　要：金型
 //
 //　作　成　者：GS2 24 山本悠雅
 //
@@ -20,12 +20,9 @@ public:
 	virtual bool init();
 
 	CREATE_FUNC(Mold);
-	cocos2d::Sprite* s_Mold;//コイン
-	int m_MoldCnt = 0;
-
-
-	//重力
-
+	cocos2d::Sprite* s_Mold;//金型
+	CharacterKind m_kind;//キャラクターの種類
+	const cocos2d::Vec2 SIZE = cocos2d::Vec2(128, 128);
 
 private:
 

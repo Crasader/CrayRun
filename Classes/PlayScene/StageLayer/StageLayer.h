@@ -10,7 +10,7 @@
 /* ---- ライブラリのインクルード ---------- */
 #include "cocos2d.h"
 #include "Coin.h"
-#include "RabbitMold.h"
+#include "Mold.h"
 #include "CrayStage.h"
 #include "Stage.h"
 #include "Slope.h"
@@ -25,8 +25,10 @@ public:
 
 
 private:
+	//スワイプ時に呼び出される
+	void onTouchesMoved(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *unused_event);
 
-	////毎フレーム呼び出される関数
+	//毎フレーム呼び出される関数
 	void update(float delta)override;
 	//プレイヤーとコインの当たり判定後
 	void CollisionResponseCoin();
@@ -40,9 +42,12 @@ private:
 	void MapDelete();
 
 
-
-	RabbitMold* Rmold;
+	//金型オブジェクト
+	std::vector<Mold*> mold;
+	//床
 	Stage* stage;
+	//粘土床
+	std::vector<CrayStage*> craystage;
 	//コイン
 	std::vector<Coin*> coin;
 	//斜面
@@ -53,6 +58,14 @@ private:
 	cocos2d::Vector<Coin*>::iterator IteratorCoin;
 	//斜面イテレーター
 	cocos2d::Vector<Slope*>::iterator IteratorSlope;
+	//粘土床イテレーター
+	cocos2d::Vector<CrayStage*>::iterator ItratorCrayStage;
+
+	//タッチサイズ
+	const cocos2d::Vec2 TOUCH_SIZE = cocos2d::Vec2(60, 60);
+
+
+	int m_data;
 };
 
 
