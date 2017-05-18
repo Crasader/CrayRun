@@ -62,16 +62,16 @@ void Status::CreateSprite()
 	case Normal:
 		break;
 	case Rabbit:
-		s_status = Sprite::create("Images\\Rabbit_status.png");
+		s_status = Sprite::create("Images/Rabbit_status.png");
 		break;
 	case Gnome:
-		s_status = Sprite::create("Images\\Gnome_status.png");
+		s_status = Sprite::create("Images/Gnome_status.png");
 		break;
 	case Phoenix:
-		s_status = Sprite::create("Images\\Phoenix_status.png");
+		s_status = Sprite::create("Images/Phoenix_status.png");
 		break;
 	case Slime:
-		s_status = Sprite::create("Images\\Slime_status.png");
+		s_status = Sprite::create("Images/Slime_status.png");
 		break;
 	}
 	s_status->setScale(1.2f);
