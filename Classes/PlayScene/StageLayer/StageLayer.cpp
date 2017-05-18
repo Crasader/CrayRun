@@ -308,10 +308,10 @@ void StageLayer::HittingMold()
 		(mold[GameManager::MapLoopCnt]->s_Mold->getPosition(), mold[GameManager::MapLoopCnt]->SIZE,
 			GameManager::PlayerPos, GameManager::PlayerSize) == true)
 		{
-			////“–‚½‚Á‚½‹àŒ^‚ğíœ
+			//“–‚½‚Á‚½‹àŒ^‚ğíœ
 			//mold[GameManager::MapLoopCnt]->removeFromParent();
 			//“eŒ^‚ÌƒLƒƒƒ‰ƒNƒ^[‚É•ÏX
-			GameManager::Mold = mold[GameManager::MapLoopCnt]->m_kind;
+			GameManager::Mold = Slime/*mold[GameManager::MapLoopCnt]->m_kind*/;
 			GameManager::ChangeMold = true;
 
 		}

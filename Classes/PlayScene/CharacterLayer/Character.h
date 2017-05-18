@@ -17,7 +17,7 @@ public:
 	CREATE_FUNC(Character);
 
 	void Move();//移動
-	virtual void Jump();//ジャンプする
+	void Jump();//ジャンプする
 	//重力
 	void Gravity()
 	{
@@ -58,6 +58,6 @@ public:
 	void JumpBan() { if (GameManager::PlayerPos.y < 640)GameManager::PlayerSpd.y = 0; }
 
 	float JumpSize;//ジャンプするおおきさ
-
+	bool ChangeScaleFlag;
 };
 

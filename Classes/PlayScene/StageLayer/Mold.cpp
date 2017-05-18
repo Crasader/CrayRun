@@ -54,7 +54,7 @@ bool Mold::init(){
 							break;
 						case Rabbit:
 							m_kind = Rabbit;
-							s_Mold = Sprite::create("Images/111.png");
+							s_Mold = Sprite::create("Images/Rabbit_Model.png");
 							break;
 						case Gnome:
 							m_kind = Gnome;
@@ -64,6 +64,8 @@ bool Mold::init(){
 							break;
 						case Slime:
 							m_kind = Slime;
+							s_Mold = Sprite::create("Images/slime_Mold.png");
+							break;
 						default:
 							break;
 						}

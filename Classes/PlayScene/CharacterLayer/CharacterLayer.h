@@ -12,6 +12,11 @@
 #include "../../GameManager.h"
 #include "Character.h"
 #include "Rabbit.h"
+#include "Slime.h"
+#include "Gnome.h"
+#include "Phoenix.h"
+
+#include "Status.h"
 
 
 
@@ -30,7 +35,7 @@ public:
 private:
 
 
-	////毎フレーム呼び出される関数
+	//毎フレーム呼び出される関数
 	void update(float delta)override;
 	//タッチ時に呼び出される
 	void onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *unused_event);
@@ -60,6 +65,8 @@ private:
 	void JumpInvestigate();
 	//キャラクターオブジェクト
 	Character* character;
+
+	Status* status;
 
 	//デバック用
 	cocos2d::Label* n;

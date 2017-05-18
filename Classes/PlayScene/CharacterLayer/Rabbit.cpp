@@ -22,30 +22,13 @@ bool Rabbit::init()
 		return false;
 	}
 
-	GameManager::ScoreCorrection = 10.0f;
+	GameManager::ScoreCorrection = 1.2f;
 	// •’Ê‚Ì‰æ‘œ‚©‚ç•ÏX
 	Texture2D* texture = TextureCache::sharedTextureCache()->addImage("Images/Rabbit_Chara2.png");
 
 	s_player->setTexture(texture);
 	s_player->setContentSize(texture->getContentSize());
+
 	
 	return true;
-}
-
-void Rabbit::Jump()
-{
-	//JumpBy* jumpaction = JumpBy::create(0.5f, Vec2(0,0), 64.0f, 1);
-	//s_player->runAction(jumpaction);
-	GameManager::JumpCnt++;
-
-	if (GameManager::JumpFlag == true)
-	{
-		GameManager::PlayerSpd.y = 13.0f;
-	}
-
-	if (GameManager::JumpCnt == 2)
-	{
-		GameManager::JumpCnt = 0;
-		GameManager::JumpFlag = false;
-	}
 }
