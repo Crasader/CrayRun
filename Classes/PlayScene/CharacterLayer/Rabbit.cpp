@@ -22,7 +22,7 @@ bool Rabbit::init()
 		return false;
 	}
 
-	GameManager::ScoreCorrection = 10.0f;
+	GameManager::ScoreCorrection = 1.2f;
 	// •’Ê‚Ì‰æ‘œ‚©‚ç•ÏX
 	Texture2D* texture = TextureCache::sharedTextureCache()->addImage("Images/Rabbit_Chara2.png");
 

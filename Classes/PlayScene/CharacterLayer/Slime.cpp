@@ -19,9 +19,9 @@ bool Slime::init()
 		return false;
 	}
 
-	GameManager::ScoreCorrection = 5.0f;
+	GameManager::ScoreCorrection = 1.1f;
 	// •’Ê‚Ì‰æ‘œ‚©‚ç•ÏX
-	Texture2D* texture = TextureCache::sharedTextureCache()->addImage("Images/1.png");
+	Texture2D* texture = TextureCache::sharedTextureCache()->addImage("Images/slime_chara.png");
 
 	s_player->setTexture(texture);
 	s_player->setContentSize(texture->getContentSize());

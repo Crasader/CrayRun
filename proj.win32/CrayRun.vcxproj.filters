@@ -90,13 +90,16 @@
     <ClCompile Include="..\Classes\ResultScene\ResultScore.cpp">
       <Filter>ResultScene</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\GameManager.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\EventListenerGesture.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Slime.cpp">
+      <Filter>PlayScene\CharacterLayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Status.cpp">
       <Filter>PlayScene\CharacterLayer</Filter>
     </ClCompile>
   </ItemGroup>
@@ -161,13 +164,16 @@
     <ClInclude Include="..\Classes\ResultScene\ResultScore.h">
       <Filter>ResultScene</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\GameManager.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\EventListenerGesture.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Slime.h">
+      <Filter>PlayScene\CharacterLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameManager.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Status.h">
       <Filter>PlayScene\CharacterLayer</Filter>
     </ClInclude>
   </ItemGroup>

@@ -51,6 +51,8 @@ bool CharacterLayer::init()
 	int FirstTouchCnt = 0;//最初のタッチからどれだけ経過したか
 	//bool FirstTouchFlag = false;//最初のタッチが呼ばれたか
 
+	
+	
 	return true;
 }
 
@@ -278,15 +280,10 @@ void CharacterLayer::MultiTouchCharacter()
 }
 
 
-/***************************************************************************
-*|	概要　	キャラクター変更
-*|	引数　　無し
-*|　戻り値　無し
-****************************************************************************/
 
 //__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/
 //
-//概要：金型の変更
+//概要：金型によるキャラクタの変更
 //
 //引数：なし
 //
@@ -319,15 +316,17 @@ void CharacterLayer::ChangeMold()
 			GameManager::ChangeMold = false;
 			break;
 		case Slime:
+			character->removeFromParent();
+			character = Slime::create();
 			//変更したので戻す
 			GameManager::ChangeMold = false;
 			break;
-	/*	default:
-			break;*/
 		}
 		//変更したのでaddChildする
 		this->addChild(character);
 
+		status = Status::create();
+		addChild(status);
 }
 
 
