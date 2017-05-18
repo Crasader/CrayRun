@@ -14,7 +14,11 @@
 #include "CrayStage.h"
 #include "Stage.h"
 #include "Slope.h"
+#include "Needle.h"
+#include "Enemy.h"
 
+//有効なタッチの数
+const int EFFECTIVENESSTOUCH = 2;
 class StageLayer :public cocos2d::Layer
 {
 
@@ -27,20 +31,28 @@ public:
 private:
 	//スワイプ時に呼び出される
 	void onTouchesMoved(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *unused_event);
-
 	//毎フレーム呼び出される関数
 	void update(float delta)override;
 	//プレイヤーとコインの当たり判定後
 	void CollisionResponseCoin();
 	//プレイヤと金型のあたり判定
 	void HittingMold();
+	//プレイヤと針の当たり判定
+	void HittingNeedle();
 	//ステージ生成
 	void MapCreate();
 	//ステージ削除
 	void MapDelete();
+	//粘土床のマルチタッチ判定
+	void  MultiTouchCrayStage();
+	//針のマルチタッチ判定
+	void  MultiTouchNeedle();
+	//敵とプレイヤの当たり判定
+	void HittingEnemy();
 
-
-
+	std::vector<Enemy*> enemy;
+	//針
+	std::vector<Needle*> needle;
 	//金型オブジェクト
 	std::vector<Mold*> mold;
 	//床
@@ -59,12 +71,20 @@ private:
 	cocos2d::Vector<Slope*>::iterator IteratorSlope;
 	//粘土床イテレーター
 	cocos2d::Vector<CrayStage*>::iterator ItratorCrayStage;
-
+	//針イテレーター
+	cocos2d::Vector<Needle*> ::iterator ItratorNeedle;
 	//タッチサイズ
 	const cocos2d::Vec2 TOUCH_SIZE = cocos2d::Vec2(60, 60);
-
-
+	//
 	int m_data;
+	//タッチ座標
+	cocos2d::Vec2 touchpos[EFFECTIVENESSTOUCH];
+	
+	//デバック用
+	cocos2d::Label* n;
+	int a;
+	int b;
+
 };
 
 

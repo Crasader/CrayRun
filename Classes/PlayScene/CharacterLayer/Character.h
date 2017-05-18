@@ -31,7 +31,7 @@ public:
 			GameManager::PlayerSpd.y -= 0.4f;
 		}
 		//ジャンプがないときは関係なく加速度をつける
-		else if (JumpFlag == false)
+		else if (GameManager::JumpFlag == false)
 		{
 			//GameManager::PlayerSpd.y -= 0.4f;
 		}
@@ -43,7 +43,6 @@ public:
 	//プレイヤーの最大サイズ
 	const int PLAYER_MAX_SIZE = 96;
 
-	bool JumpFlag;//地面についているか
 
 	//何番目のマップにいるか求める
 	void GetLoopPos()
@@ -54,7 +53,9 @@ public:
 			GameManager::PlayerMapPos++;
 		}*/
 	}
-	int JumpCnt;//ジャンプフラグ
+
+	//キャラクタ上方向上限
+	void JumpBan() { if (GameManager::PlayerPos.y < 640)GameManager::PlayerSpd.y = 0; }
 
 	float JumpSize;//ジャンプするおおきさ
 

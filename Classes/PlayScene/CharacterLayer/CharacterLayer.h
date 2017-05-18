@@ -16,7 +16,7 @@
 
 
 //有効なタッチの数
-static const int EFFECTIVENESS_TOUCH = 2;
+ const int EFFECTIVENESS_TOUCH = 2;
 class CharacterLayer :public cocos2d::Layer
 {
 

@@ -23,7 +23,7 @@ bool StageLayer::init()
 
 	//タイルマップの読み込み
 	//マップチップ
-	GameManager::map.push_back(TMXTiledMap::create("floor.tmx"));
+	GameManager::map.push_back(TMXTiledMap::create("map1.tmx"));
 	IteratorMap = GameManager::map.begin();
 	TMXTiledMap* g_Map = *IteratorMap;
 	//タイルマップの中心座標を設定
@@ -50,8 +50,15 @@ bool StageLayer::init()
 	//レイヤーにノードを集約
 	mold.push_back(Mold::create());
 	this->addChild(mold[GameManager::MapLoopCnt]);
-
-
+	//レイヤーにノードを集約
+	needle.push_back(Needle::create());
+	ItratorNeedle = needle.begin();
+	this->addChild((*ItratorNeedle));
+	//敵生成
+	enemy.push_back(Enemy::create());
+	this->addChild(enemy[0]);
+	//this->addChild(*(needle.begin()));
+	//this->addChild(needle[GameManager::MapLoopCnt]);
 	// Register Touch Event
 	EventListenerTouchAllAtOnce* listener = EventListenerTouchAllAtOnce::create();
 
@@ -65,7 +72,15 @@ bool StageLayer::init()
 
 	m_data = 0;
 
-	
+
+	//デバック
+	String* b = String::createWithFormat("%i", a);
+	n = Label::createWithSystemFont(b->getCString(), "arial", 60);
+	n->setScale(4.0f);
+	n->setPosition(300, 200);
+	this->addChild(n);
+
+
 
 	this->scheduleUpdate();
 
@@ -81,6 +96,9 @@ bool StageLayer::init()
 ****************************************************************************/
 void StageLayer::update(float data) 
 {
+	n->setString(StringUtils::toString(b));
+	n->setPosition(GameManager::PlayerPos);
+
 	Vector<Vec2>::iterator Iterator;
 	int i = 0;
 	////床の数だけループ
@@ -108,7 +126,12 @@ void StageLayer::update(float data)
 
 	//コインあたり判定
 	CollisionResponseCoin();
+	//金型当たり判定
 	HittingMold();
+	//針当たり判定
+	HittingNeedle();
+	//敵とプレイヤの当たり判定
+	HittingEnemy();
 
 	if (static_cast<int>(GameManager::m_cameraposx + 480 ) % static_cast<int>(GameManager::MAP_SIZE.x) == 0)
 	{
@@ -178,6 +201,14 @@ void StageLayer::MapCreate()
 	//金型作成
 	mold.push_back(Mold::create());
 	this->addChild(mold[GameManager::MapLoopCnt]);
+
+	//針
+	needle.push_back(Needle::create());
+	this->addChild(needle[GameManager::MapLoopCnt]);
+
+	//敵
+	enemy.push_back(Enemy::create());
+	this->addChild(enemy[GameManager::MapLoopCnt]);
 }
 /***************************************************************************
 *|	概要  　ステージ削除　
@@ -214,7 +245,13 @@ void StageLayer::MapDelete()
 	mold[GameManager::MapLoopCnt - 2]->removeFromParent();
 	//coin[GameManager::MapLoopCnt - 2]->removeFromParent();
 
+	//針削除
+	needle[GameManager::MapLoopCnt - 2]->removeFromParent();
+
+	//敵削除
+	enemy[GameManager::MapLoopCnt - 2]->removeFromParent();
 }
+
 
 
 /***************************************************************************
@@ -281,6 +318,38 @@ void StageLayer::HittingMold()
 	}
 }
 
+/***************************************************************************
+*|	概要　  針とプレイヤの当たり判定
+*|	引数　　無し
+*|　戻り値　無し
+****************************************************************************/
+void StageLayer::HittingNeedle()
+{
+	GameManager::GameOverFlag = false;
+	//イテレーター
+	Vector<Sprite*>::iterator IteratorNeedle;
+	//ループした回数
+	int loop_cnt = 0;
+	//
+	for (IteratorNeedle = needle[GameManager::PlayerMapPos]->s_needle.begin();
+		IteratorNeedle != needle[GameManager::PlayerMapPos]->s_needle.end(); ++IteratorNeedle)
+	{
+		//針がとがっているか
+		if (needle[GameManager::PlayerMapPos]->m_needle_state[loop_cnt] == true)
+		{
+			if (GameManager::HitJudgment(needle[GameManager::PlayerMapPos]->s_needle[loop_cnt]->getPosition() + Vec2(-GameManager::LAYRE_SIZE.x/ 2 , GameManager::LAYRE_SIZE.y / 2),
+				GameManager::LAYRE_SIZE, GameManager::PlayerPos, GameManager::PlayerSize) == true)
+			{
+			//	ゲームオーバーにする
+				GameManager::GameOverFlag = true;
+			}
+		}
+		loop_cnt++;
+	}
+
+
+}
+
 
 
 /***************************************************************************
@@ -292,10 +361,8 @@ void StageLayer::onTouchesMoved(const std::vector<cocos2d::Touch*>& touches, coc
 {
 	log("onTouchesMoved");
 
-	//有効なタッチの数
-	const int EFFECTIVENESS_TOUCH = 2;
-	//タッチ座標
-	Vec2 touchpos[EFFECTIVENESS_TOUCH];
+
+
 	//タッチID格納
 	int g_touch_id;
 
@@ -321,83 +388,204 @@ void StageLayer::onTouchesMoved(const std::vector<cocos2d::Touch*>& touches, coc
 	//二回以上タッチされたら
 	if (g_touch_id >= 1)
 	{
-		//タッチが当たった方向
-		Direction m_touch_collision_direction[EFFECTIVENESS_TOUCH];
-		//タッチがキャラクターに当たったか
-		bool m_touch_collision[EFFECTIVENESS_TOUCH];
-
-		Vector<Vec2>::iterator Iterator;
-
-		int g_loop_cnt = 0;
-		for (Iterator = GameManager::AllCrayFloorPos[GameManager::PlayerMapPos].begin(); Iterator != GameManager::AllCrayFloorPos[GameManager::PlayerMapPos].end(); ++Iterator)
-		{
-			Vec2 g_craystage_size = craystage[GameManager::PlayerMapPos]->CrayStageSize[g_loop_cnt];
-
-			//タッチがプレイヤーに当たったか
-			m_touch_collision[0] = GameManager::HitJudgment(
-				touchpos[0] - Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2), TOUCH_SIZE,
-				(*Iterator) + Vec2(g_craystage_size.x / 2, -g_craystage_size.y), g_craystage_size);
-			//タッチ2がプレイヤーに当たったか
-			m_touch_collision[1] = GameManager::HitJudgment(
-				touchpos[1] - Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2), TOUCH_SIZE,
-				(*Iterator) + Vec2(g_craystage_size.x / 2, -g_craystage_size.y), g_craystage_size);
-
-			//タッチが二つともプレイヤーに当たったか
-			if (m_touch_collision[0] == true && m_touch_collision[1] == true)
-			{
-				//タッチとプレイヤーのあたり判定
-				m_touch_collision_direction[0] = GameManager::CollisionDetermination2(
-					touchpos[0] - Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2), TOUCH_SIZE,
-					(*Iterator) + Vec2(g_craystage_size.x / 2, -g_craystage_size.y), g_craystage_size);
-
-				//タッチ2とプレイヤーのあたり判定
-				m_touch_collision_direction[1] = GameManager::CollisionDetermination2(
-					touchpos[1] - Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2), TOUCH_SIZE,
-					(*Iterator) + Vec2(g_craystage_size.x / 2, -g_craystage_size.y), g_craystage_size);
-
-			
-
-				//上に挟んだか
-				if (m_touch_collision_direction[0] == up || m_touch_collision_direction[1] == under || m_touch_collision_direction[0] == under || m_touch_collision_direction[1] == up)
-				{
-			/*		int g_distanceY;
-					if (touchpos[0].y - touchpos[1].y < 0)
-					{
-						g_distanceY = touchpos[1].y - touchpos[0].y;
-					}
-					else {
-						 g_distanceY = touchpos[0].y - touchpos[1].y;
-					}*/
-
-					//大きさ変更
-					craystage[GameManager::PlayerMapPos]->CrayStageSize[g_loop_cnt].y = 32;
-					GameManager::CrayFloorSize = craystage[GameManager::PlayerMapPos]->CrayStageSize;
-				}
-				//下に挟んだか
-				else if (m_touch_collision_direction[0] == left || m_touch_collision_direction[1] == left || m_touch_collision_direction[0] == right || m_touch_collision_direction[1] == right)
-				{
-					//int g_distanceX;
-					//if (touchpos[0].x - touchpos[1].x < 0)
-					//{
-					//	g_distanceX = touchpos[1].x - touchpos[0].x;
-					//}
-					//else
-					//{
-					//	g_distanceX = touchpos[0].x - touchpos[1].x;
-					//}
-					//大きさ変更
-					craystage[GameManager::PlayerMapPos]->CrayStageSize[g_loop_cnt].x = 32;
-					GameManager::CrayFloorSize = craystage[GameManager::PlayerMapPos]->CrayStageSize;
-				}
-			}
-
-			g_loop_cnt++;
-		}
-
+		//粘土床のマルチタッチ判定
+		MultiTouchCrayStage();
+		//針のマルチタッチ判定
+		MultiTouchNeedle();
 		//初期化する
 		touchpos[0] = Vec2(0.0f, 0.0f);
 		touchpos[1] = Vec2(0.0f, 0.0f);
 	}
 
 
+}
+
+/***************************************************************************
+*|	概要　	粘土床のマルチタッチ判定
+*|	引数　　無し
+*|　戻り値　無し
+****************************************************************************/
+
+void StageLayer::MultiTouchCrayStage()
+{
+	//タッチが当たった方向
+	Direction m_touch_collision_direction[EFFECTIVENESSTOUCH];
+	//タッチがキャラクターに当たったか
+	bool m_touch_collision[EFFECTIVENESSTOUCH];
+
+	Vector<Vec2>::iterator Iterator;
+
+	int g_loop_cnt = 0;
+	for (Iterator = GameManager::AllCrayFloorPos[GameManager::PlayerMapPos].begin(); Iterator != GameManager::AllCrayFloorPos[GameManager::PlayerMapPos].end(); ++Iterator)
+	{
+		Vec2 g_craystage_size = craystage[GameManager::PlayerMapPos]->CrayStageSize[g_loop_cnt];
+
+		//タッチがプレイヤーに当たったか
+		m_touch_collision[0] = GameManager::HitJudgment(
+			touchpos[0] - Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2), TOUCH_SIZE,
+			(*Iterator) + Vec2(g_craystage_size.x / 2, -g_craystage_size.y), g_craystage_size);
+		//タッチ2がプレイヤーに当たったか
+		m_touch_collision[1] = GameManager::HitJudgment(
+			touchpos[1] - Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2), TOUCH_SIZE,
+			(*Iterator) + Vec2(g_craystage_size.x / 2, -g_craystage_size.y), g_craystage_size);
+
+		//タッチが二つともプレイヤーに当たったか
+		if (m_touch_collision[0] == true && m_touch_collision[1] == true)
+		{
+			//タッチとプレイヤーのあたり判定
+			m_touch_collision_direction[0] = GameManager::CollisionDetermination2(
+				touchpos[0] - Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2), TOUCH_SIZE,
+				(*Iterator) + Vec2(g_craystage_size.x / 2, -g_craystage_size.y), g_craystage_size);
+
+			//タッチ2とプレイヤーのあたり判定
+			m_touch_collision_direction[1] = GameManager::CollisionDetermination2(
+				touchpos[1] - Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2), TOUCH_SIZE,
+				(*Iterator) + Vec2(g_craystage_size.x / 2, -g_craystage_size.y), g_craystage_size);
+
+
+
+			//上に挟んだか
+			if (m_touch_collision_direction[0] == up || m_touch_collision_direction[1] == under || m_touch_collision_direction[0] == under || m_touch_collision_direction[1] == up)
+			{
+				/*		int g_distanceY;
+				if (touchpos[0].y - touchpos[1].y < 0)
+				{
+				g_distanceY = touchpos[1].y - touchpos[0].y;
+				}
+				else {
+				g_distanceY = touchpos[0].y - touchpos[1].y;
+				}*/
+
+				//大きさ変更
+				craystage[GameManager::PlayerMapPos]->CrayStageSize[g_loop_cnt].y = 32;
+				GameManager::CrayFloorSize = craystage[GameManager::PlayerMapPos]->CrayStageSize;
+			}
+			//下に挟んだか
+			else if (m_touch_collision_direction[0] == left || m_touch_collision_direction[1] == left || m_touch_collision_direction[0] == right || m_touch_collision_direction[1] == right)
+			{
+				//int g_distanceX;
+				//if (touchpos[0].x - touchpos[1].x < 0)
+				//{
+				//	g_distanceX = touchpos[1].x - touchpos[0].x;
+				//}
+				//else
+				//{
+				//	g_distanceX = touchpos[0].x - touchpos[1].x;
+				//}
+				//大きさ変更
+				craystage[GameManager::PlayerMapPos]->CrayStageSize[g_loop_cnt].x = 32;
+				GameManager::CrayFloorSize = craystage[GameManager::PlayerMapPos]->CrayStageSize;
+			}
+		}
+
+		g_loop_cnt++;
+	}
+}
+
+/***************************************************************************
+*|	概要　  針のマルチタッチ判定
+*|	引数　　無し
+*|　戻り値　無し
+****************************************************************************/
+void StageLayer::MultiTouchNeedle()
+{
+	//タッチが当たった方向
+	Direction m_touch_collision_direction[EFFECTIVENESSTOUCH];
+	//タッチがキャラクターに当たったか
+	bool m_touch_collision[EFFECTIVENESSTOUCH];
+
+	Vector<Sprite*>::iterator Iterator;
+	b = 1;
+	int loop_cnt = 0;
+	for (Iterator = needle[GameManager::PlayerMapPos]->s_needle.begin(); Iterator != needle[GameManager::PlayerMapPos]->s_needle.end(); ++Iterator)
+	{
+		b = 2;
+		Vec2 g_craystage_size = craystage[GameManager::PlayerMapPos]->CrayStageSize[loop_cnt];
+
+		//タッチがプレイヤーに当たったか
+		m_touch_collision[0] = GameManager::HitJudgment(
+			touchpos[0] - Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2), GameManager::PlayerSize,
+			(*Iterator)->getPosition() + Vec2(GameManager::LAYRE_SIZE.x / 2, -GameManager::LAYRE_SIZE.y / 2), GameManager::LAYRE_SIZE);
+		//タッチ2がプレイヤーに当たったか
+		m_touch_collision[1] = GameManager::HitJudgment(
+			touchpos[1] - Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2), GameManager::PlayerSize,
+			(*Iterator)->getPosition() + Vec2(GameManager::LAYRE_SIZE.x / 2, -GameManager::LAYRE_SIZE.y /2), GameManager::LAYRE_SIZE);
+
+		//タッチが二つともプレイヤーに当たったか
+		if (m_touch_collision[0] == true && m_touch_collision[1] == true)
+		{
+			
+			//タッチとプレイヤーのあたり判定
+			m_touch_collision_direction[0] = GameManager::CollisionDetermination2(
+				touchpos[0] - Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2), TOUCH_SIZE,
+				(*Iterator)->getPosition() + Vec2(GameManager::LAYRE_SIZE.x / 2, -GameManager::LAYRE_SIZE.y), GameManager::LAYRE_SIZE);
+
+			//タッチ2とプレイヤーのあたり判定
+			m_touch_collision_direction[1] = GameManager::CollisionDetermination2(
+				touchpos[1] - Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2), TOUCH_SIZE,
+				(*Iterator)->getPosition() + Vec2(GameManager::LAYRE_SIZE.x / 2, -GameManager::LAYRE_SIZE.y), GameManager::LAYRE_SIZE);
+			b = (*Iterator)->getPosition().x;
+
+
+			////挟んだか
+			//if (m_touch_collision_direction[0] == up || m_touch_collision_direction[1] == under || m_touch_collision_direction[0] == under || m_touch_collision_direction[1] == up
+			//	||m_touch_collision_direction[0] == left || m_touch_collision_direction[1] == left || m_touch_collision_direction[0] == right || m_touch_collision_direction[1] == right)
+			//{
+				b = 11111111;
+				// 普通の画像から変更
+				Texture2D* texture = TextureCache::sharedTextureCache()->addImage("Images/needle2.png");
+				(*Iterator)->setTexture(texture);
+				needle[GameManager::PlayerMapPos]->m_needle_state[loop_cnt] = false;
+		//	}
+
+		}
+
+		loop_cnt++;
+	}
+
+}
+
+/***************************************************************************
+*|	概要　  敵とプレイヤの当たり判定
+*|	引数　　無し
+*|　戻り値　無し
+****************************************************************************/
+void StageLayer::HittingEnemy()
+{
+	std::vector<Vec2>::iterator IteratorEnemy;
+	for (IteratorEnemy = enemy[GameManager::PlayerMapPos]->m_EnemyPos.begin(); IteratorEnemy != enemy[GameManager::PlayerMapPos]->m_EnemyPos.end(); ++IteratorEnemy)
+	{
+		switch (GameManager::CollisionDetermination
+		((*IteratorEnemy), GameManager::LAYRE_SIZE,
+			GameManager::PlayerPos, GameManager::PlayerSize))
+		{
+		case right:
+			GameManager::PlayerPos.x = (*IteratorEnemy).x + GameManager::LAYRE_SIZE.x + GameManager::PlayerSize.x / 2 + 1;
+			GameManager::PlayerSpd.x = 0.0f;
+			GameManager::GameOverFlag = true;
+			break;
+		case left:
+			/*GameManager::PlayerPos.x = GameManager::AllFloorPosx[i] - GameManager::PlayerSize.x / 2;*/
+			GameManager::RightFlag = true;
+			//GameManager::PlayerSpd.x = -6.0f;
+			GameManager::GameOverFlag = true;
+			break;
+		case up:
+			GameManager::PlayerPos.y = (*IteratorEnemy).y;
+			GameManager::PlayerSpd.y =0.0f;
+			//ジャンプ可能にする
+		/*	character->GameManager::JumpCnt = 0;
+			character->GameManager::JumpFlag = true;*/
+			break;
+			case under:
+			//GameManager::PlayerPos.y = (*IteratorEnemy).y - ;
+			GameManager::PlayerSpd.y = 0.0f;
+			GameManager::GameOverFlag = true;
+			break;
+		default:
+			break;
+
+		}
+
+	}
 }

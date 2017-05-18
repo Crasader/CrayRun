@@ -7,6 +7,7 @@ const  int GameManager::BOX_COLLIDER = 10;			//‚ ‚½‚è”»’è‚Ég—p‚·‚éƒ^ƒCƒ‹ƒŒƒCƒ
 const  int GameManager::BOX_COLLIDER2 = 40;			//‚ ‚½‚è”»’è‚Ég—p‚·‚éƒ^ƒCƒ‹ƒŒƒCƒ„[‚Ì•£‚©‚ç­‚µ‚¾‚¯“à‘¤‚É“ü‚Á‚Ä‚¢‚é‚©Šm‚©‚ß‚é‚½‚ß‚Ì”
 
 float GameManager::WorldPosX = 0.0f;
+bool GameManager::GameOverFlag = false;//ƒQ[ƒ€ƒI[ƒo[ƒtƒ‰ƒO
 
 //////////////ƒLƒƒƒ‰ƒNƒ^[ƒŒƒCƒ„[//////
 //////////////ƒLƒƒƒ‰ƒNƒ^[//////////////
@@ -16,6 +17,11 @@ Vec2  GameManager::PlayerPos = Vec2(300.0f,300.0f);//À•W
 float  GameManager::ScoreCorrection = 1.0f;//ƒXƒRƒA•â³
 bool GameManager::RightFlag = false;//‰E‘¤‚É“–‚½‚Á‚½‚©
 
+int  GameManager::JumpCnt = 0;//ƒWƒƒƒ“ƒv‚ÌƒJƒEƒ“ƒg
+bool  GameManager::JumpFlag = true;//ƒWƒƒƒ“ƒv‚Å‚«‚é‚©
+
+
+
 int GameManager::FirstTouchCnt = 0;//Å‰‚Ìƒ^ƒbƒ`‚©‚ç‚Ç‚ê‚¾‚¯Œo‰ß‚µ‚½‚©
 bool GameManager::FirstTouchFlag = false;//Å‰‚Ìƒ^ƒbƒ`‚ªŒÄ‚Î‚ê‚½‚©
 int GameManager::PlayerMapPos = 0;//‰½”Ô–Ú‚ÌÀ•W‚É‚¢‚é‚©
@@ -24,7 +30,7 @@ int GameManager::PlayerMapPos = 0;//‰½”Ô–Ú‚ÌÀ•W‚É‚¢‚é‚©
 ///////////////ƒXƒe[ƒWƒŒƒCƒ„[/////////
 std::vector<cocos2d::TMXTiledMap*>  GameManager::map;//ƒ}ƒbƒv
 
-const Vec2 GameManager::MAP_SIZE = Vec2(960 * 2, 640);//ƒ}ƒbƒv‘å‚«‚³
+const Vec2 GameManager::MAP_SIZE = Vec2(1000 * 64, 640);//ƒ}ƒbƒv‘å‚«‚³
 const Vec2 GameManager::LAYRE_SIZE = Vec2(64,64);//ƒŒƒCƒ„[‚Ì‘å‚«‚³
 int  GameManager::MapLoopCnt = 0;//ƒXƒe[ƒW‚ğƒ‹[ƒv‚³‚¹‚½‰ñ”
 std::vector<std::vector<Vec2>> GameManager::AllFloorPos;//°À•W

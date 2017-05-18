@@ -42,7 +42,7 @@ public:
 
 	~GameManager();
 	static float WorldPosX;//画面座標
-
+	static bool GameOverFlag;//ゲームオーバーフラグ
 	//////////////キャラクターレイヤー//////
 	/////////////キャラクター/////////////
 	static cocos2d::Vec2 PlayerSpd;//速度
@@ -50,6 +50,8 @@ public:
 	static  cocos2d::Vec2 PlayerSize;//サイズ
 	static float ScoreCorrection;//スコア補正
 	static bool RightFlag;//右側に当たったか
+	static int JumpCnt;//ジャンプのカウント
+	static bool JumpFlag;//ジャンプできるか
 
 	static int FirstTouchCnt;//最初のタッチからどれだけ経過したか
 	static bool FirstTouchFlag;//最初のタッチが呼ばれたか

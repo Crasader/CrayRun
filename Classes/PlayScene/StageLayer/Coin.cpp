@@ -19,7 +19,7 @@ bool Coin::init()
 	}
 
 	//レイヤー取得
-	TMXLayer* layer2 = GameManager::map[GameManager::MapLoopCnt]->getLayer("CoinLayer");
+	TMXLayer* layer2 = GameManager::map[GameManager::MapLoopCnt]->getLayer("MapLayer");
 
 	bool flag = true;
 	m_CoinCnt = 0;
@@ -41,7 +41,7 @@ bool Coin::init()
 				if (properties.empty() == false)
 				{
 					// "type"プロパティを文字列として取得
-					std::string str = properties["Coin"].asString();
+					std::string str = properties["coin"].asString();
 					if (str == "coin")
 					{
 						//画像をランダムで設定する

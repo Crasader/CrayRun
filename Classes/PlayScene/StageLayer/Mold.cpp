@@ -23,7 +23,7 @@ bool Mold::init(){
 	bool flag = true;
 
 	//レイヤー取得
-	TMXLayer* layer2 = GameManager::map[GameManager::MapLoopCnt]->getLayer("MoldLayer");
+	TMXLayer* layer2 = GameManager::map[GameManager::MapLoopCnt]->getLayer("MapLayer");
 
 	//一回目:レイヤーの数を調べる,2回目:座標を設定する
 	for (int i = 0; i < GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y; i++)
@@ -43,8 +43,8 @@ bool Mold::init(){
 				if (properties.empty() == false)
 				{
 					// "type"プロパティを文字列として取得
-					std::string str = properties["Mold"].asString();
-					if (str == "Mold")
+					std::string str = properties["mold"].asString();
+					if (str == "mold")
 					{
 						//ランダムでキャラクターを作成する
 						switch (Rabbit)

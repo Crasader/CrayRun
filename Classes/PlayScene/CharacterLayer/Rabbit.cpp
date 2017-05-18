@@ -36,16 +36,16 @@ void Rabbit::Jump()
 {
 	//JumpBy* jumpaction = JumpBy::create(0.5f, Vec2(0,0), 64.0f, 1);
 	//s_player->runAction(jumpaction);
-	JumpCnt++;
+	GameManager::JumpCnt++;
 
-	if (JumpFlag == true)
+	if (GameManager::JumpFlag == true)
 	{
 		GameManager::PlayerSpd.y = 13.0f;
 	}
 
-	if (JumpCnt == 2)
+	if (GameManager::JumpCnt == 2)
 	{
-		JumpCnt = 0;
-		JumpFlag = false;
+		GameManager::JumpCnt = 0;
+		GameManager::JumpFlag = false;
 	}
 }

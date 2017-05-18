@@ -34,18 +34,15 @@ bool Character::init()
 		s_player->setAnchorPoint(Vec2(0.5, 0));
 		this->addChild(s_player);
 
-		bool JumpFlag = true;//地面についているか
-		int  JumpCnt = 0;//ジャンプフラグ
 
 
 	}
 	else {
 		Texture2D* texture = TextureCache::sharedTextureCache()->addImage("Images/Player2.png");
 
-		bool JumpFlag = false;//地面についているか
-		int  JumpCnt = 0;//ジャンプフラグ
-
 	}
+
+	GameManager::PlayerSize.x = 10;
 		
 	return true;
 }
@@ -72,18 +69,18 @@ void Character::Jump()
 {
 
 	//ジャンプした回数をインクリメント
-	JumpCnt++;
+	GameManager::JumpCnt++;
 
 	//ジャンプ可能ならジャンプさせる
-	if (JumpFlag == true)
+	if (GameManager::JumpFlag == true)
 	{
 		GameManager::PlayerSpd.y = 9.0f;
 	}
 	//二回ジャンプしたらジャンプ負荷にする
-	if (JumpCnt == 2)
+	if (GameManager::JumpCnt == 2)
 	{
-		JumpCnt = 0;
-		JumpFlag = false;
+		GameManager::JumpCnt = 0;
+		GameManager::JumpFlag = false;
 	}
 }
 

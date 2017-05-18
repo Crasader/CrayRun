@@ -19,7 +19,7 @@ bool CrayStage::init()
 	}
 
 	//レイヤー取得
-	TMXLayer* layer2 = GameManager::map[GameManager::MapLoopCnt]->getLayer("CrayFloorLayer");
+	TMXLayer* layer2 = GameManager::map[GameManager::MapLoopCnt]->getLayer("MapLayer");
 
 	bool flag = true;
 	CryFloorCnt = 0;
@@ -41,8 +41,8 @@ bool CrayStage::init()
 				if (properties.empty() == false)
 				{
 					// "type"プロパティを文字列として取得
-					std::string str = properties["Mold"].asString();
-					if (str == "Mold")
+					std::string str = properties["craystage"].asString();
+					if (str == "craystage")
 					{
 						crayfloor.push_back(Sprite::create("Images/CryFloor.png"));
 

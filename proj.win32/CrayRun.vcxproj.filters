@@ -99,6 +99,12 @@
     <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Slime.cpp">
       <Filter>PlayScene\CharacterLayer</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\StageLayer\Needle.cpp">
+      <Filter>PlayScene\StageLayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\StageLayer\Enemy.cpp">
+      <Filter>PlayScene\StageLayer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -169,6 +175,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Slime.h">
       <Filter>PlayScene\CharacterLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\StageLayer\Needle.h">
+      <Filter>PlayScene\StageLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\StageLayer\Enemy.h">
+      <Filter>PlayScene\StageLayer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

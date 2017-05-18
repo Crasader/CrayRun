@@ -18,7 +18,7 @@ bool Slope::init()
 	}
 
 	//レイヤー取得
-	TMXLayer* layer = GameManager::map[GameManager::MapLoopCnt]->getLayer("SlopeLayer");
+	TMXLayer* layer = GameManager::map[GameManager::MapLoopCnt]->getLayer("MapLayer");
 	bool flag = true;
 	GameManager::SlopeCnt = 0;
 
@@ -39,8 +39,8 @@ bool Slope::init()
 					if (properties.empty() == false)
 					{
 						// "type"プロパティを文字列として取得
-						std::string str = properties["Coin"].asString();
-						if (str == "coin")
+						std::string str = properties["slope"].asString();
+						if (str == "slope")
 						{
 							ClimbingFlag = true;
 							if (ClimbingFlag == true)

@@ -366,8 +366,8 @@ void CharacterLayer::CollisionResponseFloor()
 				GameManager::PlayerPos.y = vec.y;
 				GameManager::PlayerSpd.y = 0.0f;
 				//ジャンプ可能にする
-				character->JumpCnt = 0;
-				character->JumpFlag = true;
+				GameManager::JumpCnt = 0;
+				GameManager::JumpFlag = true;
 				break;
 				/*case under:
 				GameManager::PlayerPos.y = GameManager::AllFloorPosy[i] - GameManager::LAYRE_SIZE.y - GameManager::PlayerSize.y - 1;
@@ -433,14 +433,14 @@ void CharacterLayer::CollisionResponseCrayFloor()
 			GameManager::PlayerPos.y = vec.y  - GameManager::MAX_CRAYSTAGESIZE.y + (*IteratorSize).y;
 			GameManager::PlayerSpd.y = 0.0f;
 			//ジャンプ可能にする
-			character->JumpCnt = 0;
-			character->JumpFlag = true;
+			GameManager::JumpCnt = 0;
+			GameManager::JumpFlag = true;
 		
 			break;
-			/*case under:
-			GameManager::PlayerPos.y = GameManager::AllFloorPosy[i] - GameManager::LAYRE_SIZE.y - GameManager::PlayerSize.y - 1;
-			GameManager::PlayerSpd.y = 0.0f;
-			break;*/
+			case under:
+			//GameManager::PlayerPos.y = GameManager::AllFloorPosy[i] - GameManager::LAYRE_SIZE.y - GameManager::PlayerSize.y - 1;
+			//GameManager::PlayerSpd.y = 0.0f;
+			break;
 		default:
 			break;
 
@@ -474,8 +474,8 @@ void CharacterLayer::CollisionResponseSlope()
 				//埋まった分を押し出す
 				GameManager::PlayerPos.y = GameManager::SlopePosY;
 				//ジャンプ可能にする
-				character->JumpCnt = 0;
-				character->JumpFlag = true;
+				GameManager::JumpCnt = 0;
+				GameManager::JumpFlag = true;
 
 			}
 			IteratorLeft++;
