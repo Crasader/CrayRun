@@ -57,6 +57,6 @@ public:
 	int JumpCnt;//ジャンプフラグ
 
 	float JumpSize;//ジャンプするおおきさ
-
+	bool ChangeScaleFlag;
 };
 

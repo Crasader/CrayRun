@@ -79,8 +79,9 @@ void CharacterLayer::update(float date)
 
 	//プレイヤーと床の衝突判定
 	CollisionResponseFloor();
-	//プレイヤーと粘土床の衝突判定
-	CollisionResponseCrayFloor();
+	if(GameManager::Mold != Gnome)
+		//プレイヤーと粘土床の衝突判定
+		CollisionResponseCrayFloor();
 	//プレイヤーと斜面のあたり判定
 	CollisionResponseSlope();
 	//ジャンプするか調べる
@@ -161,7 +162,7 @@ void CharacterLayer::onTouchesMoved(const std::vector<cocos2d::Touch*>& touches,
 	//二回以上タッチされたら
 	if (m_touch_id >= 1)
 	{
-	
+		if(character->ChangeScaleFlag)
 		//キャラクターのマルチタッチ判定
 		MultiTouchCharacter();
 		//if (m_touch_collision_direction[0] == up && m_touch_collision_direction[1] == under)
@@ -226,7 +227,6 @@ void CharacterLayer::onTouchesCancelled(const std::vector<cocos2d::Touch*>& touc
 ****************************************************************************/
 void CharacterLayer::MultiTouchCharacter()
 {
-	
 	//タッチが当たった方向
 	Direction m_touch_collision_direction[EFFECTIVENESS_TOUCH];
 	//タッチがキャラクターに当たったか
@@ -255,26 +255,21 @@ void CharacterLayer::MultiTouchCharacter()
 			GameManager::PlayerPos, GameManager::PlayerSize);
 
 
-		//上に挟んだか
+		//上下に挟んだか
 		if (m_touch_collision_direction[0] == up || m_touch_collision_direction[1] == under || m_touch_collision_direction[0] == under || m_touch_collision_direction[1] == up)
 		{
 			//大きさ変更
 			GameManager::PlayerSize.y = 32.0f;
-		/*	GameManager::PlayerSize.y = touchpos[1].y - touchpos[0].y;
-			if (GameManager::PlayerSize.y <= 0)
-			{
-				GameManager::PlayerSize.y = 10;
-			}*/
+			if(GameManager::Mold != Slime)
+			character->ChangeScaleFlag = false;
 		}
-		//下に挟んだか
+		//左右に挟んだか
 		else if (m_touch_collision_direction[0] == left || m_touch_collision_direction[1] == left || m_touch_collision_direction[0] == right || m_touch_collision_direction[1] == right)
 		{
 			//大きさ変更
 			GameManager::PlayerSize.x = 32;
-			//if (GameManager)
-			//{
-
-			//}
+			if (GameManager::Mold != Slime)
+				character->ChangeScaleFlag = false;
 		}
 	}
 }
@@ -309,10 +304,14 @@ void CharacterLayer::ChangeMold()
 			break;
 		case Gnome:
 			//変更したので戻す
+			character->removeFromParent();
+			character = Gnome::create();
 			GameManager::ChangeMold = false;
 			break;
 		case Phoenix:
 			//変更したので戻す
+			character->removeFromParent();
+			character = Phoenix::create();
 			GameManager::ChangeMold = false;
 			break;
 		case Slime:

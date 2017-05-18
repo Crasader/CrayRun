@@ -153,6 +153,8 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClCompile Include="..\Classes\PlayScene\BackgroundLayer\BackgroundLayer.cpp" />
     <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Character.cpp" />
     <ClCompile Include="..\Classes\PlayScene\CharacterLayer\CharacterLayer.cpp" />
+    <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Gnome.cpp" />
+    <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Phoenix.cpp" />
     <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Rabbit.cpp" />
     <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Slime.cpp" />
     <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Status.cpp" />
@@ -179,6 +181,8 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClInclude Include="..\Classes\PlayScene\BackgroundLayer\BackgroundLayer.h" />
     <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Character.h" />
     <ClInclude Include="..\Classes\PlayScene\CharacterLayer\CharacterLayer.h" />
+    <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Gnome.h" />
+    <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Phoenix.h" />
     <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Rabbit.h" />
     <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Slime.h" />
     <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Status.h" />

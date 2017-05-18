@@ -13,6 +13,8 @@
 #include "Character.h"
 #include "Rabbit.h"
 #include "Slime.h"
+#include "Gnome.h"
+#include "Phoenix.h"
 
 #include "Status.h"
 

@@ -102,6 +102,12 @@
     <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Status.cpp">
       <Filter>PlayScene\CharacterLayer</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Gnome.cpp">
+      <Filter>PlayScene\CharacterLayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Phoenix.cpp">
+      <Filter>PlayScene\CharacterLayer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -174,6 +180,12 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Status.h">
+      <Filter>PlayScene\CharacterLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Gnome.h">
+      <Filter>PlayScene\CharacterLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Phoenix.h">
       <Filter>PlayScene\CharacterLayer</Filter>
     </ClInclude>
   </ItemGroup>

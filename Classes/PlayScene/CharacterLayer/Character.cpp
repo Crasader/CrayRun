@@ -41,7 +41,7 @@ bool Character::init()
 	}
 
 	JumpSize = 9.0f;
-		
+	ChangeScaleFlag = true;
 	return true;
 }
 
@@ -110,12 +110,11 @@ void Character::setScale()
 		GameManager::PlayerSize.y = 96;
 	}
 
-
-
 	//サイズを適用する
 	s_player->setScale(GameManager::PlayerSize.x / PLAYER_MAX_SIZE, GameManager::PlayerSize.y / PLAYER_MAX_SIZE);
 
+	if (GameManager::PlayerSize.x == PLAYER_MAX_SIZE && GameManager::PlayerSize.y == PLAYER_MAX_SIZE)
+	{
+		ChangeScaleFlag = true;
+	}
 }
-
-
-
