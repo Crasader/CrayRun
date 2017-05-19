@@ -30,7 +30,7 @@ int GameManager::PlayerMapPos = 0;//何番目の座標にいるか
 ///////////////ステージレイヤー/////////
 std::vector<cocos2d::TMXTiledMap*>  GameManager::map;//マップ
 
-const Vec2 GameManager::MAP_SIZE = Vec2(1000 * 64, 640);//マップ大きさ
+const Vec2 GameManager::MAP_SIZE = Vec2(300 * 64, 640);//マップ大きさ
 const Vec2 GameManager::LAYRE_SIZE = Vec2(64,64);//レイヤーの大きさ
 int  GameManager::MapLoopCnt = 0;//ステージをループさせた回数
 std::vector<std::vector<Vec2>> GameManager::AllFloorPos;//床座標

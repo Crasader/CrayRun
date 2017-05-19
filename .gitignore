@@ -110,6 +110,7 @@ proj.win32/.vs/
 # proj.win8.1-universal
 
 # others
-proj.win32/iwashi.VC.db
-proj.win32/iwashi.VC.VC.opendb
+proj.win32/CrayRun.VC.db
 proj.win32/CrayRun.VC.VC.opendb
+proj.win32/CrayRun.VC.VC.opendb
+proj.android/.d

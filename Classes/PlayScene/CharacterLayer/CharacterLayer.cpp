@@ -80,8 +80,8 @@ void CharacterLayer::update(float date)
 	//プレイヤーと床の衝突判定
 	CollisionResponseFloor();
 	if(GameManager::Mold != Gnome)
-		//プレイヤーと粘土床の衝突判定
-		CollisionResponseCrayFloor();
+	//プレイヤーと粘土床の衝突判定
+	CollisionResponseCrayFloor();
 	//プレイヤーと斜面のあたり判定
 	CollisionResponseSlope();
 	//ジャンプするか調べる
@@ -169,9 +169,6 @@ void CharacterLayer::onTouchesMoved(const std::vector<cocos2d::Touch*>& touches,
 		touchpos[0] = Vec2(0.0f, 0.0f);
 		touchpos[1] = Vec2(0.0f, 0.0f);
 	}
-
-	
-
 }
 
 /***************************************************************************
