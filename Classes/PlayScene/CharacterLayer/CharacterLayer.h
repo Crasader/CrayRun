@@ -15,9 +15,8 @@
 #include "Slime.h"
 #include "Gnome.h"
 #include "Phoenix.h"
-
 #include "Status.h"
-
+#include "Enemy.h"
 
 
 //有効なタッチの数
@@ -60,13 +59,17 @@ private:
 	void  CollisionResponseSlope();
 	//プレイヤーとギミックのあたり判定
 	//void AfterHittingGimmick();
+	//敵とプレイヤの当たり判定
+	void CollisionResponseEnemy();
 
 	//ジャンプするか調べる
 	void JumpInvestigate();
 	//キャラクターオブジェクト
 	Character* character;
-
+	//ステータス
 	Status* status;
+	//敵
+	std::vector<Enemy*> enemy;
 
 	//デバック用
 	cocos2d::Label* n;

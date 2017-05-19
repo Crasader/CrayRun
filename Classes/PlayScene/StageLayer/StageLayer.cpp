@@ -6,7 +6,6 @@
 *|___________________________________________________________________________
 ****************************************************************************/
 /* ---- ライブラリのインクルード ---------- */
-#include "StageLayer.h"
 #include "../../GameManager.h"
 
 /* ---- 名前空間を解放 -------------------- */
@@ -54,9 +53,7 @@ bool StageLayer::init()
 	needle.push_back(Needle::create());
 	ItratorNeedle = needle.begin();
 	this->addChild((*ItratorNeedle));
-	//敵生成
-	enemy.push_back(Enemy::create());
-	this->addChild(enemy[0]);
+
 	//this->addChild(*(needle.begin()));
 	//this->addChild(needle[GameManager::MapLoopCnt]);
 	// Register Touch Event
@@ -130,8 +127,7 @@ void StageLayer::update(float data)
 	HittingMold();
 	//針当たり判定
 	HittingNeedle();
-	//敵とプレイヤの当たり判定
-	HittingEnemy();
+	
 
 	if (static_cast<int>(GameManager::m_cameraposx + 480 ) % static_cast<int>(GameManager::MAP_SIZE.x) == 0)
 	{
@@ -206,9 +202,6 @@ void StageLayer::MapCreate()
 	needle.push_back(Needle::create());
 	this->addChild(needle[GameManager::MapLoopCnt]);
 
-	//敵
-	enemy.push_back(Enemy::create());
-	this->addChild(enemy[GameManager::MapLoopCnt]);
 }
 /***************************************************************************
 *|	概要  　ステージ削除　
@@ -248,8 +241,6 @@ void StageLayer::MapDelete()
 	//針削除
 	needle[GameManager::MapLoopCnt - 2]->removeFromParent();
 
-	//敵削除
-	enemy[GameManager::MapLoopCnt - 2]->removeFromParent();
 }
 
 
@@ -544,47 +535,3 @@ void StageLayer::MultiTouchNeedle()
 
 }
 
-/***************************************************************************
-*|	概要　  敵とプレイヤの当たり判定
-*|	引数　　無し
-*|　戻り値　無し
-****************************************************************************/
-void StageLayer::HittingEnemy()
-{
-	std::vector<Vec2>::iterator IteratorEnemy;
-	for (IteratorEnemy = enemy[GameManager::PlayerMapPos]->m_EnemyPos.begin(); IteratorEnemy != enemy[GameManager::PlayerMapPos]->m_EnemyPos.end(); ++IteratorEnemy)
-	{
-		switch (GameManager::CollisionDetermination
-		((*IteratorEnemy), GameManager::LAYRE_SIZE,
-			GameManager::PlayerPos, GameManager::PlayerSize))
-		{
-		case right:
-			GameManager::PlayerPos.x = (*IteratorEnemy).x + GameManager::LAYRE_SIZE.x + GameManager::PlayerSize.x / 2 + 1;
-			GameManager::PlayerSpd.x = 0.0f;
-			GameManager::GameOverFlag = true;
-			break;
-		case left:
-			/*GameManager::PlayerPos.x = GameManager::AllFloorPosx[i] - GameManager::PlayerSize.x / 2;*/
-			GameManager::RightFlag = true;
-			//GameManager::PlayerSpd.x = -6.0f;
-			GameManager::GameOverFlag = true;
-			break;
-		case up:
-			GameManager::PlayerPos.y = (*IteratorEnemy).y;
-			GameManager::PlayerSpd.y =0.0f;
-			//ジャンプ可能にする
-		/*	character->GameManager::JumpCnt = 0;
-			character->GameManager::JumpFlag = true;*/
-			break;
-			case under:
-			//GameManager::PlayerPos.y = (*IteratorEnemy).y - ;
-			GameManager::PlayerSpd.y = 0.0f;
-			GameManager::GameOverFlag = true;
-			break;
-		default:
-			break;
-
-		}
-
-	}
-}

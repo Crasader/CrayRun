@@ -64,18 +64,18 @@ void Character::Jump()
 {
 
 	//ジャンプした回数をインクリメント
-	GameManager::JumpCnt++;
+	JumpCnt++;
 
 	//ジャンプ可能ならジャンプさせる
-	if (GameManager::JumpFlag == true)
+	if (JumpFlag == true)
 	{
 		GameManager::PlayerSpd.y = JumpSize;
 	}
 	//二回ジャンプしたらジャンプ負荷にする
-	if (GameManager::JumpCnt == 2)
+	if (JumpCnt == 2)
 	{
-		GameManager::JumpCnt = 0;
-		GameManager::JumpFlag = false;
+		JumpCnt = 0;
+		JumpFlag = false;
 	}
 }
 

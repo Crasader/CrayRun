@@ -17,9 +17,9 @@ Vec2  GameManager::PlayerPos = Vec2(300.0f,300.0f);//座標
 float  GameManager::ScoreCorrection = 1.0f;//スコア補正
 bool GameManager::RightFlag = false;//右側に当たったか
 
-int  GameManager::JumpCnt = 0;//ジャンプのカウント
-bool  GameManager::JumpFlag = true;//ジャンプできるか
-
+//int  GameManager::JumpCnt = 0;//ジャンプのカウント
+//bool  GameManager::JumpFlag = true;//ジャンプできるか
+//
 
 
 int GameManager::FirstTouchCnt = 0;//最初のタッチからどれだけ経過したか
