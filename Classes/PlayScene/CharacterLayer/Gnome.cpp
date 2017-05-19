@@ -17,6 +17,6 @@ bool Gnome::init()
 	s_player->setTexture(texture);
 	s_player->setContentSize(texture->getContentSize());
 
-	JumpSize = 8.0f;
+	JumpSize = 9.0f;
 	return true;
 }

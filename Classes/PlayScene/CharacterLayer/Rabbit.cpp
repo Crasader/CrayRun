@@ -29,6 +29,7 @@ bool Rabbit::init()
 	s_player->setTexture(texture);
 	s_player->setContentSize(texture->getContentSize());
 
+	JumpSize = 14.0f;
 	
 	return true;
 }

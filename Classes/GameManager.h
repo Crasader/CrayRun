@@ -37,10 +37,6 @@ public:
 	
 	static const int BOX_COLLIDER;			//あたり判定時に使用するタイルレイヤーの淵から少しだけ内側に入っているか確かめるための数
 	static const int BOX_COLLIDER2;			//あたり判定時に使用するタイルレイヤーの淵から少しだけ内側に入っているか確かめるための数
-
-	GameManager();
-
-	~GameManager();
 	static float WorldPosX;//画面座標
 	static bool GameOverFlag;//ゲームオーバーフラグ
 	//////////////キャラクターレイヤー//////
@@ -99,7 +95,11 @@ public:
 	static float m_cameraposx;
 	const static float m_cameraspdx;
 
+	//シーン変更時の初期化
+	static void Initialize();
+
 private:
+
 
 };
 

@@ -26,7 +26,7 @@ bool Slime::init()
 	s_player->setTexture(texture);
 	s_player->setContentSize(texture->getContentSize());
 
-	JumpSize = 5.0f;
+	JumpSize = 9.0f;
 
 	return true;
 }

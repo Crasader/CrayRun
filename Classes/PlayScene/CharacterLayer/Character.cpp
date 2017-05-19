@@ -28,14 +28,14 @@ bool Character::init()
 		s_player->setPosition(GameManager::PlayerPos);
 		s_player->setAnchorPoint(Vec2(0.5, 0));
 		this->addChild(s_player);
-
-
-
 	}
 	else {
 		Texture2D* texture = TextureCache::sharedTextureCache()->addImage("Images/Player2.png");
 
 	}
+
+	isScaleX = false;
+	isScaleY = false;
 
 	JumpSize = 9.0f;
 		
@@ -108,12 +108,15 @@ void Character::setScale()
 		GameManager::PlayerSize.y = 96;
 	}
 
-
+	if (GameManager::PlayerSize.x == PLAYER_MAX_SIZE)
+	{
+		isScaleX = false;
+	}
+	if (GameManager::PlayerSize.y == PLAYER_MAX_SIZE)
+	{
+		isScaleY = false;
+	}
 
 	//サイズを適用する
 	s_player->setScale(GameManager::PlayerSize.x / PLAYER_MAX_SIZE, GameManager::PlayerSize.y / PLAYER_MAX_SIZE);
-
 }
-
-
-

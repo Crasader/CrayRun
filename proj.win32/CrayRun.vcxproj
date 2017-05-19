@@ -153,6 +153,7 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClCompile Include="..\Classes\PlayScene\BackgroundLayer\BackgroundLayer.cpp" />
     <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Character.cpp" />
     <ClCompile Include="..\Classes\PlayScene\CharacterLayer\CharacterLayer.cpp" />
+    <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Enemy.cpp" />
     <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Gnome.cpp" />
     <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Phoenix.cpp" />
     <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Rabbit.cpp" />
@@ -161,7 +162,6 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClCompile Include="..\Classes\PlayScene\PlayScene.cpp" />
     <ClCompile Include="..\Classes\PlayScene\StageLayer\Coin.cpp" />
     <ClCompile Include="..\Classes\PlayScene\StageLayer\CrayStage.cpp" />
-    <ClCompile Include="..\Classes\PlayScene\StageLayer\Enemy.cpp" />
     <ClCompile Include="..\Classes\PlayScene\StageLayer\Mold.cpp" />
     <ClCompile Include="..\Classes\PlayScene\StageLayer\Needle.cpp" />
     <ClCompile Include="..\Classes\PlayScene\StageLayer\Slope.cpp" />
@@ -183,6 +183,7 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClInclude Include="..\Classes\PlayScene\BackgroundLayer\BackgroundLayer.h" />
     <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Character.h" />
     <ClInclude Include="..\Classes\PlayScene\CharacterLayer\CharacterLayer.h" />
+    <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Enemy.h" />
     <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Gnome.h" />
     <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Phoenix.h" />
     <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Rabbit.h" />
@@ -191,7 +192,6 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClInclude Include="..\Classes\PlayScene\PlayScene.h" />
     <ClInclude Include="..\Classes\PlayScene\StageLayer\Coin.h" />
     <ClInclude Include="..\Classes\PlayScene\StageLayer\CrayStage.h" />
-    <ClInclude Include="..\Classes\PlayScene\StageLayer\Enemy.h" />
     <ClInclude Include="..\Classes\PlayScene\StageLayer\Mold.h" />
     <ClInclude Include="..\Classes\PlayScene\StageLayer\Needle.h" />
     <ClInclude Include="..\Classes\PlayScene\StageLayer\Slope.h" />

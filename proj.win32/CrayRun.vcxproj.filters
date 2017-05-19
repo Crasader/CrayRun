@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="..\Classes\PlayScene\BackgroundLayer\BackgroundLayer.cpp">
+      <Filter>PlayScene\BackGroundLayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\BackgroundLayer\Background.cpp">
+      <Filter>PlayScene\BackGroundLayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\CharacterLayer\CharacterLayer.cpp">
+      <Filter>PlayScene\CharacterLayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ResultScene\ResultScene.cpp">
+      <Filter>ResultScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ResultScene\ResultScore.cpp">
+      <Filter>ResultScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\StageLayer\Coin.cpp">
+      <Filter>PlayScene\StageLayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\StageLayer\CrayStage.cpp">
+      <Filter>PlayScene\StageLayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Status.cpp">
+      <Filter>PlayScene\CharacterLayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Phoenix.cpp">
+      <Filter>PlayScene\CharacterLayer\PlayerCharacter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Rabbit.cpp">
+      <Filter>PlayScene\CharacterLayer\PlayerCharacter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Slime.cpp">
+      <Filter>PlayScene\CharacterLayer\PlayerCharacter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Gnome.cpp">
+      <Filter>PlayScene\CharacterLayer\PlayerCharacter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Character.cpp">
+      <Filter>PlayScene\CharacterLayer\PlayerCharacter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\PlayScene.cpp">
+      <Filter>PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\UILayer\UILayer.cpp">
+      <Filter>PlayScene\UILayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\UILayer\Score.cpp">
+      <Filter>PlayScene\UILayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\UILayer\Distance.cpp">
+      <Filter>PlayScene\UILayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\StageLayer\Mold.cpp">
+      <Filter>PlayScene\StageLayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\StageLayer\Slope.cpp">
+      <Filter>PlayScene\StageLayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\StageLayer\Stage.cpp">
+      <Filter>PlayScene\StageLayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\StageLayer\StageLayer.cpp">
+      <Filter>PlayScene\StageLayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\StageLayer\Needle.cpp">
+      <Filter>PlayScene\StageLayer\Gimmick</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ResultScene\ResultLayer.cpp">
+      <Filter>ResultScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\EventListenerGesture.cpp" />
+    <ClCompile Include="..\Classes\GameManager.cpp" />
+    <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Enemy.cpp">
+      <Filter>PlayScene\CharacterLayer\PlayerCharacter</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="main.h" />
+    <ClInclude Include="..\Classes\PlayScene\BackgroundLayer\BackgroundLayer.h">
+      <Filter>PlayScene\BackGroundLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\BackgroundLayer\Background.h">
+      <Filter>PlayScene\BackGroundLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\CharacterLayer\CharacterLayer.h">
+      <Filter>PlayScene\CharacterLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ResultScene\ResultScene.h">
+      <Filter>ResultScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ResultScene\ResultScore.h">
+      <Filter>ResultScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\StageLayer\Coin.h">
+      <Filter>PlayScene\StageLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\StageLayer\CrayStage.h">
+      <Filter>PlayScene\StageLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Status.h">
+      <Filter>PlayScene\CharacterLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Phoenix.h">
+      <Filter>PlayScene\CharacterLayer\PlayerCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Rabbit.h">
+      <Filter>PlayScene\CharacterLayer\PlayerCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Slime.h">
+      <Filter>PlayScene\CharacterLayer\PlayerCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Gnome.h">
+      <Filter>PlayScene\CharacterLayer\PlayerCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Character.h">
+      <Filter>PlayScene\CharacterLayer\PlayerCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\PlayScene.h">
+      <Filter>PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\UILayer\UILayer.h">
+      <Filter>PlayScene\UILayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\UILayer\Score.h">
+      <Filter>PlayScene\UILayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\UILayer\Distance.h">
+      <Filter>PlayScene\UILayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\StageLayer\Mold.h">
+      <Filter>PlayScene\StageLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\StageLayer\Slope.h">
+      <Filter>PlayScene\StageLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\StageLayer\Stage.h">
+      <Filter>PlayScene\StageLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\StageLayer\StageLayer.h">
+      <Filter>PlayScene\StageLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\StageLayer\Needle.h">
+      <Filter>PlayScene\StageLayer\Gimmick</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ResultScene\ResultLayer.h">
+      <Filter>ResultScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AppDelegate.h" />
+    <ClInclude Include="..\Classes\EventListenerGesture.h" />
+    <ClInclude Include="..\Classes\GameManager.h" />
+    <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Enemy.h">
+      <Filter>PlayScene\CharacterLayer\PlayerCharacter</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="game.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="PlayScene">
+      <UniqueIdentifier>{89573d0c-2929-4e16-ae5a-0eccdcda46ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ResultScene">
+      <UniqueIdentifier>{4a031e54-c7f9-41f1-bfad-16605222b71b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayScene\StageLayer">
+      <UniqueIdentifier>{ef04883a-9bc1-4a2f-b204-b2ead5eb9579}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayScene\CharacterLayer">
+      <UniqueIdentifier>{d81501ca-5705-4642-ab5b-bc0fadfd3a7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayScene\BackGroundLayer">
+      <UniqueIdentifier>{b21cb3e0-9f92-48f7-876e-8c66eeae065a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayScene\UILayer">
+      <UniqueIdentifier>{7de67761-7d0d-414a-96f9-1efbf9da015a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayScene\CharacterLayer\PlayerCharacter">
+      <UniqueIdentifier>{9e042429-314f-4c80-aae0-c4b9786c3f0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayScene\StageLayer\Gimmick">
+      <UniqueIdentifier>{ec95d5a2-11d8-4b09-b8cb-c5c0d1069cac}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
