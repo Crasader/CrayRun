@@ -311,10 +311,10 @@ void StageLayer::HittingMold()
 			//当たった金型を削除
 			//mold[GameManager::MapLoopCnt]->removeFromParent();
 			//兎型のキャラクターに変更
-			GameManager::Mold = Slime/*mold[GameManager::MapLoopCnt]->m_kind*/;
+			GameManager::Mold = mold[GameManager::MapLoopCnt]->m_kind;
 			GameManager::ChangeMold = true;
 
-		}
+ 		}
 	}
 }
 
@@ -405,7 +405,6 @@ void StageLayer::onTouchesMoved(const std::vector<cocos2d::Touch*>& touches, coc
 *|	引数　　無し
 *|　戻り値　無し
 ****************************************************************************/
-
 void StageLayer::MultiTouchCrayStage()
 {
 	//タッチが当たった方向
@@ -500,7 +499,7 @@ void StageLayer::MultiTouchNeedle()
 	for (Iterator = needle[GameManager::PlayerMapPos]->s_needle.begin(); Iterator != needle[GameManager::PlayerMapPos]->s_needle.end(); ++Iterator)
 	{
 		b = 2;
-		Vec2 g_craystage_size = craystage[GameManager::PlayerMapPos]->CrayStageSize[loop_cnt];
+		//Vec2 g_craystage_size = craystage[GameManager::PlayerMapPos]->CrayStageSize[loop_cnt];
 
 		//タッチがプレイヤーに当たったか
 		m_touch_collision[0] = GameManager::HitJudgment(

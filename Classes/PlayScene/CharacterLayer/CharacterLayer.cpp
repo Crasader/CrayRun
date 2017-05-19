@@ -80,8 +80,8 @@ void CharacterLayer::update(float date)
 	//プレイヤーと床の衝突判定
 	CollisionResponseFloor();
 	if(GameManager::Mold != Gnome)
-		//プレイヤーと粘土床の衝突判定
-		CollisionResponseCrayFloor();
+	//プレイヤーと粘土床の衝突判定
+	CollisionResponseCrayFloor();
 	//プレイヤーと斜面のあたり判定
 	CollisionResponseSlope();
 	//ジャンプするか調べる
@@ -162,7 +162,7 @@ void CharacterLayer::onTouchesMoved(const std::vector<cocos2d::Touch*>& touches,
 	//二回以上タッチされたら
 	if (m_touch_id >= 1)
 	{
-		if(character->ChangeScaleFlag)
+		//if(character->ChangeScaleFlag)
 		//キャラクターのマルチタッチ判定
 		MultiTouchCharacter();
 		//if (m_touch_collision_direction[0] == up && m_touch_collision_direction[1] == under)

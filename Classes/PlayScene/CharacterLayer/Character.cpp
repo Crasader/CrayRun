@@ -86,6 +86,7 @@ void Character::Jump()
 ****************************************************************************/
 void Character::setScale()
 {
+
 	//プレイヤーのサイズXが通常より小さいとき
 	if (GameManager::PlayerSize.x < PLAYER_MAX_SIZE)
 	{
