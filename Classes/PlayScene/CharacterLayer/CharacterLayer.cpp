@@ -162,34 +162,9 @@ void CharacterLayer::onTouchesMoved(const std::vector<cocos2d::Touch*>& touches,
 	//二回以上タッチされたら
 	if (m_touch_id >= 1)
 	{
-		if(character->ChangeScaleFlag)
 		//キャラクターのマルチタッチ判定
 		MultiTouchCharacter();
-		//if (m_touch_collision_direction[0] == up && m_touch_collision_direction[1] == under)
-		//{
-		//
-		//	b = 3;
-		//	//GameManager::PlayerSize.y = touchpos[1].y - touchpos[0].y;
-		//	GameManager::PlayerSize.y = 32.0f;
-		//}
-		//else if(m_touch_collision_direction[0] == under && m_touch_collision_direction[1] == up)
-		//{
-		//	
-		//	b = 2;
-		//	//GameManager::PlayerSize.y = touchpos[0].y - touchpos[1].y;
-		//	GameManager::PlayerSize.y = 32.0f;
-		//}
-		////左右でプレイヤーを挟んだ時
-		//if ((m_touch_collision_direction[0] == left && m_touch_collision_direction[1] == right)
-		//	|| (m_touch_collision_direction[0] == right && m_touch_collision_direction[1] == left))
-		//{
-		//	GameManager::PlayerSize.x = 30;
-		//}
-		//else if ((m_touch_collision_direction[1] == left && m_touch_collision_direction[0] == right)
-		//	|| (m_touch_collision_direction[1] == right && m_touch_collision_direction[0] == left))
-		//{
-		//	GameManager::PlayerSize.x = 30;
-		//}
+
 		//初期化する
 		touchpos[0] = Vec2(0.0f, 0.0f);
 		touchpos[1] = Vec2(0.0f, 0.0f);
@@ -255,21 +230,21 @@ void CharacterLayer::MultiTouchCharacter()
 			GameManager::PlayerPos, GameManager::PlayerSize);
 
 
-		//上下に挟んだか
-		if (m_touch_collision_direction[0] == up || m_touch_collision_direction[1] == under || m_touch_collision_direction[0] == under || m_touch_collision_direction[1] == up)
+		//上下に挟んでいるかつもとの大きさの場合
+		if (m_touch_collision_direction[0] == up || m_touch_collision_direction[1] == under || m_touch_collision_direction[0] == under || m_touch_collision_direction[1] == up && character->isScaleY == false)
 		{
 			//大きさ変更
 			GameManager::PlayerSize.y = 32.0f;
 			if(GameManager::Mold != Slime)
-			character->ChangeScaleFlag = false;
+			character->isScaleY = true;
 		}
-		//左右に挟んだか
-		else if (m_touch_collision_direction[0] == left || m_touch_collision_direction[1] == left || m_touch_collision_direction[0] == right || m_touch_collision_direction[1] == right)
+		//左右に挟んでいるかつ元の大きさの場合
+		else if (m_touch_collision_direction[0] == left || m_touch_collision_direction[1] == left || m_touch_collision_direction[0] == right || m_touch_collision_direction[1] == right && character->isScaleX == false)
 		{
 			//大きさ変更
 			GameManager::PlayerSize.x = 32;
 			if (GameManager::Mold != Slime)
-				character->ChangeScaleFlag = false;
+				character->isScaleX = true;
 		}
 	}
 }

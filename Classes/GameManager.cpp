@@ -80,14 +80,62 @@ float GameManager::m_cameraposx = 480.0f;
 const float GameManager::m_cameraspdx = GameManager::PlayerSpd.x;
 
 
-
-
-GameManager::GameManager()
+//初期化関数
+void GameManager::Initialize()
 {
-}
+	WorldPosX = 0.0f;
+	GameOverFlag = false;//ゲームオーバーフラグ
 
-GameManager::~GameManager()
-{
+	//////////////キャラクターレイヤー//////
+	//////////////キャラクター//////////////
+	PlayerSpd = (Vec2(6.0f, -4.0f));//速度
+	PlayerSize = Vec2(96, 96);//サイズ
+	PlayerPos = Vec2(300.0f, 300.0f);//座標
+	ScoreCorrection = 1.0f;//スコア補正
+	RightFlag = false;//右側に当たったか
+
+	JumpCnt = 0;//ジャンプのカウント
+	JumpFlag = true;//ジャンプできるか
+
+
+
+	FirstTouchCnt = 0;//最初のタッチからどれだけ経過したか
+	FirstTouchFlag = false;//最初のタッチが呼ばれたか
+	PlayerMapPos = 0;//何番目の座標にいるか
+
+
+	///////////////ステージレイヤー/////////
+	map.clear();
+	MapLoopCnt = 0;//ステージをループさせた回数
+
+	//////////////斜面////////////////////
+	SlopeCnt = 0;//斜面カウント
+
+	
+	///////////////床/////////////////////
+	SlopePosY = 0.0f;//斜面座標Y
+
+	/////////////粘土ステージ////////
+
+	CraySizeChangeCnt = 0;//どの粘土床のサイズを変更するか
+	CraySizeChangeFlag = false;//粘土床のサイズ変更するか
+
+	/////////////金型////////////////
+
+	Mold = 0;//金型
+	ChangeMold = false;//金型変化あるか
+
+	MoldSpd = Vec2(0, -4);
+	/////////////////UIレイヤー/////////////////
+	/////////////////スコア////////////////
+	Score = 0;//スコア
+	/////////////////場所////////////////////////
+	SaveDistance = 0;//距離を保存する
+
+
+	/////////////////カメラ//////////////////////.
+
+	m_cameraposx = 480.0f;
 }
 
 /************************************************************************************

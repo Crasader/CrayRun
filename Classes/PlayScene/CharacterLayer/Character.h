@@ -58,6 +58,7 @@ public:
 	void JumpBan() { if (GameManager::PlayerPos.y < 640)GameManager::PlayerSpd.y = 0; }
 
 	float JumpSize;//ジャンプするおおきさ
-	bool ChangeScaleFlag;
+	bool isScaleX;//X座標の大きさが変更されているかtrue：されている,false：されていない
+	bool isScaleY;//Y座標の大きさが変更されているかtrue：されている,false：されていない
 };
 
