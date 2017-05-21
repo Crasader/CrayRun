@@ -23,7 +23,7 @@ bool StageLayer::init()
 
 	//タイルマップの読み込み
 	//マップチップ
-	GameManager::map.push_back(TMXTiledMap::create("map1.tmx"));
+	GameManager::map.push_back(TMXTiledMap::create("TestMap.tmx"));
 	IteratorMap = GameManager::map.begin();
 	TMXTiledMap* g_Map = *IteratorMap;
 	//タイルマップの中心座標を設定
@@ -57,8 +57,6 @@ bool StageLayer::init()
 	//敵生成
 	enemy.push_back(Enemy::create());
 	this->addChild(enemy[0]);
-	//this->addChild(*(needle.begin()));
-	//this->addChild(needle[GameManager::MapLoopCnt]);
 	// Register Touch Event
 	EventListenerTouchAllAtOnce* listener = EventListenerTouchAllAtOnce::create();
 
@@ -160,7 +158,7 @@ void StageLayer::MapCreate()
 	GameManager::MapLoopCnt++;
 	//タイルマップの読み込み
 	//マップチップ
-	GameManager::map.push_back(TMXTiledMap::create("floor.tmx"));
+	GameManager::map.push_back(TMXTiledMap::create("map1.tmx"));
 	IteratorMap = GameManager::map.begin();
 	IteratorMap += GameManager::MapLoopCnt;
 //	TMXTiledMap* g_Map = *IteratorMap;

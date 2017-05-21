@@ -39,6 +39,7 @@ bool Character::init()
 
 	JumpSize = 9.0f;
 		
+	walkCnt = 0;
 	return true;
 }
 
@@ -53,6 +54,34 @@ void Character::Move()
 	GameManager::PlayerPos += GameManager::PlayerSpd;
 	//À•W‚ð“K—p‚³‚¹‚é
 	s_player->setPosition(GameManager::PlayerPos);
+
+	walkCnt++;
+	Texture2D* texture;
+	switch (walkCnt / 10 % 4)
+	{
+	case 0:
+		texture = TextureCache::sharedTextureCache()->addImage("Images/Player2.png");
+
+		s_player->setTexture(texture);
+		s_player->setContentSize(texture->getContentSize());
+
+		break;
+	case 1:
+	case 3:
+		texture = TextureCache::sharedTextureCache()->addImage("Images/Player_w.png");
+
+		s_player->setTexture(texture);
+		s_player->setContentSize(texture->getContentSize());
+
+		break;
+	case 2:
+		texture = TextureCache::sharedTextureCache()->addImage("Images/Player_w2.png");
+
+		s_player->setTexture(texture);
+		s_player->setContentSize(texture->getContentSize());
+
+		break;
+	}
 }
 
 /***************************************************************************

@@ -16,7 +16,9 @@ public:
 	virtual bool init();
 	CREATE_FUNC(Character);
 
-	void Move();//移動
+	int walkCnt;//歩いたときのカウント
+
+	virtual void Move();//移動
 	void Jump();//ジャンプする
 	//重力
 	void Gravity()
