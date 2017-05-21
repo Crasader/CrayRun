@@ -33,7 +33,7 @@ public:
 			GameManager::PlayerSpd.y -= 0.4f;
 		}
 		//ジャンプがないときは関係なく加速度をつける
-		else if (GameManager::JumpFlag == false)
+		else if (JumpFlag == false)
 		{
 			//GameManager::PlayerSpd.y -= 0.4f;
 		}
@@ -60,6 +60,11 @@ public:
 	void JumpBan() { if (GameManager::PlayerPos.y < 640)GameManager::PlayerSpd.y = 0; }
 
 	float JumpSize;//ジャンプするおおきさ
+	
+
+	int JumpCnt;//ジャンプのカウント
+	bool JumpFlag;//ジャンプできるか
+
 	bool isScaleX;//X座標の大きさが変更されているかtrue：されている,false：されていない
 	bool isScaleY;//Y座標の大きさが変更されているかtrue：されている,false：されていない
 };

@@ -15,7 +15,6 @@
 #include "Stage.h"
 #include "Slope.h"
 #include "Needle.h"
-#include "Enemy.h"
 
 //有効なタッチの数
 const int EFFECTIVENESSTOUCH = 2;
@@ -47,10 +46,7 @@ private:
 	void  MultiTouchCrayStage();
 	//針のマルチタッチ判定
 	void  MultiTouchNeedle();
-	//敵とプレイヤの当たり判定
-	void HittingEnemy();
 
-	std::vector<Enemy*> enemy;
 	//針
 	std::vector<Needle*> needle;
 	//金型オブジェクト

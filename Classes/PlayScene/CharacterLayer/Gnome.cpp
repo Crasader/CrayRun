@@ -20,3 +20,38 @@ bool Gnome::init()
 	JumpSize = 9.0f;
 	return true;
 }
+
+/// <summary>
+/// 移動する関数（継承）
+/// </summary>
+void Gnome::Move()
+{
+	//基底クラスのMoveを呼び出す
+	Character::Move();
+	
+	//アニメーションする
+	Texture2D* texture;
+	switch (walkCnt / 10 % 4)
+	{
+	case 0:
+		texture = TextureCache::sharedTextureCache()->addImage("Images/Gnome_Chara.png");
+
+		s_player->setTexture(texture);
+		s_player->setContentSize(texture->getContentSize());
+
+		break;
+	case 1:
+	case 3:
+		texture = TextureCache::sharedTextureCache()->addImage("Images/Gnome_Chara2.png");
+
+		s_player->setTexture(texture);
+		s_player->setContentSize(texture->getContentSize());
+		break;
+	case 2:
+		texture = TextureCache::sharedTextureCache()->addImage("Images/Gnome_Chara3.png");
+
+		s_player->setTexture(texture);
+		s_player->setContentSize(texture->getContentSize());
+		break;
+	}
+}

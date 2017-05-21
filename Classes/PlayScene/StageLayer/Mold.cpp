@@ -47,7 +47,7 @@ bool Mold::init(){
 					if (str == "mold")
 					{
 						//ランダムでキャラクターを作成する
-						switch (Rabbit)
+						switch (Gnome)
 						{
 						case Normal:
 							m_kind = Normal;
@@ -58,9 +58,13 @@ bool Mold::init(){
 							break;
 						case Gnome:
 							m_kind = Gnome;
+							s_Mold = Sprite::create("Images/Rabbit_Model.png");
+
 							break;
 						case Phoenix:
 							m_kind = Phoenix;
+							s_Mold = Sprite::create("Images/Rabbit_Model.png");
+
 							break;
 						case Slime:
 							m_kind = Slime;

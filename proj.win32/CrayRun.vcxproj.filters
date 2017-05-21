@@ -17,12 +17,6 @@
     <ClCompile Include="..\Classes\ResultScene\ResultScore.cpp">
       <Filter>ResultScene</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\PlayScene\StageLayer\Coin.cpp">
-      <Filter>PlayScene\StageLayer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\PlayScene\StageLayer\CrayStage.cpp">
-      <Filter>PlayScene\StageLayer</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Status.cpp">
       <Filter>PlayScene\CharacterLayer</Filter>
     </ClCompile>
@@ -53,12 +47,6 @@
     <ClCompile Include="..\Classes\PlayScene\UILayer\Distance.cpp">
       <Filter>PlayScene\UILayer</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\PlayScene\StageLayer\Mold.cpp">
-      <Filter>PlayScene\StageLayer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\PlayScene\StageLayer\Slope.cpp">
-      <Filter>PlayScene\StageLayer</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\PlayScene\StageLayer\Stage.cpp">
       <Filter>PlayScene\StageLayer</Filter>
     </ClCompile>
@@ -68,15 +56,27 @@
     <ClCompile Include="..\Classes\PlayScene\StageLayer\Needle.cpp">
       <Filter>PlayScene\StageLayer\Gimmick</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\PlayScene\StageLayer\Enemy.cpp">
-      <Filter>PlayScene\StageLayer\Gimmick</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\ResultScene\ResultLayer.cpp">
       <Filter>ResultScene</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\EventListenerGesture.cpp" />
     <ClCompile Include="..\Classes\GameManager.cpp" />
+    <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Enemy.cpp">
+      <Filter>PlayScene\CharacterLayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\StageLayer\Mold.cpp">
+      <Filter>PlayScene\StageLayer\Gimmick</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\StageLayer\Slope.cpp">
+      <Filter>PlayScene\StageLayer\Gimmick</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\StageLayer\Coin.cpp">
+      <Filter>PlayScene\StageLayer\Gimmick</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\StageLayer\CrayStage.cpp">
+      <Filter>PlayScene\StageLayer\Gimmick</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -94,12 +94,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\ResultScene\ResultScore.h">
       <Filter>ResultScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\PlayScene\StageLayer\Coin.h">
-      <Filter>PlayScene\StageLayer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\PlayScene\StageLayer\CrayStage.h">
-      <Filter>PlayScene\StageLayer</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Status.h">
       <Filter>PlayScene\CharacterLayer</Filter>
@@ -131,20 +125,11 @@
     <ClInclude Include="..\Classes\PlayScene\UILayer\Distance.h">
       <Filter>PlayScene\UILayer</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\PlayScene\StageLayer\Mold.h">
-      <Filter>PlayScene\StageLayer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\PlayScene\StageLayer\Slope.h">
-      <Filter>PlayScene\StageLayer</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\PlayScene\StageLayer\Stage.h">
       <Filter>PlayScene\StageLayer</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\PlayScene\StageLayer\StageLayer.h">
       <Filter>PlayScene\StageLayer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\PlayScene\StageLayer\Enemy.h">
-      <Filter>PlayScene\StageLayer\Gimmick</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\PlayScene\StageLayer\Needle.h">
       <Filter>PlayScene\StageLayer\Gimmick</Filter>
@@ -155,6 +140,21 @@
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\EventListenerGesture.h" />
     <ClInclude Include="..\Classes\GameManager.h" />
+    <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Enemy.h">
+      <Filter>PlayScene\CharacterLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\StageLayer\Mold.h">
+      <Filter>PlayScene\StageLayer\Gimmick</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\StageLayer\Slope.h">
+      <Filter>PlayScene\StageLayer\Gimmick</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\StageLayer\CrayStage.h">
+      <Filter>PlayScene\StageLayer\Gimmick</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\StageLayer\Coin.h">
+      <Filter>PlayScene\StageLayer\Gimmick</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc" />

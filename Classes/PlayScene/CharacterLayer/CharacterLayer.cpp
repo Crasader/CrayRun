@@ -24,7 +24,9 @@ bool CharacterLayer::init()
 	//レイヤーにノードを集約
 	character = Character::create();
 	this->addChild(character);
-
+	//敵生成
+	enemy.push_back(Enemy::create());
+	this->addChild(enemy[0]);
 
 
 	//毎フレーム呼び出す
@@ -87,15 +89,31 @@ void CharacterLayer::update(float date)
 	//ジャンプするか調べる
 	JumpInvestigate();
 
-
-	n->setString(StringUtils::toString(a));
-	n->setPosition(GameManager::PlayerPos);
-
 	//サイズ変更
 	character->setScale();
 
+
+	if (static_cast<int>(GameManager::m_cameraposx + 480) % static_cast<int>(GameManager::MAP_SIZE.x) == 0)
+	{
+
+		//敵
+		enemy.push_back(Enemy::create());
+		this->addChild(enemy[GameManager::MapLoopCnt]);
+		if (GameManager::MapLoopCnt > 2)
+		{
+			//敵削除
+			enemy[GameManager::MapLoopCnt - 2]->removeFromParent();
+		}
+
+	}
+
+	//デバック用
+	n->setString(StringUtils::toString(a));
+	n->setPosition(GameManager::PlayerPos);
 	n->setString(StringUtils::toString(b));
 	n->setPosition(GameManager::PlayerPos + Vec2(300, 0));
+
+
 
 }
 
@@ -336,8 +354,8 @@ void CharacterLayer::CollisionResponseFloor()
 				GameManager::PlayerPos.y = vec.y;
 				GameManager::PlayerSpd.y = 0.0f;
 				//ジャンプ可能にする
-				GameManager::JumpCnt = 0;
-				GameManager::JumpFlag = true;
+				character->JumpCnt = 0;
+				character->JumpFlag = true;
 				break;
 				/*case under:
 				GameManager::PlayerPos.y = GameManager::AllFloorPosy[i] - GameManager::LAYRE_SIZE.y - GameManager::PlayerSize.y - 1;
@@ -403,8 +421,8 @@ void CharacterLayer::CollisionResponseCrayFloor()
 			GameManager::PlayerPos.y = vec.y  - GameManager::MAX_CRAYSTAGESIZE.y + (*IteratorSize).y;
 			GameManager::PlayerSpd.y = 0.0f;
 			//ジャンプ可能にする
-			GameManager::JumpCnt = 0;
-			GameManager::JumpFlag = true;
+			character->JumpCnt = 0;
+			character->JumpFlag = true;
 		
 			break;
 			case under:
@@ -444,8 +462,8 @@ void CharacterLayer::CollisionResponseSlope()
 				//埋まった分を押し出す
 				GameManager::PlayerPos.y = GameManager::SlopePosY;
 				//ジャンプ可能にする
-				GameManager::JumpCnt = 0;
-				GameManager::JumpFlag = true;
+				character->JumpCnt = 0;
+				character->JumpFlag = true;
 
 			}
 			IteratorLeft++;
@@ -453,6 +471,52 @@ void CharacterLayer::CollisionResponseSlope()
 
 	}
 }
+
+/***************************************************************************
+*|	概要　  敵とプレイヤの当たり判定
+*|	引数　　無し
+*|　戻り値　無し
+****************************************************************************/
+void CharacterLayer::CollisionResponseEnemy()
+{
+	std::vector<Vec2>::iterator IteratorEnemy;
+	for (IteratorEnemy = enemy[GameManager::PlayerMapPos]->m_EnemyPos.begin(); IteratorEnemy != enemy[GameManager::PlayerMapPos]->m_EnemyPos.end(); ++IteratorEnemy)
+	{
+		switch (GameManager::CollisionDetermination
+		((*IteratorEnemy), GameManager::LAYRE_SIZE,
+			GameManager::PlayerPos, GameManager::PlayerSize))
+		{
+		case right:
+			GameManager::PlayerPos.x = (*IteratorEnemy).x + GameManager::LAYRE_SIZE.x + GameManager::PlayerSize.x / 2 + 1;
+			GameManager::PlayerSpd.x = 0.0f;
+			GameManager::GameOverFlag = true;
+			break;
+		case left:
+			/*GameManager::PlayerPos.x = GameManager::AllFloorPosx[i] - GameManager::PlayerSize.x / 2;*/
+			GameManager::RightFlag = true;
+			//GameManager::PlayerSpd.x = -6.0f;
+			GameManager::GameOverFlag = true;
+			break;
+		case up:
+			GameManager::PlayerPos.y = (*IteratorEnemy).y;
+
+			//ジャンプ可能にする
+			character->JumpCnt = 0;
+			character->JumpFlag = true;
+			break;
+		case under:
+			//GameManager::PlayerPos.y = (*IteratorEnemy).y - ;
+
+			GameManager::GameOverFlag = true;
+			break;
+		default:
+			break;
+
+		}
+
+	}
+}
+
 
 /***************************************************************************
 *|	概要　	ジャンプするか調べる
