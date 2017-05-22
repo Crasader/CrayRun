@@ -88,9 +88,16 @@ private:
 
 
 	//タッチサイズ
-	const cocos2d::Vec2 TOUCH_SIZE = cocos2d::Vec2(60,60);
+	const cocos2d::Vec2 TOUCH_SIZE = cocos2d::Vec2(96,96);
 	int FirstTouchCnt;//最初のタッチからどれだけ経過したか
 	bool FirstTouchFlag = false;//最初のタッチが呼ばれたか
 
+	//最初の座標
+	cocos2d::Vec2 FirstPos[EFFECTIVENESS_TOUCH];
+	
+	int FirstMultiTouchCnt;
+	int FirstMultiTouchFlag;
+
+float SavePlayerPosx;
 };
 

@@ -36,10 +36,12 @@ bool Character::init()
 
 	isScaleX = false;
 	isScaleY = false;
-
-	JumpSize = 9.0f;
 		
 	walkCnt = 0;
+
+	SizeChangeFlag = true;
+	JumpSize = 11.0f;
+	FloormultipleFlag = false;
 	return true;
 }
 
@@ -56,32 +58,7 @@ void Character::Move()
 	s_player->setPosition(GameManager::PlayerPos);
 
 	walkCnt++;
-	Texture2D* texture;
-	switch (walkCnt / 10 % 4)
-	{
-	case 0:
-		texture = TextureCache::sharedTextureCache()->addImage("Images/Player2.png");
-
-		s_player->setTexture(texture);
-		s_player->setContentSize(texture->getContentSize());
-
-		break;
-	case 1:
-	case 3:
-		texture = TextureCache::sharedTextureCache()->addImage("Images/Player_w.png");
-
-		s_player->setTexture(texture);
-		s_player->setContentSize(texture->getContentSize());
-
-		break;
-	case 2:
-		texture = TextureCache::sharedTextureCache()->addImage("Images/Player_w2.png");
-
-		s_player->setTexture(texture);
-		s_player->setContentSize(texture->getContentSize());
-
-		break;
-	}
+	Animation();
 }
 
 /***************************************************************************
@@ -100,11 +77,53 @@ void Character::Jump()
 	{
 		GameManager::PlayerSpd.y = JumpSize;
 	}
-	//二回ジャンプしたらジャンプ負荷にする
+	//二回ジャンプしたらジャンプ不可にする
 	if (JumpCnt == 2)
 	{
 		JumpCnt = 0;
 		JumpFlag = false;
+	}
+}
+
+void Character::Animation()
+{
+	Texture2D* texture;
+	
+	//ジャンプできるときかつジャンプをまだしていないとき（歩いてるとき）
+	if (JumpCnt == 0 && JumpFlag == true)
+	{
+		switch (walkCnt / 10 % 4)
+		{
+		case 0:
+			texture = TextureCache::sharedTextureCache()->addImage("Images/Player2.png");
+
+			s_player->setTexture(texture);
+			s_player->setContentSize(texture->getContentSize());
+
+			break;
+		case 1:
+		case 3:
+			texture = TextureCache::sharedTextureCache()->addImage("Images/Player_w.png");
+
+			s_player->setTexture(texture);
+			s_player->setContentSize(texture->getContentSize());
+
+			break;
+		case 2:
+			texture = TextureCache::sharedTextureCache()->addImage("Images/Player_w2.png");
+
+			s_player->setTexture(texture);
+			s_player->setContentSize(texture->getContentSize());
+
+			break;
+		}
+	}
+	else
+	{
+		texture = TextureCache::sharedTextureCache()->addImage("Images/Player_j.png");
+
+		s_player->setTexture(texture);
+		s_player->setContentSize(texture->getContentSize());
 	}
 }
 
@@ -116,36 +135,41 @@ void Character::Jump()
 void Character::setScale()
 {
 
-	//プレイヤーのサイズXが通常より小さいとき
-	if (GameManager::PlayerSize.x < PLAYER_MAX_SIZE)
+	if (FloormultipleFlag == false)
 	{
-		//少しずつ大きくする
-		GameManager::PlayerSize.x += 0.1f;
-	}
-	else if (GameManager::PlayerSize.x > PLAYER_MAX_SIZE)
-	{
-		GameManager::PlayerSize.x = 96;
-	}
+		//プレイヤーのサイズXが通常より小さいとき
+		if (GameManager::PlayerSize.x < PLAYER_MAX_SIZE)
+		{
+			//少しずつ大きくする
+			GameManager::PlayerSize.x += 0.15f;
+		}
+		else if (GameManager::PlayerSize.x > PLAYER_MAX_SIZE)
+		{
+			GameManager::PlayerSize.x = 96;
+			SizeChangeFlag = true;
 
-	//プレイヤーのサイズYが通常より小さいとき
-	if (GameManager::PlayerSize.y < PLAYER_MAX_SIZE)
-	{
-		GameManager::PlayerSize.y += 0.1f;
-	}
-	else if (GameManager::PlayerSize.y > PLAYER_MAX_SIZE)
-	{
-		GameManager::PlayerSize.y = 96;
-	}
+		}
 
-	if (GameManager::PlayerSize.x == PLAYER_MAX_SIZE)
-	{
-		isScaleX = false;
-	}
-	if (GameManager::PlayerSize.y == PLAYER_MAX_SIZE)
-	{
-		isScaleY = false;
-	}
+		//プレイヤーのサイズYが通常より小さいとき
+		if (GameManager::PlayerSize.y < PLAYER_MAX_SIZE)
+		{
+			GameManager::PlayerSize.y += 0.35f;
+		}
+		else if (GameManager::PlayerSize.y > PLAYER_MAX_SIZE)
+		{
+			GameManager::PlayerSize.y = 96;
+			SizeChangeFlag = true;
+		}
 
-	//サイズを適用する
-	s_player->setScale(GameManager::PlayerSize.x / PLAYER_MAX_SIZE, GameManager::PlayerSize.y / PLAYER_MAX_SIZE);
+		if (GameManager::PlayerSize.x == PLAYER_MAX_SIZE)
+		{
+			isScaleX = false;
+		}
+		if (GameManager::PlayerSize.y == PLAYER_MAX_SIZE)
+		{
+			isScaleY = false;
+		}
+		//サイズを適用する
+		s_player->setScale(GameManager::PlayerSize.x / PLAYER_MAX_SIZE, GameManager::PlayerSize.y / PLAYER_MAX_SIZE);
+	}
 }

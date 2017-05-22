@@ -9,6 +9,9 @@
 #include "ResultScore.h"
 
 int ResultScore::m_Score = 0;
+int ResultScore::m_distance = 0;
+
+
 /* ---- 名前空間を解放 -------------------- */
 USING_NS_CC;
 
@@ -22,6 +25,19 @@ bool ResultScore::init()
 	{
 		node_number[i] = Node::create();
 	}
+
+	//基盤ノードを作成する
+	for (int i = 0; i < 10 + 1; i++)
+	{
+		now_node_number[i] = Node::create();
+	}
+	//初期化
+	now_number = 0;
+
+	////数字のスプライトを作成する
+	s_now_number = Sprite::create("Images/Number.png");
+
+
 
 
 	////数字のスプライトを作成する
@@ -41,7 +57,6 @@ bool ResultScore::init()
 ****************************************************************************/
 void ResultScore::ScoreAcquisition()
 {
-
 	RankingScore[First] = userDefault->getIntegerForKey("name1");
 	RankingScore[Scound] = userDefault->getIntegerForKey("name2");
 	RankingScore[Third] = userDefault->getIntegerForKey("name3");
@@ -58,11 +73,11 @@ void ResultScore::RankingSort()
 {
 	//今回のスコアがランキングのどこに位置するか求める
 	int i = Fifth;
-
-	if (RankingScore[Fifth] < m_Score)
+	int TotalScore = m_Score + m_distance;
+	if (RankingScore[Fifth] < TotalScore)
 	{
 
-		while ((RankingScore[i] < m_Score) && (i >= 0))
+		while ((RankingScore[i] < TotalScore) && (i >= 0))
 		{
 			i--;
 		}
@@ -142,7 +157,6 @@ void ResultScore::ScoreIndicate(int Ranking)
 
 
 
-
 	//対象のスコアを保存する
 	SaveScore = RankingScore[Ranking];
 	SaveScore2 = RankingScore[Ranking];
@@ -215,3 +229,113 @@ void ResultScore::ScoreIndicate(int Ranking)
 		j++;
 	}
 }
+
+
+/***************************************************************************
+*|	概要　　スコアのスプライト設定
+*|	引数　　無し
+*|　戻り値　無し
+****************************************************************************/
+void ResultScore::ScoreIndicate2(int Score)
+{
+
+	int j;
+	//桁数を初期化する
+	Digit = 1;
+	//対象のスコアを保存する
+	SaveScore = Score;
+	SaveScore2 = Score;
+
+	////今回のスコアの場合
+	//if (Ranking == 5)
+	//{
+	//	SaveScore = m_Score;
+	//	SaveScore2 = m_Score;
+	//}
+
+	//スコアが何桁あるのか求める
+	//整数がなくなるまで10で除法する
+
+	//スコアが0じゃないとき
+	if ((SaveScore2 - SaveScore != SaveScore2))
+	{
+		while (SaveScore2 - SaveScore != SaveScore2)
+		{
+			SaveScore /= 10;
+			//何回ループしたかカウントする
+			Digit *= 10;
+
+		}
+		//小数になるまでかけたが、桁数を知りたいので10で割る
+		Digit /= 10;
+	}
+
+
+
+	//対象のスコアを保存する
+	SaveScore = Score;
+	SaveScore2 = Score;
+	////今回のスコアの場合
+	//if (Ranking == 5)
+	//{
+	//	SaveScore = m_Score;
+	//	SaveScore2 = m_Score;
+	//}
+	j = 0;
+	while (Digit != 0)
+	{
+		//残りの値が0になる時、「Digit桁の値を求める」でエラーになる
+		//残りの値が0になる時、桁数分の0を表示して
+		if (SaveScore2 <= 0)
+		{
+			//Digit桁の値を求める
+			SaveScore = 0;
+		}
+		else
+		{
+			//Digit桁の値を求める
+			SaveScore /= Digit;
+		}
+
+	
+			//数字のスプライトを作成する
+		s_now_number = Sprite::create("Images/Number.png");
+		//レクトを設定する
+		s_now_number->setTextureRect(Rect(SaveScore * 64, 0, 64, 64));
+
+		//座標
+		s_now_number->setPosition(Vec2(1200 + 64 * j /*+ 960*/, 485 - (now_number * 170)));
+
+
+		//基盤ノードにぶら下げる
+		now_node_number[now_number]->addChild(s_now_number);
+		this->addChild(now_node_number[now_number]);
+
+		
+		//スコアから求めた値を引く
+		SaveScore2 -= SaveScore * Digit;
+		SaveScore = SaveScore2;
+		//次はDigit-1桁を見る
+		Digit /= 10;
+		j++;
+	}
+}
+
+//今回のスコアのアクション
+void ResultScore::ScoreAction(int cnt)
+{
+	
+	MoveBy* ScoreAction = MoveBy::create(1.5f,Vec2(-600, 0));
+	CallFunc* ScoreAction2 = CallFunc::create(CC_CALLBACK_0(ResultScore::ScoreAction, this, ++cnt));
+	Sequence* ScoreAction3 = Sequence::create(ScoreAction, ScoreAction2,nullptr);
+	if (cnt < 3)
+	{
+		now_node_number[cnt]->runAction(ScoreAction3);
+	}
+	else
+	{
+		RankingFlag = true;
+	}
+	
+}
+

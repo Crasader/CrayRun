@@ -63,8 +63,8 @@ bool Coin::init()
 						}
 						//座標を設定する
 						s_Coin->
-							setPosition(j * GameManager::LAYRE_SIZE.x + GameManager::MapLoopCnt * 1920,
-							(GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y - i) * GameManager::LAYRE_SIZE.y);
+							setPosition(j * GameManager::LAYRE_SIZE.x + GameManager::MapLoopCnt * GameManager::MAP_SIZE.x + GameManager::LAYRE_SIZE.x / 2,
+							(GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y - i) * GameManager::LAYRE_SIZE.y - GameManager::LAYRE_SIZE.y / 2);
 						//コインにタグをつける
 						s_Coin->setTag(m_CoinCnt);
 						this->addChild(s_Coin);

@@ -9,12 +9,13 @@
 /* ---- ライブラリのインクルード ---------- */
 #include "ResultScene.h"
 #include "ResultScore.h"
+#include "ResultLayer.h"
 #include "EventListenerGesture.h"
 /* ---- 名前空間を解放 -------------------- */
 USING_NS_CC;
 
 
-bool ResultScene::init(int score)
+bool ResultScene::init(int score, int distance)
 {
 	// 親クラスを初期化する
 	if (!Scene::init())
@@ -28,13 +29,13 @@ bool ResultScene::init(int score)
 	_director->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 	//今回のスコアを格納する
 	ResultScore::m_Score = score;
+	ResultScore::m_distance = distance;
 	log("############################### ResultScene created");
 	//ResultLayerを集約
 	ResultLayer* resultlayer = ResultLayer::create();
 	this->addChild(resultlayer);
 	return true;
 }
-
 //void ResultScene::update(float data)
 //{
 //}
@@ -44,12 +45,12 @@ bool ResultScene::init(int score)
 *|	引数　　無し
 *|　戻り値　シーンのアドレス
 ****************************************************************************/
-Scene* ResultScene::create(int score)
+Scene* ResultScene::create(int score,int distance)
 {
 	//メモリ確保
 	ResultScene *pRet = new(std::nothrow)ResultScene();
 
-	if (pRet && pRet->init(score))
+	if (pRet && pRet->init(score,distance))
 	{
 		pRet->autorelease();
 		return pRet;

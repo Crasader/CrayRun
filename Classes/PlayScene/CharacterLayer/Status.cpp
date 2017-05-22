@@ -75,6 +75,6 @@ void Status::CreateSprite()
 		break;
 	}
 	s_status->setScale(1.2f);
-	s_status->setPosition(Vec2(GameManager::WorldPosX + 96.0f, 200.0f));
+	s_status->setPosition(Vec2(GameManager::PlayerPos.x - 96.0f, 200.0f));
 	this->addChild(s_status);
 }

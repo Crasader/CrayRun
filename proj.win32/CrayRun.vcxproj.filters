@@ -59,7 +59,6 @@
     <ClCompile Include="..\Classes\ResultScene\ResultLayer.cpp">
       <Filter>ResultScene</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\EventListenerGesture.cpp" />
     <ClCompile Include="..\Classes\GameManager.cpp" />
     <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Enemy.cpp">
@@ -76,6 +75,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\PlayScene\StageLayer\CrayStage.cpp">
       <Filter>PlayScene\StageLayer\Gimmick</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AppDelegate.cpp">
+      <Filter>ResultScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

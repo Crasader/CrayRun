@@ -20,7 +20,7 @@ bool Mold::init(){
 		return false;
 	}
 
-	bool flag = true;
+	int loop_cnt = 0;
 
 	//レイヤー取得
 	TMXLayer* layer2 = GameManager::map[GameManager::MapLoopCnt]->getLayer("MapLayer");
@@ -47,36 +47,36 @@ bool Mold::init(){
 					if (str == "mold")
 					{
 						//ランダムでキャラクターを作成する
-						switch (Phoenix)
+						switch (rand() % 4 + 1)
 						{
-						case Normal:
-							m_kind = Normal;
-							break;
+
 						case Rabbit:
-							m_kind = Rabbit;
-							s_Mold = Sprite::create("Images/Rabbit_Model.png");
+							m_kind.push_back(Rabbit);
+							s_Mold.push_back(Sprite::create("Images/Rabbit_Model.png"));
 							break;
+
 						case Gnome:
-							m_kind = Gnome;
-							s_Mold = Sprite::create("Images/Rabbit_Model.png");
-
+							m_kind.push_back(Gnome);
+							s_Mold.push_back(Sprite::create("Images/Gnome_Mold.png"));
 							break;
+
 						case Phoenix:
-							m_kind = Phoenix;
-							s_Mold = Sprite::create("Images/Rabbit_Model.png");
+							m_kind.push_back(Phoenix);
+							s_Mold.push_back(Sprite::create("Images/Phoenix_Mold.png"));
+							break;
 
-							break;
 						case Slime:
-							m_kind = Slime;
-							s_Mold = Sprite::create("Images/slime_Mold.png");
+							m_kind.push_back(Slime);
+							s_Mold.push_back(Sprite::create("Images/slime_Mold.png"));
 							break;
+
 						default:
 							break;
 						}
-						GameManager::MoldCnt++;
-						s_Mold->setAnchorPoint(Vec2(0, 1));
+
+						s_Mold[loop_cnt]->setAnchorPoint(Vec2(0, 1));
 						//座標を設定する
-						s_Mold->
+						s_Mold[loop_cnt]->
 							setPosition(j * GameManager::LAYRE_SIZE.x + GameManager::MapLoopCnt *  GameManager::MAP_SIZE.x,
 							(GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y - i) * GameManager::LAYRE_SIZE.y);
 
@@ -85,12 +85,12 @@ bool Mold::init(){
 						MoveBy* moldaction2 = MoveBy::create(1.0f, Vec2(0.0f, -64 * 2.0f));
 						Sequence* moldaction3 = Sequence::create(moldaction, moldaction2, nullptr);
 						RepeatForever* moldaction4 = RepeatForever::create(moldaction3);
-						s_Mold->runAction(moldaction4);
+						s_Mold[loop_cnt]->runAction(moldaction4);
 
-						this->addChild(s_Mold);
 
-						//次のループでメモリ確保をさせない
-						flag = false;
+						this->addChild(s_Mold[loop_cnt]);
+						//カウントを増やす
+						loop_cnt++;
 					}
 				}
 			}

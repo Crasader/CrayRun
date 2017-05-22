@@ -46,7 +46,7 @@ bool Stage::init()
 							if (str == "floor")
 							{
 								//ç¿ïWÇê›íËÇ∑ÇÈ
-								m_FloorPos.push_back(Vec2(j * GameManager::LAYRE_SIZE.x + GameManager::MapLoopCnt * 1920,
+								m_FloorPos.push_back(Vec2(j * GameManager::LAYRE_SIZE.x + GameManager::MapLoopCnt * GameManager::MAP_SIZE.x,
 									(GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y - i) * GameManager::LAYRE_SIZE.y));
 							}
 						}

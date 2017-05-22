@@ -50,9 +50,9 @@ bool Slope::init()
 								//スロープのサイズを取得する
 								SlopeSize = s_slope->getContentSize();
 								//座標を設定する
-								m_LeftPos.push_back(Vec2(j * GameManager::LAYRE_SIZE.x - SlopeSize.x / 2 + GameManager::LAYRE_SIZE.x / 2 + GameManager::MapLoopCnt * 1920,
+								m_LeftPos.push_back(Vec2(j * GameManager::LAYRE_SIZE.x - SlopeSize.x / 2 + GameManager::LAYRE_SIZE.x / 2 + GameManager::MapLoopCnt *  GameManager::MAP_SIZE.x,
 									(GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y - i) * GameManager::LAYRE_SIZE.y - SlopeSize.y / 2 - GameManager::LAYRE_SIZE.y/2));
-								m_RightPos.push_back(Vec2(j * GameManager::LAYRE_SIZE.x + SlopeSize.x/2+ GameManager::LAYRE_SIZE.x / 2 + GameManager::MapLoopCnt * 1920,
+								m_RightPos.push_back(Vec2(j * GameManager::LAYRE_SIZE.x + SlopeSize.x/2+ GameManager::LAYRE_SIZE.x / 2 + GameManager::MapLoopCnt *  GameManager::MAP_SIZE.x,
 									(GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y - i) * GameManager::LAYRE_SIZE.y + SlopeSize.y / 2 - GameManager::LAYRE_SIZE.y/2));
 								//vectorの最初の情報を格納する
 								IteratorLeft = m_LeftPos.begin();

@@ -29,7 +29,7 @@ bool Rabbit::init()
 	s_player->setTexture(texture);
 	s_player->setContentSize(texture->getContentSize());
 
-	JumpSize = 14.0f;
+	JumpSize = 13.0f;
 	
 	return true;
 }
@@ -42,7 +42,7 @@ void Rabbit::Move()
 	switch (walkCnt / 10 % 4)
 	{
 	case 0:
-		texture = TextureCache::sharedTextureCache()->addImage("Images/Rabbit_Chara2.png");
+		texture = TextureCache::sharedTextureCache()->addImage("Images/Rabbit_Chara.png");
 
 		s_player->setTexture(texture);
 		s_player->setContentSize(texture->getContentSize());
@@ -50,8 +50,18 @@ void Rabbit::Move()
 		break;
 	case 1:
 	case 3:
+		texture = TextureCache::sharedTextureCache()->addImage("Images/Rabbit_Chara2.png");
+
+		s_player->setTexture(texture);
+		s_player->setContentSize(texture->getContentSize());
+
 		break;
 	case 2:
+		texture = TextureCache::sharedTextureCache()->addImage("Images/Rabbit_Chara3.png");
+
+		s_player->setTexture(texture);
+		s_player->setContentSize(texture->getContentSize());
+
 		break;
 	}
 }

@@ -53,7 +53,7 @@ bool CharacterLayer::init()
 	int FirstTouchCnt = 0;//最初のタッチからどれだけ経過したか
 	//bool FirstTouchFlag = false;//最初のタッチが呼ばれたか
 
-	
+	FirstMultiTouchCnt = 0;
 	
 	return true;
 }
@@ -81,21 +81,27 @@ void CharacterLayer::update(float date)
 
 	//プレイヤーと床の衝突判定
 	CollisionResponseFloor();
-	if(GameManager::Mold != Gnome)
-	//プレイヤーと粘土床の衝突判定
-	CollisionResponseCrayFloor();
+	//ゴーレムはこの処理を無視する
+	if (GameManager::Mold != Gnome) {
+		//プレイヤーと粘土床の衝突判定
+		CollisionResponseCrayFloor();
+	}
 	//プレイヤーと斜面のあたり判定
 	CollisionResponseSlope();
 	//ジャンプするか調べる
 	JumpInvestigate();
-
+	//フェニックスはこの処理を無視する
+	if (GameManager::Mold != Phoenix) {
+		//敵とプレイヤの当たり判定
+		CollisionResponseEnemy();
+	}
 	//サイズ変更
 	character->setScale();
-
+	//キャラクタ上方向上限
+	character->JumpBan();
 
 	if (static_cast<int>(GameManager::m_cameraposx + 480) % static_cast<int>(GameManager::MAP_SIZE.x) == 0)
 	{
-
 		//敵
 		enemy.push_back(Enemy::create());
 		this->addChild(enemy[GameManager::MapLoopCnt]);
@@ -104,7 +110,6 @@ void CharacterLayer::update(float date)
 			//敵削除
 			enemy[GameManager::MapLoopCnt - 2]->removeFromParent();
 		}
-
 	}
 
 	//デバック用
@@ -114,6 +119,10 @@ void CharacterLayer::update(float date)
 	n->setPosition(GameManager::PlayerPos + Vec2(300, 0));
 
 
+	if (FirstMultiTouchFlag == true)
+	{
+		FirstMultiTouchCnt++;
+	}
 
 }
 
@@ -177,9 +186,23 @@ void CharacterLayer::onTouchesMoved(const std::vector<cocos2d::Touch*>& touches,
 	}
 
 
+
+
 	//二回以上タッチされたら
 	if (m_touch_id >= 1)
 	{
+
+		if (FirstMultiTouchFlag == false)
+		{
+			for (int i = 0; i < EFFECTIVENESS_TOUCH; i++)
+			{
+				FirstPos[i] = touchpos[i];
+				SavePlayerPosx = GameManager::PlayerPos.x;
+			}
+			FirstMultiTouchFlag = true;
+		}
+
+
 		//キャラクターのマルチタッチ判定
 		MultiTouchCharacter();
 
@@ -187,6 +210,9 @@ void CharacterLayer::onTouchesMoved(const std::vector<cocos2d::Touch*>& touches,
 		touchpos[0] = Vec2(0.0f, 0.0f);
 		touchpos[1] = Vec2(0.0f, 0.0f);
 	}
+
+
+
 }
 
 /***************************************************************************
@@ -197,6 +223,10 @@ void CharacterLayer::onTouchesMoved(const std::vector<cocos2d::Touch*>& touches,
 void CharacterLayer::onTouchesEnded(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event * unused_event)
 {
 	log("onTouchesEnded");
+	for (int i = 0; i < EFFECTIVENESS_TOUCH; i++)
+	{
+		FirstPos[i] = Vec2(0.0f, 0.0f);
+	}
 }
 
 /***************************************************************************
@@ -222,46 +252,161 @@ void CharacterLayer::MultiTouchCharacter()
 	//タッチがキャラクターに当たったか
 	bool m_touch_collision[EFFECTIVENESS_TOUCH];
 
+	////タッチがプレイヤーに当たったか
+	//m_touch_collision[0] = GameManager::HitJudgment(
+	//	touchpos[0] - Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2), TOUCH_SIZE,
+	//	GameManager::PlayerPos, GameManager::PlayerSize);
+	////タッチ2がプレイヤーに当たったか
+	//m_touch_collision[1] = GameManager::HitJudgment(
+	//	touchpos[0] - Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2), TOUCH_SIZE,
+	//	GameManager::PlayerPos, GameManager::PlayerSize);
+
 	//タッチがプレイヤーに当たったか
-	m_touch_collision[0] = GameManager::HitJudgment(
-		touchpos[0] - Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2), TOUCH_SIZE,
-		GameManager::PlayerPos, GameManager::PlayerSize);
-	//タッチ2がプレイヤーに当たったか
-	m_touch_collision[1] = GameManager::HitJudgment(
-		touchpos[0] - Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2), TOUCH_SIZE,
-		GameManager::PlayerPos, GameManager::PlayerSize);
-
-	//タッチが二つともプレイヤーに当たったか
-	if (m_touch_collision[0] == true && m_touch_collision[1] == true)
+	m_touch_collision[0] = GameManager::HitJudgment2(
+		touchpos[0]/* - Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2)*/, Vec2(0,0),
+	Vec2(GameManager::PlayerPos.x - GameManager::PlayerSize.x/ 2 - GameManager::PlayerSize.x, 
+		GameManager::PlayerPos.y), GameManager::PlayerSize);
+	
+	if (m_touch_collision[0] == true && character->SizeChangeFlag == true)
 	{
-		//タッチとプレイヤーのあたり判定
-		m_touch_collision_direction[0] = GameManager::CollisionDetermination2(
-			touchpos[0] - Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2), TOUCH_SIZE,
-			GameManager::PlayerPos, GameManager::PlayerSize);
-
-		//タッチ2とプレイヤーのあたり判定
-		m_touch_collision_direction[1] = GameManager::CollisionDetermination2(
-			touchpos[1] - Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2), TOUCH_SIZE,
-			GameManager::PlayerPos, GameManager::PlayerSize);
-
-
-		//上下に挟んでいるかつもとの大きさの場合
-		if (m_touch_collision_direction[0] == up || m_touch_collision_direction[1] == under || m_touch_collision_direction[0] == under || m_touch_collision_direction[1] == up && character->isScaleY == false)
-		{
-			//大きさ変更
-			GameManager::PlayerSize.y = 32.0f;
-			if(GameManager::Mold != Slime)
-			character->isScaleY = true;
-		}
-		//左右に挟んでいるかつ元の大きさの場合
-		else if (m_touch_collision_direction[0] == left || m_touch_collision_direction[1] == left || m_touch_collision_direction[0] == right || m_touch_collision_direction[1] == right && character->isScaleX == false)
-		{
-			//大きさ変更
-			GameManager::PlayerSize.x = 32;
-			if (GameManager::Mold != Slime)
-				character->isScaleX = true;
-		}
+		GameManager::PlayerSize.x = 32;
+		character->SizeChangeFlag = false;
 	}
+
+
+	//タッチがプレイヤーに当たったか
+	m_touch_collision[0] = GameManager::HitJudgment2(
+		touchpos[1]/* - Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2)*/, Vec2(0, 0),
+		Vec2(GameManager::PlayerPos.x - GameManager::PlayerSize.x / 2 - GameManager::PlayerSize.x,
+			GameManager::PlayerPos.y), GameManager::PlayerSize);
+
+	if (m_touch_collision[0] == true && character->SizeChangeFlag == true)
+	{
+		GameManager::PlayerSize.x = 16;
+		character->SizeChangeFlag = false;
+	}
+
+
+	//タッチがプレイヤーに当たったか
+	m_touch_collision[0] = GameManager::HitJudgment2(
+		touchpos[0] /*- Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2)*/, Vec2(0,0),
+		Vec2(GameManager::PlayerPos.x + GameManager::PlayerSize.x / 2 ,
+			GameManager::PlayerPos.y  ), GameManager::PlayerSize);
+	if (m_touch_collision[0] == true && character->SizeChangeFlag == true)
+	{
+		GameManager::PlayerSize.x = 16;
+		character->SizeChangeFlag = false;
+
+	}
+
+
+
+	//タッチ2がプレイヤーに当たったか
+	m_touch_collision[1] = GameManager::HitJudgment2(
+		touchpos[0] /*- Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2)*/, Vec2(0, 0),
+		Vec2(GameManager::PlayerPos.x - GameManager::PlayerSize.x/2,
+			GameManager::PlayerPos.y + GameManager::PlayerSize.y ), GameManager::PlayerSize);
+
+	
+	if (m_touch_collision[1] == true && character->SizeChangeFlag == true)
+	{
+		GameManager::PlayerSize.y = 32;
+		character->SizeChangeFlag = false;
+
+	}
+
+	//タッチ2がプレイヤーに当たったか
+	m_touch_collision[1] = GameManager::HitJudgment2(
+		touchpos[1] /*- Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2)*/, Vec2(0, 0),
+		Vec2(GameManager::PlayerPos.x - GameManager::PlayerSize.x / 2,
+			GameManager::PlayerPos.y + GameManager::PlayerSize.y), GameManager::PlayerSize);
+
+
+	if (m_touch_collision[1] == true && character->SizeChangeFlag == true)
+	{
+		GameManager::PlayerSize.y = 32;
+		character->SizeChangeFlag = false;
+
+	}
+
+
+	//タッチ2がプレイヤーに当たったか
+	m_touch_collision[1] = GameManager::HitJudgment2(
+		touchpos[1] /*- Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2)*/, Vec2(0, 0),
+		Vec2(GameManager::PlayerPos.x - GameManager::PlayerSize.x / 2,
+			GameManager::PlayerPos.y + GameManager::PlayerSize.y), GameManager::PlayerSize);
+
+
+	if (m_touch_collision[1] == true && character->SizeChangeFlag == true)
+	{
+		GameManager::PlayerSize.y = 32;
+		character->SizeChangeFlag = false;
+
+	}
+
+	//タッチ2がプレイヤーに当たったか
+	m_touch_collision[1] = GameManager::HitJudgment2(
+		touchpos[0]/* - Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2)*/, Vec2(0, 0),
+		Vec2(GameManager::PlayerPos.x + GameManager::PlayerSize.x / 2,
+			GameManager::PlayerPos.y - GameManager::PlayerSize.y), GameManager::PlayerSize);
+
+	if (m_touch_collision[1] == true && character->SizeChangeFlag == true)
+	{
+				character->SizeChangeFlag = false;
+
+		GameManager::PlayerSize.y = 32;
+	}
+	//タッチ2がプレイヤーに当たったか
+	m_touch_collision[1] = GameManager::HitJudgment2(
+		touchpos[1]/* - Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2)*/, Vec2(0, 0),
+		Vec2(GameManager::PlayerPos.x + GameManager::PlayerSize.x / 2,
+			GameManager::PlayerPos.y - GameManager::PlayerSize.y), GameManager::PlayerSize);
+
+	if (m_touch_collision[1] == true && character->SizeChangeFlag == true)
+	{
+		character->SizeChangeFlag = false;
+
+		GameManager::PlayerSize.y = 32;
+	}
+
+
+	////タッチが二つともプレイヤーに当たったか
+	//if (m_touch_collision[0] == true && m_touch_collision[1] == true)
+	//{
+	//	//移動した量
+	//	Vec2 MoveDistance[2];
+	//	Vec2 MoveDistance2;
+	//	//日本の指がついてから4F経ったか
+
+
+	//}
+		////タッチとプレイヤーのあたり判定
+		//m_touch_collision_direction[0] = GameManager::CollisionDetermination2(
+		//	touchpos[0] - Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2), TOUCH_SIZE,
+		//	GameManager::PlayerPos, GameManager::PlayerSize);
+
+		////タッチ2とプレイヤーのあたり判定
+		//m_touch_collision_direction[1] = GameManager::CollisionDetermination2(
+		//	touchpos[1] - Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2), TOUCH_SIZE,
+		//	GameManager::PlayerPos, GameManager::PlayerSize);
+
+
+		////上下に挟んでいるかつもとの大きさの場合
+		//if (m_touch_collision_direction[0] == up || m_touch_collision_direction[1] == under || m_touch_collision_direction[0] == under || m_touch_collision_direction[1] == up && character->isScaleY == false)
+		//{
+		//	//大きさ変更
+		//	GameManager::PlayerSize.y = 32.0f;
+		//	if(GameManager::Mold != Slime)
+		//	character->isScaleY = true;
+		//}
+		////左右に挟んでいるかつ元の大きさの場合
+		//else if (m_touch_collision_direction[0] == left || m_touch_collision_direction[1] == left || m_touch_collision_direction[0] == right || m_touch_collision_direction[1] == right && character->isScaleX == false)
+		//{
+		//	//大きさ変更
+		//	GameManager::PlayerSize.x = 32;
+		//	if (GameManager::Mold != Slime)
+		//		character->isScaleX = true;
+		//}
 }
 
 
@@ -275,7 +420,6 @@ void CharacterLayer::MultiTouchCharacter()
 //戻り値：なし
 //
 //__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/
-
 void CharacterLayer::ChangeMold()
 {
 		switch (GameManager::Mold)
@@ -311,6 +455,9 @@ void CharacterLayer::ChangeMold()
 			GameManager::ChangeMold = false;
 			break;
 		}
+		//ジャンプ情報をリセットする
+		character->JumpCnt = 0;
+		character->JumpFlag = true;
 		//変更したのでaddChildする
 		this->addChild(character);
 
@@ -331,7 +478,7 @@ void CharacterLayer::CollisionResponseFloor()
 {
 
 	std::vector<Vec2>::iterator Iterator;
-
+	int hitcnt = 0;//何箇所当たっているか
 	//////マップの数だけループ
 		//床の数だけループ
 		for (Iterator = GameManager::AllFloorPos[GameManager::PlayerMapPos].begin(); Iterator != GameManager::AllFloorPos[GameManager::PlayerMapPos].end(); ++Iterator)
@@ -344,11 +491,13 @@ void CharacterLayer::CollisionResponseFloor()
 			case right:
 				GameManager::PlayerPos.x = vec.x + GameManager::LAYRE_SIZE.x + GameManager::PlayerSize.x / 2 + 1;
 				GameManager::PlayerSpd.x = 0.0f;
+				hitcnt++;
 				break;
 			case left:
 				/*GameManager::PlayerPos.x = GameManager::AllFloorPosx[i] - GameManager::PlayerSize.x / 2;*/
 				GameManager::RightFlag = true;
 				GameManager::PlayerSpd.x = -6.0f;
+				hitcnt++;
 				break;
 			case up:
 				GameManager::PlayerPos.y = vec.y;
@@ -356,16 +505,30 @@ void CharacterLayer::CollisionResponseFloor()
 				//ジャンプ可能にする
 				character->JumpCnt = 0;
 				character->JumpFlag = true;
+				hitcnt++;
 				break;
-				/*case under:
-				GameManager::PlayerPos.y = GameManager::AllFloorPosy[i] - GameManager::LAYRE_SIZE.y - GameManager::PlayerSize.y - 1;
+				case under:
+				GameManager::PlayerPos.y = vec.y - GameManager::LAYRE_SIZE.y - GameManager::PlayerSize.y-10;
 				GameManager::PlayerSpd.y = 0.0f;
-				break;*/
+				hitcnt++;
+				break;
 			default:
 				break;
 
 				}
 		}	
+		
+		//複数個所当たっているか
+		if (hitcnt > 2)
+		{
+			//大きさを元に戻す処理を行わない
+			character->FloormultipleFlag = true;
+		}
+		else
+		{
+			//大きさを元に戻す処理を行う
+			character->FloormultipleFlag = false;
+		}
 }
 
 /***************************************************************************
@@ -402,7 +565,7 @@ void CharacterLayer::CollisionResponseCrayFloor()
 
 		Vec2 vec = *Iterator;
 		switch (GameManager::CollisionDetermination
-		(vec + Vec2( GameManager::MAX_CRAYSTAGESIZE.x / 2 - (*IteratorSize).x / 2, -(GameManager::MAX_CRAYSTAGESIZE.y - (*IteratorSize).y)),(*IteratorSize),
+		(vec + Vec2( /*GameManager::MAX_CRAYSTAGESIZE.x / 2 - (*IteratorSize).x / 2*/0.0f, -(GameManager::MAX_CRAYSTAGESIZE.y - (*IteratorSize).y)),(*IteratorSize),
 			GameManager::PlayerPos, GameManager::PlayerSize))
 		{
 		case right:
@@ -411,10 +574,10 @@ void CharacterLayer::CollisionResponseCrayFloor()
 			b = 1;
 			break;
 		case left:
-			GameManager::PlayerPos.x = vec.x + GameManager::MAX_CRAYSTAGESIZE.x / 2 - (*IteratorSize).x / 2 - GameManager::PlayerSize.x / 2;
+		/*	GameManager::PlayerPos.x = vec.x + GameManager::MAX_CRAYSTAGESIZE.x / 2 - (*IteratorSize).x / 2 - GameManager::PlayerSize.x / 2;
 			GameManager::RightFlag = true;
-			GameManager::PlayerSpd.x = -6.0f;
-			b = 2;
+			GameManager::PlayerSpd.x = -6.0f;*/
+			GameManager::GameOverFlag = true;
 			break;
 		case up:
 			b = (*IteratorSize).y;
@@ -447,14 +610,13 @@ void CharacterLayer::CollisionResponseSlope()
 {
 	for (int i = 0; i <= GameManager::MapLoopCnt; i++)
 	{
-
 		//最初の斜面右端を格納する
 		IteratorLeft = GameManager::AllLeftPos[i].begin();
 		//vectorの数だけループ
 		for (IteratorRight = GameManager::AllRightPos[i].begin(); IteratorRight != GameManager::AllRightPos[i].end(); ++IteratorRight)
 		{
 			//衝突判定（斜面）
-			Direction HitFlag = GameManager::DiagonalCollisionDetermination(*IteratorLeft, *IteratorRight, GameManager::PlayerPos/*character->s_player->getPosition()*/);
+			Direction HitFlag = GameManager::DiagonalCollisionDetermination(*IteratorLeft, *IteratorRight, GameManager::PlayerPos /*+ Vec2(GameManager::PlayerSize.x /2,0.0f)*/);
 			//上に乗った時
 			if (HitFlag == up)
 			{
@@ -499,14 +661,15 @@ void CharacterLayer::CollisionResponseEnemy()
 			break;
 		case up:
 			GameManager::PlayerPos.y = (*IteratorEnemy).y;
-
+			//ジャンプする
+			character->Jump();
 			//ジャンプ可能にする
 			character->JumpCnt = 0;
 			character->JumpFlag = true;
 			break;
 		case under:
-			//GameManager::PlayerPos.y = (*IteratorEnemy).y - ;
-
+			GameManager::PlayerPos.y = (*IteratorEnemy).y - GameManager::LAYRE_SIZE.y -GameManager::PlayerSize.y;
+			GameManager::PlayerSpd.y = 0.0f;
 			GameManager::GameOverFlag = true;
 			break;
 		default:
@@ -533,7 +696,7 @@ void CharacterLayer::JumpInvestigate()
 	}
 	//一回目のタッチから1秒以上経過したなら
 
-	if (FirstTouchCnt > 4)
+	if (FirstTouchCnt > 6)
 	{
 		//ジャンプ関数を呼ぶ
 		character->Jump();

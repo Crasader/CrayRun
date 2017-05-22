@@ -20,8 +20,8 @@ public:
 	virtual bool init();
 
 	CREATE_FUNC(Mold);
-	cocos2d::Sprite* s_Mold;//金型
-	CharacterKind m_kind;//キャラクターの種類
+	std::vector<cocos2d::Sprite*> s_Mold;//金型
+	std::vector<CharacterKind> m_kind;//キャラクターの種類
 	const cocos2d::Vec2 SIZE = cocos2d::Vec2(128, 128);
 
 private:

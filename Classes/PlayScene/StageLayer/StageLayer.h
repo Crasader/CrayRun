@@ -72,8 +72,9 @@ private:
 	//金型イテレーター
 	cocos2d::Vector<Mold*>::iterator ItratorMold;
 	//タッチサイズ
-	const cocos2d::Vec2 TOUCH_SIZE = cocos2d::Vec2(60, 60);
-	//
+	const cocos2d::Vec2 TOUCH_SIZE = cocos2d::Vec2(100, 100);
+	const cocos2d::Vec2 TOUCH_SIZE2 = cocos2d::Vec2(30, 30);
+
 	int m_data;
 	//タッチ座標
 	cocos2d::Vec2 touchpos[EFFECTIVENESSTOUCH];

@@ -57,6 +57,7 @@ void UiLayer::update(float data) {
 		distance->m_distance += m_distanceSpd;
 		//‹——£‚ð•`‰æ
 		distance->DistanceIndicate(distance->m_distance);
+		GameManager::TotalDistance = distance->m_distance;
 	}
 
 };

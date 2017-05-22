@@ -34,11 +34,13 @@ public:
 	static Direction DiagonalCollisionDetermination(cocos2d::Vec2 Apos, cocos2d::Vec2 Bpos, cocos2d::Vec2 Object);
 	//当たり判定
 	static bool HitJudgment(cocos2d::Vec2 Apos, cocos2d::Vec2 Asize, cocos2d::Vec2 Bpos, cocos2d::Vec2 Bsize);
-	
+	static bool HitJudgment2(cocos2d::Vec2 Apos, cocos2d::Vec2 Asize, cocos2d::Vec2 Bpos, cocos2d::Vec2 Bsize);
+
 	static const int BOX_COLLIDER;			//あたり判定時に使用するタイルレイヤーの淵から少しだけ内側に入っているか確かめるための数
 	static const int BOX_COLLIDER2;			//あたり判定時に使用するタイルレイヤーの淵から少しだけ内側に入っているか確かめるための数
 	static float WorldPosX;//画面座標
 	static bool GameOverFlag;//ゲームオーバーフラグ
+	static const cocos2d::Vec2 SCREEN_SIZE;//画面サイズ
 	//////////////キャラクターレイヤー//////
 	/////////////キャラクター/////////////
 	static cocos2d::Vec2 PlayerSpd;//速度
@@ -91,6 +93,8 @@ public:
 	const static int DISTANCE_MAX_NUMBER;//スコアのスプライトの数
 	static int SaveDistance;//距離を保存する
 	static std::vector<int> CoinPoint;//コインのポイント
+	static int TotalDistance;//最終スコア
+
 	///////////////////カメラ/////////////////////////
 	static float m_cameraposx;
 	const static float m_cameraspdx;
