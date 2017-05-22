@@ -22,6 +22,7 @@ bool StageLayer::init()
 	//タイルマップの読み込み
 	//マップチップ
 	GameManager::map.push_back(TMXTiledMap::create("map_takumi.tmx"));
+
 	IteratorMap = GameManager::map.begin();
 	TMXTiledMap* g_Map = *IteratorMap;
 	//タイルマップの中心座標を設定
@@ -53,8 +54,6 @@ bool StageLayer::init()
 	ItratorNeedle = needle.begin();
 	this->addChild((*ItratorNeedle));
 
-	//this->addChild(*(needle.begin()));
-	//this->addChild(needle[GameManager::MapLoopCnt]);
 	// Register Touch Event
 	EventListenerTouchAllAtOnce* listener = EventListenerTouchAllAtOnce::create();
 
@@ -361,8 +360,6 @@ void StageLayer::onTouchesMoved(const std::vector<cocos2d::Touch*>& touches, coc
 {
 	log("onTouchesMoved");
 
-
-
 	//タッチID格納
 	int g_touch_id;
 
@@ -499,7 +496,6 @@ void StageLayer::MultiTouchNeedle()
 	Vector<Sprite*>::iterator Iterator;
 
 	Vec2 NeedleSizeneedle = needle[GameManager::PlayerMapPos]->SIZE;
-
 
 
 	//ループした回数

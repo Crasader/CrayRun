@@ -17,6 +17,8 @@ public:
 	bool init();
 	CREATE_FUNC(Rabbit);
 
+	void Move();
+
 private:
 
 

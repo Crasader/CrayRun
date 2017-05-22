@@ -81,15 +81,20 @@ void CharacterLayer::update(float date)
 
 	//プレイヤーと床の衝突判定
 	CollisionResponseFloor();
-	if(GameManager::Mold != Gnome)
-	//プレイヤーと粘土床の衝突判定
-	CollisionResponseCrayFloor();
+	//ゴーレムはこの処理を無視する
+	if (GameManager::Mold != Gnome) {
+		//プレイヤーと粘土床の衝突判定
+		CollisionResponseCrayFloor();
+	}
 	//プレイヤーと斜面のあたり判定
 	CollisionResponseSlope();
 	//ジャンプするか調べる
 	JumpInvestigate();
-	//敵とプレイヤの当たり判定
-	CollisionResponseEnemy();
+	//フェニックスはこの処理を無視する
+	if (GameManager::Mold != Phoenix) {
+		//敵とプレイヤの当たり判定
+		CollisionResponseEnemy();
+	}
 	//サイズ変更
 	character->setScale();
 	//キャラクタ上方向上限
@@ -118,13 +123,6 @@ void CharacterLayer::update(float date)
 	{
 		FirstMultiTouchCnt++;
 	}
-	
-
-	//if (FirstMultiTouchCnt > 4)
-	//{
-	//	FirstMultiTouchCnt = 0;
-	//	FirstMultiTouchFlag = false;
-	//}
 
 }
 

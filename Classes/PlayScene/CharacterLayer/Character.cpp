@@ -36,6 +36,9 @@ bool Character::init()
 
 	isScaleX = false;
 	isScaleY = false;
+		
+	walkCnt = 0;
+
 	SizeChangeFlag = true;
 	JumpSize = 11.0f;
 	FloormultipleFlag = false;
@@ -53,6 +56,9 @@ void Character::Move()
 	GameManager::PlayerPos += GameManager::PlayerSpd;
 	//座標を適用させる
 	s_player->setPosition(GameManager::PlayerPos);
+
+	walkCnt++;
+	Animation();
 }
 
 /***************************************************************************
@@ -76,6 +82,48 @@ void Character::Jump()
 	{
 		JumpCnt = 0;
 		JumpFlag = false;
+	}
+}
+
+void Character::Animation()
+{
+	Texture2D* texture;
+	
+	//ジャンプできるときかつジャンプをまだしていないとき（歩いてるとき）
+	if (JumpCnt == 0 && JumpFlag == true)
+	{
+		switch (walkCnt / 10 % 4)
+		{
+		case 0:
+			texture = TextureCache::sharedTextureCache()->addImage("Images/Player2.png");
+
+			s_player->setTexture(texture);
+			s_player->setContentSize(texture->getContentSize());
+
+			break;
+		case 1:
+		case 3:
+			texture = TextureCache::sharedTextureCache()->addImage("Images/Player_w.png");
+
+			s_player->setTexture(texture);
+			s_player->setContentSize(texture->getContentSize());
+
+			break;
+		case 2:
+			texture = TextureCache::sharedTextureCache()->addImage("Images/Player_w2.png");
+
+			s_player->setTexture(texture);
+			s_player->setContentSize(texture->getContentSize());
+
+			break;
+		}
+	}
+	else
+	{
+		texture = TextureCache::sharedTextureCache()->addImage("Images/Player_j.png");
+
+		s_player->setTexture(texture);
+		s_player->setContentSize(texture->getContentSize());
 	}
 }
 

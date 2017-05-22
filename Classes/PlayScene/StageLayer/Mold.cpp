@@ -54,22 +54,25 @@ bool Mold::init(){
 							m_kind.push_back(Rabbit);
 							s_Mold.push_back(Sprite::create("Images/Rabbit_Model.png"));
 							break;
+
 						case Gnome:
 							m_kind.push_back(Gnome);
-							s_Mold.push_back(Sprite::create("Images/Gnome_Chara.png"));
+							s_Mold.push_back(Sprite::create("Images/Gnome_Mold.png"));
 							break;
+
 						case Phoenix:
 							m_kind.push_back(Phoenix);
-							s_Mold.push_back(Sprite::create("Images/Phoenix_Chara.png"));
+							s_Mold.push_back(Sprite::create("Images/Phoenix_Mold.png"));
 							break;
+
 						case Slime:
 							m_kind.push_back(Slime);
 							s_Mold.push_back(Sprite::create("Images/slime_Mold.png"));
 							break;
+
 						default:
 							break;
 						}
-
 
 						s_Mold[loop_cnt]->setAnchorPoint(Vec2(0, 1));
 						//À•W‚ğİ’è‚·‚é

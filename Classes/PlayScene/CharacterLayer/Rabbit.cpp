@@ -33,3 +33,35 @@ bool Rabbit::init()
 	
 	return true;
 }
+
+void Rabbit::Move()
+{
+	Character::Move();
+
+	Texture2D* texture;
+	switch (walkCnt / 10 % 4)
+	{
+	case 0:
+		texture = TextureCache::sharedTextureCache()->addImage("Images/Rabbit_Chara.png");
+
+		s_player->setTexture(texture);
+		s_player->setContentSize(texture->getContentSize());
+		
+		break;
+	case 1:
+	case 3:
+		texture = TextureCache::sharedTextureCache()->addImage("Images/Rabbit_Chara2.png");
+
+		s_player->setTexture(texture);
+		s_player->setContentSize(texture->getContentSize());
+
+		break;
+	case 2:
+		texture = TextureCache::sharedTextureCache()->addImage("Images/Rabbit_Chara3.png");
+
+		s_player->setTexture(texture);
+		s_player->setContentSize(texture->getContentSize());
+
+		break;
+	}
+}
