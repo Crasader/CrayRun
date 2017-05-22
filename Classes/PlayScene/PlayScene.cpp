@@ -79,7 +79,7 @@ void PlayScene::update(float data)
 	//画面左もしくは画面下に出たらリザルトシーンへ移行
 	if (GameManager::PlayerPos.y < 0 ||  GameManager::PlayerPos.x <= GameManager::WorldPosX || GameManager::GameOverFlag == true)
 	{
-		Scene* nextScene = ResultScene::create(GameManager::Score);
+		Scene* nextScene = ResultScene::create(GameManager::Score,GameManager::TotalDistance);
 
 		_director->replaceScene(nextScene);
 	}

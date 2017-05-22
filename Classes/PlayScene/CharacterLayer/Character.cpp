@@ -36,9 +36,9 @@ bool Character::init()
 
 	isScaleX = false;
 	isScaleY = false;
-
-	JumpSize = 9.0f;
-		
+	SizeChangeFlag = true;
+	JumpSize = 11.0f;
+	FloormultipleFlag = false;
 	return true;
 }
 
@@ -71,7 +71,7 @@ void Character::Jump()
 	{
 		GameManager::PlayerSpd.y = JumpSize;
 	}
-	//二回ジャンプしたらジャンプ負荷にする
+	//二回ジャンプしたらジャンプ不可にする
 	if (JumpCnt == 2)
 	{
 		JumpCnt = 0;
@@ -87,36 +87,41 @@ void Character::Jump()
 void Character::setScale()
 {
 
-	//プレイヤーのサイズXが通常より小さいとき
-	if (GameManager::PlayerSize.x < PLAYER_MAX_SIZE)
+	if (FloormultipleFlag == false)
 	{
-		//少しずつ大きくする
-		GameManager::PlayerSize.x += 0.1f;
-	}
-	else if (GameManager::PlayerSize.x > PLAYER_MAX_SIZE)
-	{
-		GameManager::PlayerSize.x = 96;
-	}
+		//プレイヤーのサイズXが通常より小さいとき
+		if (GameManager::PlayerSize.x < PLAYER_MAX_SIZE)
+		{
+			//少しずつ大きくする
+			GameManager::PlayerSize.x += 0.15f;
+		}
+		else if (GameManager::PlayerSize.x > PLAYER_MAX_SIZE)
+		{
+			GameManager::PlayerSize.x = 96;
+			SizeChangeFlag = true;
 
-	//プレイヤーのサイズYが通常より小さいとき
-	if (GameManager::PlayerSize.y < PLAYER_MAX_SIZE)
-	{
-		GameManager::PlayerSize.y += 0.1f;
-	}
-	else if (GameManager::PlayerSize.y > PLAYER_MAX_SIZE)
-	{
-		GameManager::PlayerSize.y = 96;
-	}
+		}
 
-	if (GameManager::PlayerSize.x == PLAYER_MAX_SIZE)
-	{
-		isScaleX = false;
-	}
-	if (GameManager::PlayerSize.y == PLAYER_MAX_SIZE)
-	{
-		isScaleY = false;
-	}
+		//プレイヤーのサイズYが通常より小さいとき
+		if (GameManager::PlayerSize.y < PLAYER_MAX_SIZE)
+		{
+			GameManager::PlayerSize.y += 0.35f;
+		}
+		else if (GameManager::PlayerSize.y > PLAYER_MAX_SIZE)
+		{
+			GameManager::PlayerSize.y = 96;
+			SizeChangeFlag = true;
+		}
 
-	//サイズを適用する
-	s_player->setScale(GameManager::PlayerSize.x / PLAYER_MAX_SIZE, GameManager::PlayerSize.y / PLAYER_MAX_SIZE);
+		if (GameManager::PlayerSize.x == PLAYER_MAX_SIZE)
+		{
+			isScaleX = false;
+		}
+		if (GameManager::PlayerSize.y == PLAYER_MAX_SIZE)
+		{
+			isScaleY = false;
+		}
+		//サイズを適用する
+		s_player->setScale(GameManager::PlayerSize.x / PLAYER_MAX_SIZE, GameManager::PlayerSize.y / PLAYER_MAX_SIZE);
+	}
 }

@@ -2,6 +2,8 @@
 
 USING_NS_CC;
 
+
+
 bool Needle::init() {
 
 	if (!Node::init()) {

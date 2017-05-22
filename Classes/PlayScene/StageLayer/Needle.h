@@ -18,6 +18,8 @@ public:
 	std::vector<cocos2d::Sprite*> s_needle;
 	//針状態
 	std::vector<bool> m_needle_state;
+	//サイズ
+	const cocos2d::Vec2 SIZE = cocos2d::Vec2(100,100);
 private:
 	//イテレータ
 	cocos2d::Vector<cocos2d::Sprite*>::iterator m_iterator_needle;

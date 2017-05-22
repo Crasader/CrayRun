@@ -16,14 +16,15 @@ class ResultScene :public cocos2d::Scene
 {
 public:
 	//シーンを作成する
-	static cocos2d::Scene* create(int score);
+	static cocos2d::Scene* create(int score, int distance);
 	//初期化する
-	 bool init(int score);
+	 bool init(int score,int distance);
 
 private:
 	//タッチされたら
 	bool onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * pEvent);
 	////毎フレーム呼ばれる
 	//void update(float data)override;
+
 
 };

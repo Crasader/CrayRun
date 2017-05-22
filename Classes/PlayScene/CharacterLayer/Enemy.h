@@ -17,9 +17,9 @@ public:
 
 	CREATE_FUNC(Enemy);
 	std::vector < cocos2d::Vec2> m_EnemyPos;//è∞ç¿ïW
-
+	const float ENEMY_SIZE = 4.0f;
 private:
-
+	
 
 
 };

@@ -8,6 +8,7 @@ const  int GameManager::BOX_COLLIDER2 = 40;			//あたり判定時に使用するタイルレイ
 
 float GameManager::WorldPosX = 0.0f;
 bool GameManager::GameOverFlag = false;//ゲームオーバーフラグ
+const Vec2 GameManager::SCREEN_SIZE= Vec2(960,640);//画面サイズ
 
 //////////////キャラクターレイヤー//////
 //////////////キャラクター//////////////
@@ -46,7 +47,7 @@ float GameManager::SlopePosY = 0.0f;//斜面座標Y
 
 /////////////粘土ステージ////////
 std::vector<std::vector<cocos2d::Vec2>>  GameManager::AllCrayFloorPos;//粘土床座標
-const Vec2   GameManager::MAX_CRAYSTAGESIZE = Vec2(192, 320);////粘土床の最大サイズ
+const Vec2   GameManager::MAX_CRAYSTAGESIZE = Vec2(192, 256);////粘土床の最大サイズ
 
 std::vector<Vec2>   GameManager::CrayFloorSize;//粘土床の大きさ
 int GameManager::CraySizeChangeCnt = 0;//どの粘土床のサイズを変更するか
@@ -72,7 +73,7 @@ Vec2 GameManager::MoldSpd = Vec2(0, -4);
 int GameManager::Score = 0;//スコア
 /////////////////場所////////////////////////
 int GameManager::SaveDistance = 0;//距離を保存する
-
+int GameManager::TotalDistance = 0;//最終スコア
 
 /////////////////カメラ//////////////////////.
 
@@ -395,4 +396,26 @@ bool GameManager::HitJudgment(Vec2 Apos, Vec2 Asize, Vec2 Bpos, Vec2 Bsize)
 	}
 }
 
+
+
+/************************************************************************************
+*|	概要　　あたり判定
+*|	引数　　対象二つの座標
+*|　戻り値　true当たった　false 当たってない
+*************************************************************************************/
+bool GameManager::HitJudgment2(Vec2 Apos, Vec2 Asize, Vec2 Bpos, Vec2 Bsize)
+{
+
+	if ((Apos.x <= Bpos.x + Bsize.x)
+		&& (Apos.x + Asize.x >= Bpos.x - Bsize.x )
+		&& (Apos.y >= Bpos.y)
+		&& (Apos.y - Asize.y  <= Bpos.y + Bsize.y))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
 

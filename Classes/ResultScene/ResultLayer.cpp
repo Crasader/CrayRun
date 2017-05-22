@@ -17,19 +17,53 @@ bool ResultLayer::init()
 		return false;
 	}
 
+	//背景
+	Sprite* backcoin = Sprite::create("Images/Result.png");
+	backcoin->setPosition(Vec2(GameManager::SCREEN_SIZE.x / 2, GameManager::SCREEN_SIZE.y / 2));
+	backcoin->setScale(1.5f, 1.4f);
+	this->addChild(backcoin);
+
+	//背景
+	nowscore_background = Sprite::create("Images/NowScore.png");
+	nowscore_background->setPosition(Vec2(GameManager::SCREEN_SIZE.x / 2, GameManager::SCREEN_SIZE.y / 2));
+	this->addChild(nowscore_background);
+
+
+
+
+
+
 	//スコア作成
-	ResultScore* resultscore = ResultScore::create();
-	this->addChild(resultscore);
+	m_resultscore = ResultScore::create();
+	this->addChild(m_resultscore);
+	//今回のスコアのアクション
+	m_resultscore->ScoreAction(-1);
+
 	//スコアを取得する
-	resultscore->ScoreAcquisition();
+	m_resultscore->ScoreAcquisition();
 	//スコアのランキングを調べる
-	resultscore->RankingSort();
+	m_resultscore->RankingSort();
 	//スコアの保存
-	resultscore->ScoreResister();
+	m_resultscore->ScoreResister();
+
+
+
+	//今回のスコア、距離、合計スコアを格納する
+	int nowscore[3] = { ResultScore::m_Score,ResultScore::m_distance,ResultScore::m_Score + ResultScore::m_distance };
+	for (int i = 0; i < 3; i++)
+	{
+
+		m_resultscore->ScoreIndicate2(nowscore[i]);
+
+		m_resultscore->ScoreMaxDigit = 0;
+		m_resultscore->now_number++;
+
+	}
+
 	//スコアの設定、描画
 	for (int i = 0; i < 5; i++)
 	{
-		resultscore->ScoreIndicate(i);
+		m_resultscore->ScoreIndicate(i);
 	}
 
 	// Register Touch Event
@@ -51,8 +85,20 @@ bool ResultLayer::init()
 *|	引数　　無し
 *|　戻り値　無し
 ****************************************************************************/
-void ResultLayer::update(float data) {
-		
+void ResultLayer::update(float data)
+{
+	if (m_resultscore->RankingFlag == true)
+	{
+
+		//今回の数字スプライと
+		cocos2d::Sprite* s_now_number;
+		for (int i = 0; i < 3; i++)
+		{
+			MoveBy* ResultAction = MoveBy::create(3.0f, Vec2(0.0f, 300.0f));
+			m_resultscore->now_node_number[i]->runAction(ResultAction);
+		}
+	
+	}
 }
 /***************************************************************************
 *|	概要　　タッチされた時に呼ぶ関数

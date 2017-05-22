@@ -17,6 +17,6 @@ bool Phoenix::init()
 	s_player->setTexture(texture);
 	s_player->setContentSize(texture->getContentSize());
 
-	JumpSize = 9.0f;
+	JumpSize = 11.0f;
 	return true;
 }

@@ -41,8 +41,8 @@ bool CrayStage::init()
 				if (properties.empty() == false)
 				{
 					// "type"プロパティを文字列として取得
-					std::string str = properties["craystage"].asString();
-					if (str == "craystage")
+					std::string str = properties["crayfloor"].asString();
+					if (str == "crayfloor")
 					{
 						crayfloor.push_back(Sprite::create("Images/CryFloor.png"));
 
@@ -50,11 +50,11 @@ bool CrayStage::init()
 						Iterator = crayfloor.begin();
 						Iterator += CryFloorCnt;
 						//アンカーポイントに設定する
-						(*Iterator)->setAnchorPoint(Vec2(0.5f,0.0f));
+						(*Iterator)->setAnchorPoint(Vec2(0.0f,0.0f));
 						//座標を設定する
 						(*Iterator)->
-							setPosition(j * GameManager::LAYRE_SIZE.x + /*(GameManager::LAYRE_SIZE.x*2)*/ + GameManager::MapLoopCnt * GameManager::MAP_SIZE.x +GameManager::LAYRE_SIZE.x  * 1.5,
-							(GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y - i) * GameManager::LAYRE_SIZE.y - (GameManager::LAYRE_SIZE.y * 5));
+							setPosition(j * GameManager::LAYRE_SIZE.x + /*(GameManager::LAYRE_SIZE.x*2)*/ + GameManager::MapLoopCnt * GameManager::MAP_SIZE.x,
+							(GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y - i) * GameManager::LAYRE_SIZE.y - (GameManager::LAYRE_SIZE.y * 4));
 						//粘土床にタグをつける
 						(*Iterator)->setTag(CryFloorCnt);
 						this->addChild((*Iterator));

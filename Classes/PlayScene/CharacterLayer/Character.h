@@ -28,13 +28,9 @@ public:
 		//重力加速度に上限を設ける
 		if (GameManager::PlayerSpd.y >= -7.0f)
 		{
-			GameManager::PlayerSpd.y -= 0.4f;
+			GameManager::PlayerSpd.y -= 0.6f;
 		}
-		//ジャンプがないときは関係なく加速度をつける
-		else if (JumpFlag == false)
-		{
-			//GameManager::PlayerSpd.y -= 0.4f;
-		}
+
 	}
 
 	void setScale();//サイズ設定
@@ -55,7 +51,13 @@ public:
 	}
 
 	//キャラクタ上方向上限
-	void JumpBan() { if (GameManager::PlayerPos.y < 640)GameManager::PlayerSpd.y = 0; }
+	void JumpBan() {
+		if (GameManager::PlayerPos.y > GameManager::SCREEN_SIZE.y - GameManager::PlayerSize.y + 5	)
+		{
+			GameManager::PlayerSpd.y = 0; 
+			GameManager::PlayerPos.y = GameManager::SCREEN_SIZE.y - GameManager::PlayerSize.y ;
+		}
+	}
 
 	float JumpSize;//ジャンプするおおきさ
 	
@@ -65,5 +67,10 @@ public:
 
 	bool isScaleX;//X座標の大きさが変更されているかtrue：されている,false：されていない
 	bool isScaleY;//Y座標の大きさが変更されているかtrue：されている,false：されていない
+
+
+	bool SizeChangeFlag;//大きさを変えれるか
+
+	bool FloormultipleFlag;//床の下に当たっているか
 };
 
