@@ -6,6 +6,7 @@
 *|___________________________________________________________________________
 ****************************************************************************/
 /* ---- ライブラリのインクルード ---------- */
+#include <stdlib.h>
 #include "ResultScore.h"
 
 int ResultScore::m_Score = 0;
@@ -47,6 +48,13 @@ bool ResultScore::init()
 
 
 	userDefault = cocos2d::UserDefault::getInstance();
+
+	//背景
+	backcoin = Sprite::create("Images/ResultTexture.png");
+	backcoin->setPosition(Vec2(GameManager::SCREEN_SIZE.x / 2, GameManager::SCREEN_SIZE.y / 2));
+	backcoin->setVisible(false);
+	this->addChild(backcoin);
+
 	return true;
 }
 
@@ -62,6 +70,12 @@ void ResultScore::ScoreAcquisition()
 	RankingScore[Third] = userDefault->getIntegerForKey("name3");
 	RankingScore[Fourth] = userDefault->getIntegerForKey("name4");
 	RankingScore[Fifth] = userDefault->getIntegerForKey("name5");
+	RankingScore[5] = m_Score + m_distance;
+}
+
+int compare_int(const void *a, const void *b)
+{
+	return *(int *)b - *(int*)a;
 }
 
 /***************************************************************************
@@ -71,34 +85,47 @@ void ResultScore::ScoreAcquisition()
 ****************************************************************************/
 void ResultScore::RankingSort()
 {
-	//今回のスコアがランキングのどこに位置するか求める
-	int i = Fifth;
-	int TotalScore = m_Score + m_distance;
-	if (RankingScore[Fifth] < TotalScore)
-	{
+	////今回のスコアがランキングのどこに位置するか求める
+	//int i = Fifth;
+	//int TotalScore = m_Score + m_distance;
+	//if (RankingScore[Fifth] < TotalScore)
+	//{
 
-		while ((RankingScore[i] < TotalScore) && (i >= 0))
-		{
-			i--;
-		}
-		i++;
+	//	while ((RankingScore[i] < TotalScore) && (i >= 0))
+	//	{
+	//		i--;
+	//	}
+	//	i++;
 
-		//今回のスコアがランキングに入っているならば
-		if (i != score)
-		{
-			//ランキングを入れ替える
-			for (int j = 3; i <= j; j--)
-			{
-				RankingScore[j + 1] = RankingScore[j];
-			}
+	//	//今回のスコアがランキングに入っているならば
+	//	if (i != score)
+	//	{
+	//		//ランキングを入れ替える
+	//		for (int j = 3; i <= j; j--)
+	//		{
+	//			RankingScore[j + 1] = RankingScore[j];
+	//		}
 
-			//今回のスコアをランキングに入れる
-			RankingScore[i] = m_Score;
-		}
-	}
+	//		//今回のスコアをランキングに入れる
+	//		RankingScore[i] = m_Score;
+	//	}
+	//}
 
+
+	
+
+	
+
+	qsort(RankingScore, 6, sizeof(int), compare_int);
 
 }
+
+
+//
+//int ResultScore::compare_int(const void *a, const void *b)
+//{
+//	return *(int *)a - *(int*)b;
+//}
 
 /***************************************************************************
 *|	概要　　スコアを保存する
@@ -209,12 +236,12 @@ void ResultScore::ScoreIndicate(int Ranking)
 		if (Ranking == 5)
 		{
 			//座標
-			s_Number->setPosition(Vec2(200 + 64 * j /*- 960*/, 500));
+			s_Number->setPosition(Vec2(400 * j /*- 960*/, 200));
 		}
 		else
 		{
 			//座標
-			s_Number->setPosition(Vec2(630 + 64 * j /*+ 960*/, 500 - (Ranking * 82)));
+			s_Number->setPosition(Vec2(500 + 64 * j /*+ 960*/, -150 - (Ranking * 82)));
 		}
 
 		//基盤ノードにぶら下げる
@@ -325,7 +352,7 @@ void ResultScore::ScoreIndicate2(int Score)
 void ResultScore::ScoreAction(int cnt)
 {
 	
-	MoveBy* ScoreAction = MoveBy::create(1.5f,Vec2(-600, 0));
+	MoveBy* ScoreAction = MoveBy::create(0.7f,Vec2(-600, 0));
 	CallFunc* ScoreAction2 = CallFunc::create(CC_CALLBACK_0(ResultScore::ScoreAction, this, ++cnt));
 	Sequence* ScoreAction3 = Sequence::create(ScoreAction, ScoreAction2,nullptr);
 	if (cnt < 3)
@@ -338,4 +365,58 @@ void ResultScore::ScoreAction(int cnt)
 	}
 	
 }
+
+
+//今回のスコアの消えるアクション
+void ResultScore::ResultOutAction()
+{
+
+	for (int i = 0; i < 2; i++)
+	{
+		MoveBy* ResultAction = MoveBy::create(0.0f, Vec2(0.0f, 700.0f));
+
+		now_node_number[i]->runAction(ResultAction);
+	}
+
+	
+	MoveBy* ResultAction = MoveBy::create(0.5f, Vec2(0.0f, 700.0f));
+
+	CallFunc* ResultAction2 = CallFunc::create(CC_CALLBACK_0(ResultScore::RankingAction, this, -1));
+	Sequence* ResultAction3 = Sequence::create(ResultAction, ResultAction2, nullptr);
+
+	now_node_number[2]->runAction(ResultAction3);
+
+	
+
+}
+//
+//
+//void ResultScore::CallRankingActuin()
+//{
+//
+//	//ランキングのアクション
+//	RankingAction(-1);
+//	RankingOutoFlag == false;
+//}
+
+//ランキングのアクション
+void ResultScore::RankingAction(int cnt)
+{
+	backcoin->setVisible(true);
+	MoveBy* ScoreAction = MoveBy::create(0.5f, Vec2(0, 600));
+	CallFunc* ScoreAction2 = CallFunc::create(CC_CALLBACK_0(ResultScore::RankingAction, this, ++cnt));
+	Sequence* ScoreAction3 = Sequence::create(ScoreAction, ScoreAction2, nullptr);
+	if (cnt < 5)
+	{
+		node_number[cnt]->runAction(ScoreAction3);
+	}
+	else
+	{
+		TitleFlag = true;
+	}
+
+}
+
+
+
 

@@ -31,9 +31,18 @@ private:
 	void onTouchesEnded(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *unused_event);
 	//タッチ異常終了
 	void onTouchesCancelled(const std::vector<cocos2d::Touch*>&touches, cocos2d::Event *unused_event);
-
+	//リザルトスコア
 	ResultScore* m_resultscore;
+	//背景画像
 	cocos2d::Sprite* nowscore_background;
+	//ランキングフラグ
+	bool RankingFlag;
+	cocos2d::Sprite* s_touch;
+	//透明度のカウント
+	int VisibleCnt;
+	//スプライトを生成するか
+	bool CreateSprite;
+
 };
 
 

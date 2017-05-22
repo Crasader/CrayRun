@@ -271,7 +271,7 @@ void CharacterLayer::MultiTouchCharacter()
 	
 	if (m_touch_collision[0] == true && character->SizeChangeFlag == true)
 	{
-		GameManager::PlayerSize.x = 32;
+		GameManager::PlayerSize.x = 16;
 		character->SizeChangeFlag = false;
 	}
 

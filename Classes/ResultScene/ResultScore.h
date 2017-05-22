@@ -8,6 +8,7 @@
 #pragma once
 /* ---- ライブラリのインクルード ---------- */
 #include "cocos2d.h"
+#include "../GameManager.h"
 /* ---- 列挙型 ---------- */
 enum ScoreNumber
 {
@@ -36,7 +37,7 @@ public:
 	void ScoreResister();
 
 	//ランキングスコア
-	int RankingScore[MAX_SCORE];
+	int RankingScore[6];
 	//スコアの設定、描画
 	void ScoreIndicate(int Score);
 	//今回のスコア
@@ -50,16 +51,27 @@ public:
 	int ScoreMaxDigit;//最大桁数
 	//今回のスコアのアクション
 	void ScoreAction(int cnt);
+	//今回のスコアのアクション
+	void ResultOutAction();
 
+	
+	//今回のスコアのアクション
+	void RankingAction(int cnt);
 	//ランキングフラグ
 	bool RankingFlag;
-
+	//ランキングフラグ
+	bool RankingOutoFlag;
 	//今回の数字スプライと
 	cocos2d::Sprite* s_now_number;
 	//数字スプライトをぶら下げるノード
 	cocos2d::Node* now_node_number[3];
-
+	//数字スプライトをぶら下げるノード
+	cocos2d::Node* node_number[MAX_SCORE + 1];
+	//タイトルシーンフラグ
+	bool TitleFlag;
 private:
+	//
+	void RankingFlagChange() { RankingOutoFlag = true; }
 
 	cocos2d::UserDefault* userDefault;
 
@@ -73,8 +85,11 @@ private:
 	int Digit;//桁数
 	int SpriteCnt;//何個目のスプライトかカウントする
 
-	//数字スプライトをぶら下げるノード
-	cocos2d::Node* node_number[MAX_SCORE + 1];
+	//void CallRankingActuin();
+	cocos2d::Sprite* backcoin;
+
+
+	//int compare_int(const void *a, const void *b);
 
 };
 

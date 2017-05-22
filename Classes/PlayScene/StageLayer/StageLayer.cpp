@@ -69,12 +69,12 @@ bool StageLayer::init()
 	m_data = 0;
 
 
-	//デバック
-	String* b = String::createWithFormat("%i", a);
-	n = Label::createWithSystemFont(b->getCString(), "arial", 60);
-	n->setScale(4.0f);
-	n->setPosition(300, 200);
-	this->addChild(n);
+	////デバック
+	//String* b = String::createWithFormat("%i", a);
+	//n = Label::createWithSystemFont(b->getCString(), "arial", 60);
+	//n->setScale(4.0f);
+	//n->setPosition(300, 200);
+	//this->addChild(n);
 
 
 
@@ -92,8 +92,8 @@ bool StageLayer::init()
 ****************************************************************************/
 void StageLayer::update(float data) 
 {
-	n->setString(StringUtils::toString(b));
-	n->setPosition(GameManager::PlayerPos);
+	//n->setString(StringUtils::toString(b));
+	//n->setPosition(GameManager::PlayerPos);
 
 	Vector<Vec2>::iterator Iterator;
 	int loop_cnt = 0;
@@ -128,16 +128,16 @@ void StageLayer::update(float data)
 	HittingNeedle();
 	
 
-	if (static_cast<int>(GameManager::m_cameraposx + 480 ) % static_cast<int>(GameManager::MAP_SIZE.x) == 0)
+	if (static_cast<int>(GameManager::m_cameraposx - 480 ) % static_cast<int>(GameManager::MAP_SIZE.x) == 0)
 	{
 		GameManager::MapLoopCnt++;
 		//マップ生成
 		MapCreate();
-		if (GameManager::MapLoopCnt > 2)
-		{
-			//マップ削除
-			MapDelete();
-		}
+		//if (GameManager::MapLoopCnt > 2)
+		//{
+		//	//マップ削除
+		//	MapDelete();
+		//}
 
 	}
 
@@ -163,7 +163,8 @@ void StageLayer::MapCreate()
 	//タイルマップの中心座標を設定
 	(*IteratorMap)->setAnchorPoint(Vec2(0, 0));
 	//タイルマップの座標設定
-	(*IteratorMap)->setPosition(Point(GameManager::m_cameraposx + 480, 0));
+	(*IteratorMap)->setPosition(Point(GameManager::MAP_SIZE.x * GameManager::MapLoopCnt, 0));
+
 	//画像の描画
 	this->addChild((*IteratorMap));
 
@@ -220,7 +221,7 @@ void StageLayer::MapDelete()
 	//ステージの削除
 	GameManager::AllFloorPos[GameManager::MapLoopCnt - 2].crend();
 	//斜面ノードの削除
-	IteratorSlope -= 2;
+	IteratorSlope -= 3;
 	Slope* g_slope = *IteratorSlope;
 	g_slope->removeFromParent();
 
@@ -311,7 +312,6 @@ void StageLayer::HittingMold()
 				//兎型のキャラクターに変更
 				GameManager::Mold = mold[GameManager::MapLoopCnt]->m_kind[loop_cnt];
 				GameManager::ChangeMold = true;
-
 			}
 		}
 		loop_cnt++;

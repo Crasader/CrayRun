@@ -16,12 +16,13 @@ bool ResultLayer::init()
 	if (!Layer::init()) {
 		return false;
 	}
-
 	//背景
 	Sprite* backcoin = Sprite::create("Images/Result.png");
 	backcoin->setPosition(Vec2(GameManager::SCREEN_SIZE.x / 2, GameManager::SCREEN_SIZE.y / 2));
 	backcoin->setScale(1.5f, 1.4f);
 	this->addChild(backcoin);
+
+
 
 	//背景
 	nowscore_background = Sprite::create("Images/NowScore.png");
@@ -38,6 +39,8 @@ bool ResultLayer::init()
 	this->addChild(m_resultscore);
 	//今回のスコアのアクション
 	m_resultscore->ScoreAction(-1);
+
+
 
 	//スコアを取得する
 	m_resultscore->ScoreAcquisition();
@@ -87,18 +90,25 @@ bool ResultLayer::init()
 ****************************************************************************/
 void ResultLayer::update(float data)
 {
-	if (m_resultscore->RankingFlag == true)
+
+	if (m_resultscore->TitleFlag == true)
 	{
 
-		//今回の数字スプライと
-		cocos2d::Sprite* s_now_number;
-		for (int i = 0; i < 3; i++)
+		if (CreateSprite == false)
 		{
-			MoveBy* ResultAction = MoveBy::create(3.0f, Vec2(0.0f, 300.0f));
-			m_resultscore->now_node_number[i]->runAction(ResultAction);
+			//スプライトの生成
+			s_touch = Sprite::create("Images/TouchImage.png");
+			s_touch->setPosition(Vec2(GameManager::SCREEN_SIZE.x / 2, 50));
+			addChild(s_touch);
+			CreateSprite = true;
 		}
-	
+		VisibleCnt+=3;
+		s_touch->setOpacity(VisibleCnt);
 	}
+
+
+
+
 }
 /***************************************************************************
 *|	概要　　タッチされた時に呼ぶ関数
@@ -108,6 +118,20 @@ void ResultLayer::update(float data)
 void ResultLayer::onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event * unused_event)
 {
 	log("onTouchesBegan");
+	if (m_resultscore->RankingFlag == true)
+	{
+		m_resultscore->ResultOutAction();
+		//一度しか通らない
+		m_resultscore->RankingFlag = false;
+
+		MoveBy* ScoreAction = MoveBy::create(0.5f, Vec2(0, 700));
+		nowscore_background->runAction(ScoreAction);
+	}
+
+
+
+
+
 }
 /***************************************************************************
 *|	概要　　タッチしていて動いたときに呼ぶ関数
@@ -125,11 +149,15 @@ void ResultLayer::onTouchesMoved(const std::vector<cocos2d::Touch*>& touches, co
 ****************************************************************************/
 void ResultLayer::onTouchesEnded(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event * unused_event)
 {
-	GameManager::Initialize();
+	if (m_resultscore->TitleFlag == true)
+	{
+		GameManager::Initialize();
 
-	Scene* nextScene = PlayScene::create();
+		Scene* nextScene = PlayScene::create();
 
-	_director->replaceScene(nextScene);
+		_director->replaceScene(nextScene);
+
+	}
 }
 /***************************************************************************
 *|	概要　　タッチしているのをキャンセルしたときに呼ぶ関数

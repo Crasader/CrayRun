@@ -38,17 +38,23 @@ public:
 	cocos2d::Sprite* s_player;
 	//プレイヤーの最大サイズ
 	const int PLAYER_MAX_SIZE = 96;
-
+	int i = 0;
 
 	//何番目のマップにいるか求める
 	void GetLoopPos()
 	{
 		GameManager::PlayerMapPos = GameManager::PlayerPos.x / GameManager::MAP_SIZE.x;
+		//if (GameManager::PlayerMapPos == i)
+		//{
+		//	int a = 0;
+		//	i++;
+		//}
 	/*if (static_cast<int>(GameManager::PlayerPos.x) % static_cast<int>(GameManager::MAP_SIZE.x) != 0)
 		{
 			GameManager::PlayerMapPos++;
 		}*/
 	}
+
 
 	//キャラクタ上方向上限
 	void JumpBan() {
