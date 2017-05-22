@@ -10,6 +10,7 @@ public:
 	bool init();
 	CREATE_FUNC(Phoenix);
 
+	void Move();
 
 private:
 };

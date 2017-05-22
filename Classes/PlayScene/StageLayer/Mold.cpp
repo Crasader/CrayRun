@@ -47,7 +47,7 @@ bool Mold::init(){
 					if (str == "mold")
 					{
 						//ランダムでキャラクターを作成する
-						switch (Gnome)
+						switch (Phoenix)
 						{
 						case Normal:
 							m_kind = Normal;
@@ -73,7 +73,7 @@ bool Mold::init(){
 						default:
 							break;
 						}
-					
+						GameManager::MoldCnt++;
 						s_Mold->setAnchorPoint(Vec2(0, 1));
 						//座標を設定する
 						s_Mold->

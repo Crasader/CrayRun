@@ -69,6 +69,8 @@ private:
 	cocos2d::Vector<CrayStage*>::iterator ItratorCrayStage;
 	//針イテレーター
 	cocos2d::Vector<Needle*> ::iterator ItratorNeedle;
+	//金型イテレーター
+	cocos2d::Vector<Mold*>::iterator ItratorMold;
 	//タッチサイズ
 	const cocos2d::Vec2 TOUCH_SIZE = cocos2d::Vec2(60, 60);
 	//

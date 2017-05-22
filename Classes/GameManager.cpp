@@ -63,7 +63,7 @@ std::vector<std::vector<Vec2>> AllRightPos;//‘S‚Ä‚ÌÎ–Ê‰E’[‚ÌÀ•W
 int GameManager::Mold = 0;//‹àŒ^
 bool GameManager::ChangeMold = false;//‹àŒ^•Ï‰»‚ ‚é‚©
 
-
+int GameManager::MoldCnt = 0;
 std::vector<cocos2d::Vec2> GameManager::MoldPos;//‹àŒ^‚ÌÀ•W
 
 Vec2 GameManager::MoldSpd = Vec2(0, -4);
@@ -122,6 +122,8 @@ void GameManager::Initialize()
 
 	Mold = 0;//‹àŒ^
 	ChangeMold = false;//‹àŒ^•Ï‰»‚ ‚é‚©
+
+	
 
 	MoldSpd = Vec2(0, -4);
 	/////////////////UIƒŒƒCƒ„[/////////////////

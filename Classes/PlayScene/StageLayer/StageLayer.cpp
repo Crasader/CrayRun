@@ -154,7 +154,7 @@ void StageLayer::MapCreate()
 	GameManager::MapLoopCnt++;
 	//タイルマップの読み込み
 	//マップチップ
-	GameManager::map.push_back(TMXTiledMap::create("map1.tmx"));
+	GameManager::map.push_back(TMXTiledMap::create("TestMap.tmx"));
 	IteratorMap = GameManager::map.begin();
 	IteratorMap += GameManager::MapLoopCnt;
 //	TMXTiledMap* g_Map = *IteratorMap;
@@ -288,8 +288,6 @@ void StageLayer::CollisionResponseCoin()
 ////__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/
 void StageLayer::HittingMold()
 {
-
-
 	if (mold[GameManager::MapLoopCnt]->s_Mold != nullptr)
 	{
 		//金型とプレイヤーが当たっているか
