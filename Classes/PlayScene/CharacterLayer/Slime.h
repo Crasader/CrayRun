@@ -15,6 +15,6 @@ public:
 	bool init();
 	CREATE_FUNC(Slime);
 
-
+	void Move();
 private:
 };

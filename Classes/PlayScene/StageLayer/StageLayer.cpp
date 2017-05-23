@@ -21,7 +21,7 @@ bool StageLayer::init()
 	/////////マップ描画////////
 	//タイルマップの読み込み
 	//マップチップ
-	GameManager::map.push_back(TMXTiledMap::create("map_takumi.tmx"));
+	GameManager::map.push_back(TMXTiledMap::create("TestMap.tmx"));
 
 	IteratorMap = GameManager::map.begin();
 	TMXTiledMap* g_Map = *IteratorMap;
@@ -155,7 +155,7 @@ void StageLayer::MapCreate()
 	b = 1111111;
 	//タイルマップの読み込み
 	//マップチップ
-	GameManager::map.push_back(TMXTiledMap::create("map_takumi.tmx"));
+	GameManager::map.push_back(TMXTiledMap::create("TestMap.tmx"));
 	IteratorMap = GameManager::map.begin();
 	IteratorMap += GameManager::MapLoopCnt;
 //	TMXTiledMap* g_Map = *IteratorMap;
