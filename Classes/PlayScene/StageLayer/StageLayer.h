@@ -72,7 +72,7 @@ private:
 	//金型イテレーター
 	cocos2d::Vector<Mold*>::iterator ItratorMold;
 	//タッチサイズ
-	const cocos2d::Vec2 TOUCH_SIZE = cocos2d::Vec2(100, 100);
+	const cocos2d::Vec2 TOUCH_SIZE = cocos2d::Vec2(150, 150);
 	const cocos2d::Vec2 TOUCH_SIZE2 = cocos2d::Vec2(30, 30);
 
 
@@ -84,8 +84,10 @@ private:
 	cocos2d::Label* n;
 	int a;
 	int b;
-
+	//マップの数
 	const int MAX_MAP = 3;
+	//前回のマップ
+	int OldMap;
 };
 
 

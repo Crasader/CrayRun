@@ -33,8 +33,8 @@ bool UiLayer::init()
 	this->scheduleUpdate();
 
 	//ƒ{ƒ^ƒ“‚ðì¬‚·‚é
-	button = ui::Button::create("Images/pause.jpg");
-	button->setPosition(Vec2(600, 500));
+	button = ui::Button::create("Images/pause.png");
+	button->setPosition(Vec2(800, 600));
 	this->addChild(button);
 
 	button->addTouchEventListener(CC_CALLBACK_2(UiLayer::onButtonTouch, this));
@@ -79,9 +79,13 @@ void UiLayer::onButtonTouch(Ref * ref, ui::Widget::TouchEventType eventType)
 
 	if (PauseFlag == false)
 	{
+		if (GameManager::CountDownFlag == true)
+		{
+
 			Scene* nextscene = PauseScene::create();
 			_director->pushScene(nextscene);
 			PauseFlag = true;
+		}
 	}
 	
 

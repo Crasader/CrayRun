@@ -19,10 +19,18 @@ bool StageLayer::init()
 
 	}
 	/////////マップ描画////////
+	//初期化
+	OldMap = 0;
+
 	//タイルマップの読み込み
 	std::ostringstream MapName;
-
-	MapName << "map" << rand() % MAX_MAP + 1 << ".tmx";
+	int NowMap = rand() % MAX_MAP + 1;
+	while (OldMap == NowMap)
+	{
+		NowMap = rand() % MAX_MAP + 1;
+	}
+	
+	MapName << "Map/NewMap" << NowMap << ".tmx";
 
 	//マップチップ
 	GameManager::map.push_back(TMXTiledMap::create(MapName.str()));
@@ -105,7 +113,7 @@ void StageLayer::update(float data)
 		{
 			GameManager::MapLoopCnt++;
 			//マップ生成
-		//	MapCreate();
+			MapCreate();
 			//if (GameManager::MapLoopCnt > 5)
 			//{
 			//	//マップ削除
@@ -150,9 +158,15 @@ void StageLayer::MapCreate()
 {
 
 	//タイルマップの読み込み
-	
+	int NowMap = rand() % MAX_MAP + 1;
+	while (OldMap == NowMap)
+	{
+		NowMap = rand() % MAX_MAP + 1;
+	}
+
+
 	std::ostringstream MapName;
-	MapName << "map" << rand() % MAX_MAP + 1 << ".tmx";
+	MapName << "Map/NewMap" << NowMap << ".tmx";
 	//マップチップ
 	GameManager::map.push_back(TMXTiledMap::create(MapName.str()));
 	//GameManager::map.push_back(TMXTiledMap::create("TestMap.tmx"));

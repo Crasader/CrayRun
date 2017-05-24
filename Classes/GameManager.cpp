@@ -1,6 +1,9 @@
 #include "GameManager.h"
 
 USING_NS_CC;
+
+const Vec2 GameManager::LAYRE_SIZE = Vec2(64, 64);//レイヤーの大きさ
+
 //プレイシーン
 
 const  int GameManager::BOX_COLLIDER = 10;			//あたり判定時に使用するタイルレイヤーの淵から少しだけ内側に入っているか確かめるための数
@@ -9,12 +12,13 @@ const  int GameManager::BOX_COLLIDER2 = 40;			//あたり判定時に使用するタイルレイ
 float GameManager::WorldPosX = 0.0f;
 bool GameManager::GameOverFlag = false;//ゲームオーバーフラグ
 const Vec2 GameManager::SCREEN_SIZE= Vec2(960,640);//画面サイズ
+bool  GameManager::CountDownFlag;//カウントダウンが終わったか
 
 //////////////キャラクターレイヤー//////
 //////////////キャラクター//////////////
 Vec2 GameManager::PlayerSpd = (Vec2(6.0f,-4.0f));//速度
 Vec2  GameManager::PlayerSize = Vec2(96, 96);//サイズ
-Vec2  GameManager::PlayerPos = Vec2(300.0f,300.0f);//座標
+Vec2  GameManager::PlayerPos = Vec2(300.0f, GameManager::LAYRE_SIZE.y * 4 + 10);//座標
 float  GameManager::ScoreCorrection = 1.0f;//スコア補正
 bool GameManager::RightFlag = false;//右側に当たったか
 
@@ -32,7 +36,6 @@ int GameManager::PlayerMapPos = 0;//何番目の座標にいるか
 std::vector<cocos2d::TMXTiledMap*>  GameManager::map;//マップ
 
 const Vec2 GameManager::MAP_SIZE = Vec2(300 * 64, 640);//マップ大きさ
-const Vec2 GameManager::LAYRE_SIZE = Vec2(64,64);//レイヤーの大きさ
 int  GameManager::MapLoopCnt = 0;//ステージをループさせた回数
 std::vector<std::vector<Vec2>> GameManager::AllFloorPos;//床座標
 
@@ -86,12 +89,27 @@ void GameManager::Initialize()
 {
 	WorldPosX = 0.0f;
 	GameOverFlag = false;//ゲームオーバーフラグ
+	CountDownFlag = false;//カウントダウンが終わったか
+
+
+	map.clear();//マップ
+	AllFloorPos.clear();//床座標
+	AllLeftPos.clear();
+	AllRightPos.clear();
+	AllCrayFloorPos.clear();//粘土床座標
+	CrayFloorSize.clear();//粘土床の大きさ
+	CoinPoint.clear();//コインのポイント
+	AllLeftPos.clear();//全ての斜面左端の座標
+	AllRightPos.clear();//全ての斜面右端の座標
+	MoldPos.clear();//金型の座標
+
+
 
 	//////////////キャラクターレイヤー//////
 	//////////////キャラクター//////////////
 	PlayerSpd = (Vec2(6.0f, -4.0f));//速度
 	PlayerSize = Vec2(96, 96);//サイズ
-	PlayerPos = Vec2(300.0f, 300.0f);//座標
+	PlayerPos = Vec2(300.0f, GameManager::LAYRE_SIZE.x * 4 + 10);//座標
 	ScoreCorrection = 1.0f;//スコア補正
 	RightFlag = false;//右側に当たったか
 
@@ -104,8 +122,9 @@ void GameManager::Initialize()
 
 
 	///////////////ステージレイヤー/////////
-	map.clear();
+
 	MapLoopCnt = 0;//ステージをループさせた回数
+
 
 	//////////////斜面////////////////////
 	SlopeCnt = 0;//斜面カウント

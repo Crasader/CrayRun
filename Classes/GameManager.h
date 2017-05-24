@@ -41,6 +41,7 @@ public:
 	static float WorldPosX;//画面座標
 	static bool GameOverFlag;//ゲームオーバーフラグ
 	static const cocos2d::Vec2 SCREEN_SIZE;//画面サイズ
+	static bool CountDownFlag;//カウントダウンが終わったか
 	//////////////キャラクターレイヤー//////
 	/////////////キャラクター/////////////
 	static cocos2d::Vec2 PlayerSpd;//速度

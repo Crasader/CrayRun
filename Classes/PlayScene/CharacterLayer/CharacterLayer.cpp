@@ -43,12 +43,12 @@ bool CharacterLayer::init()
 	_director->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 	//_touchListener = listener;
 
-	//デバック
-	String* b = String::createWithFormat("%i", a);
-	n = Label::createWithSystemFont(b->getCString(), "arial", 60);
-	n->setScale(4.0f);
-	n->setPosition(300, 200);
-	this->addChild(n);
+	////デバック
+	//String* b = String::createWithFormat("%i", a);
+	//n = Label::createWithSystemFont(b->getCString(), "arial", 60);
+	//n->setScale(4.0f);
+	//n->setPosition(300, 200);
+	//this->addChild(n);
 
 	int FirstTouchCnt = 0;//最初のタッチからどれだけ経過したか
 	//bool FirstTouchFlag = false;//最初のタッチが呼ばれたか
@@ -109,11 +109,11 @@ void CharacterLayer::update(float date)
 		}
 	}
 
-	//デバック用
-	n->setString(StringUtils::toString(a));
-	n->setPosition(GameManager::PlayerPos);
-	n->setString(StringUtils::toString(b));
-	n->setPosition(GameManager::PlayerPos + Vec2(300, 0));
+	////デバック用
+	//n->setString(StringUtils::toString(a));
+	//n->setPosition(GameManager::PlayerPos);
+	//n->setString(StringUtils::toString(b));
+	//n->setPosition(GameManager::PlayerPos + Vec2(300, 0));
 
 
 	/*if (FirstMultiTouchFlag == true)
@@ -695,7 +695,7 @@ void CharacterLayer::JumpInvestigate()
 	}
 	//一回目のタッチから1秒以上経過したなら
 
-	if (FirstTouchCnt > 6)
+	if (FirstTouchCnt > 10)
 	{
 		//ジャンプ関数を呼ぶ
 		character->Jump();

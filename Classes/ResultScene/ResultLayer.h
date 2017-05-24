@@ -43,6 +43,7 @@ private:
 	//スプライトを生成するか
 	bool CreateSprite;
 
+
 };
 
 

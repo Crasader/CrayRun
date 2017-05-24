@@ -15,7 +15,7 @@
 #include "UILayer/UILayer.h"
 #include "../GameManager.h"
 #include "../ResultScene/ResultScene.h"
-
+#include "ui/CocosGUI.h"
 class PlayScene :public cocos2d::Scene
 {
 public:
@@ -51,5 +51,10 @@ private:
 	}
 	//エフェクト
 	cocos2d::Sprite* Effect;
+
+	//ステージ
+	StageLayer* stagelayer;
+
+
 
 };

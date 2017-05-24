@@ -30,7 +30,7 @@ bool PlayScene::init()
 	// 背景レイヤー関連のレイヤー
 	this->addChild(backgroundlayer);
 	// ステージレイヤー呼び出し
-	auto stagelayer = StageLayer::create();
+	stagelayer = StageLayer::create();
 	// ステージレイヤー関連のレイヤー
 	this->addChild(stagelayer);
 	// キャラクターレイヤー呼び出し
@@ -94,6 +94,8 @@ void PlayScene::update(float data)
 		characterlayer->pause();
 		//UIレイヤを止める
 		uilayer->pause();
+		//ステージレイヤを止める
+		stagelayer->pause();
 	}
 
 	if (m_CameraFlag == true)
@@ -126,8 +128,8 @@ void PlayScene::update(float data)
 		m_CameraFlag = false;
 
 		//エフェクト生成
-		Effect = Sprite::create("Images/effect.png");
-		Effect->setPosition(GameManager::PlayerPos.x + 50, GameManager::PlayerPos.y + GameManager::PlayerSize.y / 2);
+		Effect = Sprite::create("Images/Effect.png");
+		Effect->setPosition(GameManager::PlayerPos.x, GameManager::PlayerPos.y + GameManager::PlayerSize.y / 2);
 		this->addChild(Effect);
 
 		//少し止めてからシーン以降
@@ -136,6 +138,10 @@ void PlayScene::update(float data)
 		Sequence* action3 = Sequence::create(action, action2, nullptr);
 		this->runAction(action3);
 	}
+
+
+
+
 
 }
 
@@ -166,6 +172,10 @@ void PlayScene::NumberAction(int cnt)
 		characterlayer->resume();
 		//UIレイヤを再始動する
 		uilayer->resume();
+		//ステージの再始動する
+		stagelayer->resume();
+		//ポーズ機能ができるようにする
+		GameManager::CountDownFlag = true;
 	}
 	//カウントとしてアクションを実行
 	
