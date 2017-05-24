@@ -159,7 +159,6 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Phoenix.cpp" />
     <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Rabbit.cpp" />
     <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Slime.cpp" />
-    <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Status.cpp" />
     <ClCompile Include="..\Classes\PlayScene\PlayScene.cpp" />
     <ClCompile Include="..\Classes\PlayScene\StageLayer\Coin.cpp" />
     <ClCompile Include="..\Classes\PlayScene\StageLayer\CrayStage.cpp" />
@@ -170,6 +169,7 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClCompile Include="..\Classes\PlayScene\StageLayer\StageLayer.cpp" />
     <ClCompile Include="..\Classes\PlayScene\UILayer\Distance.cpp" />
     <ClCompile Include="..\Classes\PlayScene\UILayer\Score.cpp" />
+    <ClCompile Include="..\Classes\PlayScene\UILayer\Status.cpp" />
     <ClCompile Include="..\Classes\PlayScene\UILayer\UILayer.cpp" />
     <ClCompile Include="..\Classes\ResultScene\ResultLayer.cpp" />
     <ClCompile Include="..\Classes\ResultScene\ResultScene.cpp" />
@@ -192,7 +192,6 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Phoenix.h" />
     <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Rabbit.h" />
     <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Slime.h" />
-    <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Status.h" />
     <ClInclude Include="..\Classes\PlayScene\PlayScene.h" />
     <ClInclude Include="..\Classes\PlayScene\StageLayer\Coin.h" />
     <ClInclude Include="..\Classes\PlayScene\StageLayer\CrayStage.h" />
@@ -203,6 +202,7 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClInclude Include="..\Classes\PlayScene\StageLayer\StageLayer.h" />
     <ClInclude Include="..\Classes\PlayScene\UILayer\Distance.h" />
     <ClInclude Include="..\Classes\PlayScene\UILayer\Score.h" />
+    <ClInclude Include="..\Classes\PlayScene\UILayer\Status.h" />
     <ClInclude Include="..\Classes\PlayScene\UILayer\UILayer.h" />
     <ClInclude Include="..\Classes\ResultScene\ResultLayer.h" />
     <ClInclude Include="..\Classes\ResultScene\ResultScene.h" />

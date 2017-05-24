@@ -102,11 +102,11 @@ void CharacterLayer::update(float date)
 		//敵
 		enemy.push_back(Enemy::create());
 		this->addChild(enemy[GameManager::MapLoopCnt]);
-		if (GameManager::MapLoopCnt > 2)
-		{
-			//敵削除
-			enemy[GameManager::MapLoopCnt - 2]->removeFromParent();
-		}
+		//if (GameManager::MapLoopCnt > 2)
+		//{
+		//	//敵削除
+		//	enemy[GameManager::MapLoopCnt - 2]->removeFromParent();
+		//}
 	}
 
 	////デバック用
@@ -116,11 +116,7 @@ void CharacterLayer::update(float date)
 	//n->setPosition(GameManager::PlayerPos + Vec2(300, 0));
 
 
-	/*if (FirstMultiTouchFlag == true)
-	{
-		FirstMultiTouchCnt++;
-	}
-*/
+
 }
 
 
@@ -220,10 +216,10 @@ void CharacterLayer::onTouchesMoved(const std::vector<cocos2d::Touch*>& touches,
 void CharacterLayer::onTouchesEnded(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event * unused_event)
 {
 	log("onTouchesEnded");
-	for (int i = 0; i < EFFECTIVENESS_TOUCH; i++)
-	{
-		FirstPos[i] = Vec2(0.0f, 0.0f);
-	}
+	//for (int i = 0; i < EFFECTIVENESS_TOUCH; i++)
+	//{
+	//	FirstPos[i] = Vec2(0.0f, 0.0f);
+	//}
 }
 
 /***************************************************************************
@@ -417,31 +413,31 @@ void CharacterLayer::ChangeMold()
 			character->removeFromParent();
 			character = Character::create();
 			//変更したので戻す
-			GameManager::ChangeMold = false;
+	//		GameManager::ChangeMold = false;
 			break;
 		case Rabbit:
 			character->removeFromParent();
 			character = Rabbit::create();
 			//変更したので戻す
-			GameManager::ChangeMold = false;
+	//		GameManager::ChangeMold = false;
 			break;
 		case Gnome:
 			//変更したので戻す
 			character->removeFromParent();
 			character = Gnome::create();
-			GameManager::ChangeMold = false;
+	//		GameManager::ChangeMold = false;
 			break;
 		case Phoenix:
 			//変更したので戻す
 			character->removeFromParent();
 			character = Phoenix::create();
-			GameManager::ChangeMold = false;
+	//		GameManager::ChangeMold = false;
 			break;
 		case Slime:
 			character->removeFromParent();
 			character = Slime::create();
 			//変更したので戻す
-			GameManager::ChangeMold = false;
+	//		GameManager::ChangeMold = false;
 			break;
 		}
 		//ジャンプ情報をリセットする
@@ -450,8 +446,7 @@ void CharacterLayer::ChangeMold()
 		//変更したのでaddChildする
 		this->addChild(character);
 
-		status = Status::create();
-		addChild(status);
+	
 }
 
 
@@ -574,7 +569,7 @@ void CharacterLayer::CollisionResponseCrayFloor()
 			character->JumpFlag = true;
 			break;
 			case under:
-			GameManager::PlayerPos.y = vec.y - GameManager::MAX_CRAYSTAGESIZE.y - GameManager::PlayerSize.y;
+			GameManager::PlayerPos.y = vec.y - GameManager::MAX_CRAYSTAGESIZE.y - GameManager::PlayerSize.y - 3;
 			GameManager::PlayerSpd.y = 0.0f;
 			break;
 		default:

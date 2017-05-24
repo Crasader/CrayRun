@@ -19,16 +19,14 @@ bool StageLayer::init()
 
 	}
 	/////////マップ描画////////
-	//初期化
-	OldMap = 0;
+
 
 	//タイルマップの読み込み
 	std::ostringstream MapName;
 	int NowMap = rand() % MAX_MAP + 1;
-	while (OldMap == NowMap)
-	{
-		NowMap = rand() % MAX_MAP + 1;
-	}
+
+	//前回のマップを更新する
+	OldMap = NowMap;
 	
 	MapName << "Map/NewMap" << NowMap << ".tmx";
 
@@ -164,7 +162,8 @@ void StageLayer::MapCreate()
 		NowMap = rand() % MAX_MAP + 1;
 	}
 
-
+	//前回のマップを更新する
+	OldMap = NowMap;
 	std::ostringstream MapName;
 	MapName << "Map/NewMap" << NowMap << ".tmx";
 	//マップチップ

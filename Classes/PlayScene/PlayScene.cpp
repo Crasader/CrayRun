@@ -128,7 +128,7 @@ void PlayScene::update(float data)
 		m_CameraFlag = false;
 
 		//エフェクト生成
-		Effect = Sprite::create("Images/Effect.png");
+		Effect = Sprite::create("Images/EndEffect.png");
 		Effect->setPosition(GameManager::PlayerPos.x, GameManager::PlayerPos.y + GameManager::PlayerSize.y / 2);
 		this->addChild(Effect);
 
@@ -138,10 +138,6 @@ void PlayScene::update(float data)
 		Sequence* action3 = Sequence::create(action, action2, nullptr);
 		this->runAction(action3);
 	}
-
-
-
-
 
 }
 
@@ -183,9 +179,6 @@ void PlayScene::NumberAction(int cnt)
 	{
 		Number[cnt]->runAction(action6);
 	}
-
-	
-
 }
 
 

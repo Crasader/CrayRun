@@ -13,7 +13,8 @@
 #include "Score.h"
 #include "../../GameManager.h"
 #include "ui/CocosGUI.h"
-
+#include "Status.h"
+#include  "Status.h"
 
 class UiLayer :public cocos2d::Layer
 {
@@ -34,8 +35,17 @@ private:
 	cocos2d::ui::Button* button;//ボタン
 
 	void onButtonTouch(cocos2d::Ref* ref, cocos2d::ui::Widget::TouchEventType eventType);
+	int b;
+	//デバック用
+	cocos2d::Label* n;
 
 	bool PauseFlag;
+
+	//ステータス
+	Status* status;
+
+
+	float spd;
 };
 
 

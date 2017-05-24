@@ -30,15 +30,30 @@ bool UiLayer::init()
 	score = Score::create();
 	this->addChild(score);
 
-	this->scheduleUpdate();
 
 	//ボタンを作成する
 	button = ui::Button::create("Images/pause.png");
 	button->setPosition(Vec2(800, 600));
 	this->addChild(button);
 
+
+	//ステータス
+	status = Status::create();
+	this->addChild(status);
+
+
+	//////デバック
+	//String* b = String::createWithFormat("%i", 0);
+	//n = Label::createWithSystemFont(b->getCString(), "arial", 60);
+	//n->setScale(4.0f);
+	//n->setPosition(300, 200);
+	//this->addChild(n);
+
 	button->addTouchEventListener(CC_CALLBACK_2(UiLayer::onButtonTouch, this));
 
+	this->scheduleUpdate();
+
+	spd = 0;
 	return true;
 
 
@@ -52,12 +67,19 @@ bool UiLayer::init()
 *|　戻り値　無し
 ****************************************************************************/
 void UiLayer::update(float data) {
+
+
+	//n->setString(StringUtils::toString(b));
+	//n->setPositionX(spd);
+	//spd += 1.2;
+
 	//スコアを描画
 	score->ScoreIndicate(GameManager::Score);
 
 	//プレイヤーの速度xが正の時
 	if (GameManager::PlayerSpd.x > 0.0f)
 	{
+
 		//距離を増やす
 		distance->m_distance += m_distanceSpd;
 		//距離を描画
@@ -67,6 +89,17 @@ void UiLayer::update(float data) {
 
 
 	PauseFlag = false;
+
+
+	if (GameManager::ChangeMold == true)
+	{
+		status->StatusAction();
+		
+
+		GameManager::ChangeMold = false;
+	}
+
+
 
 }
 
@@ -93,7 +126,6 @@ void UiLayer::onButtonTouch(Ref * ref, ui::Widget::TouchEventType eventType)
 	case ui::Widget::TouchEventType::MOVED:
 		break;
 	case ui::Widget::TouchEventType::ENDED:
-	
 		break;
 	case ui::Widget::TouchEventType::CANCELED:
 		break;

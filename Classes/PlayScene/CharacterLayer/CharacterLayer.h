@@ -15,7 +15,6 @@
 #include "Slime.h"
 #include "Gnome.h"
 #include "Phoenix.h"
-#include "Status.h"
 #include "Enemy.h"
 
 
@@ -66,8 +65,7 @@ private:
 	void JumpInvestigate();
 	//キャラクターオブジェクト
 	Character* character;
-	//ステータス
-	Status* status;
+	
 	//敵
 	std::vector<Enemy*> enemy;
 
@@ -98,7 +96,7 @@ private:
 	int FirstMultiTouchCnt;
 	int FirstMultiTouchFlag;
 
-float SavePlayerPosx;
+	float SavePlayerPosx;
 
 
 };

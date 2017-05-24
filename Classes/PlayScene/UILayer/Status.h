@@ -13,20 +13,18 @@ class Status : public cocos2d::Node
 public:
 
 	virtual bool init();
-	
+
 	CREATE_FUNC(Status);
 
 	////毎フレーム呼び出される関数
 	void update(float delta)override;
 
+	//スプライトを作成する関数
+	void StatusAction();
 private:
 
 	//ステータスのスプライト
-	cocos2d::Sprite* s_status;
+	cocos2d::Sprite* s_status[5];
 
-	//カウント
-	int m_cnt;
 
-	//スプライトを作成する関数
-	void CreateSprite();
 };
