@@ -7,7 +7,7 @@
 ****************************************************************************/
 /* ---- ライブラリのインクルード ---------- */
 #include "ResultLayer.h"
-#include "../PlayScene/PlayScene.h"
+#include "../TiTleScene/TitleScene.h"
 
 USING_NS_CC;
 
@@ -22,16 +22,10 @@ bool ResultLayer::init()
 	backcoin->setScale(1.5f, 1.4f);
 	this->addChild(backcoin);
 
-
-
 	//背景
 	nowscore_background = Sprite::create("Images/NowScore.png");
 	nowscore_background->setPosition(Vec2(GameManager::SCREEN_SIZE.x / 2, GameManager::SCREEN_SIZE.y / 2));
 	this->addChild(nowscore_background);
-
-
-
-
 
 
 	//スコア作成
@@ -39,7 +33,6 @@ bool ResultLayer::init()
 	this->addChild(m_resultscore);
 	//今回のスコアのアクション
 	m_resultscore->ScoreAction(-1);
-
 
 
 	//スコアを取得する
@@ -90,10 +83,8 @@ bool ResultLayer::init()
 ****************************************************************************/
 void ResultLayer::update(float data)
 {
-
 	if (m_resultscore->TitleFlag == true)
 	{
-
 		if (CreateSprite == false)
 		{
 			//スプライトの生成
@@ -105,10 +96,6 @@ void ResultLayer::update(float data)
 		VisibleCnt+=3;
 		s_touch->setOpacity(VisibleCnt);
 	}
-
-
-
-
 }
 /***************************************************************************
 *|	概要　　タッチされた時に呼ぶ関数
@@ -127,11 +114,6 @@ void ResultLayer::onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, co
 		MoveBy* ScoreAction = MoveBy::create(0.5f, Vec2(0, 700));
 		nowscore_background->runAction(ScoreAction);
 	}
-
-
-
-
-
 }
 /***************************************************************************
 *|	概要　　タッチしていて動いたときに呼ぶ関数
@@ -151,12 +133,11 @@ void ResultLayer::onTouchesEnded(const std::vector<cocos2d::Touch*>& touches, co
 {
 	if (m_resultscore->TitleFlag == true)
 	{
-		GameManager::Initialize();
+		
 
-		Scene* nextScene = PlayScene::create();
+		Scene* nextScene = TitleScene::create();
 
 		_director->replaceScene(nextScene);
-
 	}
 }
 /***************************************************************************
