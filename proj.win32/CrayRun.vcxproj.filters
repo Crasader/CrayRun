@@ -76,7 +76,16 @@
     <ClCompile Include="..\Classes\PlayScene\StageLayer\CrayStage.cpp">
       <Filter>PlayScene\StageLayer\Gimmick</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="..\Classes\PauseScene\PauseScene.cpp" />
+=======
+    <ClCompile Include="..\Classes\TitleScene\TitleLayer.cpp">
+      <Filter>TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TitleScene\TitleScene.cpp">
+      <Filter>TitleScene</Filter>
+    </ClCompile>
+>>>>>>> 44fd7606315264cd6f5f40cf5abd4528cb0476b7
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -156,7 +165,16 @@
     <ClInclude Include="..\Classes\PlayScene\StageLayer\Coin.h">
       <Filter>PlayScene\StageLayer\Gimmick</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="..\Classes\PauseScene\PauseScene.h" />
+=======
+    <ClInclude Include="..\Classes\TitleScene\TitleScene.h">
+      <Filter>TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TitleScene\TitleLayer.h">
+      <Filter>TitleScene</Filter>
+    </ClInclude>
+>>>>>>> 44fd7606315264cd6f5f40cf5abd4528cb0476b7
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc" />
@@ -185,6 +203,9 @@
     </Filter>
     <Filter Include="PlayScene\StageLayer\Gimmick">
       <UniqueIdentifier>{ec95d5a2-11d8-4b09-b8cb-c5c0d1069cac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TitleScene">
+      <UniqueIdentifier>{e588e983-2724-4672-902f-7cdf2e395c5a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

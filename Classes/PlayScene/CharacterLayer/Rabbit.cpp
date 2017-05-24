@@ -34,34 +34,44 @@ bool Rabbit::init()
 	return true;
 }
 
-void Rabbit::Move()
+void Rabbit::Animation()
 {
-	Character::Move();
-
-	Texture2D* texture;
-	switch (walkCnt / 10 % 4)
+	Texture2D* texture;	
+	
+	//ジャンプできるときかつジャンプをまだしていないとき（歩いてるとき）
+	if (JumpCnt == 0 && JumpFlag == true)
 	{
-	case 0:
-		texture = TextureCache::sharedTextureCache()->addImage("Images/Rabbit_Chara.png");
+		switch (walkCnt / 10 % 4)
+		{
+		case 0:
+			texture = TextureCache::sharedTextureCache()->addImage("Images/Rabbit_Chara.png");
+
+			s_player->setTexture(texture);
+			s_player->setContentSize(texture->getContentSize());
+
+			break;
+		case 1:
+		case 3:
+			texture = TextureCache::sharedTextureCache()->addImage("Images/Rabbit_Chara2.png");
+
+			s_player->setTexture(texture);
+			s_player->setContentSize(texture->getContentSize());
+
+			break;
+		case 2:
+			texture = TextureCache::sharedTextureCache()->addImage("Images/Rabbit_Chara3.png");
+
+			s_player->setTexture(texture);
+			s_player->setContentSize(texture->getContentSize());
+
+			break;
+		}
+	}
+	else
+	{
+		texture = TextureCache::sharedTextureCache()->addImage("Images/Rabbit_Charaj.png");
 
 		s_player->setTexture(texture);
 		s_player->setContentSize(texture->getContentSize());
-		
-		break;
-	case 1:
-	case 3:
-		texture = TextureCache::sharedTextureCache()->addImage("Images/Rabbit_Chara2.png");
-
-		s_player->setTexture(texture);
-		s_player->setContentSize(texture->getContentSize());
-
-		break;
-	case 2:
-		texture = TextureCache::sharedTextureCache()->addImage("Images/Rabbit_Chara3.png");
-
-		s_player->setTexture(texture);
-		s_player->setContentSize(texture->getContentSize());
-
-		break;
 	}
 }

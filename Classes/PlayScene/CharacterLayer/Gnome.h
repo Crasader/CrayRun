@@ -10,6 +10,7 @@ public:
 	bool init();
 	CREATE_FUNC(Gnome);
 
-	void Move();
+
+	void Animation();
 private:
 };

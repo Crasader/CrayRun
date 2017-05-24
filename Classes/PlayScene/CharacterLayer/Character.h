@@ -18,7 +18,7 @@ public:
 
 	int walkCnt;//歩いたときのカウント
 
-	virtual void Move();//移動
+	void Move();//移動
 	void Jump();//ジャンプする
 	virtual void Animation();
 
@@ -78,8 +78,6 @@ public:
 	bool isScaleX;//X座標の大きさが変更されているかtrue：されている,false：されていない
 	bool isScaleY;//Y座標の大きさが変更されているかtrue：されている,false：されていない
 
-
-	bool SizeChangeFlag;//大きさを変えれるか
 
 	bool FloormultipleFlag;//床の下に当たっているか
 };

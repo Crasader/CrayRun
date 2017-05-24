@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <time.h>
 
+#include "TitleScene/TitleScene.h"
 USING_NS_CC;
 
 AppDelegate::AppDelegate() {
@@ -49,10 +50,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
     FileUtils::getInstance()->addSearchPath("res");
 
     // create a scene. it's an autorelease object
-	
 
 
-    auto scene = PlayScene::create();
+	auto scene = TitleScene::create();
     // run
 	log("############################### PlayScene created");
     director->runWithScene(scene);
