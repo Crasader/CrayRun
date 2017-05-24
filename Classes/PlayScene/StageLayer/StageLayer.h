@@ -85,7 +85,7 @@ private:
 	int a;
 	int b;
 
-	const int MAX_MAP = 2;
+	const int MAX_MAP = 3;
 };
 
 

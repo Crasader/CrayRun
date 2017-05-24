@@ -90,11 +90,8 @@ void CharacterLayer::update(float date)
 	CollisionResponseSlope();
 	//ジャンプするか調べる
 	JumpInvestigate();
-	//フェニックスはこの処理を無視する
-	if (GameManager::Mold != Phoenix) {
-		//敵とプレイヤの当たり判定
-		CollisionResponseEnemy();
-	}
+	//敵とプレイヤの当たり判定
+	CollisionResponseEnemy();
 	//サイズ変更
 	character->setScale();
 	//キャラクタ上方向上限
@@ -645,15 +642,19 @@ void CharacterLayer::CollisionResponseEnemy()
 			GameManager::PlayerPos, GameManager::PlayerSize))
 		{
 		case right:
-			GameManager::PlayerPos.x = (*IteratorEnemy).x + GameManager::LAYRE_SIZE.x + GameManager::PlayerSize.x / 2 + 1;
-			GameManager::PlayerSpd.x = 0.0f;
-			GameManager::GameOverFlag = true;
+			if (GameManager::Mold != Phoenix) {
+				GameManager::PlayerPos.x = (*IteratorEnemy).x + GameManager::LAYRE_SIZE.x + GameManager::PlayerSize.x / 2 + 1;
+				GameManager::PlayerSpd.x = 0.0f;
+				GameManager::GameOverFlag = true;
+			}
 			break;
 		case left:
-			/*GameManager::PlayerPos.x = GameManager::AllFloorPosx[i] - GameManager::PlayerSize.x / 2;*/
-			GameManager::RightFlag = true;
-			//GameManager::PlayerSpd.x = -6.0f;
-			GameManager::GameOverFlag = true;
+			if (GameManager::Mold != Phoenix) {
+				/*GameManager::PlayerPos.x = GameManager::AllFloorPosx[i] - GameManager::PlayerSize.x / 2;*/
+				GameManager::RightFlag = true;
+				//GameManager::PlayerSpd.x = -6.0f;
+				GameManager::GameOverFlag = true;
+			}
 			break;
 		case up:
 			GameManager::PlayerPos.y = (*IteratorEnemy).y;
@@ -664,9 +665,11 @@ void CharacterLayer::CollisionResponseEnemy()
 			character->JumpFlag = true;
 			break;
 		case under:
-			GameManager::PlayerPos.y = (*IteratorEnemy).y - GameManager::LAYRE_SIZE.y -GameManager::PlayerSize.y;
-			GameManager::PlayerSpd.y = 0.0f;
-			GameManager::GameOverFlag = true;
+			if (GameManager::Mold != Phoenix) {
+				GameManager::PlayerPos.y = (*IteratorEnemy).y - GameManager::LAYRE_SIZE.y - GameManager::PlayerSize.y;
+				GameManager::PlayerSpd.y = 0.0f;
+				GameManager::GameOverFlag = true;
+			}
 			break;
 		default:
 			break;

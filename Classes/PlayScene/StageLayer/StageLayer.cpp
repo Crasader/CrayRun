@@ -26,6 +26,7 @@ bool StageLayer::init()
 
 	//マップチップ
 	GameManager::map.push_back(TMXTiledMap::create(MapName.str()));
+	//GameManager::map.push_back(TMXTiledMap::create("TestMap.tmx"));
 
 	IteratorMap = GameManager::map.begin();
 	TMXTiledMap* g_Map = *IteratorMap;
@@ -154,6 +155,10 @@ void StageLayer::MapCreate()
 	MapName << "map" << rand() % MAX_MAP + 1 << ".tmx";
 	//マップチップ
 	GameManager::map.push_back(TMXTiledMap::create(MapName.str()));
+	//GameManager::map.push_back(TMXTiledMap::create("TestMap.tmx"));
+	IteratorMap = GameManager::map.begin();
+	IteratorMap += GameManager::MapLoopCnt;
+
 //	TMXTiledMap* g_Map = *IteratorMap;
 	//タイルマップの中心座標を設定
 	GameManager::map[GameManager::MapLoopCnt]->setAnchorPoint(Vec2(0, 0));
