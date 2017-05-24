@@ -89,7 +89,7 @@ void GameManager::Initialize()
 
 	//////////////キャラクターレイヤー//////
 	//////////////キャラクター//////////////
-	PlayerSpd = (Vec2(6.0f, -4.0f));//速度
+	PlayerSpd = Vec2(6.0f, -4.0f);//速度
 	PlayerSize = Vec2(96, 96);//サイズ
 	PlayerPos = Vec2(300.0f, 300.0f);//座標
 	ScoreCorrection = 1.0f;//スコア補正

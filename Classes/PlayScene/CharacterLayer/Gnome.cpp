@@ -22,36 +22,46 @@ bool Gnome::init()
 }
 
 /// <summary>
-/// 移動する関数（継承）
+/// アニメーションする関数（継承）
 /// </summary>
-void Gnome::Move()
+
+
+void Gnome::Animation()
 {
-	//基底クラスのMoveを呼び出す
-	Character::Move();
-	
 	//アニメーションする
 	Texture2D* texture;
-	switch (walkCnt / 10 % 4)
+	//ジャンプできるときかつジャンプをまだしていないとき（歩いてるとき）
+	if (JumpCnt == 0 && JumpFlag == true)
 	{
-	case 0:
-		texture = TextureCache::sharedTextureCache()->addImage("Images/Gnome_Chara.png");
+		switch (walkCnt / 10 % 4)
+		{
+		case 0:
+			texture = TextureCache::sharedTextureCache()->addImage("Images/Gnome_Chara.png");
+
+			s_player->setTexture(texture);
+			s_player->setContentSize(texture->getContentSize());
+
+			break;
+		case 1:
+		case 3:
+			texture = TextureCache::sharedTextureCache()->addImage("Images/Gnome_Chara2.png");
+
+			s_player->setTexture(texture);
+			s_player->setContentSize(texture->getContentSize());
+			break;
+		case 2:
+			texture = TextureCache::sharedTextureCache()->addImage("Images/Gnome_Chara3.png");
+
+			s_player->setTexture(texture);
+			s_player->setContentSize(texture->getContentSize());
+			break;
+		}
+	}
+	else
+	{
+		texture = TextureCache::sharedTextureCache()->addImage("Images/Gnome_Charaj.png");
 
 		s_player->setTexture(texture);
 		s_player->setContentSize(texture->getContentSize());
-
-		break;
-	case 1:
-	case 3:
-		texture = TextureCache::sharedTextureCache()->addImage("Images/Gnome_Chara2.png");
-
-		s_player->setTexture(texture);
-		s_player->setContentSize(texture->getContentSize());
-		break;
-	case 2:
-		texture = TextureCache::sharedTextureCache()->addImage("Images/Gnome_Chara3.png");
-
-		s_player->setTexture(texture);
-		s_player->setContentSize(texture->getContentSize());
-		break;
 	}
 }

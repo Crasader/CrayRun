@@ -31,15 +31,27 @@ bool Character::init()
 	}
 	else {
 		Texture2D* texture = TextureCache::sharedTextureCache()->addImage("Images/Player2.png");
-
 	}
 
-	isScaleX = false;
-	isScaleY = false;
+	if (GameManager::PlayerSize.x < PLAYER_MAX_SIZE) 
+	{
+		isScaleX = true;
+	}
+	else 
+	{
+		isScaleX = false;
+	}
+	if (GameManager::PlayerSize.y < PLAYER_MAX_SIZE)
+	{
+		isScaleY = true;
+	}
+	else
+	{
+		isScaleY = false;
+	}
 		
 	walkCnt = 0;
 
-	SizeChangeFlag = true;
 	JumpSize = 11.0f;
 	FloormultipleFlag = false;
 	return true;
@@ -146,7 +158,7 @@ void Character::setScale()
 		else if (GameManager::PlayerSize.x > PLAYER_MAX_SIZE)
 		{
 			GameManager::PlayerSize.x = 96;
-			SizeChangeFlag = true;
+			isScaleX = false;
 
 		}
 
@@ -158,17 +170,9 @@ void Character::setScale()
 		else if (GameManager::PlayerSize.y > PLAYER_MAX_SIZE)
 		{
 			GameManager::PlayerSize.y = 96;
-			SizeChangeFlag = true;
-		}
-
-		if (GameManager::PlayerSize.x == PLAYER_MAX_SIZE)
-		{
-			isScaleX = false;
-		}
-		if (GameManager::PlayerSize.y == PLAYER_MAX_SIZE)
-		{
 			isScaleY = false;
 		}
+
 		//サイズを適用する
 		s_player->setScale(GameManager::PlayerSize.x / PLAYER_MAX_SIZE, GameManager::PlayerSize.y / PLAYER_MAX_SIZE);
 	}

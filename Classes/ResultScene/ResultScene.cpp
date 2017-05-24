@@ -36,9 +36,7 @@ bool ResultScene::init(int score, int distance)
 	this->addChild(resultlayer);
 	return true;
 }
-//void ResultScene::update(float data)
-//{
-//}
+
 /* ---- メンバー関数の定義 ---------------- */
 /***************************************************************************
 *|	概要　　シーンを作成する。

@@ -249,25 +249,16 @@ void CharacterLayer::MultiTouchCharacter()
 	//タッチがキャラクターに当たったか
 	bool m_touch_collision[EFFECTIVENESS_TOUCH];
 
-	////タッチがプレイヤーに当たったか
-	//m_touch_collision[0] = GameManager::HitJudgment(
-	//	touchpos[0] - Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2), TOUCH_SIZE,
-	//	GameManager::PlayerPos, GameManager::PlayerSize);
-	////タッチ2がプレイヤーに当たったか
-	//m_touch_collision[1] = GameManager::HitJudgment(
-	//	touchpos[0] - Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2), TOUCH_SIZE,
-	//	GameManager::PlayerPos, GameManager::PlayerSize);
-
 	//タッチがプレイヤーに当たったか
 	m_touch_collision[0] = GameManager::HitJudgment2(
 		touchpos[0]/* - Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2)*/, Vec2(0,0),
 	Vec2(GameManager::PlayerPos.x - GameManager::PlayerSize.x/ 2 - GameManager::PlayerSize.x, 
 		GameManager::PlayerPos.y), GameManager::PlayerSize);
 	
-	if (m_touch_collision[0] == true && character->SizeChangeFlag == true)
+	if (m_touch_collision[0] == true && character->isScaleX == false)
 	{
 		GameManager::PlayerSize.x = 32;
-		character->SizeChangeFlag = false;
+		character->isScaleX = true;
 	}
 
 
@@ -277,10 +268,10 @@ void CharacterLayer::MultiTouchCharacter()
 		Vec2(GameManager::PlayerPos.x - GameManager::PlayerSize.x / 2 - GameManager::PlayerSize.x,
 			GameManager::PlayerPos.y), GameManager::PlayerSize);
 
-	if (m_touch_collision[0] == true && character->SizeChangeFlag == true)
+	if (m_touch_collision[0] == true && character->isScaleX == false)
 	{
 		GameManager::PlayerSize.x = 16;
-		character->SizeChangeFlag = false;
+		character->isScaleX = true;
 	}
 
 
@@ -289,10 +280,10 @@ void CharacterLayer::MultiTouchCharacter()
 		touchpos[0] /*- Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2)*/, Vec2(0,0),
 		Vec2(GameManager::PlayerPos.x + GameManager::PlayerSize.x / 2 ,
 			GameManager::PlayerPos.y  ), GameManager::PlayerSize);
-	if (m_touch_collision[0] == true && character->SizeChangeFlag == true)
+	if (m_touch_collision[0] == true && character->isScaleX == false)
 	{
 		GameManager::PlayerSize.x = 16;
-		character->SizeChangeFlag = false;
+		character->isScaleX = true;
 
 	}
 
@@ -305,10 +296,10 @@ void CharacterLayer::MultiTouchCharacter()
 			GameManager::PlayerPos.y + GameManager::PlayerSize.y ), GameManager::PlayerSize);
 
 	
-	if (m_touch_collision[1] == true && character->SizeChangeFlag == true)
+	if (m_touch_collision[1] == true && character->isScaleY == false)
 	{
 		GameManager::PlayerSize.y = 32;
-		character->SizeChangeFlag = false;
+		character->isScaleY = true;
 
 	}
 
@@ -319,10 +310,10 @@ void CharacterLayer::MultiTouchCharacter()
 			GameManager::PlayerPos.y + GameManager::PlayerSize.y), GameManager::PlayerSize);
 
 
-	if (m_touch_collision[1] == true && character->SizeChangeFlag == true)
+	if (m_touch_collision[1] == true && character->isScaleY == false)
 	{
 		GameManager::PlayerSize.y = 32;
-		character->SizeChangeFlag = false;
+		character->isScaleY = true;
 
 	}
 
@@ -334,10 +325,10 @@ void CharacterLayer::MultiTouchCharacter()
 			GameManager::PlayerPos.y + GameManager::PlayerSize.y), GameManager::PlayerSize);
 
 
-	if (m_touch_collision[1] == true && character->SizeChangeFlag == true)
+	if (m_touch_collision[1] == true && character->isScaleY == false)
 	{
 		GameManager::PlayerSize.y = 32;
-		character->SizeChangeFlag = false;
+		character->isScaleY = true;
 
 	}
 
@@ -347,9 +338,9 @@ void CharacterLayer::MultiTouchCharacter()
 		Vec2(GameManager::PlayerPos.x + GameManager::PlayerSize.x / 2,
 			GameManager::PlayerPos.y - GameManager::PlayerSize.y), GameManager::PlayerSize);
 
-	if (m_touch_collision[1] == true && character->SizeChangeFlag == true)
+	if (m_touch_collision[1] == true && character->isScaleY == false)
 	{
-				character->SizeChangeFlag = false;
+				character->isScaleX = true;
 
 		GameManager::PlayerSize.y = 32;
 	}
@@ -359,9 +350,9 @@ void CharacterLayer::MultiTouchCharacter()
 		Vec2(GameManager::PlayerPos.x + GameManager::PlayerSize.x / 2,
 			GameManager::PlayerPos.y - GameManager::PlayerSize.y), GameManager::PlayerSize);
 
-	if (m_touch_collision[1] == true && character->SizeChangeFlag == true)
+	if (m_touch_collision[1] == true && character->isScaleY == false)
 	{
-		character->SizeChangeFlag = false;
+		character->isScaleY = true;
 
 		GameManager::PlayerSize.y = 32;
 	}
