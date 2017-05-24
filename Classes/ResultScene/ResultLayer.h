@@ -16,7 +16,7 @@ class ResultLayer :public cocos2d::Layer
 {
 
 public:
-	virtual bool init();
+	bool init();
 	CREATE_FUNC(ResultLayer);
 private:
 

@@ -115,7 +115,7 @@ void ResultScore::RankingSort()
 	
 
 	
-
+	//‚ç‚ñ‚«‚ñ‚®‚ğƒ\[ƒg‚·‚é
 	qsort(RankingScore, 6, sizeof(int), compare_int);
 
 }

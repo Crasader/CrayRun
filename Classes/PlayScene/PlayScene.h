@@ -14,7 +14,7 @@
 #include "CharacterLayer/CharacterLayer.h"
 #include "UILayer/UILayer.h"
 #include "../GameManager.h"
-
+#include "../ResultScene/ResultScene.h"
 
 class PlayScene :public cocos2d::Scene
 {
@@ -31,5 +31,25 @@ private:
 	void update(float data)override;
 	cocos2d::Camera* m_camera;
 	cocos2d::Layer* uilayer;
+
+	//3.2.1のスプライト
+	cocos2d::Sprite* Number[3];
+	//数字のアクション
+	void NumberAction(int cnt);
+	//Goのスプライト
+	cocos2d::Sprite* Go;
+	//キャラクタレイヤ
+	CharacterLayer* characterlayer;
+	//カメラフラグ
+	bool m_CameraFlag;
+	//止めるかどうか
+	bool StopFlag;
+	//リザルトシーンへ
+	void TransitionPlayToResult() {
+		cocos2d::Scene* nextScene = ResultScene::create(GameManager::Score, GameManager::TotalDistance);
+		_director->replaceScene(nextScene);
+	}
+	//エフェクト
+	cocos2d::Sprite* Effect;
 
 };

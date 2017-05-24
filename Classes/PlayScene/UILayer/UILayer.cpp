@@ -7,6 +7,7 @@
 ****************************************************************************/
 /* ---- ライブラリのインクルード ---------- */
 #include "UiLayer.h"
+#include "../../PauseScene/PauseScene.h"
 
 USING_NS_CC;
 
@@ -29,10 +30,14 @@ bool UiLayer::init()
 	score = Score::create();
 	this->addChild(score);
 
-
 	this->scheduleUpdate();
 
+	//ボタンを作成する
+	button = ui::Button::create("Images/pause.jpg");
+	button->setPosition(Vec2(600, 500));
+	this->addChild(button);
 
+	button->addTouchEventListener(CC_CALLBACK_2(UiLayer::onButtonTouch, this));
 
 	return true;
 
@@ -60,4 +65,35 @@ void UiLayer::update(float data) {
 		GameManager::TotalDistance = distance->m_distance;
 	}
 
-};
+
+	PauseFlag = false;
+
+}
+
+void UiLayer::onButtonTouch(Ref * ref, ui::Widget::TouchEventType eventType)
+{
+	switch (eventType)
+	{
+	case ui::Widget::TouchEventType::BEGAN:
+
+
+	if (PauseFlag == false)
+	{
+			Scene* nextscene = PauseScene::create();
+			_director->pushScene(nextscene);
+			PauseFlag = true;
+	}
+	
+
+		break;
+	case ui::Widget::TouchEventType::MOVED:
+		break;
+	case ui::Widget::TouchEventType::ENDED:
+	
+		break;
+	case ui::Widget::TouchEventType::CANCELED:
+		break;
+	default:
+		break;
+	}
+}

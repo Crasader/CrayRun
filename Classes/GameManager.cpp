@@ -124,9 +124,14 @@ void GameManager::Initialize()
 	Mold = 0;//金型
 	ChangeMold = false;//金型変化あるか
 
-	
 
-	MoldSpd = Vec2(0, -4);
+					   //////////////コイン//////////////
+	CoinPoint.crend();//コインのポイント
+	AllLeftPos.crend();//全ての斜面左端の座標
+	AllRightPos.crend();//全ての斜面右端の座標
+
+
+
 	/////////////////UIレイヤー/////////////////
 	/////////////////スコア////////////////
 	Score = 0;//スコア

@@ -119,11 +119,11 @@ void CharacterLayer::update(float date)
 	n->setPosition(GameManager::PlayerPos + Vec2(300, 0));
 
 
-	if (FirstMultiTouchFlag == true)
+	/*if (FirstMultiTouchFlag == true)
 	{
 		FirstMultiTouchCnt++;
 	}
-
+*/
 }
 
 
@@ -247,8 +247,8 @@ void CharacterLayer::onTouchesCancelled(const std::vector<cocos2d::Touch*>& touc
 ****************************************************************************/
 void CharacterLayer::MultiTouchCharacter()
 {
-	//タッチが当たった方向
-	Direction m_touch_collision_direction[EFFECTIVENESS_TOUCH];
+	////タッチが当たった方向
+	//Direction m_touch_collision_direction[EFFECTIVENESS_TOUCH];
 	//タッチがキャラクターに当たったか
 	bool m_touch_collision[EFFECTIVENESS_TOUCH];
 
@@ -476,9 +476,8 @@ void CharacterLayer::ChangeMold()
 ****************************************************************************/
 void CharacterLayer::CollisionResponseFloor()
 {
-
+	int hitcnt = 0;
 	std::vector<Vec2>::iterator Iterator;
-	int hitcnt = 0;//何箇所当たっているか
 	//////マップの数だけループ
 		//床の数だけループ
 		for (Iterator = GameManager::AllFloorPos[GameManager::PlayerMapPos].begin(); Iterator != GameManager::AllFloorPos[GameManager::PlayerMapPos].end(); ++Iterator)
@@ -495,8 +494,10 @@ void CharacterLayer::CollisionResponseFloor()
 				break;
 			case left:
 				/*GameManager::PlayerPos.x = GameManager::AllFloorPosx[i] - GameManager::PlayerSize.x / 2;*/
-				GameManager::RightFlag = true;
-				GameManager::PlayerSpd.x = -6.0f;
+				//GameManager::RightFlag = true;
+				//GameManager::PlayerSpd.x = -6.0f;
+				GameManager::GameOverFlag = true;
+
 				hitcnt++;
 				break;
 			case up:
@@ -571,12 +572,8 @@ void CharacterLayer::CollisionResponseCrayFloor()
 		case right:
 			GameManager::PlayerPos.x = vec.x + GameManager::MAX_CRAYSTAGESIZE.x  -  (*IteratorSize).x / 2 - GameManager::PlayerSize.x / 2;
 			GameManager::PlayerSpd.x = 0.0f;
-			b = 1;
 			break;
 		case left:
-		/*	GameManager::PlayerPos.x = vec.x + GameManager::MAX_CRAYSTAGESIZE.x / 2 - (*IteratorSize).x / 2 - GameManager::PlayerSize.x / 2;
-			GameManager::RightFlag = true;
-			GameManager::PlayerSpd.x = -6.0f;*/
 			GameManager::GameOverFlag = true;
 			break;
 		case up:
@@ -586,11 +583,10 @@ void CharacterLayer::CollisionResponseCrayFloor()
 			//ジャンプ可能にする
 			character->JumpCnt = 0;
 			character->JumpFlag = true;
-		
 			break;
 			case under:
-			//GameManager::PlayerPos.y = GameManager::AllFloorPosy[i] - GameManager::LAYRE_SIZE.y - GameManager::PlayerSize.y - 1;
-			//GameManager::PlayerSpd.y = 0.0f;
+			GameManager::PlayerPos.y = vec.y - GameManager::MAX_CRAYSTAGESIZE.y - GameManager::PlayerSize.y;
+			GameManager::PlayerSpd.y = 0.0f;
 			break;
 		default:
 			break;
@@ -608,12 +604,12 @@ void CharacterLayer::CollisionResponseCrayFloor()
 ****************************************************************************/
 void CharacterLayer::CollisionResponseSlope()
 {
-	for (int i = 0; i <= GameManager::MapLoopCnt; i++)
-	{
+	//for (int i = 0; i <= GameManager::MapLoopCnt; i++)
+	//{
 		//最初の斜面右端を格納する
-		IteratorLeft = GameManager::AllLeftPos[i].begin();
+		IteratorLeft = GameManager::AllLeftPos[GameManager::PlayerMapPos].begin();
 		//vectorの数だけループ
-		for (IteratorRight = GameManager::AllRightPos[i].begin(); IteratorRight != GameManager::AllRightPos[i].end(); ++IteratorRight)
+		for (IteratorRight = GameManager::AllRightPos[GameManager::PlayerMapPos].begin(); IteratorRight != GameManager::AllRightPos[GameManager::PlayerMapPos].end(); ++IteratorRight)
 		{
 			//衝突判定（斜面）
 			Direction HitFlag = GameManager::DiagonalCollisionDetermination(*IteratorLeft, *IteratorRight, GameManager::PlayerPos /*+ Vec2(GameManager::PlayerSize.x /2,0.0f)*/);
@@ -631,7 +627,7 @@ void CharacterLayer::CollisionResponseSlope()
 			IteratorLeft++;
 		}
 
-	}
+	//}
 }
 
 /***************************************************************************

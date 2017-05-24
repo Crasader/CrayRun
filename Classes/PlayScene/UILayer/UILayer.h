@@ -12,7 +12,7 @@
 #include "Distance.h"
 #include "Score.h"
 #include "../../GameManager.h"
-
+#include "ui/CocosGUI.h"
 
 
 class UiLayer :public cocos2d::Layer
@@ -31,6 +31,11 @@ private:
 	Score* score;//スコア
 	Distance * distance;//距離
 	float m_distanceSpd;//	距離に足す値
+	cocos2d::ui::Button* button;//ボタン
+
+	void onButtonTouch(cocos2d::Ref* ref, cocos2d::ui::Widget::TouchEventType eventType);
+
+	bool PauseFlag;
 };
 
 

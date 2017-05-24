@@ -76,9 +76,8 @@
     <ClCompile Include="..\Classes\PlayScene\StageLayer\CrayStage.cpp">
       <Filter>PlayScene\StageLayer\Gimmick</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\AppDelegate.cpp">
-      <Filter>ResultScene</Filter>
-    </ClCompile>
+    <ClCompile Include="..\Classes\PauseScene\PauseScene.cpp" />
+    <ClCompile Include="..\Classes\AppDelegate.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -157,6 +156,7 @@
     <ClInclude Include="..\Classes\PlayScene\StageLayer\Coin.h">
       <Filter>PlayScene\StageLayer\Gimmick</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\PauseScene\PauseScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc" />

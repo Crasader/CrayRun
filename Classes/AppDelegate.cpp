@@ -1,5 +1,9 @@
 #include "AppDelegate.h"
 #include "PlayScene/PlayScene.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <time.h>
+
 USING_NS_CC;
 
 AppDelegate::AppDelegate() {
@@ -22,6 +26,9 @@ void AppDelegate::initGLContextAttrs()
 }
 
 bool AppDelegate::applicationDidFinishLaunching() {
+
+	/* —”Œn—ñ‚Ì•ÏX */
+	srand((unsigned)time(NULL));
 	log("############################### AppDelegate started");
     // initialize director
     auto director = Director::getInstance();

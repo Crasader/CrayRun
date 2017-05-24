@@ -20,8 +20,12 @@ bool StageLayer::init()
 	}
 	/////////マップ描画////////
 	//タイルマップの読み込み
+	std::ostringstream MapName;
+
+	MapName << "map" << rand() % MAX_MAP + 1 << ".tmx";
+
 	//マップチップ
-	GameManager::map.push_back(TMXTiledMap::create("map_takumi.tmx"));
+	GameManager::map.push_back(TMXTiledMap::create(MapName.str()));
 
 	IteratorMap = GameManager::map.begin();
 	TMXTiledMap* g_Map = *IteratorMap;
@@ -31,25 +35,26 @@ bool StageLayer::init()
 	g_Map->setPosition(Point(0, 0));
 	//画像の描画
 	this->addChild(g_Map);
-	//レイヤーにノードを集約
+
+	//粘土床
 	craystage.push_back(CrayStage::create());
 	ItratorCrayStage=craystage.begin();
 	this->addChild((*ItratorCrayStage));
-	//レイヤーにノードを集約
+	//床
 	stage = Stage::create();
 	this->addChild(stage);
-	//レイヤーにノードを集約
+	//コイン作成
 	coin.push_back(Coin::create());
 	IteratorCoin = coin.begin();
 	this->addChild(*IteratorCoin);
-	//レイヤーにノードを集約
+	//斜面生成
 	slope.push_back(Slope::create());
 	IteratorSlope = slope.begin();
 	this->addChild(*IteratorSlope);
-	//レイヤーにノードを集約
+	//金型生成
 	mold.push_back(Mold::create());
 	this->addChild(mold[GameManager::MapLoopCnt]);
-	//レイヤーにノードを集約
+	//針生成
 	needle.push_back(Needle::create());
 	ItratorNeedle = needle.begin();
 	this->addChild((*ItratorNeedle));
@@ -65,8 +70,6 @@ bool StageLayer::init()
 	_director->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 	//_touchListener = listener;
 
-	m_data = 0;
-
 
 	////デバック
 	//String* b = String::createWithFormat("%i", a);
@@ -75,7 +78,7 @@ bool StageLayer::init()
 	//n->setPosition(300, 200);
 	//this->addChild(n);
 
-
+	DeleteCnt = 0;
 
 	this->scheduleUpdate();
 
@@ -91,20 +94,24 @@ bool StageLayer::init()
 ****************************************************************************/
 void StageLayer::update(float data) 
 {
-	//n->setString(StringUtils::toString(b));
-	//n->setPosition(GameManager::PlayerPos);
+	/*n->setString(StringUtils::toString(b));
+	n->setPosition(GameManager::PlayerPos);*/
 
 	Vector<Vec2>::iterator Iterator;
 	int loop_cnt = 0;
-	////床の数だけループ
-	//for (Iterator = GameManager::MoldPos.begin(); Iterator != GameManager::MoldPos.end(); ++Iterator)
-	//{
-	//	Node* q = mold->getChildByTag(i);
-	//	Vec2 vec = *Iterator;
-	//	vec += GameManager::MoldSpd;
-	//	q->setPosition(vec);
-	//	i++;
-	//}
+
+		if (static_cast<int>(GameManager::m_cameraposx - 480) % static_cast<int>(GameManager::MAP_SIZE.x) == 0)
+		{
+			GameManager::MapLoopCnt++;
+			//マップ生成
+		//	MapCreate();
+			//if (GameManager::MapLoopCnt > 5)
+			//{
+			//	//マップ削除
+			//	MapDelete();
+			//}
+	}
+
 
 	//粘土床のサイズ変更
 	Vector<Vec2>::iterator g_sizeitertor;
@@ -127,18 +134,6 @@ void StageLayer::update(float data)
 	HittingNeedle();
 	
 
-	if (static_cast<int>(GameManager::m_cameraposx - 480 ) % static_cast<int>(GameManager::MAP_SIZE.x) == 0)
-	{
-		GameManager::MapLoopCnt++;
-		//マップ生成
-		MapCreate();
-		//if (GameManager::MapLoopCnt > 2)
-		//{
-		//	//マップ削除
-		//	MapDelete();
-		//}
-
-	}
 
 	
 		GameManager::CrayFloorSize = craystage[GameManager::PlayerMapPos]->CrayStageSize;
@@ -152,20 +147,21 @@ void StageLayer::update(float data)
 ****************************************************************************/
 void StageLayer::MapCreate()
 {
-	b = 1111111;
+
 	//タイルマップの読み込み
+	
+	std::ostringstream MapName;
+	MapName << "map" << rand() % MAX_MAP + 1 << ".tmx";
 	//マップチップ
-	GameManager::map.push_back(TMXTiledMap::create("map_takumi.tmx"));
-	IteratorMap = GameManager::map.begin();
-	IteratorMap += GameManager::MapLoopCnt;
+	GameManager::map.push_back(TMXTiledMap::create(MapName.str()));
 //	TMXTiledMap* g_Map = *IteratorMap;
 	//タイルマップの中心座標を設定
-	(*IteratorMap)->setAnchorPoint(Vec2(0, 0));
+	GameManager::map[GameManager::MapLoopCnt]->setAnchorPoint(Vec2(0, 0));
 	//タイルマップの座標設定
-	(*IteratorMap)->setPosition(Point(GameManager::MAP_SIZE.x * GameManager::MapLoopCnt, 0));
+	GameManager::map[GameManager::MapLoopCnt]->setPosition(Point(GameManager::MAP_SIZE.x * GameManager::MapLoopCnt, 0));
 
 	//画像の描画
-	this->addChild((*IteratorMap));
+	this->addChild(GameManager::map[GameManager::MapLoopCnt]);
 
 
 	//粘土床
@@ -212,38 +208,42 @@ void StageLayer::MapCreate()
 ****************************************************************************/
 void StageLayer::MapDelete()
 {
-	b = 2222222;
+	//b = DeleteCnt;
 	//マップの削除
 	IteratorMap = GameManager::map.begin();
-	IteratorMap += GameManager::MapLoopCnt - 2;
+	IteratorMap += DeleteCnt;
 	(*IteratorMap)->removeFromParent();
+
+
 	//ステージの削除
-	GameManager::AllFloorPos[GameManager::MapLoopCnt - 2].crend();
+	//std::remove(GameManager::AllFloorPos,DeleteCnt);
 	//斜面ノードの削除
 	IteratorSlope -= 3;
 	Slope* g_slope = *IteratorSlope;
 	g_slope->removeFromParent();
-
+	g_slope = nullptr;
 	////粘土床の削除
 	//ItratorCrayStage -= 2;
 	//CrayStage* g_craystage = *ItratorCrayStage;
 	//g_craystage->removeFromParent();
 	//craystage[GameManager::MapLoopCnt - 2]->removeFromParent();
 	//粘土床座標の削除
-	GameManager::AllCrayFloorPos[GameManager::MapLoopCnt - 2].crend();
+	GameManager::AllCrayFloorPos[DeleteCnt].crend();
 
 	//斜面座標の削除
-	GameManager::AllLeftPos[GameManager::MapLoopCnt - 2].crend();
-	GameManager::AllRightPos[GameManager::MapLoopCnt - 2].crend();
+	GameManager::AllLeftPos[DeleteCnt].crend();
+	GameManager::AllRightPos[DeleteCnt].crend();
 	//コイン削除
 
 	//金型削除
-	mold[GameManager::MapLoopCnt - 2]->removeFromParent();
+	mold[DeleteCnt]->removeFromParent();
+	mold[DeleteCnt] = nullptr;
 	//coin[GameManager::MapLoopCnt - 2]->removeFromParent();
 
 	//針削除
-	needle[GameManager::MapLoopCnt - 2]->removeFromParent();
+	needle[DeleteCnt]->removeFromParent();
 
+	DeleteCnt++;
 }
 
 
@@ -297,19 +297,19 @@ void StageLayer::HittingMold()
 	std::vector<Sprite*>::iterator IteratorMold;
 	//ループした回数
 	int loop_cnt = 0;
-	for (IteratorMold = mold[GameManager::MapLoopCnt]->s_Mold.begin(); IteratorMold != mold[GameManager::MapLoopCnt]->s_Mold.end(); IteratorMold++)
+	for (IteratorMold = mold[GameManager::PlayerMapPos]->s_Mold.begin(); IteratorMold != mold[GameManager::PlayerMapPos]->s_Mold.end(); IteratorMold++)
 	{
 		if ((*IteratorMold) != nullptr)
 		{
 			//金型とプレイヤーが当たっているか
 			if (GameManager::HitJudgment
-			((*IteratorMold)->getPosition(), mold[GameManager::MapLoopCnt]->SIZE,
+			((*IteratorMold)->getPosition(), mold[GameManager::PlayerMapPos]->SIZE,
 				GameManager::PlayerPos, GameManager::PlayerSize) == true)
 			{
 				//当たった金型を削除
 				//mold[GameManager::MapLoopCnt]->removeFromParent();
 				//兎型のキャラクターに変更
-				GameManager::Mold = mold[GameManager::MapLoopCnt]->m_kind[loop_cnt];
+				GameManager::Mold = mold[GameManager::PlayerMapPos]->m_kind[loop_cnt];
 				GameManager::ChangeMold = true;
 			}
 		}
@@ -439,7 +439,7 @@ void StageLayer::MultiTouchCrayStage()
 				(*Iterator), GameManager::MAX_CRAYSTAGESIZE,
 				touchpos[1], Vec2(0, 0));
 
-			b = 1;
+	
 
 			//上下に挟んだか
 			if (m_touch_collision_direction[0] == up || m_touch_collision_direction[1] == under || m_touch_collision_direction[0] == under || m_touch_collision_direction[1] == up)
@@ -487,8 +487,8 @@ void StageLayer::MultiTouchCrayStage()
 ****************************************************************************/
 void StageLayer::MultiTouchNeedle()
 {
-	//タッチが当たった方向
-	Direction m_touch_collision_direction[EFFECTIVENESSTOUCH];
+	////タッチが当たった方向
+	//Direction m_touch_collision_direction[EFFECTIVENESSTOUCH];
 	//タッチがキャラクターに当たったか
 	bool m_touch_collision[EFFECTIVENESSTOUCH];
 

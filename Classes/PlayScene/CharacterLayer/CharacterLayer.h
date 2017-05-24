@@ -99,5 +99,7 @@ private:
 	int FirstMultiTouchFlag;
 
 float SavePlayerPosx;
+
+
 };
 

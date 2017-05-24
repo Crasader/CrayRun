@@ -11,18 +11,23 @@
 /* ---- ライブラリのインクルード ---------- */
 #include "cocos2d.h"
 #include "../GameManager.h"
+#include "ui/CocosGUI.h"
 
-class ResultScene :public cocos2d::Scene
+class PauseScene :public cocos2d::Scene
 {
 public:
-	//シーンを作成する
-	static cocos2d::Scene* create(int score, int distance);
+
 	//初期化する
-	 bool init(int score,int distance);
+	bool init();
+	CREATE_FUNC(PauseScene);
 
 private:
 	//タッチされたら
 	bool onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * pEvent);
 	////毎フレーム呼ばれる
-	//void update(float data)override;
+	void update(float data)override;
+	cocos2d::ui::Button* CountinueButton;//ボタン
+
+	cocos2d::ui::Button* TitleButton;//ボタン
+
 };
