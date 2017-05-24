@@ -33,4 +33,7 @@ bool BackgroundLayer::init()
 
 
 
-void BackgroundLayer::update(float data) {};
+void BackgroundLayer::update(float data) 
+{
+
+};

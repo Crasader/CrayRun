@@ -11,6 +11,7 @@
 #include "EventListenerGesture.h"
 #include "PauseScene.h"
 #include "../PlayScene/PlayScene.h"
+#include "../TitleScene/TitleScene.h"
 /* ---- –¼‘O‹óŠÔ‚ð‰ð•ú -------------------- */
 USING_NS_CC;
 
@@ -56,7 +57,7 @@ void PauseScene::update(float data)
 	if (TitleButton->isHighlighted())
 	{
 		GameManager::Initialize();
-		Scene* nextscene = PlayScene::create();
+		Scene* nextscene = TitleScene::create();
 		_director->pushScene(nextscene);
 	}
 }

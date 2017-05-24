@@ -207,9 +207,6 @@ void CharacterLayer::onTouchesMoved(const std::vector<cocos2d::Touch*>& touches,
 		touchpos[0] = Vec2(0.0f, 0.0f);
 		touchpos[1] = Vec2(0.0f, 0.0f);
 	}
-
-
-
 }
 
 /***************************************************************************
@@ -220,10 +217,6 @@ void CharacterLayer::onTouchesMoved(const std::vector<cocos2d::Touch*>& touches,
 void CharacterLayer::onTouchesEnded(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event * unused_event)
 {
 	log("onTouchesEnded");
-	for (int i = 0; i < EFFECTIVENESS_TOUCH; i++)
-	{
-		FirstPos[i] = Vec2(0.0f, 0.0f);
-	}
 }
 
 /***************************************************************************
