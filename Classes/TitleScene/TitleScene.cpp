@@ -4,7 +4,7 @@
 /* ---- –¼‘O‹óŠÔ‚ğ‰ğ•ú -------------------- */
 USING_NS_CC;
 
-cocos2d::Scene * TitleScene::create(int score, int distance)
+cocos2d::Scene * TitleScene::create()
 {
 	//ƒƒ‚ƒŠŠm•Û
 	TitleScene *pRet = new(std::nothrow)TitleScene();

@@ -1,4 +1,6 @@
 #include "TitleLayer.h"
+#include "../PlayScene/PlayScene.h"
+#include "../GameManager.h"
 
 USING_NS_CC;
 
@@ -8,7 +10,8 @@ bool TitleLayer::init()
 		return false;
 	}
 
-	Sprite* s_background = Sprite::create("TitleBackground.png");
+	Sprite* s_background = Sprite::create("Images/TitleBackground.png");
+	s_background->setAnchorPoint(Vec2(0,0));
 	this->addChild(s_background);
 
 	// Register Touch Event
@@ -39,6 +42,13 @@ void TitleLayer::onTouchesMoved(const std::vector<cocos2d::Touch*>& touches, coc
 
 void TitleLayer::onTouchesEnded(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event * unused_event)
 {
+	GameManager::Initialize();
+
+	auto nextScene = PlayScene::create();
+	// run
+	log("############################### PlayScene created");
+	_director->replaceScene(nextScene);
+
 }
 
 void TitleLayer::onTouchesCancelled(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event * unused_event)

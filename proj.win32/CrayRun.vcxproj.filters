@@ -76,15 +76,13 @@
     <ClCompile Include="..\Classes\PlayScene\StageLayer\CrayStage.cpp">
       <Filter>PlayScene\StageLayer\Gimmick</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\AppDelegate.cpp">
-      <Filter>ResultScene</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\TitleScene\TitleLayer.cpp">
       <Filter>TitleScene</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\TitleScene\TitleScene.cpp">
       <Filter>TitleScene</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\AppDelegate.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />

@@ -1,5 +1,5 @@
 #include "AppDelegate.h"
-#include "PlayScene/PlayScene.h"
+#include "TitleScene/TitleScene.h"
 USING_NS_CC;
 
 AppDelegate::AppDelegate() {
@@ -45,7 +45,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	
 
 
-    auto scene = PlayScene::create();
+    auto scene = TitleScene::create();
     // run
 	log("############################### PlayScene created");
     director->runWithScene(scene);

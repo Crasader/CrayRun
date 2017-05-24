@@ -8,7 +8,7 @@
 class TitleScene : public cocos2d::Scene {
 public:
 	//ƒV[ƒ“‚ğì¬‚·‚é
-	static cocos2d::Scene* create(int score, int distance);
+	static cocos2d::Scene* create();
 	//‰Šú‰»‚·‚é
 	bool init();
 
