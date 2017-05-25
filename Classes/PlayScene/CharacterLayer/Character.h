@@ -75,8 +75,7 @@ public:
 	int JumpCnt;//ジャンプのカウント
 	bool JumpFlag;//ジャンプできるか
 
-	bool isScaleX;//X座標の大きさが変更されているかtrue：されている,false：されていない
-	bool isScaleY;//Y座標の大きさが変更されているかtrue：されている,false：されていない
+	bool isScale;//座標の大きさが変更されているかtrue：されている,false：されていない
 
 
 	bool FloormultipleFlag;//床の下に当たっているか

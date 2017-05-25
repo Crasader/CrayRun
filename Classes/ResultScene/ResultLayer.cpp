@@ -67,8 +67,6 @@ bool ResultLayer::init()
 
 	listener->onTouchesBegan = CC_CALLBACK_2(ResultLayer::onTouchesBegan, this);
 	listener->onTouchesMoved = CC_CALLBACK_2(ResultLayer::onTouchesMoved, this);
-	listener->onTouchesEnded = CC_CALLBACK_2(ResultLayer::onTouchesEnded, this);
-	listener->onTouchesCancelled = CC_CALLBACK_2(ResultLayer::onTouchesCancelled, this);
 
 	_director->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 
@@ -144,28 +142,4 @@ void ResultLayer::onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, co
 void ResultLayer::onTouchesMoved(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event * unused_event)
 {
 	log("onTouchesMoved");
-}
-/***************************************************************************
-*|	概要　　タッチされたのを離した時に呼ぶ関数
-*|	引数　　無し
-*|　戻り値　無し
-****************************************************************************/
-void ResultLayer::onTouchesEnded(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event * unused_event)
-{
-
-
-	m_resultscore->ActionSpd = 0.7f;
-
-	//タッチしていない
-	TouchFlag = false;
-
-}
-/***************************************************************************
-*|	概要　　タッチしているのをキャンセルしたときに呼ぶ関数
-*|	引数　　無し
-*|　戻り値　無し
-****************************************************************************/
-void ResultLayer::onTouchesCancelled(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event * unused_event)
-{
-	log("onTouchesCancelled");
 }

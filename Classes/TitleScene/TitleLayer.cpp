@@ -31,7 +31,6 @@ bool TitleLayer::init()
 	b_exit->setPosition(Vec2(GameManager::SCREEN_SIZE.x / 3 * 2, 200));
 	this->addChild(b_exit);
 
-	// Register Touch Event
 
 	this->scheduleUpdate();
 	return true;

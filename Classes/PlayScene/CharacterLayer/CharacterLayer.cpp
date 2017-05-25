@@ -250,11 +250,11 @@ void CharacterLayer::MultiTouchCharacter()
 	Vec2(GameManager::PlayerPos.x - GameManager::PlayerSize.x/ 2 - GameManager::PlayerSize.x, 
 		GameManager::PlayerPos.y), GameManager::PlayerSize);
 	
-	if (m_touch_collision[0] == true && character->isScaleX == false)
+	if (m_touch_collision[0] == true && character->isScale == false)
 	{
 		GameManager::PlayerSize.x = 16;
 		GameManager::PlayerSize.x = 32;
-		character->isScaleX = true;
+		character->isScale = true;
 	}
 
 
@@ -264,10 +264,10 @@ void CharacterLayer::MultiTouchCharacter()
 		Vec2(GameManager::PlayerPos.x - GameManager::PlayerSize.x / 2 - GameManager::PlayerSize.x,
 			GameManager::PlayerPos.y), GameManager::PlayerSize);
 
-	if (m_touch_collision[0] == true && character->isScaleX == false)
+	if (m_touch_collision[0] == true && character->isScale == false)
 	{
 		GameManager::PlayerSize.x = 16;
-		character->isScaleX = true;
+		character->isScale = true;
 	}
 
 
@@ -276,10 +276,13 @@ void CharacterLayer::MultiTouchCharacter()
 		touchpos[0] /*- Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2)*/, Vec2(0,0),
 		Vec2(GameManager::PlayerPos.x + GameManager::PlayerSize.x / 2 ,
 			GameManager::PlayerPos.y  ), GameManager::PlayerSize);
-	if (m_touch_collision[0] == true && character->isScaleX == false)
+	if (m_touch_collision[0] == true && character->isScale == false)
 	{
 		GameManager::PlayerSize.x = 16;
-		character->isScaleX = true;
+
+		character->isScale = true;
+
+
 	}
 
 
@@ -291,10 +294,10 @@ void CharacterLayer::MultiTouchCharacter()
 			GameManager::PlayerPos.y + GameManager::PlayerSize.y ), GameManager::PlayerSize);
 
 	
-	if (m_touch_collision[1] == true && character->isScaleY == false)
+	if (m_touch_collision[1] == true && character->isScale == false)
 	{
 		GameManager::PlayerSize.y = 32;
-		character->isScaleY = true;
+		character->isScale = true;
 
 	}
 
@@ -305,10 +308,10 @@ void CharacterLayer::MultiTouchCharacter()
 			GameManager::PlayerPos.y + GameManager::PlayerSize.y), GameManager::PlayerSize);
 
 
-	if (m_touch_collision[1] == true && character->isScaleY == false)
+	if (m_touch_collision[1] == true && character->isScale == false)
 	{
 		GameManager::PlayerSize.y = 32;
-		character->isScaleY = true;
+		character->isScale = true;
 
 	}
 
@@ -320,10 +323,10 @@ void CharacterLayer::MultiTouchCharacter()
 			GameManager::PlayerPos.y + GameManager::PlayerSize.y), GameManager::PlayerSize);
 
 
-	if (m_touch_collision[1] == true && character->isScaleY == false)
+	if (m_touch_collision[1] == true && character->isScale == false)
 	{
 		GameManager::PlayerSize.y = 32;
-		character->isScaleY = true;
+		character->isScale = true;
 
 	}
 
@@ -333,9 +336,9 @@ void CharacterLayer::MultiTouchCharacter()
 		Vec2(GameManager::PlayerPos.x + GameManager::PlayerSize.x / 2,
 			GameManager::PlayerPos.y - GameManager::PlayerSize.y), GameManager::PlayerSize);
 
-	if (m_touch_collision[1] == true && character->isScaleY == false)
+	if (m_touch_collision[1] == true && character->isScale == false)
 	{
-				character->isScaleX = true;
+				character->isScale = true;
 
 		GameManager::PlayerSize.y = 32;
 	}
@@ -345,9 +348,9 @@ void CharacterLayer::MultiTouchCharacter()
 		Vec2(GameManager::PlayerPos.x + GameManager::PlayerSize.x / 2,
 			GameManager::PlayerPos.y - GameManager::PlayerSize.y), GameManager::PlayerSize);
 
-	if (m_touch_collision[1] == true && character->isScaleY == false)
+	if (m_touch_collision[1] == true && character->isScale == false)
 	{
-		character->isScaleY = true;
+		character->isScale = true;
 
 		GameManager::PlayerSize.y = 32;
 	}
