@@ -479,6 +479,9 @@ void CharacterLayer::CollisionResponseFloor()
 				/*GameManager::PlayerPos.x = GameManager::AllFloorPosx[i] - GameManager::PlayerSize.x / 2;*/
 				//GameManager::RightFlag = true;
 				//GameManager::PlayerSpd.x = -6.0f;
+				//“–‚½‚Á‚½‚Ì‚Å’×‚ê‚é
+				character->s_player->setAnchorPoint(Vec2(0, 0));
+				GameManager::PlayerSize.x = 32;
 				GameManager::GameOverFlag = true;
 
 				hitcnt++;
@@ -558,6 +561,9 @@ void CharacterLayer::CollisionResponseCrayFloor()
 			break;
 		case left:
 			GameManager::GameOverFlag = true;
+			//“–‚½‚Á‚½‚Ì‚Å’×‚ê‚é
+			character->s_player->setAnchorPoint(Vec2(0, 0));
+			GameManager::PlayerSize.x = 32;
 			break;
 		case up:
 			b = (*IteratorSize).y;

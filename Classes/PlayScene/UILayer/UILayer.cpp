@@ -33,7 +33,7 @@ bool UiLayer::init()
 
 	//ƒ{ƒ^ƒ“‚ðì¬‚·‚é
 	button = ui::Button::create("Images/pause.png");
-	button->setPosition(Vec2(800, 600));
+	button->setPosition(Vec2(900, 600));
 	this->addChild(button);
 
 
@@ -53,7 +53,6 @@ bool UiLayer::init()
 
 	this->scheduleUpdate();
 
-	spd = 0;
 	return true;
 
 
@@ -94,8 +93,6 @@ void UiLayer::update(float data) {
 	if (GameManager::ChangeMold == true)
 	{
 		status->StatusAction();
-		
-
 		GameManager::ChangeMold = false;
 	}
 
@@ -121,7 +118,6 @@ void UiLayer::onButtonTouch(Ref * ref, ui::Widget::TouchEventType eventType)
 		}
 	}
 	
-
 		break;
 	case ui::Widget::TouchEventType::MOVED:
 		break;

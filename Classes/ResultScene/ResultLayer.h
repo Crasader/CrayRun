@@ -43,7 +43,8 @@ private:
 	int VisibleCnt;
 	//スプライトを生成するか
 	bool CreateSprite;
-
+	//画面をタッチしているか
+	bool TouchFlag;
 
 };
 
