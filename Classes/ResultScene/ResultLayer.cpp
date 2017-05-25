@@ -133,8 +133,6 @@ void ResultLayer::onTouchesEnded(const std::vector<cocos2d::Touch*>& touches, co
 {
 	if (m_resultscore->TitleFlag == true)
 	{
-		
-
 		Scene* nextScene = TitleScene::create();
 
 		_director->replaceScene(nextScene);

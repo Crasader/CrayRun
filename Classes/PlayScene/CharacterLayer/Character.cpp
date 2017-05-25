@@ -33,21 +33,14 @@ bool Character::init()
 		Texture2D* texture = TextureCache::sharedTextureCache()->addImage("Images/Player2.png");
 	}
 
-	if (GameManager::PlayerSize.x < PLAYER_MAX_SIZE) 
+	//プレイヤが最大の大きさじゃないときtrueに、最大の大きさならfalse
+	if (GameManager::PlayerSize.x < PLAYER_MAX_SIZE && GameManager::PlayerSize.y < PLAYER_MAX_SIZE)
 	{
-		isScaleX = true;
+		isScale = true;
 	}
 	else 
 	{
-		isScaleX = false;
-	}
-	if (GameManager::PlayerSize.y < PLAYER_MAX_SIZE)
-	{
-		isScaleY = true;
-	}
-	else
-	{
-		isScaleY = false;
+		isScale = false;
 	}
 		
 	walkCnt = 0;
@@ -157,8 +150,7 @@ void Character::setScale()
 		}
 		else if (GameManager::PlayerSize.x > PLAYER_MAX_SIZE)
 		{
-			GameManager::PlayerSize.x = 96;
-			isScaleX = false;
+			GameManager::PlayerSize.x = PLAYER_MAX_SIZE;
 
 		}
 
@@ -169,8 +161,12 @@ void Character::setScale()
 		}
 		else if (GameManager::PlayerSize.y > PLAYER_MAX_SIZE)
 		{
-			GameManager::PlayerSize.y = 96;
-			isScaleY = false;
+			GameManager::PlayerSize.y = PLAYER_MAX_SIZE;
+		}
+
+		if (GameManager::PlayerSize.x == PLAYER_MAX_SIZE && GameManager::PlayerSize.y == PLAYER_MAX_SIZE)
+		{
+			isScale = false;
 		}
 
 		//サイズを適用する
