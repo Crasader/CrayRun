@@ -143,7 +143,7 @@ void StageLayer::update(float data)
 
 
 	
-		GameManager::CrayFloorSize = craystage[GameManager::PlayerMapPos]->CrayStageSize;
+	GameManager::CrayFloorSize = craystage[GameManager::PlayerMapPos]->CrayStageSize;
 	
 }
 

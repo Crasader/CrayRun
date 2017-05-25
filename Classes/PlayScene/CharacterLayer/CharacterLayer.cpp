@@ -280,7 +280,6 @@ void CharacterLayer::MultiTouchCharacter()
 	{
 		GameManager::PlayerSize.x = 16;
 		character->isScaleX = true;
-
 	}
 
 

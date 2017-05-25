@@ -80,5 +80,7 @@ public:
 
 
 	bool FloormultipleFlag;//°‚Ì‰º‚É“–‚½‚Á‚Ä‚¢‚é‚©
+
+	const int AnimationSpd = 5;
 };
 

@@ -28,7 +28,7 @@ void Phoenix::Animation()
 	//ジャンプできるときかつジャンプをまだしていないとき（歩いてるとき）
 	if (JumpCnt == 0 && JumpFlag == true)
 	{
-		switch (walkCnt / 10 % 4)
+		switch (walkCnt / AnimationSpd % 4)
 		{
 		case 0:
 			texture = TextureCache::sharedTextureCache()->addImage("Images/Phoenix_Chara.png");

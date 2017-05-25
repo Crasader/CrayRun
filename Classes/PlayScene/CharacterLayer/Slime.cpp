@@ -38,7 +38,7 @@ void Slime::Animation()
 	//ジャンプできるときかつジャンプをまだしていないとき（歩いてるとき）
 	if (JumpCnt == 0 && JumpFlag == true)
 	{
-		switch (walkCnt / 10 % 4)
+		switch (walkCnt / 7 % 4)
 		{
 		case 0:
 			texture = TextureCache::sharedTextureCache()->addImage("Images/slime_chara2.png");
