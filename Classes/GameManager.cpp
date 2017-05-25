@@ -18,7 +18,7 @@ bool  GameManager::CountDownFlag;//カウントダウンが終わったか
 //////////////キャラクター//////////////
 Vec2 GameManager::PlayerSpd = (Vec2(6.0f,-4.0f));//速度
 Vec2  GameManager::PlayerSize = Vec2(96, 96);//サイズ
-Vec2  GameManager::PlayerPos = Vec2(300.0f, GameManager::LAYRE_SIZE.y * 4 + 10);//座標
+Vec2  GameManager::PlayerPos = Vec2(300.0f, GameManager::LAYRE_SIZE.y * 4);//座標
 float  GameManager::ScoreCorrection = 1.0f;//スコア補正
 bool GameManager::RightFlag = false;//右側に当たったか
 
@@ -109,10 +109,9 @@ void GameManager::Initialize()
 	//////////////キャラクター//////////////
 	PlayerSpd = Vec2(6.0f, -4.0f);//速度
 	PlayerSize = Vec2(96, 96);//サイズ
-	PlayerPos = Vec2(300.0f, GameManager::LAYRE_SIZE.x * 4 + 10);//座標
 	ScoreCorrection = 1.0f;//スコア補正
 	RightFlag = false;//右側に当たったか
-
+	PlayerPos = (Vec2(300.0f, GameManager::LAYRE_SIZE.y * 4));//座標
 	
 
 

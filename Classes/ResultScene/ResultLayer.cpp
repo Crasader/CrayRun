@@ -96,6 +96,32 @@ void ResultLayer::update(float data)
 		VisibleCnt+=3;
 		s_touch->setOpacity(VisibleCnt);
 	}
+
+	//画面をさ触っているか
+	if (TouchFlag == true)
+	{
+		//今回のすこあ
+		if (m_resultscore->RankingFlag == true)
+		{
+
+			m_resultscore->ResultOutAction();
+			//一度しか通らない
+			m_resultscore->RankingFlag = false;
+
+			MoveBy* ScoreAction = MoveBy::create(m_resultscore->ActionSpd, Vec2(0, 700));
+			nowscore_background->runAction(ScoreAction);
+		}
+
+		if (m_resultscore->TitleFlag == true)
+		{
+
+
+			Scene* nextScene = TitleScene::create();
+
+			_director->replaceScene(nextScene);
+		}
+	}
+
 }
 /***************************************************************************
 *|	概要　　タッチされた時に呼ぶ関数
@@ -105,15 +131,10 @@ void ResultLayer::update(float data)
 void ResultLayer::onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event * unused_event)
 {
 	log("onTouchesBegan");
-	if (m_resultscore->RankingFlag == true)
-	{
-		m_resultscore->ResultOutAction();
-		//一度しか通らない
-		m_resultscore->RankingFlag = false;
-
-		MoveBy* ScoreAction = MoveBy::create(0.5f, Vec2(0, 700));
-		nowscore_background->runAction(ScoreAction);
-	}
+	//アクションの速度を遅くする
+	m_resultscore->ActionSpd = 0.3f;
+	//タッチしている
+	TouchFlag = true;
 }
 /***************************************************************************
 *|	概要　　タッチしていて動いたときに呼ぶ関数
@@ -131,14 +152,13 @@ void ResultLayer::onTouchesMoved(const std::vector<cocos2d::Touch*>& touches, co
 ****************************************************************************/
 void ResultLayer::onTouchesEnded(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event * unused_event)
 {
-	if (m_resultscore->TitleFlag == true)
-	{
-		
 
-		Scene* nextScene = TitleScene::create();
 
-		_director->replaceScene(nextScene);
-	}
+	m_resultscore->ActionSpd = 0.7f;
+
+	//タッチしていない
+	TouchFlag = false;
+
 }
 /***************************************************************************
 *|	概要　　タッチしているのをキャンセルしたときに呼ぶ関数

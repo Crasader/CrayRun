@@ -29,11 +29,15 @@ bool Score::init()
 	s_Number[SpriteCnt]->setTextureRect(Rect(0 * 64, 0, 64, 64));
 	//座標
 	s_Number[SpriteCnt]->setPosition(Vec2(200 + 64 * SpriteCnt, 580));
+
 	this->addChild(s_Number[SpriteCnt]);
 	//最大桁数を記憶
 	ScoreMaxDigit = SpriteCnt;
 
-
+	//スコア(文字)の作成
+	Sprite* s_score = Sprite::create("Images/Score.png");
+	s_score->setPosition(Vec2(100, 575));
+	this->addChild(s_score);
 	return true;
 }
 
@@ -95,7 +99,7 @@ void Score::ScoreIndicate(int Score)
 				//数字のスプライトを作成する
 				s_Number[SpriteCnt] = Sprite::create("Images/Number.png");
 				//座標
-				s_Number[SpriteCnt]->setPosition(Vec2(200 + 64 * SpriteCnt, 580));
+				s_Number[SpriteCnt]->setPosition(Vec2(200 + 50 * SpriteCnt, 580));
 				this->addChild(s_Number[SpriteCnt]);
 				//最大桁数を更新する
 				ScoreMaxDigit++;

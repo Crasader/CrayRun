@@ -113,12 +113,10 @@ void PlayScene::update(float data)
 	}
 
 
-
-
-
 	//画面左もしくは画面下に出たらリザルトシーンへ移行
 	if (GameManager::PlayerPos.y < 0 ||  GameManager::PlayerPos.x <= GameManager::WorldPosX || GameManager::GameOverFlag == true)
 	{
+
 		//キャラクタレイヤを止める
 		characterlayer->pause();
 		//UIレイヤを止める
@@ -126,10 +124,12 @@ void PlayScene::update(float data)
 		//ステージレイヤを止める
 		//カメラを止める
 		m_CameraFlag = false;
+		//ポーズ機能使用不可に
+		GameManager::CountDownFlag = false;
 
 		//エフェクト生成
 		Effect = Sprite::create("Images/EndEffect.png");
-		Effect->setPosition(GameManager::PlayerPos.x, GameManager::PlayerPos.y + GameManager::PlayerSize.y / 2);
+		Effect->setPosition(GameManager::PlayerPos.x + GameManager::PlayerSize.x, GameManager::PlayerPos.y + GameManager::PlayerSize.y / 2);
 		this->addChild(Effect);
 
 		//少し止めてからシーン以降

@@ -43,9 +43,6 @@ private:
 
 	//ステータス
 	Status* status;
-
-
-	float spd;
 };
 
 

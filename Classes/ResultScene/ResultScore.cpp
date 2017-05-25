@@ -55,6 +55,9 @@ bool ResultScore::init()
 	backcoin->setVisible(false);
 	this->addChild(backcoin);
 
+	//èâä˙âª
+	ActionSpd = 0.7f;
+
 	return true;
 }
 
@@ -352,7 +355,7 @@ void ResultScore::ScoreIndicate2(int Score)
 void ResultScore::ScoreAction(int cnt)
 {
 	
-	MoveBy* ScoreAction = MoveBy::create(0.7f,Vec2(-600, 0));
+	MoveBy* ScoreAction = MoveBy::create(ActionSpd,Vec2(-600, 0));
 	CallFunc* ScoreAction2 = CallFunc::create(CC_CALLBACK_0(ResultScore::ScoreAction, this, ++cnt));
 	Sequence* ScoreAction3 = Sequence::create(ScoreAction, ScoreAction2,nullptr);
 	if (cnt < 3)
@@ -373,21 +376,19 @@ void ResultScore::ResultOutAction()
 
 	for (int i = 0; i < 2; i++)
 	{
-		MoveBy* ResultAction = MoveBy::create(0.0f, Vec2(0.0f, 700.0f));
+		MoveBy* ResultAction = MoveBy::create(ActionSpd, Vec2(0.0f, 700.0f));
 
 		now_node_number[i]->runAction(ResultAction);
 	}
 
 	
-	MoveBy* ResultAction = MoveBy::create(0.5f, Vec2(0.0f, 700.0f));
+	MoveBy* ResultAction = MoveBy::create(ActionSpd, Vec2(0.0f, 700.0f));
 
 	CallFunc* ResultAction2 = CallFunc::create(CC_CALLBACK_0(ResultScore::RankingAction, this, -1));
 	Sequence* ResultAction3 = Sequence::create(ResultAction, ResultAction2, nullptr);
 
 	now_node_number[2]->runAction(ResultAction3);
-
 	
-
 }
 //
 //
@@ -403,7 +404,7 @@ void ResultScore::ResultOutAction()
 void ResultScore::RankingAction(int cnt)
 {
 	backcoin->setVisible(true);
-	MoveBy* ScoreAction = MoveBy::create(0.5f, Vec2(0, 600));
+	MoveBy* ScoreAction = MoveBy::create(ActionSpd, Vec2(0, 600));
 	CallFunc* ScoreAction2 = CallFunc::create(CC_CALLBACK_0(ResultScore::RankingAction, this, ++cnt));
 	Sequence* ScoreAction3 = Sequence::create(ScoreAction, ScoreAction2, nullptr);
 	if (cnt < 5)

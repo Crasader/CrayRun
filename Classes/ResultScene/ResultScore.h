@@ -69,6 +69,8 @@ public:
 	cocos2d::Node* node_number[MAX_SCORE + 1];
 	//タイトルシーンフラグ
 	bool TitleFlag;
+	//アクションの速度
+	float ActionSpd;
 private:
 	//
 	void RankingFlagChange() { RankingOutoFlag = true; }

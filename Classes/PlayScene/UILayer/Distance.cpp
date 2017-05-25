@@ -27,10 +27,16 @@ bool Distance::init()
 	//レクトを設定する
 	s_Number[SpriteCnt]->setTextureRect(Rect(0 * 64, 0, 64, 64));
 	//座標
-	s_Number[SpriteCnt]->setPosition(Vec2(600 + 64 * SpriteCnt, 580));
+	s_Number[SpriteCnt]->setPosition(Vec2(500 + 64 * SpriteCnt, 580));
 	this->addChild(s_Number[SpriteCnt]);
 	//最大桁数を記憶
 	DistanceMaxDigit = SpriteCnt;
+
+	//メートルスプライト作成
+	M = Sprite::create("Images/M.png");
+	M->setPosition(Vec2(500 + 64 * (SpriteCnt + 1),570));
+	this->addChild(M);
+
 
 	return true;
 }
@@ -86,7 +92,9 @@ void Distance::DistanceIndicate(int distance)
 			//数字のスプライトを作成する
 			s_Number[SpriteCnt] = Sprite::create("Images/Number.png");
 			//座標
-			s_Number[SpriteCnt]->setPosition(Vec2(600 + 64 * SpriteCnt, 580));
+			s_Number[SpriteCnt]->setPosition(Vec2(500 + 50 * SpriteCnt, 580));
+			M->setPosition(Vec2(500 + 64 * (SpriteCnt + 1), 570 ));
+
 			this->addChild(s_Number[SpriteCnt]);
 			//最大桁数を更新する
 			DistanceMaxDigit = SpriteCnt;

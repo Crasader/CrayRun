@@ -30,6 +30,7 @@ private:
 	int Digit;//桁数
 	int SpriteCnt;//何個目のスプライトかカウントする
 	int DistanceMaxDigit;//最大桁数
-
+	 //メートルスプライト
+	cocos2d::Sprite* M;
 };
 
