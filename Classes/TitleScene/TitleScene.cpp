@@ -1,8 +1,8 @@
 #include "TitleScene.h"
 #include "TitleLayer.h"
-
 /* ---- –¼‘O‹óŠÔ‚ð‰ð•ú -------------------- */
 USING_NS_CC;
+
 
 cocos2d::Scene * TitleScene::create()
 {
@@ -36,6 +36,7 @@ bool TitleScene::init()
 
 	TitleLayer* titleLayer = TitleLayer::create();
 	this->addChild(titleLayer);
+
 
 	return true;
 }

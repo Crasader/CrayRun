@@ -28,6 +28,8 @@ private:
 	void onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *unused_event);
 	//スワイプ時に呼び出される
 	void onTouchesMoved(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *unused_event);
+	//離したときに呼び出される
+	void onTouchEnded(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *unused_event);
 	//リザルトスコア
 	ResultScore* m_resultscore;
 	//背景画像
@@ -41,6 +43,8 @@ private:
 	bool CreateSprite;
 	//画面をタッチしているか
 	bool TouchFlag;
+	//BGM
+	int ResoultBgm;
 
 };
 

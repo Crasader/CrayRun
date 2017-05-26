@@ -1,0 +1,11 @@
+diff a/Classes/PlayScene/StageLayer/StageLayer.cpp b/Classes/PlayScene/StageLayer/StageLayer.cpp	(rejected hunks)
+@@ -140,6 +140,9 @@
+ 	//�j�����蔻��
+ 	HittingNeedle();
+ 	
++<<<<<<< HEAD
++	
++=======
+ 
+ 
+ 	//�R�C���̉���true�̎��͉�

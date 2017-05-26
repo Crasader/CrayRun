@@ -20,8 +20,8 @@ public:
 	
 	cocos2d::Sprite* s_Coin;//コイン
 	int m_CoinCnt;//コインをカウント
-
+	 
 private:
-
+	
 };
 

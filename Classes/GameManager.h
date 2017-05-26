@@ -80,7 +80,7 @@ public:
 	static float SlopePosY;//Î–ÊÀ•WY
 	//////////////ƒRƒCƒ“//////////////
 	/////////////‹àŒ^/////////////////
-	static int Mold;//‚Ç‚Ì‹àŒ^‚ÅŒ^‚ğæ‚Á‚Ä‚¢‚é‚©
+	static CharacterKind Mold;//‚Ç‚Ì‹àŒ^‚ÅŒ^‚ğæ‚Á‚Ä‚¢‚é‚©
 					//0F•’Ê
 					//1F“eŒ^
 	static bool ChangeMold;//‹àŒ^‚ª‚©‚í‚Á‚Ä‚¢‚é‚©‚Ç‚¤‚©,trueF•Ï‰»‚ ‚è,falseF•Ï‰»‚È‚µ

@@ -64,7 +64,7 @@ std::vector<std::vector<Vec2>> AllRightPos;//‘S‚Ä‚ÌÎ–Ê‰E’[‚ÌÀ•W
 
 /////////////‹àŒ^////////////////
 
-int GameManager::Mold = 0;//‹àŒ^
+CharacterKind GameManager::Mold = Normal;//‹àŒ^
 bool GameManager::ChangeMold = false;//‹àŒ^•Ï‰»‚ ‚é‚©
 
 int GameManager::MoldCnt = 0;
@@ -139,7 +139,7 @@ void GameManager::Initialize()
 
 	/////////////‹àŒ^////////////////
 
-	Mold = 0;//‹àŒ^
+	Mold = Normal;//‹àŒ^
 	ChangeMold = false;//‹àŒ^•Ï‰»‚ ‚é‚©
 
 

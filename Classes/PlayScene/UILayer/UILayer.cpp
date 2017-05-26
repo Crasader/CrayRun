@@ -9,6 +9,7 @@
 #include "UiLayer.h"
 #include "../../PauseScene/PauseScene.h"
 
+/* ---- –¼‘O‹óŠÔ‚ð‰ð•ú -------------------- */
 USING_NS_CC;
 
 bool UiLayer::init()
@@ -111,7 +112,8 @@ void UiLayer::onButtonTouch(Ref * ref, ui::Widget::TouchEventType eventType)
 	{
 		if (GameManager::CountDownFlag == true)
 		{
-
+			
+		
 			Scene* nextscene = PauseScene::create();
 			_director->pushScene(nextscene);
 			PauseFlag = true;

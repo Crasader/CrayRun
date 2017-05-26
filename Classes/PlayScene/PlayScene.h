@@ -16,6 +16,9 @@
 #include "../GameManager.h"
 #include "../ResultScene/ResultScene.h"
 #include "ui/CocosGUI.h"
+#include "audio/include/AudioEngine.h"
+
+
 class PlayScene :public cocos2d::Scene
 {
 public:
@@ -26,6 +29,8 @@ public:
 	//初期化する
 	virtual bool init();
 
+	//BGM
+	static int PlayBgm;
 private:
 	//毎フレーム呼ばれる
 	void update(float data)override;
@@ -55,6 +60,22 @@ private:
 	//ステージ
 	StageLayer* stagelayer;
 
+	//カウントダウンの音声再生
+	void PlayCountAudio(int NumberFlag)
+	{
+		if (NumberFlag == 0)
+		{
+
+			//ドーモ君ボイス再生
+			cocos2d::experimental::AudioEngine::play2d("Sounds/domovoice.mp3");
+
+		}
+		else
+		{
+			cocos2d::experimental::AudioEngine::play2d("Sounds/countdown.mp3");
+
+		}
+	}
 
 
 };

@@ -23,13 +23,13 @@ bool Background::init()
 
 	sizeX = 960;
 
-	/*background = Sprite::create("Images/PlayBackground.png");
+	background = Sprite::create("Images/PlayBackground.png");
 	background->setPosition(Vec2(GameManager::m_cameraposx, 320 + GameManager::m_cameraspdx));
 	this->addChild(background);
 
 	background = Sprite::create("Images/PlayBackground.png");
 	background->setPosition(Vec2(GameManager::m_cameraposx + sizeX, 320 + GameManager::m_cameraspdx));
-	this->addChild(background);*/
+	this->addChild(background);
 
 	return true;
 }
@@ -38,11 +38,9 @@ void Background::update(float delta)
 {
 	if (static_cast<int>(GameManager::m_cameraposx - 480) % sizeX == 0)
 	{
-		/*background = Sprite::create("Images/PlayBackground.png");
+		background = Sprite::create("Images/PlayBackground.png");
 		background->setPosition(Vec2(GameManager::m_cameraposx + 960, 320 + GameManager::m_cameraspdx));
-		this->addChild(background);*/
+		this->addChild(background);
 	}
 
 }
-
-

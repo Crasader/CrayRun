@@ -11,8 +11,14 @@
 #include "ResultScore.h"
 #include "ResultLayer.h"
 #include "EventListenerGesture.h"
+
+
+
+
 /* ---- –¼‘O‹óŠÔ‚ð‰ð•ú -------------------- */
 USING_NS_CC;
+
+
 
 
 bool ResultScene::init(int score, int distance)
