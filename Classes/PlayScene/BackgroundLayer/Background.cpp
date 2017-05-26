@@ -7,11 +7,11 @@
 ****************************************************************************/
 /* ---- ライブラリのインクルード ---------- */
 #include "Background.h"
+#include "../../GameManager.h"
 
 /* ---- 名前空間を解放 -------------------- */
 USING_NS_CC;
 using namespace cocos2d::experimental;
-
 
 
 bool Background::init()
@@ -21,7 +21,28 @@ bool Background::init()
 		return false;
 	}
 
+	sizeX = 960;
+
+	/*background = Sprite::create("Images/PlayBackground.png");
+	background->setPosition(Vec2(GameManager::m_cameraposx, 320 + GameManager::m_cameraspdx));
+	this->addChild(background);
+
+	background = Sprite::create("Images/PlayBackground.png");
+	background->setPosition(Vec2(GameManager::m_cameraposx + sizeX, 320 + GameManager::m_cameraspdx));
+	this->addChild(background);*/
+
 	return true;
+}
+
+void Background::update(float delta)
+{
+	if (static_cast<int>(GameManager::m_cameraposx - 480) % sizeX == 0)
+	{
+		/*background = Sprite::create("Images/PlayBackground.png");
+		background->setPosition(Vec2(GameManager::m_cameraposx + 960, 320 + GameManager::m_cameraspdx));
+		this->addChild(background);*/
+	}
+
 }
 
 

@@ -7,6 +7,7 @@
 ****************************************************************************/
 /* ---- ライブラリのインクルード ---------- */
 #include "BackgroundLayer.h"
+#include "../../GameManager.h"
 /* ---- 名前空間を解放 -------------------- */
 USING_NS_CC;
 
@@ -19,7 +20,7 @@ bool BackgroundLayer::init()
 	}
 
 	//レイヤーにノードを集約
-	Background* background = Background::create();
+	background = Background::create();
 	this->addChild(background);
 
 
@@ -35,5 +36,9 @@ bool BackgroundLayer::init()
 
 void BackgroundLayer::update(float data) 
 {
+	if (GameManager::m_cameraposx == 480 + GameManager::m_cameraspdx)
+	{
 
+		background->scheduleUpdate();
+	}
 };

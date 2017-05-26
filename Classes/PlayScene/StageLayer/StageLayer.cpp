@@ -21,6 +21,8 @@ bool StageLayer::init()
 	/////////マップ描画////////
 
 
+
+
 	//タイルマップの読み込み
 	std::ostringstream MapName;
 	int NowMap = rand() % MAX_MAP + 1;
@@ -65,6 +67,7 @@ bool StageLayer::init()
 	needle.push_back(Needle::create());
 	ItratorNeedle = needle.begin();
 	this->addChild((*ItratorNeedle));
+
 
 	// Register Touch Event
 	EventListenerTouchAllAtOnce* listener = EventListenerTouchAllAtOnce::create();
@@ -112,13 +115,7 @@ void StageLayer::update(float data)
 			GameManager::MapLoopCnt++;
 			//マップ生成
 			MapCreate();
-			//if (GameManager::MapLoopCnt > 5)
-			//{
-			//	//マップ削除
-			//	MapDelete();
-			//}
 	}
-
 
 	//粘土床のサイズ変更
 	Vector<Vec2>::iterator g_sizeitertor;
@@ -140,8 +137,6 @@ void StageLayer::update(float data)
 	//針当たり判定
 	HittingNeedle();
 	
-
-
 	
 	GameManager::CrayFloorSize = craystage[GameManager::PlayerMapPos]->CrayStageSize;
 	

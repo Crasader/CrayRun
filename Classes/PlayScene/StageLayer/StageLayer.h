@@ -47,6 +47,8 @@ private:
 	//針のマルチタッチ判定
 	void  MultiTouchNeedle();
 
+	cocos2d::Sprite* background;
+
 	//針
 	std::vector<Needle*> needle;
 	//金型オブジェクト

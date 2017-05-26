@@ -19,9 +19,11 @@ public:
 
 	CREATE_FUNC(Background);
 
+	void update(float delta)override;
+
 private:
-
-
+	int sizeX;
+	cocos2d::Sprite* background;
 };
 
 
