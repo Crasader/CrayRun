@@ -38,9 +38,6 @@ bool ResultScore::init()
 	////数字のスプライトを作成する
 	s_now_number = Sprite::create("Images/Number.png");
 
-
-
-
 	////数字のスプライトを作成する
 	s_Number = Sprite::create("Images/Number.png");
 	//最大桁数を記憶
@@ -329,12 +326,12 @@ void ResultScore::ScoreIndicate2(int Score)
 
 	
 			//数字のスプライトを作成する
-		s_now_number = Sprite::create("Images/Number.png");
+		s_now_number = Sprite::create("Images/Number1_1.png");
 		//レクトを設定する
 		s_now_number->setTextureRect(Rect(SaveScore * 64, 0, 64, 64));
 
 		//座標
-		s_now_number->setPosition(Vec2(1200 + 64 * j /*+ 960*/, 485 - (now_number * 170)));
+		s_now_number->setPosition(Vec2(1100 + 64 * j , 450 - (now_number * 140)));
 
 
 		//基盤ノードにぶら下げる
