@@ -3,10 +3,13 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
-
+#include "SimpleAudioEngine.h"
 #include "TitleScene/TitleScene.h"
+
 USING_NS_CC;
 
+using namespace CocosDenshion;
+using namespace experimental;
 AppDelegate::AppDelegate() {
 
 }
@@ -30,6 +33,21 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
 	/* 乱数系列の変更 */
 	srand((unsigned)time(NULL));
+	//音楽ファイルを読み込み
+	AudioEngine::preload("Sounds/domovoice.mp3");
+	AudioEngine::preload("Sounds/RabbitVoice.mp3");
+	AudioEngine::preload("Sounds/Gnome_VoiceSE.mp3");
+	AudioEngine::preload("Sounds/phoenix_CrySE.mp3");
+	AudioEngine::preload("Sounds/SlimeSE.mp3");
+	AudioEngine::preload("Sounds/jump04.mp3");
+	AudioEngine::preload("Sounds/ResultBGM.ogg");
+	AudioEngine::preload("Sounds/coin03.mp3");
+	AudioEngine::preload("Sounds/TitleBGMLoop.mp3");
+	AudioEngine::preload("Sounds/crash.mp3");
+
+	//AudioEngine::preload("Sounds/");
+
+
 	log("############################### AppDelegate started");
     // initialize director
     auto director = Director::getInstance();
@@ -65,7 +83,7 @@ void AppDelegate::applicationDidEnterBackground() {
     Director::getInstance()->stopAnimation();
 
     // if you use SimpleAudioEngine, it must be pause
-    // SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
+     SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
 }
 
 // this function will be called when the app is active again
@@ -73,5 +91,5 @@ void AppDelegate::applicationWillEnterForeground() {
     Director::getInstance()->startAnimation();
 
     // if you use SimpleAudioEngine, it must resume here
-    // SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+     SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
 }

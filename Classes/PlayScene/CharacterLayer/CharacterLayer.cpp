@@ -8,10 +8,11 @@
 /* ---- ライブラリのインクルード ---------- */
 #include "CharacterLayer.h"
 
-USING_NS_CC;
-
-
+#include "audio/include//AudioEngine.h"
 /* ---- 名前空間を解放 -------------------- */
+USING_NS_CC;
+using namespace experimental;
+
 bool CharacterLayer::init()
 {
 	if (!Layer::init()) {
@@ -19,8 +20,6 @@ bool CharacterLayer::init()
 		return false;
 
 	}
-	log("############################### CHARsCTERLAYER created");
-
 	//レイヤーにノードを集約
 	character = Character::create();
 	this->addChild(character);
@@ -55,6 +54,7 @@ bool CharacterLayer::init()
 
 	FirstMultiTouchCnt = 0;
 	
+
 	return true;
 }
 
@@ -97,7 +97,7 @@ void CharacterLayer::update(float date)
 	//キャラクタ上方向上限
 	character->JumpBan();
 
-	if (static_cast<int>(GameManager::m_cameraposx + 480) % static_cast<int>(GameManager::MAP_SIZE.x) == 0)
+	if (static_cast<int>(GameManager::m_cameraposx - 480) % static_cast<int>(GameManager::MAP_SIZE.x) == 0)
 	{
 		//敵
 		enemy.push_back(Enemy::create());
@@ -253,7 +253,6 @@ void CharacterLayer::MultiTouchCharacter()
 	if (m_touch_collision[0] == true && character->isScale == false)
 	{
 		GameManager::PlayerSize.x = 16;
-		GameManager::PlayerSize.x = 32;
 		character->isScale = true;
 	}
 
@@ -279,10 +278,7 @@ void CharacterLayer::MultiTouchCharacter()
 	if (m_touch_collision[0] == true && character->isScale == false)
 	{
 		GameManager::PlayerSize.x = 16;
-
 		character->isScale = true;
-
-
 	}
 
 
@@ -408,17 +404,25 @@ void CharacterLayer::MultiTouchCharacter()
 //__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/
 void CharacterLayer::ChangeMold()
 {
+	//前回と違うキャラクタタイプか
+	if (old_chara_kind != GameManager::Mold)
+	{
 		switch (GameManager::Mold)
 		{
 		case Normal:
 			character->removeFromParent();
 			character = Character::create();
+			//ノームボイス再生
+			AudioEngine::play2d("Sounds/domovoice.mp3");
 			//変更したので戻す
 	//		GameManager::ChangeMold = false;
 			break;
 		case Rabbit:
 			character->removeFromParent();
 			character = Rabbit::create();
+			//ウサギボイス再生
+			AudioEngine::play2d("Sounds/RabbitVoice.mp3");
+
 			//変更したので戻す
 	//		GameManager::ChangeMold = false;
 			break;
@@ -426,24 +430,30 @@ void CharacterLayer::ChangeMold()
 			//変更したので戻す
 			character->removeFromParent();
 			character = Gnome::create();
-	//		GameManager::ChangeMold = false;
+			AudioEngine::play2d("Sounds/Gnome_VoiceSE.mp3");
+			//		GameManager::ChangeMold = false;
 			break;
 		case Phoenix:
 			//変更したので戻す
 			character->removeFromParent();
 			character = Phoenix::create();
-	//		GameManager::ChangeMold = false;
+			AudioEngine::play2d("Sounds/phoenix_CrySE.mp3");
+			//		GameManager::ChangeMold = false;
 			break;
 		case Slime:
 			character->removeFromParent();
 			character = Slime::create();
+			AudioEngine::play2d("Sounds/SlimeSE.mp3");
 			//変更したので戻す
 	//		GameManager::ChangeMold = false;
 			break;
 		}
+	}
 		//ジャンプ情報をリセットする
 		character->JumpCnt = 0;
 		character->JumpFlag = true;
+		//今回のキャラタイプを保存する
+		old_chara_kind = GameManager::Mold;
 		//変更したのでaddChildする
 		this->addChild(character);
 
@@ -648,6 +658,10 @@ void CharacterLayer::CollisionResponseEnemy()
 				GameManager::RightFlag = true;
 				//GameManager::PlayerSpd.x = -6.0f;
 				GameManager::GameOverFlag = true;
+				//当たったので潰れる
+				character->s_player->setAnchorPoint(Vec2(0, 0));
+				GameManager::PlayerSize.x = 32;
+
 			}
 			break;
 		case up:

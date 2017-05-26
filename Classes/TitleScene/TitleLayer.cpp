@@ -2,6 +2,8 @@
 #include "../PlayScene/PlayScene.h"
 #include "../InfoScene/InfoScene.h"
 #include "../GameManager.h"
+#include "TitleCharacter.h"
+#include "audio\include\AudioEngine.h"
 
 USING_NS_CC;
 
@@ -31,23 +33,50 @@ bool TitleLayer::init()
 	b_exit->setPosition(Vec2(GameManager::SCREEN_SIZE.x / 3 * 2, 200));
 	this->addChild(b_exit);
 
+	//タイトルキャラクタの作成
+	TitleChracter* titlecharacter = TitleChracter::create();
+	this->addChild(titlecharacter);
+
+	//////音声を再生をする
+	TitleBgm = experimental::AudioEngine::play2d("Sounds/TitleBGMLoop.ogg",true);
+	//experimental::AudioEngine::setLoop(TitleBgm,true);
+	//音楽オブジェクト生成
+
 
 	this->scheduleUpdate();
 	return true;
 }
+
 
 void TitleLayer::update(float delta)
 {
 	//スタートボタンが押されたら
 	if (b_start->isHighlighted())
 	{
+		//音楽止める
+		experimental::AudioEngine::stop(TitleBgm);
+		int touchAudio = experimental::AudioEngine::play2d("Sounds/touch.mp3");
+		//音声を再生をする
+		//experimental::AudioEngine::setFinishCallback(touchAudio,CC_CALLBACK_0(TitleLayer::IsuncacheAll,this));
+
+
+		//初期化処理
 		GameManager::Initialize();
+
+		////プレイシーンへ
 		Scene* nextscene = PlayScene::create();
 		_director->pushScene(nextscene);
+	
 	}
-
+	//説明書
 	if (b_info->isHighlighted())
 	{
+
+		//BGMを止める
+		experimental::AudioEngine::stop(TitleBgm);
+		
+		//音声キャッシュ
+		experimental::AudioEngine::uncacheAll();
 		Scene* nextscene = InfoScene::create();
 		_director->pushScene(nextscene);
 	}
@@ -55,6 +84,8 @@ void TitleLayer::update(float delta)
 	//終了ボタンが押されたら
 	if (b_exit->isHighlighted()) 
 	{
+		
+
 		_director->end();
 	}
 }

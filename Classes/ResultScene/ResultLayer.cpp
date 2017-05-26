@@ -8,14 +8,21 @@
 /* ---- ライブラリのインクルード ---------- */
 #include "ResultLayer.h"
 #include "../TiTleScene/TitleScene.h"
-
+#include "audio/include/AudioEngine.h"
+/* ---- 名前空間を解放 -------------------- */
 USING_NS_CC;
+using namespace experimental;
+
 
 bool ResultLayer::init()
 {
 	if (!Layer::init()) {
 		return false;
 	}
+	//BGM再生
+	ResoultBgm = AudioEngine::play2d("Sounds/ResultBGM.ogg");
+	AudioEngine::setLoop(ResoultBgm, true);
+
 	//背景
 	Sprite* backcoin = Sprite::create("Images/Result.png");
 	backcoin->setPosition(Vec2(GameManager::SCREEN_SIZE.x / 2, GameManager::SCREEN_SIZE.y / 2));
@@ -67,8 +74,11 @@ bool ResultLayer::init()
 
 	listener->onTouchesBegan = CC_CALLBACK_2(ResultLayer::onTouchesBegan, this);
 	listener->onTouchesMoved = CC_CALLBACK_2(ResultLayer::onTouchesMoved, this);
-
+	listener->onTouchesMoved = CC_CALLBACK_2(ResultLayer::onTouchEnded, this);
 	_director->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+
+
+
 
 	this->scheduleUpdate();
 	return true;
@@ -110,14 +120,6 @@ void ResultLayer::update(float data)
 			nowscore_background->runAction(ScoreAction);
 		}
 
-		if (m_resultscore->TitleFlag == true)
-		{
-
-
-			Scene* nextScene = TitleScene::create();
-
-			_director->replaceScene(nextScene);
-		}
 	}
 
 }
@@ -128,11 +130,33 @@ void ResultLayer::update(float data)
 ****************************************************************************/
 void ResultLayer::onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event * unused_event)
 {
+
+
 	log("onTouchesBegan");
-	//アクションの速度を遅くする
+
+	if (m_resultscore->TitleFlag == true)
+	{
+		//音声を再生をする
+		AudioEngine::play2d("Sounds/touch.mp3");
+
+		//BGM止める
+		AudioEngine::stop(ResoultBgm);
+
+		//音楽のメモリを解放する
+		AudioEngine::uncacheAll();
+		//タイトルシーンへ
+		Scene* nextScene = TitleScene::create();
+
+		_director->replaceScene(nextScene);
+	}
+	//アクションの速度をハヤくする
 	m_resultscore->ActionSpd = 0.3f;
 	//タッチしている
 	TouchFlag = true;
+
+
+
+
 }
 /***************************************************************************
 *|	概要　　タッチしていて動いたときに呼ぶ関数
@@ -142,4 +166,11 @@ void ResultLayer::onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, co
 void ResultLayer::onTouchesMoved(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event * unused_event)
 {
 	log("onTouchesMoved");
+}
+
+void ResultLayer::onTouchEnded(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event * unused_event)
+{
+	//アクションの速度を遅くする
+	m_resultscore->ActionSpd = 0.7f;
+
 }

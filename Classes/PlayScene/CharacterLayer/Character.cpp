@@ -8,9 +8,13 @@
 /* ---- ライブラリのインクルード ---------- */
 #include "Character.h"
 
+#include "audio/include//AudioEngine.h"
+
+
+
 /* ---- 名前空間を解放 -------------------- */
 USING_NS_CC;
-
+using namespace experimental;
 
 
 bool Character::init()
@@ -73,13 +77,14 @@ void Character::Move()
 ****************************************************************************/
 void Character::Jump()
 {
-
 	//ジャンプした回数をインクリメント
 	JumpCnt++;
 
 	//ジャンプ可能ならジャンプさせる
 	if (JumpFlag == true)
 	{
+		//ジャンプ音再生
+		AudioEngine::play2d("Sounds/jump04.mp3");
 		GameManager::PlayerSpd.y = JumpSize;
 	}
 	//二回ジャンプしたらジャンプ不可にする

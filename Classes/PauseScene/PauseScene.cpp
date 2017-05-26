@@ -12,8 +12,10 @@
 #include "PauseScene.h"
 #include "../PlayScene/PlayScene.h"
 #include "../TitleScene/TitleScene.h"
+#include "audio/include/AudioEngine.h"
 /* ---- 名前空間を解放 -------------------- */
 USING_NS_CC;
+//using namespace experimental;
 
 
 bool PauseScene::init()
@@ -56,6 +58,9 @@ void PauseScene::update(float data)
 
 	if (TitleButton->isHighlighted())
 	{
+		//プレイシーンのBGM終了
+		experimental::AudioEngine::stop(PlayScene::PlayBgm);
+
 		GameManager::Initialize();
 		Scene* nextscene = TitleScene::create();
 		_director->pushScene(nextscene);

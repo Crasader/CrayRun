@@ -8,9 +8,14 @@
 
 /* ---- ライブラリのインクルード ---------- */
 #include "PlayScene.h"
+
 /* ---- 名前空間を解放 -------------------- */
 USING_NS_CC;
-using namespace cocos2d::experimental;
+using namespace experimental;
+
+
+int PlayScene::PlayBgm = 0;
+
 
 /* ---- メンバー関数の定義 ---------------- */
 /***************************************************************************
@@ -25,6 +30,7 @@ bool PlayScene::init()
 	{
 		return false;
 	}
+	
 	// 背景レイヤー呼び出し
 	auto backgroundlayer = BackgroundLayer::create();
 	// 背景レイヤー関連のレイヤー
@@ -51,7 +57,7 @@ bool PlayScene::init()
 	//// 一時停止
 	//cocos2d::Director::getInstance()->pause();
 	//cocos2d::Director::getInstance()->isPaused();
-
+	
 
 	//マップ画像生成
 	for (int i = 1; i <= 3; i++)
@@ -70,7 +76,9 @@ bool PlayScene::init()
 	Go->setVisible(false);
 	this->addChild(Go);
 
+
 	
+
 	//update関数を呼ぶ
 	this->scheduleUpdate();
 
@@ -96,6 +104,7 @@ void PlayScene::update(float data)
 		uilayer->pause();
 		//ステージレイヤを止める
 		stagelayer->pause();
+
 	}
 
 	if (m_CameraFlag == true)
@@ -126,11 +135,16 @@ void PlayScene::update(float data)
 		m_CameraFlag = false;
 		//ポーズ機能使用不可に
 		GameManager::CountDownFlag = false;
-
+		//衝突音再生
+		AudioEngine::play2d("Sounds/crash.mp3");
 		//エフェクト生成
 		Effect = Sprite::create("Images/EndEffect.png");
 		Effect->setPosition(GameManager::PlayerPos.x + GameManager::PlayerSize.x, GameManager::PlayerPos.y + GameManager::PlayerSize.y / 2);
 		this->addChild(Effect);
+
+		//BGM停止
+		AudioEngine::stop(PlayBgm);
+
 
 		//少し止めてからシーン以降
 		DelayTime* action = DelayTime::create(1.0f);
@@ -146,22 +160,30 @@ void PlayScene::update(float data)
 void PlayScene::NumberAction(int cnt)
 {
 	//待つ、表示、動く、消える、関数呼ぶを順番に
-	DelayTime* action = DelayTime::create(0.5f);
+	DelayTime* action = DelayTime::create(1.0f);
 	Show* action2 = Show::create();
 	MoveBy* action3 = MoveBy::create(0.4f, Vec2(0.0f, -50.0f));
+	CallFunc* CountAudio = CallFunc::create(CC_CALLBACK_0(PlayScene::PlayCountAudio, this,cnt));
+	Spawn* SpawnAction = Spawn::create(action3, CountAudio, nullptr);
 	RemoveSelf* action4 = RemoveSelf::create();
 	CallFunc* action5 = CallFunc::create(CC_CALLBACK_0(PlayScene::NumberAction, this, --cnt));
-	Sequence* action6 = Sequence::create(action, action2, action3, action4, action5,  nullptr);
+	Sequence* action6 = Sequence::create(action, action2, SpawnAction, action4, action5,  nullptr);
 	
 	//Goのアクションとして実行
 	if (cnt == -1)
 	{
 		Go->runAction(action6);
+
 	}
 	
 	//全て終わったらカメラを動かす
 	else if (cnt == -2)
 	{
+	
+		//BGM再生
+		PlayBgm = AudioEngine::play2d("Sounds/PlayBGM.ogg", true);
+		//AudioEngine::setLoop(PlayBgm, true);
+
 		//カメラを動かす
 		m_CameraFlag = true;
 		//キャラクタレイヤを再始動する
@@ -172,13 +194,18 @@ void PlayScene::NumberAction(int cnt)
 		stagelayer->resume();
 		//ポーズ機能ができるようにする
 		GameManager::CountDownFlag = true;
+
 	}
 	//カウントとしてアクションを実行
-	
 	if (cnt >= 0)
 	{
+		//音楽のメモリを解放する
+		AudioEngine::uncacheAll();
+
 		Number[cnt]->runAction(action6);
+
 	}
+
 }
 
 

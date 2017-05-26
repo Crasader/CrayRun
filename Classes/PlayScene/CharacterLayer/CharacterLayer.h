@@ -96,6 +96,10 @@ private:
 	int FirstMultiTouchCnt;
 	int FirstMultiTouchFlag;
 
+
+	//前回のキャラクタタイプ
+	CharacterKind old_chara_kind;
+
 	float SavePlayerPosx;
 
 

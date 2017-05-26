@@ -356,8 +356,10 @@ void ResultScore::ScoreAction(int cnt)
 {
 	
 	MoveBy* ScoreAction = MoveBy::create(ActionSpd,Vec2(-600, 0));
+	CallFunc* AudioRanking = CallFunc::create(CC_CALLBACK_0(ResultScore::PlayAudioRanking, this));
+	Spawn* SpawnAction = Spawn::create(ScoreAction, AudioRanking,nullptr);
 	CallFunc* ScoreAction2 = CallFunc::create(CC_CALLBACK_0(ResultScore::ScoreAction, this, ++cnt));
-	Sequence* ScoreAction3 = Sequence::create(ScoreAction, ScoreAction2,nullptr);
+	Sequence* ScoreAction3 = Sequence::create(SpawnAction, ScoreAction2,nullptr);
 	if (cnt < 3)
 	{
 		now_node_number[cnt]->runAction(ScoreAction3);
@@ -377,18 +379,18 @@ void ResultScore::ResultOutAction()
 	for (int i = 0; i < 2; i++)
 	{
 		MoveBy* ResultAction = MoveBy::create(ActionSpd, Vec2(0.0f, 700.0f));
-
 		now_node_number[i]->runAction(ResultAction);
 	}
 
 	
 	MoveBy* ResultAction = MoveBy::create(ActionSpd, Vec2(0.0f, 700.0f));
-
 	CallFunc* ResultAction2 = CallFunc::create(CC_CALLBACK_0(ResultScore::RankingAction, this, -1));
 	Sequence* ResultAction3 = Sequence::create(ResultAction, ResultAction2, nullptr);
 
 	now_node_number[2]->runAction(ResultAction3);
 	
+
+
 }
 //
 //
@@ -405,8 +407,10 @@ void ResultScore::RankingAction(int cnt)
 {
 	backcoin->setVisible(true);
 	MoveBy* ScoreAction = MoveBy::create(ActionSpd, Vec2(0, 600));
+	CallFunc* AudioRanking = CallFunc::create(CC_CALLBACK_0(ResultScore::PlayAudioRanking, this));
+	Spawn* action = Spawn::create(ScoreAction, AudioRanking, nullptr);
 	CallFunc* ScoreAction2 = CallFunc::create(CC_CALLBACK_0(ResultScore::RankingAction, this, ++cnt));
-	Sequence* ScoreAction3 = Sequence::create(ScoreAction, ScoreAction2, nullptr);
+	Sequence* ScoreAction3 = Sequence::create(action, ScoreAction2, nullptr);
 	if (cnt < 5)
 	{
 		node_number[cnt]->runAction(ScoreAction3);

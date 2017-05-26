@@ -70,7 +70,6 @@ void Rabbit::Animation()
 	else
 	{
 		texture = TextureCache::sharedTextureCache()->addImage("Images/Rabbit_Charaj.png");
-
 		s_player->setTexture(texture);
 		s_player->setContentSize(texture->getContentSize());
 	}

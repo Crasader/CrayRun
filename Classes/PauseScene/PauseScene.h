@@ -27,7 +27,5 @@ private:
 	////毎フレーム呼ばれる
 	void update(float data)override;
 	cocos2d::ui::Button* CountinueButton;//ボタン
-
 	cocos2d::ui::Button* TitleButton;//ボタン
-
 };

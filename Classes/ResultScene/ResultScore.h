@@ -9,6 +9,7 @@
 /* ---- ライブラリのインクルード ---------- */
 #include "cocos2d.h"
 #include "../GameManager.h"
+#include "audio/include/AudioEngine.h"
 /* ---- 列挙型 ---------- */
 enum ScoreNumber
 {
@@ -90,7 +91,8 @@ private:
 	//void CallRankingActuin();
 	cocos2d::Sprite* backcoin;
 
-
+	void PlayAudioRanking() {
+		cocos2d::experimental::AudioEngine::play2d("Sounds/SlideSE.ogg"); }
 	//int compare_int(const void *a, const void *b);
 
 };

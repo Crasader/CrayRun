@@ -8,8 +8,12 @@
 /* ---- ライブラリのインクルード ---------- */
 #include "../../GameManager.h"
 #include "StageLayer.h"
+#include "audio/include/AudioEngine.h"
+
 /* ---- 名前空間を解放 -------------------- */
 USING_NS_CC;
+
+
 //using namespace std;
 bool StageLayer::init()
 {
@@ -32,7 +36,7 @@ bool StageLayer::init()
 
 	//マップチップ
 	GameManager::map.push_back(TMXTiledMap::create(MapName.str()));
-	//GameManager::map.push_back(TMXTiledMap::create("TestMap.tmx"));
+	//GameManager::map.push_back(TMXTiledMap::create("Map/aaaaa.tmx"));
 
 	IteratorMap = GameManager::map.begin();
 	TMXTiledMap* g_Map = *IteratorMap;
@@ -292,6 +296,8 @@ void StageLayer::CollisionResponseCoin()
 				(n_coin->getPosition(), n_coin->getContentSize(),
 					GameManager::PlayerPos, GameManager::PlayerSize) == true)
 				{
+					//コイン音再生
+					experimental::AudioEngine::play2d("Sounds/coin03.mp3");
 					//当たったコインを削除
 					m_SaveCoin->getChildByTag(g_LoopCnt)->removeFromParent();
 					//スコアにとったコインのポイントをたす
@@ -476,22 +482,22 @@ void StageLayer::MultiTouchCrayStage()
 			
 
 			}
-			//左右に挟んだか
-			else if (m_touch_collision_direction[0] == left || m_touch_collision_direction[1] == left || m_touch_collision_direction[0] == right || m_touch_collision_direction[1] == right)
-			{
-				//int g_distanceX;
-				//if (touchpos[0].x - touchpos[1].x < 0)
-				//{
-				//	g_distanceX = touchpos[1].x - touchpos[0].x;
-				//}
-				//else
-				//{
-				//	g_distanceX = touchpos[0].x - touchpos[1].x;
-				//}
-				//大きさ変更
-				craystage[GameManager::PlayerMapPos]->CrayStageSize[loop_cnt].x = 32;
-				//GameManager::CrayFloorSize = craystage[GameManager::PlayerMapPos]->CrayStageSize;
-			}
+			////左右に挟んだか
+			//else if (m_touch_collision_direction[0] == left || m_touch_collision_direction[1] == left || m_touch_collision_direction[0] == right || m_touch_collision_direction[1] == right)
+			//{
+			//	//int g_distanceX;
+			//	//if (touchpos[0].x - touchpos[1].x < 0)
+			//	//{
+			//	//	g_distanceX = touchpos[1].x - touchpos[0].x;
+			//	//}
+			//	//else
+			//	//{
+			//	//	g_distanceX = touchpos[0].x - touchpos[1].x;
+			//	//}
+			//	//大きさ変更
+			//	craystage[GameManager::PlayerMapPos]->CrayStageSize[loop_cnt].x = 32;
+			//	//GameManager::CrayFloorSize = craystage[GameManager::PlayerMapPos]->CrayStageSize;
+			//}
 		}
 
 		loop_cnt++;
