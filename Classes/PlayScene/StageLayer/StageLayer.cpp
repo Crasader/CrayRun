@@ -18,9 +18,7 @@ USING_NS_CC;
 bool StageLayer::init()
 {
 	if (!Layer::init()) {
-
 		return false;
-
 	}
 	/////////マップ描画////////
 
@@ -90,6 +88,7 @@ bool StageLayer::init()
 	//this->addChild(n);
 
 	DeleteCnt = 0;
+	coin_Audio_flag == true;
 
 	this->scheduleUpdate();
 
@@ -146,7 +145,17 @@ void StageLayer::update(float data)
 	
 
 
-	
+	//コインの音がtrueの時は回す
+	if (coin_Audio_flag == false)
+	{
+		coin_cnt++;
+	}
+	if (coin_cnt > 60)
+	{
+		coin_Audio_flag = true;
+		coin_cnt = 0;
+	}
+
 	GameManager::CrayFloorSize = craystage[GameManager::PlayerMapPos]->CrayStageSize;
 	
 }
@@ -296,8 +305,15 @@ void StageLayer::CollisionResponseCoin()
 				(n_coin->getPosition(), n_coin->getContentSize(),
 					GameManager::PlayerPos, GameManager::PlayerSize) == true)
 				{
-					//コイン音再生
-					experimental::AudioEngine::play2d("Sounds/coin03.mp3");
+					//コインの音がtrueの時は回す
+					if (coin_Audio_flag == true)
+					{
+						//コイン音再生
+						experimental::AudioEngine::play2d("Sounds/coin03.ogg");
+						coin_Audio_flag = false;
+						coin_cnt = 0;
+					}
+
 					//当たったコインを削除
 					m_SaveCoin->getChildByTag(g_LoopCnt)->removeFromParent();
 					//スコアにとったコインのポイントをたす

@@ -88,6 +88,10 @@ private:
 	const int MAX_MAP = 3;
 	//前回のマップ
 	int OldMap;
+	//コインカウント
+	int coin_cnt;
+	//コインフラグ
+	bool coin_Audio_flag;
 };
 
 
