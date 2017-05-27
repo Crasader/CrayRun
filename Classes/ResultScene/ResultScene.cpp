@@ -6,6 +6,8 @@
 *|　作成日　2017/5/10
 *|___________________________________________________________________________
 ****************************************************************************/
+//#pragma execution_character_set("utf-8")
+
 /* ---- ライブラリのインクルード ---------- */
 #include "ResultScene.h"
 #include "ResultScore.h"
@@ -18,7 +20,7 @@
 /* ---- 名前空間を解放 -------------------- */
 USING_NS_CC;
 
-
+//using namespace ui;
 
 
 bool ResultScene::init(int score, int distance)
@@ -38,8 +40,26 @@ bool ResultScene::init(int score, int distance)
 	ResultScore::m_distance = distance;
 	log("############################### ResultScene created");
 	//ResultLayerを集約
-	ResultLayer* resultlayer = ResultLayer::create();
-	this->addChild(resultlayer);
+
+
+
+	//ResultLayer* resultlayer = ResultLayer::create();
+	//this->addChild(resultlayer);
+
+	//EditBox * editBox = EditBox::create(Size(400, 60), "Images/coin1.png");
+	//editBox->setFont("arial", 24);
+	//editBox->setPlaceHolder("aaa");
+	//editBox->setFontColor(Color4B(0, 0, 0, 255));
+	//editBox->setMaxLength(16);
+	//editBox->setText("aaaa");
+	//editBox->setReturnType(EditBox::KeyboardReturnType::DONE);
+	//editBox->setInputMode(EditBox::InputMode::SINGLE_LINE);
+	//editBox->setPosition(Vec2(480.0f, 320.0f));
+	//editBox->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
+	//editBox->setDelegate(this);
+
+	//this->addChild(editBox);
+
 	return true;
 }
 
@@ -93,3 +113,19 @@ bool ResultScene::onTouchBegan(Touch* touch, Event* pEvent)
 	return true;
 
 }
+
+//void ResultScene::editBoxEditingDidBegin(cocos2d::ui::EditBox * editBox)
+//{
+//}
+//
+//void ResultScene::editBoxEditingDidEnd(cocos2d::ui::EditBox * editBox)
+//{
+//}
+//
+//void ResultScene::editBoxTextChanged(cocos2d::ui::EditBox * editBox, const std::string & text)
+//{
+//}
+//
+//void ResultScene::editBoxReturn(cocos2d::ui::EditBox * editBox)
+//{
+//}

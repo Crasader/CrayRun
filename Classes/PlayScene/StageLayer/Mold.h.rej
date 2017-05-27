@@ -1,0 +1,9 @@
+diff a/Classes/PlayScene/StageLayer/Mold.h b/Classes/PlayScene/StageLayer/Mold.h	(rejected hunks)
+@@ -25,6 +25,7 @@
+ 	std::vector<CharacterKind> m_kind;//�L�����N�^�[�̎��
+ <<<<<<< HEAD
+ 	const cocos2d::Vec2 SIZE = cocos2d::Vec2(64 * 2.0f, 64 * 1.8f);
++=======
+ 	const cocos2d::Vec2 SIZE = cocos2d::Vec2(64 * 2.0f, 64 * 1.4f);
+ 
+ private:

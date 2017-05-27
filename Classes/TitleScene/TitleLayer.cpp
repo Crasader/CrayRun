@@ -55,7 +55,7 @@ void TitleLayer::update(float delta)
 	{
 		//‰¹Šy~‚ß‚é
 		experimental::AudioEngine::stop(TitleBgm);
-		int touchAudio = experimental::AudioEngine::play2d("Sounds/touch.mp3");
+		experimental::AudioEngine::play2d("Sounds/touch.mp3");
 		//‰¹º‚ğÄ¶‚ğ‚·‚é
 		//experimental::AudioEngine::setFinishCallback(touchAudio,CC_CALLBACK_0(TitleLayer::IsuncacheAll,this));
 
@@ -74,9 +74,10 @@ void TitleLayer::update(float delta)
 
 		//BGM‚ğ~‚ß‚é
 		experimental::AudioEngine::stop(TitleBgm);
-		
+		experimental::AudioEngine::play2d("Sounds/touch.mp3");
+
 		//‰¹ºƒLƒƒƒbƒVƒ…
-		experimental::AudioEngine::uncacheAll();
+	//	experimental::AudioEngine::uncacheAll();
 		Scene* nextscene = InfoScene::create();
 		_director->pushScene(nextscene);
 	}
@@ -85,6 +86,7 @@ void TitleLayer::update(float delta)
 	if (b_exit->isHighlighted()) 
 	{
 		
+		experimental::AudioEngine::play2d("Sounds/touch.mp3");
 
 		_director->end();
 	}

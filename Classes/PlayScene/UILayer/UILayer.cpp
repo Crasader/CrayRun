@@ -8,9 +8,10 @@
 /* ---- ライブラリのインクルード ---------- */
 #include "UiLayer.h"
 #include "../../PauseScene/PauseScene.h"
-
+#include "audio/include/AudioEngine.h"
 /* ---- 名前空間を解放 -------------------- */
 USING_NS_CC;
+//using namespace experimental;
 
 bool UiLayer::init()
 {
@@ -33,8 +34,8 @@ bool UiLayer::init()
 
 
 	//ボタンを作成する
-	button = ui::Button::create("Images/pause.png");
-	button->setPosition(Vec2(900, 600));
+	button = ui::Button::create("Images/pauseUI.png");
+	button->setPosition(Vec2(900, 580));
 	this->addChild(button);
 
 
@@ -112,8 +113,7 @@ void UiLayer::onButtonTouch(Ref * ref, ui::Widget::TouchEventType eventType)
 	{
 		if (GameManager::CountDownFlag == true)
 		{
-			
-		
+			experimental::AudioEngine::play2d("Sounds/touch.mp3");
 			Scene* nextscene = PauseScene::create();
 			_director->pushScene(nextscene);
 			PauseFlag = true;
