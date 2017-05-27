@@ -23,7 +23,7 @@ public:
 	std::vector<cocos2d::Sprite*> s_Mold;//金型
 	std::vector<cocos2d::Sprite*> s_BackMold;//奥の金型
 	std::vector<CharacterKind> m_kind;//キャラクターの種類
-	const cocos2d::Vec2 SIZE = cocos2d::Vec2(64 * 2.0, 64 * 18);
+	const cocos2d::Vec2 SIZE = cocos2d::Vec2(64 * 2.0f, 64 * 1.4f);
 
 private:
 	const int m_while_distance = 25;

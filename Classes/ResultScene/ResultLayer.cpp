@@ -6,13 +6,18 @@
 *|___________________________________________________________________________
 ****************************************************************************/
 /* ---- ライブラリのインクルード ---------- */
+
+
 #include "ResultLayer.h"
 #include "../TiTleScene/TitleScene.h"
 #include "audio/include/AudioEngine.h"
+//#include "Hoge.h"
+//#include "cocos-ext.h"
 /* ---- 名前空間を解放 -------------------- */
 USING_NS_CC;
 using namespace experimental;
-
+//using namespace ui;
+//USING_NS_CC_EXT;
 
 bool ResultLayer::init()
 {
@@ -79,6 +84,20 @@ bool ResultLayer::init()
 
 
 
+	//auto editBox = EditBox::create(Size(100, 300), Scale9Sprite::create("image.png"));
+	//editBox->setFont("font.ttf", 46.0f);
+	//editBox->setPlaceHolder("ここに入力してください");
+	//editBox->setPlaceholderFontColor(Color3B::BLACK);
+	//editBox->setFontColor(Color3B::BLACK);
+	//editBox->setPosition(Vec2(480.0f, 320.0f));
+	//editBox->setMaxLength(100);
+	//editBox->setText("aaaaaaa");
+	//editBox->setReturnType(EditBox::KeyboardReturnType::DONE);
+	//editBox->setInputMode(EditBox::InputMode::ANY);
+	//editBox->setDelegate((cocos2d::ui::EditBoxDelegate*)this);
+	//this->addChild(editBox);
+
+
 
 	this->scheduleUpdate();
 	return true;
@@ -130,6 +149,8 @@ void ResultLayer::update(float data)
 ****************************************************************************/
 void ResultLayer::onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event * unused_event)
 {
+
+
 	log("onTouchesBegan");
 
 	if (m_resultscore->TitleFlag == true)
@@ -151,10 +172,6 @@ void ResultLayer::onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, co
 	m_resultscore->ActionSpd = 0.3f;
 	//タッチしている
 	TouchFlag = true;
-
-
-
-
 }
 /***************************************************************************
 *|	概要　　タッチしていて動いたときに呼ぶ関数
@@ -170,5 +187,4 @@ void ResultLayer::onTouchEnded(const std::vector<cocos2d::Touch*>& touches, coco
 {
 	//アクションの速度を遅くする
 	m_resultscore->ActionSpd = 0.7f;
-
 }

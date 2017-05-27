@@ -385,9 +385,6 @@ void ResultScore::ResultOutAction()
 	Sequence* ResultAction3 = Sequence::create(ResultAction, ResultAction2, nullptr);
 
 	now_node_number[2]->runAction(ResultAction3);
-	
-
-
 }
 //
 //

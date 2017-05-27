@@ -26,13 +26,11 @@ bool Status::init()
 	for (int i = 1; i < 5; i++)
 	{
 		s_status[i]->setScale(1.2f);
-		s_status[i]->setPosition(Vec2(GameManager::PlayerPos.x - 96.0f, 200.0f));
+		s_status[i]->setPosition(Vec2(GameManager::PlayerPos.x - 140, 200.0f));
 		s_status[i]->setVisible(false);
 		this->addChild(s_status[i]);
 	}
-
 	//
-	
 	//–ˆƒtƒŒ[ƒ€ŒÄ‚Ño‚·
 	this->scheduleUpdate();
 

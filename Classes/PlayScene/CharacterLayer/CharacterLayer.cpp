@@ -56,6 +56,7 @@ bool CharacterLayer::init()
 
 	FirstMultiTouchCnt = 0;
 	
+	
 
 	return true;
 }

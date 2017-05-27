@@ -53,6 +53,7 @@ void PauseScene::update(float data)
 
 	if (CountinueButton->isHighlighted())
 	{
+		experimental::AudioEngine::play2d("Sounds/touch.mp3");
 		_director->popScene();
 	}
 
@@ -60,6 +61,7 @@ void PauseScene::update(float data)
 	{
 		//プレイシーンのBGM終了
 		experimental::AudioEngine::stop(PlayScene::PlayBgm);
+		experimental::AudioEngine::play2d("Sounds/touch.mp3");
 
 		GameManager::Initialize();
 		Scene* nextscene = TitleScene::create();

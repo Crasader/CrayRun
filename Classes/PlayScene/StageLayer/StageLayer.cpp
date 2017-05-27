@@ -185,7 +185,6 @@ void StageLayer::MapCreate()
 	GameManager::map[GameManager::MapLoopCnt]->setAnchorPoint(Vec2(0, 0));
 	//タイルマップの座標設定
 	GameManager::map[GameManager::MapLoopCnt]->setPosition(Point(GameManager::MAP_SIZE.x * GameManager::MapLoopCnt, 0));
-
 	//画像の描画
 	this->addChild(GameManager::map[GameManager::MapLoopCnt]);
 
@@ -301,13 +300,13 @@ void StageLayer::CollisionResponseCoin()
 					GameManager::PlayerPos, GameManager::PlayerSize) == true)
 				{
 					//コインの音がtrueの時は回す
-					if (coin_Audio_flag == true)
-					{
+			//		if (coin_Audio_flag == true)
+				//	{
 						//コイン音再生
 						experimental::AudioEngine::play2d("Sounds/coin03.ogg");
 						coin_Audio_flag = false;
 						coin_cnt = 0;
-					}
+				//	}
 
 					//当たったコインを削除
 					m_SaveCoin->getChildByTag(g_LoopCnt)->removeFromParent();
@@ -627,5 +626,8 @@ void StageLayer::MoldParticle(cocos2d::Vec2 Position)
 	RemoveSelf* action2 = RemoveSelf::create();
 	Sequence* action3 = Sequence::create(action,action2,nullptr);
 	particle->runAction(action3);
+
+	experimental::AudioEngine::play2d("Sounds/mold.mp3");
+	
 }
 

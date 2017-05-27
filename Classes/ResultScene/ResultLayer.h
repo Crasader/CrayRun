@@ -10,8 +10,7 @@
 /* ---- ライブラリのインクルード ---------- */
 #include "cocos2d.h"
 #include "ResultScore.h"
-
-
+#include "ui/CocosGUI.h"
 
 class ResultLayer :public cocos2d::Layer
 {
@@ -47,5 +46,3 @@ private:
 	int ResoultBgm;
 
 };
-
-

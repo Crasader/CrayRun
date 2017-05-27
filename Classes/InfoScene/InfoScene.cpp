@@ -1,10 +1,10 @@
 #include "InfoScene.h"
 #include "../TitleScene/TitleScene.h"
 #include "../GameManager.h"
-
+#include "audio/include/AudioEngine.h"
 /* ---- –¼‘O‹óŠÔ‚ð‰ð•ú -------------------- */
 USING_NS_CC;
-
+//using namespace experimental;
 
 cocos2d::Scene * InfoScene::create()
 {
@@ -66,6 +66,7 @@ void InfoScene::update(float delta)
 {
 	if (b_BackScene->isHighlighted())
 	{
+		experimental::AudioEngine::play2d("Sounds/touch.mp3");
 		Scene* nextscene = TitleScene::create();
 		_director->pushScene(nextscene);
 	}

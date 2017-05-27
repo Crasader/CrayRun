@@ -1,15 +1,18 @@
 #include "AppDelegate.h"
-#include "PlayScene/PlayScene.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
 #include "SimpleAudioEngine.h"
 #include "TitleScene/TitleScene.h"
 
+
 USING_NS_CC;
 
 using namespace CocosDenshion;
 using namespace experimental;
+
+
+
 AppDelegate::AppDelegate() {
 
 }
@@ -30,6 +33,7 @@ void AppDelegate::initGLContextAttrs()
 }
 
 bool AppDelegate::applicationDidFinishLaunching() {
+
 
 	/* —”Œn—ñ‚Ì•ÏX */
 	srand((unsigned)time(NULL));
@@ -58,7 +62,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     }
     director->getOpenGLView()->setDesignResolutionSize(960, 640, ResolutionPolicy::SHOW_ALL);
 
-    // turn on display FPS
+	// turn on display FPS
     director->setDisplayStats(true);
 
     // set FPS. the default value is 1.0/60 if you don't call this
@@ -95,3 +99,6 @@ void AppDelegate::applicationWillEnterForeground() {
 
 
 }
+
+
+
