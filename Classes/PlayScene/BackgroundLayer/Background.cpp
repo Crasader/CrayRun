@@ -42,5 +42,4 @@ void Background::update(float delta)
 		background->setPosition(Vec2(GameManager::m_cameraposx + 960, 320 + GameManager::m_cameraspdx));
 		this->addChild(background);
 	}
-
 }
