@@ -94,6 +94,9 @@ private:
 	int coin_cnt;
 	//コインフラグ
 	bool coin_Audio_flag;
+	//金型パーティクル
+	void MoldParticle(cocos2d::Vec2 Position);
+
 };
 
 

@@ -8,7 +8,7 @@
 /* ---- ライブラリのインクルード ---------- */
 #include "CharacterLayer.h"
 
-#include "audio/include//AudioEngine.h"
+#include "audio/include/AudioEngine.h"
 /* ---- 名前空間を解放 -------------------- */
 USING_NS_CC;
 using namespace experimental;
@@ -415,7 +415,7 @@ void CharacterLayer::ChangeMold()
 			//ノームボイス再生
 			AudioEngine::play2d("Sounds/domovoice.mp3");
 			//変更したので戻す
-	//		GameManager::ChangeMold = false;
+			GameManager::ChangeMold = false;
 			break;
 		case Rabbit:
 			character->removeFromParent();
@@ -424,38 +424,40 @@ void CharacterLayer::ChangeMold()
 			AudioEngine::play2d("Sounds/RabbitVoice.mp3");
 
 			//変更したので戻す
-	//		GameManager::ChangeMold = false;
+			//GameManager::ChangeMold = false;
 			break;
 		case Gnome:
 			//変更したので戻す
 			character->removeFromParent();
 			character = Gnome::create();
 			AudioEngine::play2d("Sounds/Gnome_VoiceSE.mp3");
-			//		GameManager::ChangeMold = false;
+			//GameManager::ChangeMold = false;
 			break;
 		case Phoenix:
 			//変更したので戻す
 			character->removeFromParent();
 			character = Phoenix::create();
 			AudioEngine::play2d("Sounds/phoenix_CrySE.mp3");
-			//		GameManager::ChangeMold = false;
+			//GameManager::ChangeMold = false;
 			break;
 		case Slime:
 			character->removeFromParent();
 			character = Slime::create();
 			AudioEngine::play2d("Sounds/SlimeSE.mp3");
 			//変更したので戻す
-	//		GameManager::ChangeMold = false;
+	       //GameManager::ChangeMold = false;
 			break;
 		}
+		//変更したのでaddChildする
+		this->addChild(character);
 	}
+//	GameManager::ChangeMold = false;
 		//ジャンプ情報をリセットする
 		character->JumpCnt = 0;
 		character->JumpFlag = true;
 		//今回のキャラタイプを保存する
 		old_chara_kind = GameManager::Mold;
-		//変更したのでaddChildする
-		this->addChild(character);
+		
 
 	
 }

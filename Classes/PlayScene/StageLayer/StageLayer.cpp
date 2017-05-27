@@ -342,10 +342,34 @@ void StageLayer::HittingMold()
 				GameManager::PlayerPos, GameManager::PlayerSize) == true)
 			{
 				//当たった金型を削除
-				//mold[GameManager::MapLoopCnt]->removeFromParent();
+				//(*IteratorMold)->removeFromParent();
+				
 				//兎型のキャラクターに変更
 				GameManager::Mold = mold[GameManager::PlayerMapPos]->m_kind[loop_cnt];
 				GameManager::ChangeMold = true;
+				//金型アクション
+				//アクションを止める
+				//(*IteratorMold)->stopAllActions();
+				//mold[GameManager::PlayerMapPos]->s_BackMold[loop_cnt]->stopAllActions();
+
+				//挟むアクション
+				MoveBy* action1 = MoveBy::create(0.01f, Vec2(12, 0));
+				(*IteratorMold)->runAction(action1);
+				(*IteratorMold)->setScale(1.4, 1.4);
+
+				MoveBy* action2 = MoveBy::create(0.01f, Vec2(-13, 0));
+				CallFunc* action3 = CallFunc::create(CC_CALLBACK_0(StageLayer::MoldParticle, this, (*IteratorMold)->getPosition()- Vec2(70, 0)));
+				Sequence* action4 = Sequence::create(action2, action3, nullptr);
+
+				mold[GameManager::PlayerMapPos]->s_BackMold[loop_cnt]->runAction(action4);
+				mold[GameManager::PlayerMapPos]->s_BackMold[loop_cnt]->setScale(1.4, 1.4);
+
+
+				//金型パーティクル
+				//StageLayer::MoldParticle((*IteratorMold)->getPosition() + Vec2(12, 0));
+
+				(*IteratorMold) = nullptr;
+
 			}
 		}
 		loop_cnt++;
@@ -580,5 +604,28 @@ void StageLayer::MultiTouchNeedle()
 		loop_cnt++;
 	}
 
+}
+//金型パーティクル
+void StageLayer::MoldParticle(cocos2d::Vec2 Position)
+{
+
+	// 作成したパーティクルのプロパティリストを読み込み
+	ParticleSystemQuad* particle = ParticleSystemQuad::create("Particle/particle_texture2.plist");
+	//パーティクルのメモリーリーク回避（★重要）
+	particle->setAutoRemoveOnFinish(true);
+	// パーティクルを開始
+	particle->resetSystem();
+	// パーティクルを表示する場所の設定
+	particle->setPosition(Position);
+	//パーティクルのスケール
+	particle->setScale(0.5);
+	// パーティクルを配置
+	this->addChild(particle);
+
+	////パーティクルのアクション
+	DelayTime* action = DelayTime::create(1.0f);
+	RemoveSelf* action2 = RemoveSelf::create();
+	Sequence* action3 = Sequence::create(action,action2,nullptr);
+	particle->runAction(action3);
 }
 

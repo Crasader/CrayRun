@@ -33,7 +33,8 @@ bool Character::init()
 		s_player->setAnchorPoint(Vec2(0.5, 0));
 		this->addChild(s_player);
 	}
-	else {
+	else 
+	{
 		Texture2D* texture = TextureCache::sharedTextureCache()->addImage("Images/Player2.png");
 	}
 
@@ -84,7 +85,7 @@ void Character::Jump()
 	if (JumpFlag == true)
 	{
 		//ジャンプ音再生
-		AudioEngine::play2d("Sounds/jump04.mp3");
+		AudioEngine::play2d("Sounds/jump04.ogg");
 		GameManager::PlayerSpd.y = JumpSize;
 	}
 	//二回ジャンプしたらジャンプ不可にする

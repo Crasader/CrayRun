@@ -53,42 +53,70 @@ bool Mold::init(){
 						case Rabbit:
 							m_kind.push_back(Rabbit);
 							s_Mold.push_back(Sprite::create("Images/Rabbit_Model.png"));
+							s_BackMold.push_back (Sprite::create("Images/Rabbit_Model.png"));
 							break;
 
 						case Gnome:
 							m_kind.push_back(Gnome);
 							s_Mold.push_back(Sprite::create("Images/Gnome_Mold.png"));
+							s_BackMold.push_back( Sprite::create("Images/Gnome_Mold.png"));
 							break;
 
 						case Phoenix:
 							m_kind.push_back(Phoenix);
 							s_Mold.push_back(Sprite::create("Images/Phoenix_Mold.png"));
+							s_BackMold.push_back(Sprite::create("Images/Phoenix_Mold.png"));
 							break;
 
 						case Slime:
 							m_kind.push_back(Slime);
 							s_Mold.push_back(Sprite::create("Images/slime_Mold.png"));
+							s_BackMold.push_back(Sprite::create("Images/slime_Mold.png"));
 							break;
 
 						default:
 							break;
 						}
-
-						s_Mold[loop_cnt]->setAnchorPoint(Vec2(0, 1));
+						//手前の金型
+						s_Mold[loop_cnt]->setAnchorPoint(Vec2(1, 0.5));
+						s_Mold[loop_cnt]->setScale(1.8, 1.8);
 						//座標を設定する
 						s_Mold[loop_cnt]->
 							setPosition(j * GameManager::LAYRE_SIZE.x + GameManager::MapLoopCnt *  GameManager::MAP_SIZE.x,
 							(GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y - i) * GameManager::LAYRE_SIZE.y);
 
-						//金型のアクション
-						MoveBy* moldaction = MoveBy::create(1.0f,Vec2(0.0f, 64 * 2.0f));
-						MoveBy* moldaction2 = MoveBy::create(1.0f, Vec2(0.0f, -64 * 2.0f));
-						Sequence* moldaction3 = Sequence::create(moldaction, moldaction2, nullptr);
-						RepeatForever* moldaction4 = RepeatForever::create(moldaction3);
-						s_Mold[loop_cnt]->runAction(moldaction4);
-
-
+						//描画優先順位を設定する
+						s_Mold[loop_cnt]->setGlobalZOrder(100.0f);
 						this->addChild(s_Mold[loop_cnt]);
+
+
+						//奥の金型
+						s_BackMold[loop_cnt]->setAnchorPoint(Vec2(1, 0.5));
+						s_BackMold[loop_cnt]->setScale(1.2f, 1.2f);
+						s_BackMold[loop_cnt]->
+							setPosition(j * GameManager::LAYRE_SIZE.x + GameManager::MapLoopCnt *  GameManager::MAP_SIZE.x + m_while_distance,
+							(GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y - i) * GameManager::LAYRE_SIZE.y);
+						this->addChild(s_BackMold[loop_cnt]);
+
+
+
+						////金型のアクション
+						//MoveBy* moldaction = MoveBy::create(1.0f, Vec2(0.0f, 64 * 2.0f));
+						//MoveBy* moldaction2 = MoveBy::create(1.0f, Vec2(0.0f, -64 * 2.0f));
+						//Sequence* moldaction3 = Sequence::create(moldaction, moldaction2, nullptr);
+						//RepeatForever* moldaction4 = RepeatForever::create(moldaction3);
+
+						////金型のアクション
+						//MoveBy* moldaction0 = MoveBy::create(1.0f, Vec2(0.0f, 64 * 2.0f));
+						//MoveBy* moldaction02 = MoveBy::create(1.0f, Vec2(0.0f, -64 * 2.0f));
+						//Sequence* moldaction03 = Sequence::create(moldaction0, moldaction02, nullptr);
+						//RepeatForever* moldaction04 = RepeatForever::create(moldaction03);
+
+						////アクションを実行
+						//s_Mold[loop_cnt]->runAction(moldaction4);
+						//s_BackMold[loop_cnt]->runAction(moldaction04);
+
+					
 						//カウントを増やす
 						loop_cnt++;
 					}
