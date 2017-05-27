@@ -130,8 +130,6 @@ void ResultLayer::update(float data)
 ****************************************************************************/
 void ResultLayer::onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event * unused_event)
 {
-
-
 	log("onTouchesBegan");
 
 	if (m_resultscore->TitleFlag == true)

@@ -18,9 +18,13 @@ public:
 	CREATE_FUNC(Enemy);
 	std::vector < cocos2d::Vec2> m_EnemyPos;//è∞ç¿ïW
 	const float ENEMY_SIZE = 4.0f;
+	std::vector<cocos2d::Sprite*> s_enemy;
+
+	void update(float delta)override;
 private:
 	
-
+	int m_loopcnt;
+	int m_animecnt;
 
 };
 

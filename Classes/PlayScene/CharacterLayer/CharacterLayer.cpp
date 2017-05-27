@@ -31,6 +31,8 @@ bool CharacterLayer::init()
 	//–ˆƒtƒŒ[ƒ€ŒÄ‚Ño‚·
 	this->scheduleUpdate();
 
+	enemy[0]->scheduleUpdate();
+
 	// Register Touch Event
 	EventListenerTouchAllAtOnce* listener = EventListenerTouchAllAtOnce::create();
 

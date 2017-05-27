@@ -22,6 +22,8 @@ bool Enemy::init()
 	//レイヤー取得
 	TMXLayer* layer = GameManager::map[GameManager::MapLoopCnt]->getLayer("EnemyLayer");
 
+	m_loopcnt = 0;
+	m_animecnt = 0;
 	bool flag = true;
 
 	//一回目:レイヤーの数を調べる,2回目:座標を設定する
@@ -48,11 +50,48 @@ bool Enemy::init()
 						//座標を設定する
 						m_EnemyPos.push_back(Vec2(j * GameManager::LAYRE_SIZE.x + GameManager::MapLoopCnt * GameManager::MAP_SIZE.x,
 							(GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y - i) * GameManager::LAYRE_SIZE.y));
+
+						s_enemy.push_back(Sprite::create("Images/enemy1.png"));
+						s_enemy[m_loopcnt]->setScale(2.0 / 3.0f);
+						s_enemy[m_loopcnt]->setAnchorPoint(Vec2(0,1));
+						s_enemy[m_loopcnt]->setPosition(m_EnemyPos[m_loopcnt]);
+						this->addChild(s_enemy[m_loopcnt]);
+
+						m_loopcnt++;
 					}
 				}
 			}
 		}
 	}
+
 	return true;
 }
+
+void Enemy::update(float delta)
+{
+	if (m_animecnt % 10 == 0)
+	{
+		Texture2D* texture;
+		for (int i = 0; i < m_loopcnt; i++)
+		{
+			switch (m_animecnt / 10 % 2)
+			{
+			case 0:
+				texture = TextureCache::sharedTextureCache()->addImage("Images/enemy1.png");
+
+				s_enemy[i]->setTexture(texture);
+				break;
+			case 1:
+				texture = TextureCache::sharedTextureCache()->addImage("Images/enemy2.png");
+
+				s_enemy[i]->setTexture(texture);
+				break;
+			default:
+				break;
+			}
+		}
+	}
+	m_animecnt++;
+}
+
 
