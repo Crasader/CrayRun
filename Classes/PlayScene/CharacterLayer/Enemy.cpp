@@ -69,19 +69,29 @@ bool Enemy::init()
 
 void Enemy::update(float delta)
 {
-	if (m_animecnt % 10 == 0)
+	if (m_animecnt % 7 == 0)
 	{
 		Texture2D* texture;
 		for (int i = 0; i < m_loopcnt; i++)
 		{
-			switch (m_animecnt / 10 % 2)
+			switch (m_animecnt / 7 % 6)
 			{
 			case 0:
+			case 5:
 				texture = TextureCache::sharedTextureCache()->addImage("Images/enemy1.png");
 
 				s_enemy[i]->setTexture(texture);
 				break;
 			case 1:
+			case 4:
+				texture = TextureCache::sharedTextureCache()->addImage("Images/enemy3.png");
+
+				s_enemy[i]->setTexture(texture);
+				break;
+
+			case 2:
+			case 3:
+
 				texture = TextureCache::sharedTextureCache()->addImage("Images/enemy2.png");
 
 				s_enemy[i]->setTexture(texture);

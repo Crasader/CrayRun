@@ -32,8 +32,9 @@ private:
 	void onTouchEnded(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *unused_event);
 	//リザルトスコア
 	ResultScore* m_resultscore;
-	//背景画像
+	//リザルト表示画像
 	cocos2d::Sprite* nowscore_background;
+	cocos2d::Sprite* backcoin;
 	//ランキングフラグ
 	bool RankingFlag;
 	cocos2d::Sprite* s_touch;

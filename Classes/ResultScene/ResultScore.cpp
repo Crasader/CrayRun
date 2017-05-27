@@ -418,7 +418,3 @@ void ResultScore::RankingAction(int cnt)
 	}
 
 }
-
-
-
-

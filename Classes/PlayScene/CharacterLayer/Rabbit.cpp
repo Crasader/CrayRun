@@ -24,7 +24,7 @@ bool Rabbit::init()
 
 	GameManager::ScoreCorrection = 1.2f;
 	// 普通の画像から変更
-	Texture2D* texture = TextureCache::sharedTextureCache()->addImage("Images/Rabbit_Chara2.png");
+	Texture2D* texture = TextureCache::sharedTextureCache()->addImage("Images/Rabbit2.png");
 
 	s_player->setTexture(texture);
 	s_player->setContentSize(texture->getContentSize());
@@ -41,25 +41,27 @@ void Rabbit::Animation()
 	//ジャンプできるときかつジャンプをまだしていないとき（歩いてるとき）
 	if (JumpCnt == 0 && JumpFlag == true)
 	{
-		switch (walkCnt / AnimationSpd % 4)
+		switch (walkCnt / AnimationSpd % 6)
 		{
 		case 0:
-			texture = TextureCache::sharedTextureCache()->addImage("Images/Rabbit_Chara.png");
-
-			s_player->setTexture(texture);
-			s_player->setContentSize(texture->getContentSize());
-
-			break;
 		case 1:
-		case 3:
-			texture = TextureCache::sharedTextureCache()->addImage("Images/Rabbit_Chara2.png");
+			texture = TextureCache::sharedTextureCache()->addImage("Images/Rabbit3.png");
 
 			s_player->setTexture(texture);
 			s_player->setContentSize(texture->getContentSize());
 
 			break;
 		case 2:
-			texture = TextureCache::sharedTextureCache()->addImage("Images/Rabbit_Chara3.png");
+		case 3:
+			texture = TextureCache::sharedTextureCache()->addImage("Images/Rabbit1.png");
+
+			s_player->setTexture(texture);
+			s_player->setContentSize(texture->getContentSize());
+
+			break;
+		case 4:
+		case 5:
+			texture = TextureCache::sharedTextureCache()->addImage("Images/Rabbit2.png");
 
 			s_player->setTexture(texture);
 			s_player->setContentSize(texture->getContentSize());
@@ -69,7 +71,7 @@ void Rabbit::Animation()
 	}
 	else
 	{
-		texture = TextureCache::sharedTextureCache()->addImage("Images/Rabbit_Charaj.png");
+		texture = TextureCache::sharedTextureCache()->addImage("Images/Rabbit3.png");
 		s_player->setTexture(texture);
 		s_player->setContentSize(texture->getContentSize());
 	}

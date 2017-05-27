@@ -170,7 +170,7 @@ void Character::setScale()
 			GameManager::PlayerSize.y = PLAYER_MAX_SIZE;
 		}
 
-		if (GameManager::PlayerSize.x == PLAYER_MAX_SIZE && GameManager::PlayerSize.y == PLAYER_MAX_SIZE)
+		if (GameManager::PlayerSize.x == PLAYER_MAX_SIZE && GameManager::PlayerSize.y == PLAYER_MAX_SIZE || GameManager::Mold == Slime)
 		{
 			isScale = false;
 		}

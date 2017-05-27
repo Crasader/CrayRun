@@ -24,7 +24,7 @@ bool ResultLayer::init()
 	AudioEngine::setLoop(ResoultBgm, true);
 
 	//”wŒi
-	Sprite* backcoin = Sprite::create("Images/Result.png");
+	backcoin = Sprite::create("Images/Result.png");
 	backcoin->setPosition(Vec2(GameManager::SCREEN_SIZE.x / 2, GameManager::SCREEN_SIZE.y / 2));
 	backcoin->setScale(1.5f, 1.4f);
 	this->addChild(backcoin);
@@ -116,8 +116,14 @@ void ResultLayer::update(float data)
 			//ˆê“x‚µ‚©’Ê‚ç‚È‚¢
 			m_resultscore->RankingFlag = false;
 
+
 			MoveBy* ScoreAction = MoveBy::create(m_resultscore->ActionSpd, Vec2(0, 700));
 			nowscore_background->runAction(ScoreAction);
+
+
+			Texture2D* texture = TextureCache::sharedTextureCache()->addImage("Images/Ranking.png");
+
+			backcoin->setTexture(texture);
 		}
 
 	}
