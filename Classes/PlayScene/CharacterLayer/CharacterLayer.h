@@ -18,6 +18,7 @@
 #include "Enemy.h"
 
 
+
 //有効なタッチの数
  const int EFFECTIVENESS_TOUCH = 2;
 class CharacterLayer :public cocos2d::Layer
@@ -102,6 +103,6 @@ private:
 
 	float SavePlayerPosx;
 
-
+	//キャラクタ
 };
 

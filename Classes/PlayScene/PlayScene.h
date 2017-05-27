@@ -77,5 +77,6 @@ private:
 		}
 	}
 
-
+	//ゲームオーバー処理を通ったか
+	bool GameOverflag;
 };

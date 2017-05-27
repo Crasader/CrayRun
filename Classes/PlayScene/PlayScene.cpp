@@ -77,7 +77,6 @@ bool PlayScene::init()
 	this->addChild(Go);
 
 
-	
 
 	//update関数を呼ぶ
 	this->scheduleUpdate();
@@ -123,7 +122,13 @@ void PlayScene::update(float data)
 
 
 	//画面左もしくは画面下に出たらリザルトシーンへ移行
-	if (GameManager::PlayerPos.y < 0 ||  GameManager::PlayerPos.x <= GameManager::WorldPosX || GameManager::GameOverFlag == true)
+	if (GameManager::PlayerPos.y < 0 || GameManager::PlayerPos.x <= GameManager::WorldPosX)
+	{
+		GameManager::GameOverFlag = true;
+	}
+
+	//ゲームオーバー二なったとき
+	if (GameManager::GameOverFlag == true && this->GameOverflag == false)
 	{
 
 		//キャラクタレイヤを止める
@@ -151,6 +156,10 @@ void PlayScene::update(float data)
 		CallFunc* action2 = CallFunc::create(CC_CALLBACK_0(PlayScene::TransitionPlayToResult, this));
 		Sequence* action3 = Sequence::create(action, action2, nullptr);
 		this->runAction(action3);
+
+
+		//この処理を二度行われないようにする
+		this->GameOverflag = true;
 	}
 
 }

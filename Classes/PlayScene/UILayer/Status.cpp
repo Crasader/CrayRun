@@ -30,6 +30,9 @@ bool Status::init()
 		s_status[i]->setVisible(false);
 		this->addChild(s_status[i]);
 	}
+
+	//
+	
 	//毎フレーム呼び出す
 	this->scheduleUpdate();
 
@@ -56,26 +59,45 @@ void Status::update(float delta)
 //__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/
 void Status::StatusAction()
 {
+	//アクションが終わっているか
+	for (int i = 1; i < 5; i++)
+	{
+		if (!s_status[i]->getActionByTag(1))
+		{
+			s_status[i]->stopActionByTag(1);
+		}
+		//非表示にする
+		s_status[i]->setVisible(false);
+	}
+	//アクション
 	Show* action1 = Show::create();
 	DelayTime* action2 = DelayTime::create(5.0f);
 	Hide* action3 = Hide::create();
-	Sequence* action4 = Sequence::create(action1,action2,action3,nullptr);
+	Sequence* m_status_action = Sequence::create(action1,action2,action3,nullptr);
+	m_status_action->setTag(1);
+
 
 	switch (GameManager::Mold)
 	{
 	case Normal:
 		break;
 	case Rabbit:
-		s_status[Rabbit]->runAction(action4);
+		s_status[Rabbit]->runAction(m_status_action);
 		break;
 	case Gnome:
-		s_status[Gnome]->runAction(action4);
+		s_status[Gnome]->runAction(m_status_action);
 		break;
 	case Phoenix:
-		s_status[Phoenix]->runAction(action4);
+		s_status[Phoenix]->runAction(m_status_action);
 		break;
 	case Slime:
-		s_status[Slime]->runAction(action4);
+		s_status[Slime]->runAction(m_status_action);
 		break;
 	}
+
+
+
+
+
+
 }

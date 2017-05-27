@@ -39,7 +39,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	AudioEngine::preload("Sounds/Gnome_VoiceSE.mp3");
 	AudioEngine::preload("Sounds/phoenix_CrySE.mp3");
 	AudioEngine::preload("Sounds/SlimeSE.mp3");
-	AudioEngine::preload("Sounds/jump04.mp3");
+	AudioEngine::preload("Sounds/jump04.ogg");
 	AudioEngine::preload("Sounds/ResultBGM.ogg");
 	AudioEngine::preload("Sounds/coin03.mp3");
 	AudioEngine::preload("Sounds/TitleBGMLoop.mp3");
@@ -80,10 +80,10 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
 // This function will be called when the app is inactive. When comes a phone call,it's be invoked too
 void AppDelegate::applicationDidEnterBackground() {
-    Director::getInstance()->stopAnimation();
+    //Director::getInstance()->stopAnimation();
 
-    // if you use SimpleAudioEngine, it must be pause
-     SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
+    //// if you use SimpleAudioEngine, it must be pause
+    // SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
 }
 
 // this function will be called when the app is active again
@@ -92,4 +92,6 @@ void AppDelegate::applicationWillEnterForeground() {
 
     // if you use SimpleAudioEngine, it must resume here
      SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+
+
 }
