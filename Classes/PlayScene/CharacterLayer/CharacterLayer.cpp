@@ -346,6 +346,11 @@ void CharacterLayer::MultiTouchCharacter()
 	}
 
 
+	//挟んだ時音を鳴らす
+	if (character->isScale == true )
+	{
+		AudioEngine::play2d("Sounds/InterposePlayer.mp3");
+	}
 	////タッチが二つともプレイヤーに当たったか
 	//if (m_touch_collision[0] == true && m_touch_collision[1] == true)
 	//{
@@ -484,12 +489,14 @@ void CharacterLayer::CollisionResponseFloor()
 				hitcnt++;
 				break;
 			case left:
-				/*GameManager::PlayerPos.x = GameManager::AllFloorPosx[i] - GameManager::PlayerSize.x / 2;*/
+				GameManager::PlayerPos.x = vec.x - GameManager::PlayerSize.x / 2;
 				//GameManager::RightFlag = true;
 				//GameManager::PlayerSpd.x = -6.0f;
 				//当たったので潰れる
-				character->s_player->setAnchorPoint(Vec2(0, 0));
+				/*character->s_player->setAnchorPoint(Vec2(0, 0));
 				GameManager::PlayerSize.x = 32;
+				GameManager::PlayerPos.x += 16;*/
+
 				GameManager::GameOverFlag = true;
 
 				hitcnt++;
@@ -501,6 +508,8 @@ void CharacterLayer::CollisionResponseFloor()
 				character->JumpCnt = 0;
 				character->JumpFlag = true;
 				hitcnt++;
+
+			//	character->GroundFlag = true;
 				break;
 				case under:
 				GameManager::PlayerPos.y = vec.y - GameManager::LAYRE_SIZE.y - GameManager::PlayerSize.y-10;
@@ -524,6 +533,33 @@ void CharacterLayer::CollisionResponseFloor()
 			//大きさを元に戻す処理を行う
 			character->FloormultipleFlag = false;
 		}
+
+
+
+
+
+		////地面にいるか
+		//std::vector<Vec2>::iterator Iterator2;
+		////////マップの数だけループ
+		////床の数だけループ
+		//for (Iterator2 = GameManager::AllFloorPos[GameManager::PlayerMapPos].begin(); Iterator2 != GameManager::AllFloorPos[GameManager::PlayerMapPos].end(); ++Iterator2)
+		//{
+		//	Vec2 vec = *Iterator2;
+		//	Direction hit_direction = GameManager::CollisionDetermination
+		//	(vec, GameManager::LAYRE_SIZE,
+		//		GameManager::PlayerPos , GameManager::PlayerSize);
+		//	if (hit_direction == up)
+		//	{
+		//		
+		//	}
+		//	else
+		//	{
+		//		character->GroundFlag = false;
+		//	}
+
+
+	//	}
+
 }
 
 /***************************************************************************
@@ -569,9 +605,10 @@ void CharacterLayer::CollisionResponseCrayFloor()
 			break;
 		case left:
 			GameManager::GameOverFlag = true;
-			//当たったので潰れる
-			character->s_player->setAnchorPoint(Vec2(0, 0));
-			GameManager::PlayerSize.x = 32;
+			////当たったので潰れる
+			//character->s_player->setAnchorPoint(Vec2(0, 0));
+			//GameManager::PlayerSize.x = 32;
+			//GameManager::PlayerPos.x += 96;
 			break;
 		case up:
 			GameManager::PlayerPos.y = vec.y  - GameManager::MAX_CRAYSTAGESIZE.y + (*IteratorSize).y;

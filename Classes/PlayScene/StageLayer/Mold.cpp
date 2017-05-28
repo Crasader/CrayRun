@@ -79,7 +79,7 @@ bool Mold::init(){
 						}
 						//Žè‘O‚Ì‹àŒ^
 						s_Mold[loop_cnt]->setAnchorPoint(Vec2(1, 0.5));
-						s_Mold[loop_cnt]->setScale(1.8, 1.8);
+						s_Mold[loop_cnt]->setScale(1.8, 1.4);
 						//À•W‚ðÝ’è‚·‚é
 						s_Mold[loop_cnt]->
 							setPosition(j * GameManager::LAYRE_SIZE.x + GameManager::MapLoopCnt *  GameManager::MAP_SIZE.x,

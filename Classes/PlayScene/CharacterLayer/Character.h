@@ -81,5 +81,11 @@ public:
 	bool FloormultipleFlag;//è∞ÇÃâ∫Ç…ìñÇΩÇ¡ÇƒÇ¢ÇÈÇ©
 
 	const int AnimationSpd = 5;
+
+	//ínñ Ç…Ç¢ÇÈÇ©
+	bool GroundFlag;
+
+private:
+	cocos2d::ParticleSystemQuad* particle;
 };
 

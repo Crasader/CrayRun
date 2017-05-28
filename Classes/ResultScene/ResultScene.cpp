@@ -145,7 +145,8 @@ void ResultScene::editBoxReturn(cocos2d::ui::EditBox * editBox)
 		//resultlayer->resume();
 		//キーボードをふっとばす
 		editBox->setPosition(Vec2(1000,1000));
-
+		//リザルトBGMを再開
+		experimental::AudioEngine::resume(resultlayer->ResoultBgm);
 }
 
 void ResultScene::update(float data)
@@ -153,8 +154,9 @@ void ResultScene::update(float data)
 	//入力するタイミングか
 	if (resultlayer->InputNameFlag == true)
 	{
-		//リザルトシーンを止める
-		//resultlayer->pause();
+		//リザルトBGMを止める
+		experimental::AudioEngine::pause(resultlayer->ResoultBgm);
+			
 		//らんきんぐ名の画像
 		InputNameBackGround = Sprite::create("Images/InputBackGround.png");
 		InputNameBackGround->setPosition(Vec2(GameManager::SCREEN_SIZE.x / 2, GameManager::SCREEN_SIZE.y / 2));

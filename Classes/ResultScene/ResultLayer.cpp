@@ -90,7 +90,7 @@ void ResultLayer::update(float data)
 		m_resultscore->NowScoreOutFlag = false;
 		//ファンファーレ
 		AudioEngine::play2d("Sounds/muci_fan_04.mp3");
-
+		RankingSortFlag = true;
 
 	}
 	else if (m_resultscore->RankingScore[Fifth] >= ResultScore::m_Score + ResultScore::m_distance
@@ -100,7 +100,7 @@ void ResultLayer::update(float data)
 		InputNameEndFlag = true;
 		//一度しか通らないようにする
 		m_resultscore->NowScoreOutFlag = false;
-
+		RankingSortFlag = false;
 	}
 
 
@@ -112,9 +112,12 @@ void ResultLayer::update(float data)
 	if (InputNameEndFlag == true)
 	{
 
-
-		//スコアのランキングを調べる
-		m_resultscore->RankingSort();
+		if (RankingSortFlag == true)
+		{
+			//スコアのランキングを調べる
+			m_resultscore->RankingSort();
+		}
+	
 		//ランキングの設定、描画
 		for (int i = 0; i < 5; i++)
 		{

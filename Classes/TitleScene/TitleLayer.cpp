@@ -21,16 +21,19 @@ bool TitleLayer::init()
 	//スタートボタン
 	b_start = ui::Button::create("Images/StartImage.png");
 	b_start->setPosition(Vec2(GameManager::SCREEN_SIZE.x / 3, 200));
+	b_start->setScale(0.8, 0.8);
 	this->addChild(b_start);
 
 	//説明ボタン
 	b_info = ui::Button::create("Images/InfoImage.png");
 	b_info->setPosition(Vec2(GameManager::SCREEN_SIZE.x / 3 * 1.5, 100));
+	b_info->setScale(0.8, 0.8);
 	this->addChild(b_info);
 
 	//終了ボタン
 	b_exit = ui::Button::create("Images/ExitImage.png");
 	b_exit->setPosition(Vec2(GameManager::SCREEN_SIZE.x / 3 * 2, 200));
+	b_exit->setScale(0.8, 0.8);
 	this->addChild(b_exit);
 
 	//タイトルキャラクタの作成

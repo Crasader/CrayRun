@@ -132,7 +132,7 @@ void ResultScore::RankingSort()
 
 		//今回のスコアをいれる
 		RankingScore[NowRanking] = TotalScore;
-		RankingName[m_now_ranking] = Now_Player_Name;
+		RankingName[NowRanking] = Now_Player_Name;
 
 		//今回の順位をほぞ
 	//	m_now_ranking[] = NowRanking;
@@ -149,7 +149,7 @@ void ResultScore::RankingNameSubstitution()
 		L_PlayerName[i] = Label::createWithSystemFont(a->getCString(), "arial", 60);
 		//L_PlayerName[i]->setScale(4.0f);
 		L_PlayerName[i]->setString(StringUtils::toString(RankingName[i]));
-		L_PlayerName[i]->setPosition(Vec2(700,-150 - (i * 82)));
+		L_PlayerName[i]->setPosition(Vec2(730,-150 - (i * 82)));
 		L_PlayerName[i]->setColor(Color3B(256, 256, 256));
 		this->addChild(L_PlayerName[i]);
 	}
@@ -284,7 +284,7 @@ void ResultScore::ScoreIndicate(int Ranking)
 		/*else
 		{*/
 			//座標
-		s_Number->setPosition(Vec2(350 + 64 * j /*+ 960*/, -150 - (Ranking * 82)));
+		s_Number->setPosition(Vec2(300 + 64 * j /*+ 960*/, -150 - (Ranking * 82)));
 		//}
 
 		//基盤ノードにぶら下げる

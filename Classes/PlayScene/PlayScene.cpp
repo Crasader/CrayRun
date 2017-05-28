@@ -144,7 +144,11 @@ void PlayScene::update(float data)
 		AudioEngine::play2d("Sounds/crash.mp3");
 		//エフェクト生成
 		Effect = Sprite::create("Images/EndEffect.png");
-		Effect->setPosition(GameManager::PlayerPos.x + GameManager::PlayerSize.x, GameManager::PlayerPos.y + GameManager::PlayerSize.y / 2);
+		Effect->setPosition(GameManager::PlayerPos.x + GameManager::PlayerSize.x / 2, GameManager::PlayerPos.y + GameManager::PlayerSize.y / 2);
+		this->addChild(Effect);
+		//エフェクト生成
+		Effect = Sprite::create("Images/EndEffect.png");
+		Effect->setPosition(GameManager::PlayerPos.x + GameManager::PlayerSize.x / 2, GameManager::PlayerPos.y + GameManager::PlayerSize.y / 2);
 		this->addChild(Effect);
 
 		//BGM停止

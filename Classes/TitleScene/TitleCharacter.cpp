@@ -21,9 +21,9 @@ bool TitleChracter::init()
 
 
 	//â°Ç…ëñÇËë±ÇØÇÈÇÃÇÉäÉsÅ[Ég
-	MoveBy* action00 = MoveBy::create(2.5, Vec2(300, 0.0f));
+	MoveBy* action00 = MoveBy::create(2.5, Vec2(270, 0.0f));
 
-	JumpBy* action1 = JumpBy::create(1, Vec2(270.0f, 0.0f),100, 1);
+	JumpBy* action1 = JumpBy::create(1, Vec2(300.0f, 0.0f),130, 1);
 	CallFunc* audioaction = CallFunc::create(CC_CALLBACK_0(TitleChracter::PlayJumpAudio, this));
 	Spawn* JumpSpan = Spawn::create(action1, audioaction, nullptr);
 

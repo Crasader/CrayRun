@@ -32,6 +32,16 @@ bool Character::init()
 		s_player->setPosition(GameManager::PlayerPos);
 		s_player->setAnchorPoint(Vec2(0.5, 0));
 		this->addChild(s_player);
+
+
+		//// 作成したパーティクルのプロパティリストを読み込み
+		//particle = ParticleSystemQuad::create("Particle/rDust.plist");
+		////パーティクルのメモリーリーク回避（★重要）
+		//particle->setAutoRemoveOnFinish(true);
+		//// パーティクルを開始
+		//particle->resetSystem();
+		//// パーティクルを配置
+		//this->addChild(particle);
 	}
 	else 
 	{
@@ -67,6 +77,20 @@ void Character::Move()
 	//座標を適用させる
 	s_player->setPosition(GameManager::PlayerPos);
 
+	////土埃の座標
+	//if (GroundFlag == true)
+	//{
+	//	//表示する
+	//	particle->setVisible(true);
+	//	// パーティクルを表示する場所の設定
+	//	particle->setPosition(GameManager::PlayerPos - Vec2(GameManager::PlayerSize.x / 2 , 0.0f));
+	//}
+	//else
+	//{
+	//	//非表示にする
+	////	particle->setVisible(false);
+	//}
+	
 	walkCnt++;
 	Animation();
 }
