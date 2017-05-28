@@ -34,6 +34,9 @@ bool InfoScene::init()
 	Infomation[1] = Sprite::create("Images/Infomation/Info2.png");
 	Infomation[2] = Sprite::create("Images/Infomation/Info3.png");
 	Infomation[3] = Sprite::create("Images/Infomation/Info4.png");
+	Infomation[4] = Sprite::create("Images/Infomation/Info5.png");
+	Infomation[5] = Sprite::create("Images/Infomation/Info6.png");
+
 	for (int i = 0; i < MAX_INFOMATION_PASE; i++)
 	{
 		Infomation[i]->setAnchorPoint(Vec2(0,0));

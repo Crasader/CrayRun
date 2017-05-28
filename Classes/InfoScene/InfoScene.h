@@ -3,7 +3,7 @@
 #include <cocos2d.h>
 #include <ui/CocosGUI.h>
 
-#define MAX_INFOMATION_PASE 4
+#define MAX_INFOMATION_PASE 6
 
 class InfoScene : public cocos2d::Scene
 {
