@@ -18,14 +18,17 @@ MY_CPP_LIST += $(wildcard $(LOCAL_PATH)/../../Classes/**/**/**/*.cpp)
 MY_CPP_LIST += $(wildcard $(LOCAL_PATH)/../../Classes/**/**/**/**/*.cpp)
 LOCAL_SRC_FILES += $(MY_CPP_LIST:$(LOCAL_PATH)/%=%)
 
+
+
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
+#LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../../extensions
 
 # _COCOS_HEADER_ANDROID_BEGIN
 # _COCOS_HEADER_ANDROID_END
 
 
 LOCAL_STATIC_LIBRARIES := cocos2dx_static
-
+#LOCAL_WHOLE_STATIC_LIBRARIES += cocos_extension_static
 
 
 
@@ -35,6 +38,8 @@ LOCAL_STATIC_LIBRARIES := cocos2dx_static
 include $(BUILD_SHARED_LIBRARY)
 
 $(call import-module,./prebuilt-mk)
+#$(call import-module,extensions)
 
 # _COCOS_LIB_IMPORT_ANDROID_BEGIN
 # _COCOS_LIB_IMPORT_ANDROID_END
+

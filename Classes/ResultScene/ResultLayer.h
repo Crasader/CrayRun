@@ -18,6 +18,10 @@ class ResultLayer :public cocos2d::Layer
 public:
 	bool init();
 	CREATE_FUNC(ResultLayer);
+	//名前を入力するか
+	bool InputNameFlag;
+	//入力が終わったか
+	bool InputNameEndFlag;
 private:
 
 	//毎フレーム呼び出される関数
@@ -45,5 +49,7 @@ private:
 	bool TouchFlag;
 	//BGM
 	int ResoultBgm;
+	//デバック用
+	cocos2d::Label* PlayerName[5];
 
 };
