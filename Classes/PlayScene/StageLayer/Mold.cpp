@@ -79,7 +79,7 @@ bool Mold::init(){
 						}
 						//Žè‘O‚Ì‹àŒ^
 						s_Mold[loop_cnt]->setAnchorPoint(Vec2(1, 0.5));
-						s_Mold[loop_cnt]->setScale(1.8, 1.4);
+						s_Mold[loop_cnt]->setScale(1.4, 1.4);
 						//À•W‚ðÝ’è‚·‚é
 						s_Mold[loop_cnt]->
 							setPosition(j * GameManager::LAYRE_SIZE.x + GameManager::MapLoopCnt *  GameManager::MAP_SIZE.x,
@@ -91,8 +91,9 @@ bool Mold::init(){
 
 
 						//‰œ‚Ì‹àŒ^
+						s_BackMold[loop_cnt]->setColor(Color3B(100, 100, 100));
 						s_BackMold[loop_cnt]->setAnchorPoint(Vec2(1, 0.5));
-						s_BackMold[loop_cnt]->setScale(1.2f, 1.2f);
+						s_BackMold[loop_cnt]->setScale(1.0f, 1.0f);
 						s_BackMold[loop_cnt]->
 							setPosition(j * GameManager::LAYRE_SIZE.x + GameManager::MapLoopCnt *  GameManager::MAP_SIZE.x + m_while_distance,
 							(GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y - i) * GameManager::LAYRE_SIZE.y);
