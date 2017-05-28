@@ -43,8 +43,8 @@ bool ResultScene::init(int score, int distance)
 
 
 
-	//ResultLayer* resultlayer = ResultLayer::create();
-	//this->addChild(resultlayer);
+	ResultLayer* resultlayer = ResultLayer::create();
+	this->addChild(resultlayer);
 
 	//EditBox * editBox = EditBox::create(Size(400, 60), "Images/coin1.png");
 	//editBox->setFont("arial", 24);

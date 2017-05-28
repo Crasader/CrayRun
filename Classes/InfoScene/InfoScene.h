@@ -3,7 +3,7 @@
 #include <cocos2d.h>
 #include <ui/CocosGUI.h>
 
-#define MAX_INFOMATION_PASE 3
+#define MAX_INFOMATION_PASE 4
 
 class InfoScene : public cocos2d::Scene
 {
@@ -25,5 +25,6 @@ private:
 	void OnButtonTouchBack(cocos2d::Ref* ref, cocos2d::ui::Widget::TouchEventType eventtype);
 
 	cocos2d::Sprite* Infomation[MAX_INFOMATION_PASE];//説明画像
-	int pase;//ページ数
+	int page;//ページ数
+	int pageCnt;
 };
