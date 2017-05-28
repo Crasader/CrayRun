@@ -56,7 +56,7 @@ bool ResultLayer::init()
 
 	//スコアを取得する
 	m_resultscore->ScoreAcquisition();
-	
+
 
 
 	// Register Touch Event
@@ -66,7 +66,7 @@ bool ResultLayer::init()
 	listener->onTouchesMoved = CC_CALLBACK_2(ResultLayer::onTouchesMoved, this);
 	listener->onTouchesMoved = CC_CALLBACK_2(ResultLayer::onTouchEnded, this);
 	_director->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
-	
+
 
 	this->scheduleUpdate();
 	return true;
@@ -110,7 +110,7 @@ void ResultLayer::update(float data)
 
 	//入力が終わったか
 	if (InputNameEndFlag == true)
-	{	
+	{
 
 
 		//スコアのランキングを調べる
@@ -122,21 +122,21 @@ void ResultLayer::update(float data)
 		}
 
 
-		
+
 		m_resultscore->RankingNameSubstitution();
 		//今回のスコアを画面上に動かす
-			////今回のスコアが下から動いてくるアクションが終わったか
+		////今回のスコアが下から動いてくるアクションが終わったか
 		/*	if (m_resultscore->RankingFlag == true)
-			{*/
+		{*/
 		//今回のスコアが画面外に行くアクション
-				m_resultscore->ResultOutAction();
-				//一度しか通らない
-				InputNameEndFlag = false;
-				//m_resultscore->RankingFlag = false;
-				MoveBy* ScoreAction = MoveBy::create(m_resultscore->ActionSpd, Vec2(0, 700));
-				nowscore_background->runAction(ScoreAction);
-				Texture2D* texture = TextureCache::sharedTextureCache()->addImage("Images/Ranking.png");
-				backcoin->setTexture(texture);
+		m_resultscore->ResultOutAction();
+		//一度しか通らない
+		InputNameEndFlag = false;
+		//m_resultscore->RankingFlag = false;
+		MoveBy* ScoreAction = MoveBy::create(m_resultscore->ActionSpd, Vec2(0, 700));
+		nowscore_background->runAction(ScoreAction);
+		Texture2D* texture = TextureCache::sharedTextureCache()->addImage("Images/Ranking.png");
+		backcoin->setTexture(texture);
 		//	}
 	}
 
@@ -151,7 +151,7 @@ void ResultLayer::update(float data)
 			addChild(s_touch);
 			CreateSprite = true;
 		}
-		VisibleCnt+=3;
+		VisibleCnt += 3;
 		s_touch->setOpacity(VisibleCnt);
 	}
 

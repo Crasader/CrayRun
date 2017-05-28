@@ -47,9 +47,27 @@ bool ResultScene::init(int score, int distance)
 	resultlayer = ResultLayer::create();
 	this->addChild(resultlayer);
 
+
 	//–ˆƒtƒŒ[ƒ€ŒÄ‚Ô
 	this->scheduleUpdate();
 	
+
+	ResultLayer* resultlayer = ResultLayer::create();
+	this->addChild(resultlayer);
+
+	//EditBox * editBox = EditBox::create(Size(400, 60), "Images/coin1.png");
+	//editBox->setFont("arial", 24);
+	//editBox->setPlaceHolder("aaa");
+	//editBox->setFontColor(Color4B(0, 0, 0, 255));
+	//editBox->setMaxLength(16);
+	//editBox->setText("aaaa");
+	//editBox->setReturnType(EditBox::KeyboardReturnType::DONE);
+	//editBox->setInputMode(EditBox::InputMode::SINGLE_LINE);
+	//editBox->setPosition(Vec2(480.0f, 320.0f));
+	//editBox->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
+	//editBox->setDelegate(this);
+
+	//this->addChild(editBox);
 	return true;
 }
 

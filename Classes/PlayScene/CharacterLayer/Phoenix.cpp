@@ -53,7 +53,7 @@ void Phoenix::Animation()
 		}
 	}
 	else {
-		texture = TextureCache::sharedTextureCache()->addImage("Images/Phoenix_Charaj.png");
+		texture = TextureCache::sharedTextureCache()->addImage("Images/Phoenix_Chara2.png");
 
 		s_player->setTexture(texture);
 		s_player->setContentSize(texture->getContentSize());

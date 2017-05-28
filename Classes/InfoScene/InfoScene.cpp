@@ -33,6 +33,7 @@ bool InfoScene::init()
 	Infomation[0] = Sprite::create("Images/Infomation/Info1.png");
 	Infomation[1] = Sprite::create("Images/Infomation/Info2.png");
 	Infomation[2] = Sprite::create("Images/Infomation/Info3.png");
+	Infomation[3] = Sprite::create("Images/Infomation/Info4.png");
 	for (int i = 0; i < MAX_INFOMATION_PASE; i++)
 	{
 		Infomation[i]->setAnchorPoint(Vec2(0,0));
@@ -55,7 +56,8 @@ bool InfoScene::init()
 	b_Next->addTouchEventListener(CC_CALLBACK_2(InfoScene::OnButtonTouchNext, this));
 	b_Back->addTouchEventListener(CC_CALLBACK_2(InfoScene::OnButtonTouchBack, this));
 
-	pase = 1;
+	page = 1;
+	pageCnt = 0;
 
 	this->scheduleUpdate();
 
@@ -70,6 +72,76 @@ void InfoScene::update(float delta)
 		Scene* nextscene = TitleScene::create();
 		_director->pushScene(nextscene);
 	}
+
+	switch (page)
+	{
+
+	case 2:
+
+		if (pageCnt % 10 == 0)
+		{
+			Texture2D* texture;
+			switch (pageCnt / 10 % 2)
+			{
+			case 0:
+				texture = TextureCache::sharedTextureCache()->addImage("Images/Infomation/Info2.png");
+
+				Infomation[page - 1]->setTexture(texture);
+				break;
+			case 1:
+				texture = TextureCache::sharedTextureCache()->addImage("Images/Infomation/Info2_1.png");
+
+				Infomation[page - 1]->setTexture(texture);
+				break;
+			}
+		}
+
+		pageCnt++;
+		break;
+	case 3:
+		if (pageCnt % 10 == 0)
+		{
+			Texture2D* texture;
+			switch (pageCnt / 10 % 2)
+			{
+			case 0:
+				texture = TextureCache::sharedTextureCache()->addImage("Images/Infomation/Info3.png");
+
+				Infomation[page - 1]->setTexture(texture);
+				break;
+			case 1:
+				texture = TextureCache::sharedTextureCache()->addImage("Images/Infomation/Info3_1.png");
+
+				Infomation[page - 1]->setTexture(texture);
+				break;
+			}
+		}
+
+		pageCnt++;
+		break;
+
+	case 4:
+		if (pageCnt % 10 == 0)
+		{
+			Texture2D* texture;
+			switch (pageCnt / 10 % 2)
+			{
+			case 0:
+				texture = TextureCache::sharedTextureCache()->addImage("Images/Infomation/Info4.png");
+
+				Infomation[page - 1]->setTexture(texture);
+				break;
+			case 1:
+				texture = TextureCache::sharedTextureCache()->addImage("Images/Infomation/Info4_1.png");
+
+				Infomation[page - 1]->setTexture(texture);
+				break;
+			}
+		}
+
+		pageCnt++;
+		break;
+	}
 }
 
 void InfoScene::OnButtonTouchNext(Ref * ref, ui::Widget::TouchEventType eventtype)
@@ -82,12 +154,12 @@ void InfoScene::OnButtonTouchNext(Ref * ref, ui::Widget::TouchEventType eventtyp
 		break;
 	case ui::Widget::TouchEventType::ENDED:
 		//ページが最後のページになっていない場合
-		if (pase != MAX_INFOMATION_PASE)
+		if (page != MAX_INFOMATION_PASE)
 		{
 			if (Infomation[0]->numberOfRunningActions() == 0)
 			{
-				pase++;
-
+				page++;
+				pageCnt = 0;
 				for (int i = 0; i < MAX_INFOMATION_PASE; i++)
 				{
 					MoveBy* ActionMove = MoveBy::create(1.0f, Vec2(-GameManager::SCREEN_SIZE.x, 0));
@@ -113,11 +185,12 @@ void InfoScene::OnButtonTouchBack(Ref * ref, ui::Widget::TouchEventType eventtyp
 		break;
 	case ui::Widget::TouchEventType::ENDED:
 			//ページが最初のページになっていない場合
-			if (pase != 1)
+			if (page != 1)
 			{
 				if (Infomation[0]->numberOfRunningActions() == 0)
 				{
-					pase--;
+					page--;
+					pageCnt = 0;
 					for (int i = 0; i < MAX_INFOMATION_PASE; i++)
 					{
 						MoveBy* ActionMove = MoveBy::create(1.0f, Vec2(GameManager::SCREEN_SIZE.x, 0));
