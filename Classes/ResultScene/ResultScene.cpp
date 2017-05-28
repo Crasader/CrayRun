@@ -6,14 +6,18 @@
 *|　作成日　2017/5/10
 *|___________________________________________________________________________
 ****************************************************************************/
-//#pragma execution_character_set("utf-8")
+#pragma execution_character_set("utf-8")
 
 /* ---- ライブラリのインクルード ---------- */
 #include "ResultScene.h"
 #include "ResultScore.h"
-#include "ResultLayer.h"
 #include "EventListenerGesture.h"
 
+#if (CC_TAGET_PLATFORM == CC_PLATFORM_ANDROID)
+#define YUSUKE_FONT "meiryo.ttc"
+#else
+#define YUSUKE_FONT "Meiryo"
+#endif 
 
 
 
@@ -40,11 +44,13 @@ bool ResultScene::init(int score, int distance)
 	ResultScore::m_distance = distance;
 	log("############################### ResultScene created");
 	//ResultLayerを集約
-
-
-
-	ResultLayer* resultlayer = ResultLayer::create();
+	resultlayer = ResultLayer::create();
 	this->addChild(resultlayer);
+
+
+	//毎フレーム呼ぶ
+	this->scheduleUpdate();
+	
 
 	//EditBox * editBox = EditBox::create(Size(400, 60), "Images/coin1.png");
 	//editBox->setFont("arial", 24);
@@ -59,7 +65,6 @@ bool ResultScene::init(int score, int distance)
 	//editBox->setDelegate(this);
 
 	//this->addChild(editBox);
-
 	return true;
 }
 
@@ -85,7 +90,7 @@ Scene* ResultScene::create(int score,int distance)
 		pRet = nullptr;
 		return nullptr;
 	}
-
+	
 }
 
 
@@ -114,18 +119,64 @@ bool ResultScene::onTouchBegan(Touch* touch, Event* pEvent)
 
 }
 
-//void ResultScene::editBoxEditingDidBegin(cocos2d::ui::EditBox * editBox)
-//{
-//}
-//
-//void ResultScene::editBoxEditingDidEnd(cocos2d::ui::EditBox * editBox)
-//{
-//}
-//
-//void ResultScene::editBoxTextChanged(cocos2d::ui::EditBox * editBox, const std::string & text)
-//{
-//}
-//
-//void ResultScene::editBoxReturn(cocos2d::ui::EditBox * editBox)
-//{
-//}
+void ResultScene::editBoxEditingDidBegin(cocos2d::ui::EditBox * editBox)
+{
+}
+
+void ResultScene::editBoxEditingDidEnd(cocos2d::ui::EditBox * editBox)
+{
+}
+
+void ResultScene::editBoxTextChanged(cocos2d::ui::EditBox * editBox, const std::string & text)
+{
+}
+
+void ResultScene::editBoxReturn(cocos2d::ui::EditBox * editBox)
+{
+	
+		//今回ランキングインしたプレイヤー名を格納する
+		ResultScore::Now_Player_Name = editBox->getText();
+
+		//入力が終わった
+		resultlayer->InputNameEndFlag = true;
+		//
+		InputNameBackGround->removeFromParent();
+		//リザルトレイヤを再起動
+		//resultlayer->resume();
+		//キーボードをふっとばす
+		editBox->setPosition(Vec2(1000,1000));
+
+}
+
+void ResultScene::update(float data)
+{
+	//入力するタイミングか
+	if (resultlayer->InputNameFlag == true)
+	{
+		//リザルトシーンを止める
+		//resultlayer->pause();
+		//らんきんぐ名の画像
+		InputNameBackGround = Sprite::create("Images/InputBackGround.png");
+		InputNameBackGround->setPosition(Vec2(GameManager::SCREEN_SIZE.x / 2, GameManager::SCREEN_SIZE.y / 2));
+		this->addChild(InputNameBackGround);
+
+		ui::EditBox * editBox = ui::EditBox::create(Size(400, 60), "Images/Input.png");
+		editBox->setFont(YUSUKE_FONT, 24);
+		//editBox->setPlaceHolder("おなまえ");
+		editBox->setFontColor(Color4B(0, 0, 0, 255));
+		editBox->setMaxLength(6);
+		//editBox->setText("ここをタッチで名前入力");
+		editBox->setReturnType(ui::EditBox::KeyboardReturnType::DONE);
+		editBox->setScale(1.3f, 1.2f);
+		editBox->setInputMode(ui::EditBox::InputMode::ANY);
+		editBox->setPosition(Vec2(200.0f, 150.0f));
+		editBox->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
+		editBox->setDelegate(this);
+	
+		this->addChild(editBox);
+
+
+		//一回しか通らない
+		resultlayer->InputNameFlag = false;
+	}
+}

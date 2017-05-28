@@ -36,6 +36,8 @@ public:
 	void RankingSort();
 	//スコアの保存
 	void ScoreResister();
+	//ランキングに入ったか
+	bool RankingInFlag;
 
 	//ランキングスコア
 	int RankingScore[6];
@@ -54,7 +56,8 @@ public:
 	void ScoreAction(int cnt);
 	//今回のスコアのアクション
 	void ResultOutAction();
-
+	//表示するためにランキングの名前を代入する
+	void RankingNameSubstitution();
 	
 	//今回のスコアのアクション
 	void RankingAction(int cnt);
@@ -72,8 +75,14 @@ public:
 	bool TitleFlag;
 	//アクションの速度
 	float ActionSpd;
+	//今回ランキングインしたプレイヤー名
+	static std::string Now_Player_Name;
+	//今回のスコアが画面外からでたかのフラグ
+	bool NowScoreOutFlag;
 private:
-	//
+	//今回のスコアが画面外から出たかのフラグ
+	void NowScoreOutFlagChnge() { NowScoreOutFlag = true; }
+
 	void RankingFlagChange() { RankingOutoFlag = true; }
 
 	cocos2d::UserDefault* userDefault;
@@ -88,11 +97,22 @@ private:
 	int Digit;//桁数
 	int SpriteCnt;//何個目のスプライトかカウントする
 
-	//void CallRankingActuin();
+	
 	cocos2d::Sprite* backcoin;
-
+	//スコアのスライド音を再生する
 	void PlayAudioRanking() {
-		cocos2d::experimental::AudioEngine::play2d("Sounds/SlideSE.ogg"); }
+	cocos2d::experimental::AudioEngine::play2d("Sounds/SlideSE.ogg"); }
 	//int compare_int(const void *a, const void *b);
+	//ランキングの名前
+	std::string  RankingName[5];
 
+	//デバック用
+	cocos2d::Label* L_PlayerName[5];
+	//
+	std::string PlayerName[5];
+
+	//今回のランキング
+	int m_now_ranking;
 };
+
+

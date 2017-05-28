@@ -44,12 +44,7 @@ bool CharacterLayer::init()
 	_director->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 	//_touchListener = listener;
 
-	////デバック
-	//String* b = String::createWithFormat("%i", a);
-	//n = Label::createWithSystemFont(b->getCString(), "arial", 60);
-	//n->setScale(4.0f);
-	//n->setPosition(300, 200);
-	//this->addChild(n);
+
 
 	int FirstTouchCnt = 0;//最初のタッチからどれだけ経過したか
 	//bool FirstTouchFlag = false;//最初のタッチが呼ばれたか
@@ -112,11 +107,7 @@ void CharacterLayer::update(float date)
 		//}
 	}
 
-	////デバック用
-	//n->setString(StringUtils::toString(a));
-	//n->setPosition(GameManager::PlayerPos);
-	//n->setString(StringUtils::toString(b));
-	//n->setPosition(GameManager::PlayerPos + Vec2(300, 0));
+
 
 
 
@@ -583,7 +574,6 @@ void CharacterLayer::CollisionResponseCrayFloor()
 			GameManager::PlayerSize.x = 32;
 			break;
 		case up:
-			b = (*IteratorSize).y;
 			GameManager::PlayerPos.y = vec.y  - GameManager::MAX_CRAYSTAGESIZE.y + (*IteratorSize).y;
 			GameManager::PlayerSpd.y = 0.0f;
 			//ジャンプ可能にする

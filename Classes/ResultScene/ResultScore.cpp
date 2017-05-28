@@ -6,11 +6,13 @@
 *|___________________________________________________________________________
 ****************************************************************************/
 /* ---- ライブラリのインクルード ---------- */
-#include <stdlib.h>
+//#include <stdlib.h>
 #include "ResultScore.h"
 
 int ResultScore::m_Score = 0;
 int ResultScore::m_distance = 0;
+//今回ランキングインしたプレイヤー名
+std::string  ResultScore::Now_Player_Name;
 
 
 /* ---- 名前空間を解放 -------------------- */
@@ -21,11 +23,11 @@ bool ResultScore::init()
 	if (!Node::init()) {
 		return false;
 	}
-	//基盤ノードを作成する
-	for (int i = 0; i < MAX_SCORE + 1; i++)
-	{
-		node_number[i] = Node::create();
-	}
+	////基盤ノードを作成する
+	//for (int i = 0; i < MAX_SCORE + 1; i++)
+	//{
+	//	node_number[i] = Node::create();
+	//}
 
 	//基盤ノードを作成する
 	for (int i = 0; i < 10 + 1; i++)
@@ -39,7 +41,7 @@ bool ResultScore::init()
 	s_now_number = Sprite::create("Images/Number.png");
 
 	////数字のスプライトを作成する
-	s_Number = Sprite::create("Images/Number.png");
+	//s_Number = Sprite::create("Images/Number.png");
 	//最大桁数を記憶
 	ScoreMaxDigit = SpriteCnt;
 
@@ -52,8 +54,11 @@ bool ResultScore::init()
 	backcoin->setVisible(false);
 	this->addChild(backcoin);
 
+
 	//初期化
 	ActionSpd = 0.7f;
+
+
 
 	return true;
 }
@@ -65,18 +70,27 @@ bool ResultScore::init()
 ****************************************************************************/
 void ResultScore::ScoreAcquisition()
 {
-	RankingScore[First] = userDefault->getIntegerForKey("name1");
-	RankingScore[Scound] = userDefault->getIntegerForKey("name2");
-	RankingScore[Third] = userDefault->getIntegerForKey("name3");
-	RankingScore[Fourth] = userDefault->getIntegerForKey("name4");
-	RankingScore[Fifth] = userDefault->getIntegerForKey("name5");
-	RankingScore[5] = m_Score + m_distance;
+
+	//ランキングの名前データを取得する
+	RankingName[First] = userDefault->getStringForKey("name1");
+	RankingName[Scound] = userDefault->getStringForKey("name2");
+	RankingName[Third] = userDefault->getStringForKey("name3");
+	RankingName[Fourth] = userDefault->getStringForKey("name4");
+	RankingName[Fifth] = userDefault->getStringForKey("name5");
+
+
+	//ランキングの値データを取得する
+	RankingScore[First] = userDefault->getIntegerForKey("ranking1");
+	RankingScore[Scound] = userDefault->getIntegerForKey("ranking2");
+	RankingScore[Third] = userDefault->getIntegerForKey("ranking3");
+	RankingScore[Fourth] = userDefault->getIntegerForKey("ranking4");
+	RankingScore[Fifth] = userDefault->getIntegerForKey("ranking5");
 }
 
-int compare_int(const void *a, const void *b)
-{
-	return *(int *)b - *(int*)a;
-}
+//int compare_int(const void *a, const void *b)
+//{
+//	return *(int *)b - *(int*)a;
+//}
 
 /***************************************************************************
 *|	概要　　スコアのランキングを調べる
@@ -85,47 +99,63 @@ int compare_int(const void *a, const void *b)
 ****************************************************************************/
 void ResultScore::RankingSort()
 {
-	////今回のスコアがランキングのどこに位置するか求める
-	//int i = Fifth;
-	//int TotalScore = m_Score + m_distance;
+	////らんきんぐをソートする
+	//qsort(RankingScore, 6, sizeof(int), compare_int);
+
+	//今回のスコアがランキングのどこに位置するか求める
+	int NowRanking = Fifth;
+
+	//今回のスコア
+	int TotalScore = m_Score + m_distance;
+	
 	//if (RankingScore[Fifth] < TotalScore)
 	//{
+		//今回のスコアは何位か
+		while ((RankingScore[NowRanking] <= TotalScore) && (NowRanking >= 0))
+		{
+			NowRanking--;
+		}
 
-	//	while ((RankingScore[i] < TotalScore) && (i >= 0))
-	//	{
-	//		i--;
-	//	}
-	//	i++;
-
-	//	//今回のスコアがランキングに入っているならば
-	//	if (i != score)
-	//	{
-	//		//ランキングを入れ替える
-	//		for (int j = 3; i <= j; j--)
-	//		{
-	//			RankingScore[j + 1] = RankingScore[j];
-	//		}
-
-	//		//今回のスコアをランキングに入れる
-	//		RankingScore[i] = m_Score;
-	//	}
-	//}
+		//ずらしすぎたので戻す
+		NowRanking++;
 
 
-	
+		//ランキングを入れ替える
+		//ランキングの数から今回のスコアが入った順位を引いてループする回数を決める
+		for (int i = 0; i < 4 - NowRanking; i++)
+		{
+			//ランキングをひとつずづ落とす
+			RankingScore[Fifth - i] = RankingScore[Fifth - i - 1];
+			//ランキングの名前も変更する
+			RankingName[Fifth - i] = RankingName[Fifth - i - 1];
+		}
 
-	
-	//らんきんぐをソートする
-	qsort(RankingScore, 6, sizeof(int), compare_int);
+		//今回のスコアをいれる
+		RankingScore[NowRanking] = TotalScore;
+		RankingName[m_now_ranking] = Now_Player_Name;
 
+		//今回の順位をほぞ
+	//	m_now_ranking[] = NowRanking;
+//	}
 }
 
 
-//
-//int ResultScore::compare_int(const void *a, const void *b)
-//{
-//	return *(int *)a - *(int*)b;
-//}
+void ResultScore::RankingNameSubstitution()
+{
+	//デバック
+	for (int i = 0; i < 5; i++)
+	{
+		String* a = String::createWithFormat("%d", i);
+		L_PlayerName[i] = Label::createWithSystemFont(a->getCString(), "arial", 60);
+		//L_PlayerName[i]->setScale(4.0f);
+		L_PlayerName[i]->setString(StringUtils::toString(RankingName[i]));
+		L_PlayerName[i]->setPosition(Vec2(700,-150 - (i * 82)));
+		L_PlayerName[i]->setColor(Color3B(256, 256, 256));
+		this->addChild(L_PlayerName[i]);
+	}
+}
+
+
 
 /***************************************************************************
 *|	概要　　スコアを保存する
@@ -134,11 +164,21 @@ void ResultScore::RankingSort()
 ****************************************************************************/
 void ResultScore::ScoreResister()
 {
-	userDefault->setIntegerForKey("name1", RankingScore[First] );
-	userDefault->setIntegerForKey("name2", RankingScore[Scound] );
-	userDefault->setIntegerForKey("name3", RankingScore[Third] );
-	userDefault->setIntegerForKey("name4", RankingScore[Fourth]);
-	userDefault->setIntegerForKey("name5", RankingScore[Fifth]);
+	//ランキングの値を保存する
+	userDefault->setIntegerForKey("ranking1", RankingScore[First]);
+	userDefault->setIntegerForKey("ranking2", RankingScore[Scound] );
+	userDefault->setIntegerForKey("ranking3", RankingScore[Third] );
+	userDefault->setIntegerForKey("ranking4", RankingScore[Fourth]);
+	userDefault->setIntegerForKey("ranking5", RankingScore[Fifth]);
+
+	//ランキングの名前を保存する
+	userDefault->setStringForKey("name1", RankingName[First]);
+	userDefault->setStringForKey("name2", RankingName[Scound]);
+	userDefault->setStringForKey("name3", RankingName[Third]);
+	userDefault->setStringForKey("name4", RankingName[Fourth]);
+	userDefault->setStringForKey("name5", RankingName[Fifth]);
+
+
 	userDefault->flush();
 }
 
@@ -151,6 +191,9 @@ void ResultScore::ScoreResister()
 void ResultScore::ScoreIndicate(int Ranking)
 {
 
+	node_number[Ranking] = Node::create();
+
+
 	int j;
 	//桁数を初期化する
 	Digit = 1;
@@ -158,12 +201,12 @@ void ResultScore::ScoreIndicate(int Ranking)
 	SaveScore = RankingScore[Ranking];
 	SaveScore2 = RankingScore[Ranking];
 
-	//今回のスコアの場合
-	if (Ranking == 5)
-	{
-		SaveScore = m_Score;
-		SaveScore2 = m_Score;
-	}
+	////今回のスコアの場合
+	//if (Ranking == 5)
+	//{
+	//	SaveScore = m_Score;
+	//	SaveScore2 = m_Score;
+	//}
 
 	//スコアが何桁あるのか求める
 	//整数がなくなるまで10で除法する
@@ -233,16 +276,16 @@ void ResultScore::ScoreIndicate(int Ranking)
 
 		//レクトを設定する
 		s_Number->setTextureRect(Rect(SaveScore * 64, 0, 64, 64));
-		if (Ranking == 5)
-		{
+		//if (Ranking == 5)
+		//{
+		//	//座標
+		//	s_Number->setPosition(Vec2(400 * j /*- 960*/, 200));
+		//}
+		/*else
+		{*/
 			//座標
-			s_Number->setPosition(Vec2(400 * j /*- 960*/, 200));
-		}
-		else
-		{
-			//座標
-			s_Number->setPosition(Vec2(500 + 64 * j /*+ 960*/, -150 - (Ranking * 82)));
-		}
+		s_Number->setPosition(Vec2(350 + 64 * j /*+ 960*/, -150 - (Ranking * 82)));
+		//}
 
 		//基盤ノードにぶら下げる
 		node_number[Ranking]->addChild(s_Number);
@@ -363,7 +406,7 @@ void ResultScore::ScoreAction(int cnt)
 	}
 	else
 	{
-		RankingFlag = true;
+		NowScoreOutFlag = true;
 	}
 	
 }
@@ -405,9 +448,16 @@ void ResultScore::RankingAction(int cnt)
 	Spawn* action = Spawn::create(ScoreAction, AudioRanking, nullptr);
 	CallFunc* ScoreAction2 = CallFunc::create(CC_CALLBACK_0(ResultScore::RankingAction, this, ++cnt));
 	Sequence* ScoreAction3 = Sequence::create(action, ScoreAction2, nullptr);
+
+	MoveBy* ScoreAction4 = MoveBy::create(ActionSpd, Vec2(0, 600));
+
+
+
 	if (cnt < 5)
 	{
 		node_number[cnt]->runAction(ScoreAction3);
+		//ランキングの名前のアクション
+		L_PlayerName[cnt]->runAction(ScoreAction4);
 	}
 	else
 	{
@@ -415,3 +465,4 @@ void ResultScore::RankingAction(int cnt)
 	}
 
 }
+

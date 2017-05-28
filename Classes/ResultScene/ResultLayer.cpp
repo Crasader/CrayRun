@@ -11,13 +11,11 @@
 #include "ResultLayer.h"
 #include "../TiTleScene/TitleScene.h"
 #include "audio/include/AudioEngine.h"
-//#include "Hoge.h"
-//#include "cocos-ext.h"
+#include "ResultScore.h"
 /* ---- 名前空間を解放 -------------------- */
 USING_NS_CC;
 using namespace experimental;
-//using namespace ui;
-//USING_NS_CC_EXT;
+
 
 bool ResultLayer::init()
 {
@@ -43,36 +41,23 @@ bool ResultLayer::init()
 	//スコア作成
 	m_resultscore = ResultScore::create();
 	this->addChild(m_resultscore);
+
+
 	//今回のスコアのアクション
 	m_resultscore->ScoreAction(-1);
-
-
-	//スコアを取得する
-	m_resultscore->ScoreAcquisition();
-	//スコアのランキングを調べる
-	m_resultscore->RankingSort();
-	//スコアの保存
-	m_resultscore->ScoreResister();
-
-
-
 	//今回のスコア、距離、合計スコアを格納する
 	int nowscore[3] = { ResultScore::m_Score,ResultScore::m_distance,ResultScore::m_Score + ResultScore::m_distance };
 	for (int i = 0; i < 3; i++)
 	{
-
 		m_resultscore->ScoreIndicate2(nowscore[i]);
-
 		m_resultscore->ScoreMaxDigit = 0;
 		m_resultscore->now_number++;
-
 	}
 
-	//スコアの設定、描画
-	for (int i = 0; i < 5; i++)
-	{
-		m_resultscore->ScoreIndicate(i);
-	}
+	//スコアを取得する
+	m_resultscore->ScoreAcquisition();
+
+
 
 	// Register Touch Event
 	EventListenerTouchAllAtOnce* listener = EventListenerTouchAllAtOnce::create();
@@ -81,22 +66,6 @@ bool ResultLayer::init()
 	listener->onTouchesMoved = CC_CALLBACK_2(ResultLayer::onTouchesMoved, this);
 	listener->onTouchesMoved = CC_CALLBACK_2(ResultLayer::onTouchEnded, this);
 	_director->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
-
-
-
-	//auto editBox = EditBox::create(Size(100, 300), Scale9Sprite::create("image.png"));
-	//editBox->setFont("font.ttf", 46.0f);
-	//editBox->setPlaceHolder("ここに入力してください");
-	//editBox->setPlaceholderFontColor(Color3B::BLACK);
-	//editBox->setFontColor(Color3B::BLACK);
-	//editBox->setPosition(Vec2(480.0f, 320.0f));
-	//editBox->setMaxLength(100);
-	//editBox->setText("aaaaaaa");
-	//editBox->setReturnType(EditBox::KeyboardReturnType::DONE);
-	//editBox->setInputMode(EditBox::InputMode::ANY);
-	//editBox->setDelegate((cocos2d::ui::EditBoxDelegate*)this);
-	//this->addChild(editBox);
-
 
 
 	this->scheduleUpdate();
@@ -110,6 +79,68 @@ bool ResultLayer::init()
 ****************************************************************************/
 void ResultLayer::update(float data)
 {
+
+	//ランキングインしているかつ今回のスコアが画面外からでたか
+	if (m_resultscore->RankingScore[Fifth] < ResultScore::m_Score + ResultScore::m_distance
+		&& m_resultscore->NowScoreOutFlag == true && TouchFlag == true)
+	{
+		//名前を入力する
+		InputNameFlag = true;
+		//一度しか通らないようにする
+		m_resultscore->NowScoreOutFlag = false;
+		//ファンファーレ
+		AudioEngine::play2d("Sounds/muci_fan_04.mp3");
+
+
+	}
+	else if (m_resultscore->RankingScore[Fifth] >= ResultScore::m_Score + ResultScore::m_distance
+		&& m_resultscore->NowScoreOutFlag == true && TouchFlag == true)
+	{
+		//名前を入力させずにランキングをソートする
+		InputNameEndFlag = true;
+		//一度しか通らないようにする
+		m_resultscore->NowScoreOutFlag = false;
+
+	}
+
+
+
+
+
+
+	//入力が終わったか
+	if (InputNameEndFlag == true)
+	{
+
+
+		//スコアのランキングを調べる
+		m_resultscore->RankingSort();
+		//ランキングの設定、描画
+		for (int i = 0; i < 5; i++)
+		{
+			m_resultscore->ScoreIndicate(i);
+		}
+
+
+
+		m_resultscore->RankingNameSubstitution();
+		//今回のスコアを画面上に動かす
+		////今回のスコアが下から動いてくるアクションが終わったか
+		/*	if (m_resultscore->RankingFlag == true)
+		{*/
+		//今回のスコアが画面外に行くアクション
+		m_resultscore->ResultOutAction();
+		//一度しか通らない
+		InputNameEndFlag = false;
+		//m_resultscore->RankingFlag = false;
+		MoveBy* ScoreAction = MoveBy::create(m_resultscore->ActionSpd, Vec2(0, 700));
+		nowscore_background->runAction(ScoreAction);
+		Texture2D* texture = TextureCache::sharedTextureCache()->addImage("Images/Ranking.png");
+		backcoin->setTexture(texture);
+		//	}
+	}
+
+	//タッチプリーズを表示する
 	if (m_resultscore->TitleFlag == true)
 	{
 		if (CreateSprite == false)
@@ -120,32 +151,10 @@ void ResultLayer::update(float data)
 			addChild(s_touch);
 			CreateSprite = true;
 		}
-		VisibleCnt+=3;
+		VisibleCnt += 3;
 		s_touch->setOpacity(VisibleCnt);
 	}
 
-	//画面をさ触っているか
-	if (TouchFlag == true)
-	{
-		//今回のすこあ
-		if (m_resultscore->RankingFlag == true)
-		{
-
-			m_resultscore->ResultOutAction();
-			//一度しか通らない
-			m_resultscore->RankingFlag = false;
-
-
-			MoveBy* ScoreAction = MoveBy::create(m_resultscore->ActionSpd, Vec2(0, 700));
-			nowscore_background->runAction(ScoreAction);
-
-
-			Texture2D* texture = TextureCache::sharedTextureCache()->addImage("Images/Ranking.png");
-
-			backcoin->setTexture(texture);
-		}
-
-	}
 
 }
 /***************************************************************************
@@ -161,6 +170,8 @@ void ResultLayer::onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, co
 
 	if (m_resultscore->TitleFlag == true)
 	{
+		//スコアの保存
+		m_resultscore->ScoreResister();
 		//音声を再生をする
 		AudioEngine::play2d("Sounds/touch.mp3");
 
@@ -176,7 +187,7 @@ void ResultLayer::onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, co
 	}
 	//アクションの速度をハヤくする
 	m_resultscore->ActionSpd = 0.3f;
-	//タッチしている
+
 	TouchFlag = true;
 }
 /***************************************************************************
@@ -193,4 +204,6 @@ void ResultLayer::onTouchEnded(const std::vector<cocos2d::Touch*>& touches, coco
 {
 	//アクションの速度を遅くする
 	m_resultscore->ActionSpd = 0.7f;
+	TouchFlag = false;
+
 }
