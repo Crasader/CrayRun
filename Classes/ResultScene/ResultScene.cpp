@@ -52,9 +52,6 @@ bool ResultScene::init(int score, int distance)
 	this->scheduleUpdate();
 	
 
-	ResultLayer* resultlayer = ResultLayer::create();
-	this->addChild(resultlayer);
-
 	//EditBox * editBox = EditBox::create(Size(400, 60), "Images/coin1.png");
 	//editBox->setFont("arial", 24);
 	//editBox->setPlaceHolder("aaa");
