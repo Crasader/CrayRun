@@ -1,4 +1,3 @@
-
 /***************************************************************************
 *|
 *|	概要　リザルトシーンの定義
@@ -8,7 +7,7 @@
 ****************************************************************************/
 #pragma execution_character_set("utf-8")
 
-/* ---- ライブラリのインクルード ---------- */
+/* ----  インクルード ---------- */
 #include "ResultScene.h"
 #include "ResultScore.h"
 #include "EventListenerGesture.h"
@@ -26,7 +25,11 @@ USING_NS_CC;
 
 //using namespace ui;
 
-
+/***************************************************************************
+*|	概要　　初期化処理
+*|	引数　　無し
+*|　戻り値　基底クラスの初期化処理が成功したか
+****************************************************************************/
 bool ResultScene::init(int score, int distance)
 {
 	// 親クラスを初期化する
@@ -52,19 +55,6 @@ bool ResultScene::init(int score, int distance)
 	this->scheduleUpdate();
 	
 
-	//EditBox * editBox = EditBox::create(Size(400, 60), "Images/coin1.png");
-	//editBox->setFont("arial", 24);
-	//editBox->setPlaceHolder("aaa");
-	//editBox->setFontColor(Color4B(0, 0, 0, 255));
-	//editBox->setMaxLength(16);
-	//editBox->setText("aaaa");
-	//editBox->setReturnType(EditBox::KeyboardReturnType::DONE);
-	//editBox->setInputMode(EditBox::InputMode::SINGLE_LINE);
-	//editBox->setPosition(Vec2(480.0f, 320.0f));
-	//editBox->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
-	//editBox->setDelegate(this);
-
-	//this->addChild(editBox);
 	return true;
 }
 

@@ -1,3 +1,11 @@
+/***************************************************************************
+*|
+*|	概要　　説明書クラスを定義する
+*|　作成者　GS2 16 中田湧介
+*|　作成日　2017/6/1
+*|___________________________________________________________________________
+****************************************************************************/
+/* ----  インクルード ---------- */
 #include "InfoScene.h"
 #include "../TitleScene/TitleScene.h"
 #include "../GameManager.h"
@@ -6,25 +14,12 @@
 USING_NS_CC;
 //using namespace experimental;
 
-cocos2d::Scene * InfoScene::create()
-{
-	//メモリ確保
-	InfoScene *pRet = new(std::nothrow)InfoScene();
 
-	if (pRet && pRet->init())
-	{
-		pRet->autorelease();
-		return pRet;
-	}
-	else
-	{
-		delete pRet;
-		pRet = nullptr;
-		return nullptr;
-	}
-
-}
-
+/***************************************************************************
+*|	概要　　初期化処理
+*|	引数　　無し
+*|　戻り値　基底クラスの初期化処理が成功したか
+****************************************************************************/
 bool InfoScene::init()
 {
 	if (!Scene::init()) {
@@ -67,6 +62,13 @@ bool InfoScene::init()
 	return true;
 }
 
+
+
+/***************************************************************************
+*|	概要　　
+*|	引数　　無し
+*|　戻り値　無し
+****************************************************************************/
 void InfoScene::update(float delta)
 {
 	if (b_BackScene->isHighlighted())
@@ -147,6 +149,13 @@ void InfoScene::update(float delta)
 	}
 }
 
+
+
+/***************************************************************************
+*|	概要　　
+*|	引数　　無し
+*|　戻り値　無し
+****************************************************************************/
 void InfoScene::OnButtonTouchNext(Ref * ref, ui::Widget::TouchEventType eventtype)
 {
 	switch (eventtype)

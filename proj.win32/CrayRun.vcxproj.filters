@@ -34,7 +34,6 @@
     <ClCompile Include="..\Classes\TitleScene\TitleScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="..\Classes\TitleScene\TitleCharacter.cpp" />
-    <ClCompile Include="..\Classes\ResultScene\Hoge.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
@@ -71,7 +70,6 @@
     <ClInclude Include="main.h" />
     <ClInclude Include="..\Classes\TitleScene\TitleCharacter.h" />
     <ClInclude Include="..\Classes\SoundManager.h" />
-    <ClInclude Include="..\Classes\ResultScene\Hoge.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc" />

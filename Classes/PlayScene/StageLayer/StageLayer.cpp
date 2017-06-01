@@ -1,11 +1,11 @@
 /***************************************************************************
 *|
-*|	概要　　ステージレイヤー
+*|	概要　　ステージレイヤーの定義
 *|　作成者　GS2 16 中田湧介
 *|　作成日　2017/4/20
 *|___________________________________________________________________________
 ****************************************************************************/
-/* ---- ライブラリのインクルード ---------- */
+/* ----  インクルード ---------- */
 #include "../../GameManager.h"
 #include "StageLayer.h"
 #include "audio/include/AudioEngine.h"
@@ -15,6 +15,11 @@ USING_NS_CC;
 
 
 //using namespace std;
+/***************************************************************************
+*|	概要　　初期化処理
+*|	引数　　無し
+*|　戻り値　基底クラスの初期化処理が成功したか
+****************************************************************************/
 bool StageLayer::init()
 {
 	if (!Layer::init()) {
@@ -300,13 +305,13 @@ void StageLayer::CollisionResponseCoin()
 					GameManager::PlayerPos, GameManager::PlayerSize) == true)
 				{
 					//コインの音がtrueの時は回す
-			//		if (coin_Audio_flag == true)
-				//	{
-						//コイン音再生
-						experimental::AudioEngine::play2d("Sounds/coin03.ogg");
-						coin_Audio_flag = false;
-						coin_cnt = 0;
-				//	}
+					//if (coin_Audio_flag == true)
+					//{
+					//	//コイン音再生
+					//	experimental::AudioEngine::play2d("Sounds/coin03.ogg");
+					//	coin_Audio_flag = false;
+					//	coin_cnt = 0;
+					//}
 
 					//当たったコインを削除
 					m_SaveCoin->getChildByTag(g_LoopCnt)->removeFromParent();
