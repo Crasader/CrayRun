@@ -10,7 +10,7 @@
 /* ----  インクルード ---------- */
 #include "cocos2d.h"
 #include "../../GameManager.h"
-
+#include "CoinSprite.h"
 
 class Coin :public cocos2d::Node
 {
@@ -19,10 +19,9 @@ public:
 
 	CREATE_FUNC(Coin);
 	
-	cocos2d::Sprite* s_Coin;//コイン
-	int m_CoinCnt;//コインをカウント
-	 
+    CoinSprite* s_Coin;//コイン
 private:
-	
+
+
 };
 

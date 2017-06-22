@@ -35,7 +35,7 @@ bool Character::init()
 		//プレイヤー作成
 		s_player = Sprite::create("Images/Player2.png");
 		s_player->setPosition(GameManager::PlayerPos);
-		s_player->setAnchorPoint(Vec2(0.5, 0));
+		s_player->setAnchorPoint(Vec2::ANCHOR_MIDDLE_BOTTOM);
 		this->addChild(s_player);
 
 
@@ -64,9 +64,10 @@ bool Character::init()
 	}
 		
 	walkCnt = 0;
-
+	JumpSize = 
 	JumpSize = 11.0f;
 	FloormultipleFlag = false;
+	GameManager::ScoreCorrection = SCORECORRECTION;
 	return true;
 }
 
@@ -108,20 +109,20 @@ void Character::Move()
 void Character::Jump()
 {
 	//ジャンプした回数をインクリメント
-	JumpCnt++;
+	GameManager::JumpCnt++;
 
 	//ジャンプ可能ならジャンプさせる
-	if (JumpFlag == true)
+	if (GameManager::JumpFlag == true)
 	{
 		//ジャンプ音再生
 		AudioEngine::play2d("Sounds/jump04.ogg");
 		GameManager::PlayerSpd.y = JumpSize;
 	}
 	//二回ジャンプしたらジャンプ不可にする
-	if (JumpCnt == 2)
+	if (GameManager::JumpCnt == 2)
 	{
-		JumpCnt = 0;
-		JumpFlag = false;
+		GameManager::JumpCnt = 0;
+		GameManager::JumpFlag = false;
 	}
 }
 
@@ -130,7 +131,7 @@ void Character::Animation()
 	Texture2D* texture;
 	
 	//ジャンプできるときかつジャンプをまだしていないとき（歩いてるとき）
-	if (JumpCnt == 0 && JumpFlag == true)
+	if (GameManager::JumpCnt == 0 && GameManager::JumpFlag == true)
 	{
 		switch (walkCnt / AnimationSpd % 4)
 		{
@@ -165,6 +166,8 @@ void Character::Animation()
 		s_player->setTexture(texture);
 		s_player->setContentSize(texture->getContentSize());
 	}
+
+
 }
 
 /***************************************************************************
@@ -199,7 +202,7 @@ void Character::setScale()
 			GameManager::PlayerSize.y = PLAYER_MAX_SIZE;
 		}
 
-		if (GameManager::PlayerSize.x == PLAYER_MAX_SIZE && GameManager::PlayerSize.y == PLAYER_MAX_SIZE || GameManager::Mold == Slime)
+		if (GameManager::PlayerSize.x == PLAYER_MAX_SIZE && GameManager::PlayerSize.y == PLAYER_MAX_SIZE || GameManager::Mold == GameManager::Slime)
 		{
 			isScale = false;
 		}

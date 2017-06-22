@@ -129,8 +129,12 @@ void ResultScene::editBoxReturn(cocos2d::ui::EditBox * editBox)
 
 		//入力が終わった
 		resultlayer->InputNameEndFlag = true;
-		//
+		//背景を消す
 		InputNameBackGround->removeFromParent();
+		//左右のどーろくんを消す
+		left_dorokun->removeFromParent();
+		right_dorokun->removeFromParent();
+
 		//リザルトレイヤを再起動
 		//resultlayer->resume();
 		//キーボードをふっとばす
@@ -152,6 +156,35 @@ void ResultScene::update(float data)
 		InputNameBackGround->setPosition(Vec2(GameManager::SCREEN_SIZE.x / 2, GameManager::SCREEN_SIZE.y / 2));
 		this->addChild(InputNameBackGround);
 
+		//ドーロ君の画像（左右）
+		left_dorokun = Sprite::create("Images/Player_w.png");
+		right_dorokun = Sprite::create("Images/Player_w.png");
+
+		//背景のドーロ君の座標に合わせる
+		left_dorokun->setPosition(Vec2(119.0f, 163.0f));
+		right_dorokun->setPosition(Vec2(832.0f, 176.0f));
+		//右側のドーロ君を反転させる(X)
+		right_dorokun->setFlipX(true);
+
+		this->addChild(left_dorokun);
+		this->addChild(right_dorokun);
+
+		//点滅するアクション
+		Hide* left_hideaction = Hide::create();
+		Show* left_showaction = Show::create();
+		DelayTime* left_delayaction = DelayTime::create(0.5f);
+		Sequence* left_flashing_action = Sequence::create(left_hideaction, left_delayaction, left_showaction, left_delayaction, nullptr);
+		RepeatForever* left_repeat_action = RepeatForever::create(left_flashing_action);
+		//点滅するアクション(右用)
+		Hide* right_hideaction = Hide::create();
+		Show* right_showaction = Show::create();
+		DelayTime* right_delayaction = DelayTime::create(0.5f);
+		Sequence* right_flashing_action = Sequence::create(right_hideaction, right_delayaction, right_showaction, right_delayaction, nullptr);
+		RepeatForever* right_repeat_action = RepeatForever::create(right_flashing_action);
+
+		left_dorokun->runAction(left_repeat_action);
+		right_dorokun->runAction(right_repeat_action);
+
 		ui::EditBox * editBox = ui::EditBox::create(Size(400, 60), "Images/Input.png");
 		editBox->setFont(YUSUKE_FONT, 24);
 		//editBox->setPlaceHolder("おなまえ");
@@ -160,9 +193,10 @@ void ResultScene::update(float data)
 		//editBox->setText("ここをタッチで名前入力");
 		editBox->setReturnType(ui::EditBox::KeyboardReturnType::DONE);
 		editBox->setScale(1.3f, 1.2f);
-		editBox->setInputMode(ui::EditBox::InputMode::ANY);
+		//editBox->setInputMode(ui::EditBox::InputMode::ANY);
 		editBox->setPosition(Vec2(200.0f, 150.0f));
 		editBox->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
+		editBox->setInputMode(ui::EditBox::InputMode::SINGLE_LINE);
 		editBox->setDelegate(this);
 	
 		this->addChild(editBox);

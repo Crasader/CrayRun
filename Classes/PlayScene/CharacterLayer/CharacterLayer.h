@@ -15,9 +15,8 @@
 #include "Slime.h"
 #include "Gnome.h"
 #include "Phoenix.h"
-#include "Enemy.h"
-
-
+#include "Witch.h"
+#include "audio/include/AudioEngine.h"
 
 //有効なタッチの数
  const int EFFECTIVENESS_TOUCH = 2;
@@ -28,6 +27,8 @@ public:
 	virtual bool init();
 
 	CREATE_FUNC(CharacterLayer);
+	//キャラクターオブジェクト
+	Character* character;
 
 
 
@@ -53,38 +54,14 @@ private:
 	void ChangeMold();
 	//プレイヤーとステージのあたり判定
 	void CollisionResponseFloor();
-	//プレイヤーと粘土床のあたり判定
-	void CollisionResponseCrayFloor();
-	//プレイヤーと斜面のあたり判定
-	void  CollisionResponseSlope();
-	//プレイヤーとギミックのあたり判定
-	//void AfterHittingGimmick();
-	//敵とプレイヤの当たり判定
-	void CollisionResponseEnemy();
-
 	//ジャンプするか調べる
 	void JumpInvestigate();
-	//キャラクターオブジェクト
-	Character* character;
-	
-	//敵
-	std::vector<Enemy*> enemy;
-
-	//デバック用
-	cocos2d::Label* n;
-	int a = 19;
-	//std::string b;
-	
 
 	//タッチID格納
 	int m_touch_id;
 	
 	//タッチ座標
 	cocos2d::Vec2 touchpos[EFFECTIVENESS_TOUCH];
-	//イテレータ
-	cocos2d::Vector<cocos2d::Vec2>::iterator IteratorRight;
-	cocos2d::Vector<cocos2d::Vec2>::iterator IteratorLeft;
-
 
 	//タッチサイズ
 	const cocos2d::Vec2 TOUCH_SIZE = cocos2d::Vec2(96,96);
@@ -94,15 +71,27 @@ private:
 	//最初の座標
 	cocos2d::Vec2 FirstPos[EFFECTIVENESS_TOUCH];
 	
-	int FirstMultiTouchCnt;
+
 	int FirstMultiTouchFlag;
 
 
 	//前回のキャラクタタイプ
-	CharacterKind old_chara_kind;
+	GameManager::CharacterKind old_chara_kind;
 
-	float SavePlayerPosx;
 
-	//キャラクタ
+	//キャラクタのボイス
+	int m_character_voice[GameManager::MaxCharacterKind];
+	//挟まれるボイス
+	int m_SandWicheSE;
+
+	//挟まれるボイス再生
+	void PlaySandWicheSE() {
+		if (m_SandWicheSE == 0)
+		{
+			m_SandWicheSE = cocos2d::experimental::AudioEngine::play2d("Sounds/Interpose.mp3");
+		}
+	}
+	//キャラクタボイスを全て止める関数
+	void CharacterVoiceStop();
 };
 

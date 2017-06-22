@@ -15,9 +15,7 @@ using namespace experimental;
 
 
 int PlayScene::PlayBgm = 0;
-
-
-/* ---- メンバー関数の定義 ---------------- */
+//* ---- メンバー関数の定義 ---------------- */
 /***************************************************************************
 *|	概要　　初期化処理
 *|	引数　　無し
@@ -30,33 +28,33 @@ bool PlayScene::init()
 	{
 		return false;
 	}
-	
+	log("############################### PlaayScen created");
+
 	// 背景レイヤー呼び出し
 	auto backgroundlayer = BackgroundLayer::create();
 	// 背景レイヤー関連のレイヤー
 	this->addChild(backgroundlayer);
-	// ステージレイヤー呼び出し
+
+	//// ステージレイヤー呼び出し
 	stagelayer = StageLayer::create();
 	// ステージレイヤー関連のレイヤー
 	this->addChild(stagelayer);
-	// キャラクターレイヤー呼び出し
+	//キャラクターレイヤー呼び出し
 	characterlayer = CharacterLayer::create();
-	// キャラクターレイヤー関連のレイヤ
+	//// キャラクターレイヤー関連のレイヤ
 	this->addChild(characterlayer);
 	// UIレイヤー呼び出し
 	uilayer = UiLayer::create();
 	// UIレイヤー関連のレイヤ
 	this->addChild(uilayer);
 
+	
 	//カメラを作成する
 	Camera* camera = Camera::create();
 	camera->setCameraFlag(CameraFlag::USER1);
 	this->addChild(camera);
 
 
-	//// 一時停止
-	//cocos2d::Director::getInstance()->pause();
-	//cocos2d::Director::getInstance()->isPaused();
 	
 
 	//マップ画像生成
@@ -75,7 +73,6 @@ bool PlayScene::init()
 	Go->setPosition(GameManager::SCREEN_SIZE / 2);
 	Go->setVisible(false);
 	this->addChild(Go);
-
 
 
 	//update関数を呼ぶ
@@ -97,7 +94,7 @@ void PlayScene::update(float data)
 		StopFlag = true;
 		//カウントダウンをする
 		NumberAction(3);
-		//キャラクタレイヤを止める
+		////キャラクタレイヤを止める
 		characterlayer->pause();
 		//UIレイヤを止める
 		uilayer->pause();
@@ -127,10 +124,31 @@ void PlayScene::update(float data)
 		GameManager::GameOverFlag = true;
 	}
 
+	//無敵常態になったかかつプレイヤーがアクション実行中でないか
+	if (GameManager::InvincibleFlag && characterlayer->character->numberOfRunningActions() == 0)
+	{
+		//死んだことをなかったコトに！
+		GameManager::GameOverFlag = false;
+		//ドーろ君にする
+		GameManager::Mold = GameManager::Normal;
+		//キャラクタ変更を適用する
+		GameManager::ChangeMold = true;
+		//点滅した後に無敵常態を解除するアクション
+		Hide* hideaction = Hide::create();
+		Show* showaction = Show::create();
+		DelayTime* delayaction = DelayTime::create(0.3f);
+		Sequence* flashing_action = Sequence::create(hideaction, delayaction, showaction, delayaction, nullptr);
+		Repeat* repeat_action = Repeat::create(flashing_action, 4);
+		CallFunc* call_action = CallFunc::create(CC_CALLBACK_0(PlayScene::InvincibleChenge, this));
+		Sequence* flash_call_action = Sequence::create(repeat_action, call_action,nullptr);
+		characterlayer->character->runAction(flash_call_action);
+	}
+
 	//ゲームオーバー二なったとき
 	if (GameManager::GameOverFlag == true && this->GameOverflag == false)
 	{
-
+		//キャラクタのアクションをとめる
+		characterlayer->character->stopAllActions();
 		//キャラクタレイヤを止める
 		characterlayer->pause();
 		//UIレイヤを止める
@@ -139,17 +157,20 @@ void PlayScene::update(float data)
 		//カメラを止める
 		m_CameraFlag = false;
 		//ポーズ機能使用不可に
-		GameManager::CountDownFlag = false;
+		m_CountDownFlag = false;
 		//衝突音再生
 		AudioEngine::play2d("Sounds/crash.mp3");
 		//エフェクト生成
 		Effect = Sprite::create("Images/EndEffect.png");
-		Effect->setPosition(GameManager::PlayerPos.x + GameManager::PlayerSize.x / 2, GameManager::PlayerPos.y + GameManager::PlayerSize.y / 2);
+		Effect->setPosition(GameManager::PlayerPos.x/* + GameManager::PlayerSize.x / 2*/, GameManager::PlayerPos.y + GameManager::PlayerSize.y / 2);
+		Effect->setScale(1.3, 1.3);
 		this->addChild(Effect);
 		//エフェクト生成
 		Effect = Sprite::create("Images/EndEffect.png");
-		Effect->setPosition(GameManager::PlayerPos.x + GameManager::PlayerSize.x / 2, GameManager::PlayerPos.y + GameManager::PlayerSize.y / 2);
+		Effect->setPosition(GameManager::PlayerPos.x /*+ GameManager::PlayerSize.x / 2*/, GameManager::PlayerPos.y + GameManager::PlayerSize.y / 2);
+		Effect->setScale(1.3, 1.3);
 		this->addChild(Effect);
+
 
 		//BGM停止
 		AudioEngine::stop(PlayBgm);
@@ -206,8 +227,9 @@ void PlayScene::NumberAction(int cnt)
 		//ステージの再始動する
 		stagelayer->resume();
 		//ポーズ機能ができるようにする
-		GameManager::CountDownFlag = true;
-
+		m_CountDownFlag = true;
+		//UIのメンバにも教えてあげる
+		uilayer->ChangeCountDownFlag();
 	}
 	//カウントとしてアクションを実行
 	if (cnt >= 0)

@@ -23,11 +23,10 @@ bool Coin::init()
 		return false;
 	}
 
+
 	//レイヤー取得
 	TMXLayer* layer2 = GameManager::map[GameManager::MapLoopCnt]->getLayer("MapLayer");
 
-	bool flag = true;
-	m_CoinCnt = 0;
 	//一回目:レイヤーの数を調べる,2回目:座標を設定する
 	for (int i = 0; i < GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y; i++)
 	{
@@ -53,29 +52,22 @@ bool Coin::init()
 						switch (rand() % 3 + 1)
 						{
 						case 1:
-							s_Coin = Sprite::create("Images/coin1.png");
-							GameManager::CoinPoint.push_back(10);
+							s_Coin = CoinSprite::create("Images/coin1.png",10);
 							break;
 						case 2:
-							s_Coin = Sprite::create("Images/Coin2.png");
-							GameManager::CoinPoint.push_back(20);
+							s_Coin = CoinSprite::create("Images/Coin2.png",20);
 						case 3:
-							s_Coin = Sprite::create("Images/Coin3.png");
-							GameManager::CoinPoint.push_back(30);
+							s_Coin = CoinSprite::create("Images/Coin3.png",30);
 							break;
-						default:
 							break;
 						}
 						//座標を設定する
 						s_Coin->
 							setPosition(j * GameManager::LAYRE_SIZE.x + GameManager::MapLoopCnt * GameManager::MAP_SIZE.x + GameManager::LAYRE_SIZE.x / 2,
 							(GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y - i) * GameManager::LAYRE_SIZE.y - GameManager::LAYRE_SIZE.y / 2);
-						//コインにタグをつける
-						s_Coin->setTag(m_CoinCnt);
-						this->addChild(s_Coin);
-						m_CoinCnt++;
-						//次のループでメモリ確保をさせない
-						flag = false;
+						this->addChild(s_Coin ,-100);
+					
+
 					}
 				}
 			}

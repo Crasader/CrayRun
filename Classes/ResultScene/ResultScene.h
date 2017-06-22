@@ -38,4 +38,9 @@ private:
 
 	//らんきんぐネームの背景
 	cocos2d::Sprite* InputNameBackGround;
+
+
+	//左右のドーロ君
+	cocos2d::Sprite* left_dorokun;
+	cocos2d::Sprite* right_dorokun;
 };

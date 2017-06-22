@@ -23,7 +23,7 @@ public:
 
 private:
 	//タッチされたら
-	bool onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * pEvent);
+	//bool onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * pEvent);
 	////毎フレーム呼ばれる
 	void update(float data)override;
 	cocos2d::ui::Button* CountinueButton;//ボタン

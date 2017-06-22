@@ -27,15 +27,15 @@ bool Slime::init()
 
 		return false;
 	}
-
-	GameManager::ScoreCorrection = 1.1f;
+	//スコアの倍率を設定
+	GameManager::ScoreCorrection = SCORECORRECTION;
 	// 普通の画像から変更
 	Texture2D* texture = TextureCache::sharedTextureCache()->addImage("Images/slime_chara.png");
 
 	s_player->setTexture(texture);
 	s_player->setContentSize(texture->getContentSize());
 
-	JumpSize = 11.0f;
+	JumpSize = JUMPSIZE;
 
 	return true;
 }
@@ -45,7 +45,7 @@ void Slime::Animation()
 	Texture2D* texture;
 
 	//ジャンプできるときかつジャンプをまだしていないとき（歩いてるとき）
-	if (JumpCnt == 0 && JumpFlag == true)
+	if (GameManager::JumpCnt == 0 && GameManager::JumpFlag == true)
 	{
 		switch (walkCnt / 7 % 4)
 		{

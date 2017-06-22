@@ -26,7 +26,7 @@ bool CrayStage::init()
 	TMXLayer* layer2 = GameManager::map[GameManager::MapLoopCnt]->getLayer("MapLayer");
 
 	bool flag = true;
-	CryFloorCnt = 0;
+	int loop_cnt = 0;
 	//一回目:レイヤーの数を調べる,2回目:座標を設定する
 	for (int i = 0; i < GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y; i++)
 	{
@@ -48,33 +48,28 @@ bool CrayStage::init()
 					std::string str = properties["crayfloor"].asString();
 					if (str == "crayfloor")
 					{
-						crayfloor.push_back(Sprite::create("Images/CryFloor.png"));
 
-						Vector<Sprite*>::iterator Iterator;
-						Iterator = crayfloor.begin();
-						Iterator += CryFloorCnt;
+						//粘土床を作成
+						m_crayfloor.push_back( CrayStageSprite::create("Images/CryFloor.png"));
 						//アンカーポイントに設定する
-						(*Iterator)->setAnchorPoint(Vec2(0.0f,0.0f));
+						m_crayfloor[loop_cnt]->setAnchorPoint(Vec2(0.0f, 0.0f));
 						//座標を設定する
-						(*Iterator)->
-							setPosition(j * GameManager::LAYRE_SIZE.x + /*(GameManager::LAYRE_SIZE.x*2)*/ + GameManager::MapLoopCnt * GameManager::MAP_SIZE.x,
+						m_crayfloor[loop_cnt]->
+							setPosition(j * GameManager::LAYRE_SIZE.x + /*(GameManager::LAYRE_SIZE.x*2)*/ +GameManager::MapLoopCnt * GameManager::MAP_SIZE.x,
 							(GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y - i) * GameManager::LAYRE_SIZE.y - (GameManager::LAYRE_SIZE.y * 4));
-						//粘土床にタグをつける
-						(*Iterator)->setTag(CryFloorCnt);
-						this->addChild((*Iterator));
-						//粘土床をインクリメント
-						CryFloorCnt++;
-						//座標を設定する
-						CrayStagePos.push_back(Vec2(j * GameManager::LAYRE_SIZE.x + GameManager::MapLoopCnt *  GameManager::MAP_SIZE.x,
-							(GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y - i) * GameManager::LAYRE_SIZE.y));
-						//サイズを格納する
-						CrayStageSize.push_back(GameManager::MAX_CRAYSTAGESIZE);
+					
+
+						this->addChild(m_crayfloor[loop_cnt]);
+
+						////サイズを設定する
+						//m_crayfloor->setScale(m_crayfloor->m_size.x, m_crayfloor->m_size.y);
+						loop_cnt++;
 					}
 				}
 			}
 		}
 	}
-	GameManager::AllCrayFloorPos.push_back(CrayStagePos);
+
 	return true;
 }
 

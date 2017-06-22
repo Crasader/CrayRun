@@ -13,7 +13,7 @@
 /* ---- 名前空間を解放 -------------------- */
 USING_NS_CC;
 //using namespace experimental;
-
+using namespace std;
 
 /***************************************************************************
 *|	概要　　初期化処理
@@ -25,38 +25,44 @@ bool InfoScene::init()
 	if (!Scene::init()) {
 		return false;
 	}
-	Infomation[0] = Sprite::create("Images/Infomation/Info1.png");
-	Infomation[1] = Sprite::create("Images/Infomation/Info2.png");
-	Infomation[2] = Sprite::create("Images/Infomation/Info3.png");
-	Infomation[3] = Sprite::create("Images/Infomation/Info4.png");
-	Infomation[4] = Sprite::create("Images/Infomation/Info5.png");
-	Infomation[5] = Sprite::create("Images/Infomation/Info6.png");
 
+	
 	for (int i = 0; i < MAX_INFOMATION_PASE; i++)
 	{
-		Infomation[i]->setAnchorPoint(Vec2(0,0));
+		//説明書のスプライト生成、設定
+		ostringstream ImageName;
+		ImageName << "Images/Infomation/Info" << i + 1 << ".png";
+		Infomation[i] = Sprite::create(ImageName.str());
+		Infomation[i]->setAnchorPoint(Vec2(0, 0));
 		Infomation[i]->setPosition(Vec2(i * GameManager::SCREEN_SIZE.x, 0));
 		this->addChild(Infomation[i]);
 	}
+	
 
+	//次へ進むボタン作成
 	b_Next = ui::Button::create("Images/InfoNext.png");
-	b_Next->setPosition(Vec2(GameManager::SCREEN_SIZE.x - GameManager::SCREEN_SIZE.x / 5, 100));
+	b_Next->setPosition(NEXT_POS);
 	this->addChild(b_Next);
 
+	//前に戻るボタン作成
 	b_Back = ui::Button::create("Images/InfoBack.png");
-	b_Back->setPosition(Vec2(GameManager::SCREEN_SIZE.x / 5, 100));
+	b_Back->setPosition(BACK_POS);
 	this->addChild(b_Back);
 
+	//タイトルシーンに戻るボタン作成
 	b_BackScene = ui::Button::create("Images/InfoBackScene.png");
-	b_BackScene->setPosition(Vec2(GameManager::SCREEN_SIZE.x / 2, 100));
+	b_BackScene->setPosition(BACK_SCENE_POS);
 	this->addChild(b_BackScene);
 
+	//ボタンから呼び出される関数を登録する
 	b_Next->addTouchEventListener(CC_CALLBACK_2(InfoScene::OnButtonTouchNext, this));
 	b_Back->addTouchEventListener(CC_CALLBACK_2(InfoScene::OnButtonTouchBack, this));
 
-	page = 1;
-	pageCnt = 0;
+	//初期化処理
+	page = 0;
+	AnimationCnt = 0;
 
+	//毎フレーム呼ぶ
 	this->scheduleUpdate();
 
 	return true;
@@ -64,95 +70,59 @@ bool InfoScene::init()
 
 
 
+
+
 /***************************************************************************
-*|	概要　　
+*|	概要　　毎フレーム呼ばれる
 *|	引数　　無し
 *|　戻り値　無し
 ****************************************************************************/
 void InfoScene::update(float delta)
 {
+	//戻るボタンが押されたとき
 	if (b_BackScene->isHighlighted())
 	{
+		//効果音再生
 		experimental::AudioEngine::play2d("Sounds/touch.mp3");
+		//タイトルシーンへ
 		Scene* nextscene = TitleScene::create();
 		_director->pushScene(nextscene);
 	}
 
-	switch (page)
+
+	//アニメーションのが必要なページか
+	if (page >= 1 && page <= 3)
 	{
-
-	case 2:
-
-		if (pageCnt % 10 == 0)
+		//アニメーション用カウントをインクリメント
+		AnimationCnt++;
+		//10Fに一度通る
+		if (AnimationCnt % ANIMATION_FLAME)
 		{
 			Texture2D* texture;
-			switch (pageCnt / 10 % 2)
+			ostringstream ImageName;
+			if (AnimationCnt / ANIMATION_FLAME % 2)
 			{
-			case 0:
-				texture = TextureCache::sharedTextureCache()->addImage("Images/Infomation/Info2.png");
-
-				Infomation[page - 1]->setTexture(texture);
-				break;
-			case 1:
-				texture = TextureCache::sharedTextureCache()->addImage("Images/Infomation/Info2_1.png");
-
-				Infomation[page - 1]->setTexture(texture);
-				break;
+				//画像設定
+				ImageName << "Images/Infomation/Info" << page+1 << ".png";
+				texture = TextureCache::sharedTextureCache()->addImage(ImageName.str());
 			}
-		}
-
-		pageCnt++;
-		break;
-	case 3:
-		if (pageCnt % 10 == 0)
-		{
-			Texture2D* texture;
-			switch (pageCnt / 10 % 2)
+			else
 			{
-			case 0:
-				texture = TextureCache::sharedTextureCache()->addImage("Images/Infomation/Info3.png");
-
-				Infomation[page - 1]->setTexture(texture);
-				break;
-			case 1:
-				texture = TextureCache::sharedTextureCache()->addImage("Images/Infomation/Info3_1.png");
-
-				Infomation[page - 1]->setTexture(texture);
-				break;
+				//画像設定
+				ImageName << "Images/Infomation/Info" << page+1 << "_1" <<".png";
+				texture = TextureCache::sharedTextureCache()->addImage(ImageName.str());
 			}
+			//画像適用
+			Infomation[page]->setTexture(texture);
 		}
-
-		pageCnt++;
-		break;
-
-	case 4:
-		if (pageCnt % 10 == 0)
-		{
-			Texture2D* texture;
-			switch (pageCnt / 10 % 2)
-			{
-			case 0:
-				texture = TextureCache::sharedTextureCache()->addImage("Images/Infomation/Info4.png");
-
-				Infomation[page - 1]->setTexture(texture);
-				break;
-			case 1:
-				texture = TextureCache::sharedTextureCache()->addImage("Images/Infomation/Info4_1.png");
-
-				Infomation[page - 1]->setTexture(texture);
-				break;
-			}
-		}
-
-		pageCnt++;
-		break;
+		
 	}
 }
 
 
 
 /***************************************************************************
-*|	概要　　
+*|	概要　　ボタンが押されたとき
 *|	引数　　無し
 *|　戻り値　無し
 ****************************************************************************/
@@ -166,17 +136,24 @@ void InfoScene::OnButtonTouchNext(Ref * ref, ui::Widget::TouchEventType eventtyp
 		break;
 	case ui::Widget::TouchEventType::ENDED:
 		//ページが最後のページになっていない場合
-		if (page != MAX_INFOMATION_PASE)
+		if (page < MAX_INFOMATION_PASE - 1)
 		{
+			//アクション実行中でないとき
 			if (Infomation[0]->numberOfRunningActions() == 0)
 			{
+				//ページをインクリメント
 				page++;
-				pageCnt = 0;
+				//アニメーション用カウントを初期化する
+				AnimationCnt = 0;
+				//全てのページに対して横に移動するアクションを行う
 				for (int i = 0; i < MAX_INFOMATION_PASE; i++)
 				{
+
 					MoveBy* ActionMove = MoveBy::create(1.0f, Vec2(-GameManager::SCREEN_SIZE.x, 0));
 					Infomation[i]->runAction(ActionMove);
 				}
+				//スライド音再生
+				experimental::AudioEngine::play2d("Sounds/SlideSE.ogg");
 			}
 		}
 		break;
@@ -187,6 +164,13 @@ void InfoScene::OnButtonTouchNext(Ref * ref, ui::Widget::TouchEventType eventtyp
 	}
 }
 
+
+
+/***************************************************************************
+*|	概要　　ボタンが押されたとき
+*|	引数　　無し
+*|　戻り値　無し
+****************************************************************************/
 void InfoScene::OnButtonTouchBack(Ref * ref, ui::Widget::TouchEventType eventtype)
 {
 	switch (eventtype)
@@ -197,17 +181,24 @@ void InfoScene::OnButtonTouchBack(Ref * ref, ui::Widget::TouchEventType eventtyp
 		break;
 	case ui::Widget::TouchEventType::ENDED:
 			//ページが最初のページになっていない場合
-			if (page != 1)
+			if (page != 0)
 			{
+				//アクション実行中でないとき
 				if (Infomation[0]->numberOfRunningActions() == 0)
 				{
+					//ページをデクリメント
 					page--;
-					pageCnt = 0;
+					//アニメーション用カウントを初期化する
+					AnimationCnt = 0;
+					//全てのページに対して横に移動するアクションを行う
 					for (int i = 0; i < MAX_INFOMATION_PASE; i++)
 					{
 						MoveBy* ActionMove = MoveBy::create(1.0f, Vec2(GameManager::SCREEN_SIZE.x, 0));
 						Infomation[i]->runAction(ActionMove);
 					}
+					//スライド音再生
+					experimental::AudioEngine::play2d("Sounds/SlideSE.ogg");
+
 				}
 			}
 		break;

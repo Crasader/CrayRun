@@ -10,21 +10,12 @@
 /* ----  インクルード ---------- */
 #include "cocos2d.h"
 #include "../../GameManager.h"
-
+#include "NeedleSprite.h"
 class Needle :public cocos2d::Node
 {
 public:
 	bool init();
 	CREATE_FUNC(Needle);
-	//針スプライト
-	std::vector<cocos2d::Sprite*> s_needle;
-	//針状態
-	std::vector<bool> m_needle_state;
-	//サイズ
-	const cocos2d::Vec2 SIZE = cocos2d::Vec2(100,100);
+	std::vector<NeedleSprite*> m_needleSprite;
 private:
-	//イテレータ
-	cocos2d::Vector<cocos2d::Sprite*>::iterator m_iterator_needle;
-	//何個目かをカウントする
-	int m_needle_cnt;
 };

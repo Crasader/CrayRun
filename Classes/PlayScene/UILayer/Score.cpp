@@ -42,7 +42,7 @@ bool Score::init()
 
 	//ƒXƒRƒA(•¶Žš)‚Ìì¬
 	Sprite* s_score = Sprite::create("Images/Score.png");
-	s_score->setPosition(Vec2(100, 575));
+	s_score->setPosition(Vec2(100.0f, 575.0f));
 	this->addChild(s_score);
 	return true;
 }

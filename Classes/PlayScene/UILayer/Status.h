@@ -28,7 +28,7 @@ public:
 private:
 
 	//ステータスのスプライト
-	cocos2d::Sprite* s_status[5];
+	cocos2d::Sprite* s_status[GameManager::MaxCharacterKind];
 
 
 };

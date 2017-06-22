@@ -22,5 +22,7 @@ public:
 
 private:
 
+	const float JUMPSIZE = 13.0f;
+	const float SCORECORRECTION = 1.2f;
 
 };

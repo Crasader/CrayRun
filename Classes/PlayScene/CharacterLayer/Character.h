@@ -26,10 +26,6 @@ public:
 	//重力
 	void Gravity()
 	{
-		if (GameManager::RightFlag == false)
-		{
-			GameManager::PlayerSpd.x = 6.0f;
-		}
 		//重力加速度に上限を設ける
 		if (GameManager::PlayerSpd.y >= -7.0f)
 		{
@@ -71,14 +67,8 @@ public:
 	}
 
 	float JumpSize;//ジャンプするおおきさ
-	
-
-	int JumpCnt;//ジャンプのカウント
-	bool JumpFlag;//ジャンプできるか
-
+	const float JUMPSIZE = 11.0f;
 	bool isScale;//座標の大きさが変更されているかtrue：されている,false：されていない
-
-
 	bool FloormultipleFlag;//床の下に当たっているか
 
 	const int AnimationSpd = 5;
@@ -87,6 +77,6 @@ public:
 	bool GroundFlag;
 
 private:
-	cocos2d::ParticleSystemQuad* particle;
+	const float SCORECORRECTION = 1.0f;
 };
 

@@ -5,29 +5,29 @@ USING_NS_CC;
 const Vec2 GameManager::LAYRE_SIZE = Vec2(64, 64);//レイヤーの大きさ
 
 //プレイシーン
-
-const  int GameManager::BOX_COLLIDER = 10;			//あたり判定時に使用するタイルレイヤーの淵から少しだけ内側に入っているか確かめるための数
-const  int GameManager::BOX_COLLIDER2 = 40;			//あたり判定時に使用するタイルレイヤーの淵から少しだけ内側に入っているか確かめるための数
-
 float GameManager::WorldPosX = 0.0f;
 bool GameManager::GameOverFlag = false;//ゲームオーバーフラグ
+bool GameManager::InvincibleFlag;//無敵常態かどうか
+
 const Vec2 GameManager::SCREEN_SIZE= Vec2(960,640);//画面サイズ
-bool  GameManager::CountDownFlag;//カウントダウンが終わったか
+const Vec2 GameManager::TOUCH_SIZE = Vec2(32.0f,32.0f);	//タッチの大きさ
 
 //////////////キャラクターレイヤー//////
 //////////////キャラクター//////////////
 Vec2 GameManager::PlayerSpd = (Vec2(6.0f,-4.0f));//速度
 Vec2  GameManager::PlayerSize = Vec2(96, 96);//サイズ
 Vec2  GameManager::PlayerPos = Vec2(300.0f, GameManager::LAYRE_SIZE.y * 4);//座標
-float  GameManager::ScoreCorrection = 1.0f;//スコア補正
-bool GameManager::RightFlag = false;//右側に当たったか
+int  GameManager::JumpCnt = 0;//ジャンプする回数
+bool  GameManager::JumpFlag = false;//ジャンプできるか
+bool  GameManager::JumpState = false;//ジャンプできるか
 
-//int  GameManager::JumpCnt = 0;//ジャンプのカウント
-//bool  GameManager::JumpFlag = true;//ジャンプできるか
+
+float  GameManager::ScoreCorrection = 1.0f;//スコア補正
+
+
 //
 
 
-int GameManager::FirstTouchCnt = 0;//最初のタッチからどれだけ経過したか
 bool GameManager::FirstTouchFlag = false;//最初のタッチが呼ばれたか
 int GameManager::PlayerMapPos = 0;//何番目の座標にいるか
 
@@ -39,38 +39,21 @@ const Vec2 GameManager::MAP_SIZE = Vec2(300 * 64, 640);//マップ大きさ
 int  GameManager::MapLoopCnt = 0;//ステージをループさせた回数
 std::vector<std::vector<Vec2>> GameManager::AllFloorPos;//床座標
 
-//////////////斜面////////////////////
-int  GameManager::SlopeCnt = 0;//斜面カウント
-std::vector<std::vector<Vec2>> GameManager::AllLeftPos;
-std::vector<std::vector<Vec2>> GameManager::AllRightPos;
-
 
 ///////////////床/////////////////////
 float GameManager::SlopePosY = 0.0f;//斜面座標Y
 
-/////////////粘土ステージ////////
-std::vector<std::vector<cocos2d::Vec2>>  GameManager::AllCrayFloorPos;//粘土床座標
-const Vec2   GameManager::MAX_CRAYSTAGESIZE = Vec2(192, 256);////粘土床の最大サイズ
-
-std::vector<Vec2>   GameManager::CrayFloorSize;//粘土床の大きさ
-int GameManager::CraySizeChangeCnt = 0;//どの粘土床のサイズを変更するか
-bool GameManager::CraySizeChangeFlag = false;//粘土床のサイズ変更するか
-
-
 //////////////コイン//////////////
-std::vector<int>  GameManager::CoinPoint;//コインのポイント
 std::vector<std::vector<Vec2>> AllLeftPos;//全ての斜面左端の座標
 std::vector<std::vector<Vec2>> AllRightPos;//全ての斜面右端の座標
 
 /////////////金型////////////////
 
-CharacterKind GameManager::Mold = Normal;//金型
+GameManager::CharacterKind GameManager::Mold = Normal;//金型
 bool GameManager::ChangeMold = false;//金型変化あるか
 
 int GameManager::MoldCnt = 0;
 std::vector<cocos2d::Vec2> GameManager::MoldPos;//金型の座標
-
-Vec2 GameManager::MoldSpd = Vec2(0, -4);
 /////////////////UIレイヤー/////////////////
 /////////////////スコア////////////////
 int GameManager::Score = 0;//スコア
@@ -89,18 +72,16 @@ void GameManager::Initialize()
 {
 	WorldPosX = 0.0f;
 	GameOverFlag = false;//ゲームオーバーフラグ
-	CountDownFlag = false;//カウントダウンが終わったか
+	InvincibleFlag = false;//無敵常態かどうか
 
-
+	JumpCnt = 0;//ジャンプする回数
+	JumpFlag = false;//ジャンプできるか
 	map.clear();//マップ
 	AllFloorPos.clear();//床座標
-	AllLeftPos.clear();
-	AllRightPos.clear();
-	AllCrayFloorPos.clear();//粘土床座標
-	CrayFloorSize.clear();//粘土床の大きさ
-	CoinPoint.clear();//コインのポイント
-	AllLeftPos.clear();//全ての斜面左端の座標
-	AllRightPos.clear();//全ての斜面右端の座標
+	//AllLeftPos.clear();
+	//AllRightPos.clear();
+	//AllLeftPos.clear();//全ての斜面左端の座標
+	//AllRightPos.clear();//全ての斜面右端の座標
 	MoldPos.clear();//金型の座標
 
 
@@ -110,12 +91,10 @@ void GameManager::Initialize()
 	PlayerSpd = Vec2(6.0f, -4.0f);//速度
 	PlayerSize = Vec2(96, 96);//サイズ
 	ScoreCorrection = 1.0f;//スコア補正
-	RightFlag = false;//右側に当たったか
 	PlayerPos = (Vec2(300.0f, GameManager::LAYRE_SIZE.y * 4));//座標
 	
 
 
-	FirstTouchCnt = 0;//最初のタッチからどれだけ経過したか
 	FirstTouchFlag = false;//最初のタッチが呼ばれたか
 	PlayerMapPos = 0;//何番目の座標にいるか
 
@@ -125,17 +104,10 @@ void GameManager::Initialize()
 	MapLoopCnt = 0;//ステージをループさせた回数
 
 
-	//////////////斜面////////////////////
-	SlopeCnt = 0;//斜面カウント
-
+	
 	
 	///////////////床/////////////////////
 	SlopePosY = 0.0f;//斜面座標Y
-
-	/////////////粘土ステージ////////
-
-	CraySizeChangeCnt = 0;//どの粘土床のサイズを変更するか
-	CraySizeChangeFlag = false;//粘土床のサイズ変更するか
 
 	/////////////金型////////////////
 
@@ -143,8 +115,6 @@ void GameManager::Initialize()
 	ChangeMold = false;//金型変化あるか
 
 
-					   //////////////コイン//////////////
-	CoinPoint.crend();//コインのポイント
 	AllLeftPos.crend();//全ての斜面左端の座標
 	AllRightPos.crend();//全ての斜面右端の座標
 
@@ -167,7 +137,7 @@ void GameManager::Initialize()
 *|	引数　　オブジェクト座標,オブジェクトサイズ,プレイヤー座標,オブジェクトサイズ
 *|　戻り値　0:空中	1:マップレイヤーの上に乗った	2:マップレイヤーの右側に当たった
 *************************************************************************************/
-Direction  GameManager::CollisionDetermination(Vec2 Apos,Vec2 Asize, Vec2 Bpos,Vec2 Bsize)
+GameManager::Direction  GameManager::CollisionDetermination(Vec2 Apos,Vec2 Asize, Vec2 Bpos,Vec2 Bsize)
 {
 	//マップレイヤーの上に乗ったか
 	if (Apos.x <= Bpos.x + Bsize.x / 2)
@@ -251,7 +221,7 @@ Direction  GameManager::CollisionDetermination(Vec2 Apos,Vec2 Asize, Vec2 Bpos,V
 *|	引数　　オブジェクト座標,オブジェクトサイズ,プレイヤー座標,オブジェクトサイズ
 *|　戻り値　0:空中	1:マップレイヤーの上に乗った	2:マップレイヤーの右側に当たった
 *************************************************************************************/
-Direction  GameManager::CollisionDetermination2(Vec2 Apos, Vec2 Asize, Vec2 Bpos, Vec2 Bsize)
+GameManager::Direction  GameManager::CollisionDetermination2(Vec2 Apos, Vec2 Asize, Vec2 Bpos, Vec2 Bsize)
 {
 	//マップレイヤーの上に乗ったか
 	if (Apos.x <= Bpos.x + Bsize.x / 2)
@@ -260,7 +230,7 @@ Direction  GameManager::CollisionDetermination2(Vec2 Apos, Vec2 Asize, Vec2 Bpos
 		{
 			if (Apos.y >= Bpos.y)
 			{
-				if (Apos.y - GameManager::BOX_COLLIDER2 <= Bpos.y)
+				if (Apos.y - BOX_COLLIDER2 <= Bpos.y)
 				{
 					{
 						return up;
@@ -279,7 +249,7 @@ Direction  GameManager::CollisionDetermination2(Vec2 Apos, Vec2 Asize, Vec2 Bpos
 		{
 			if (Apos.y - Asize.y <= Bpos.y + Bsize.y)
 			{
-				if (Apos.y - Asize.y + GameManager::BOX_COLLIDER2 >= Bpos.y + Bsize.y)
+				if (Apos.y - Asize.y + BOX_COLLIDER2 >= Bpos.y + Bsize.y)
 				{
 					{
 						return under;
@@ -290,7 +260,7 @@ Direction  GameManager::CollisionDetermination2(Vec2 Apos, Vec2 Asize, Vec2 Bpos
 	}
 
 	//マップレイヤーの左側に当たったか
-	if (Apos.x + GameManager::BOX_COLLIDER2 >= Bpos.x + Bsize.x / 2)
+	if (Apos.x + BOX_COLLIDER2 >= Bpos.x + Bsize.x / 2)
 	{
 		if (Apos.x <= Bpos.x + Bsize.x / 2)
 		{
@@ -308,7 +278,7 @@ Direction  GameManager::CollisionDetermination2(Vec2 Apos, Vec2 Asize, Vec2 Bpos
 
 
 	//マップレイヤーの右側に当たったか
-	if (Apos.x + Asize.x - GameManager::BOX_COLLIDER2 <= Bpos.x - Bsize.x / 2)
+	if (Apos.x + Asize.x - BOX_COLLIDER2 <= Bpos.x - Bsize.x / 2)
 	{
 		if (Apos.x + Asize.x >= Bpos.x - Bsize.x / 2)
 		{
@@ -337,7 +307,7 @@ Direction  GameManager::CollisionDetermination2(Vec2 Apos, Vec2 Asize, Vec2 Bpos
 *|	引数　　斜辺左端座標,斜辺右端座標,オブジェクト座標
 *|　戻り値　true当たった　false 当たってない
 *************************************************************************************/
-Direction GameManager::DiagonalCollisionDetermination(Vec2 Apos, Vec2 Bpos, Vec2 Object) {
+GameManager::Direction GameManager::DiagonalCollisionDetermination(Vec2 Apos, Vec2 Bpos, Vec2 Object) {
 
 	Vec2 v;
 	Vec2 A;

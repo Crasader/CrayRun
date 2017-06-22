@@ -15,14 +15,14 @@ bool Phoenix::init()
 	{
 		return false;
 	}
-	GameManager::ScoreCorrection = 1.3f;
+	GameManager::ScoreCorrection = SCORECORRECTION;
 	// 普通の画像から変更
 	Texture2D* texture = TextureCache::sharedTextureCache()->addImage("Images/Phoenix_Chara.png");
 
 	s_player->setTexture(texture);
 	s_player->setContentSize(texture->getContentSize());
 
-	JumpSize = 11.0f;
+	JumpSize = JUMPSIZE;
 	return true;
 }
 
@@ -31,7 +31,7 @@ void Phoenix::Animation()
 		//アニメーションする
 		Texture2D* texture;
 	//ジャンプできるときかつジャンプをまだしていないとき（歩いてるとき）
-	if (JumpCnt == 0 && JumpFlag == true)
+	if (GameManager::JumpCnt == 0 && GameManager::JumpFlag == true)
 	{
 		switch (walkCnt / AnimationSpd % 4)
 		{

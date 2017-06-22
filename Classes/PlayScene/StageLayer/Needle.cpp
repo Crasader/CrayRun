@@ -22,11 +22,10 @@ bool Needle::init() {
 
 		return false;
 	}
-
-	m_needle_cnt = 0;
 	//レイヤー取得
 	TMXLayer* layer = GameManager::map[GameManager::MapLoopCnt]->getLayer("MapLayer");
-
+	//何個目の針かカウント
+	int loop_cnt = 0;
 	//一回目:レイヤーの数を調べる,2回目:座標を設定する
 	for (int i = 0; i < GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y; i++)
 	{
@@ -49,16 +48,13 @@ bool Needle::init() {
 					if (str == "needle")
 					{
 						//座標を設定する
-						s_needle.push_back(Sprite::create("Images/needle.png"));
-						//m_iterator_needle = s_needle.begin();
-						s_needle[m_needle_cnt]->setPosition(j * GameManager::LAYRE_SIZE.x + GameManager::MapLoopCnt *  GameManager::MAP_SIZE.x + GameManager::LAYRE_SIZE.x / 2,
+						m_needleSprite.push_back(NeedleSprite::create("Images/needle.png"));
+
+						m_needleSprite[loop_cnt]->setPosition(j * GameManager::LAYRE_SIZE.x + GameManager::MapLoopCnt *  GameManager::MAP_SIZE.x + GameManager::LAYRE_SIZE.x / 2,
 							(GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y - i) * GameManager::LAYRE_SIZE.y - GameManager::LAYRE_SIZE.y / 2);
-						this->addChild(s_needle[m_needle_cnt]);
-						//針の状態を真にする
-						m_needle_state.push_back(true);
-					
-						//何個目かカウント
-						m_needle_cnt++;
+						this->addChild(m_needleSprite[loop_cnt]);
+			
+						loop_cnt++;
 					}
 				}
 			}

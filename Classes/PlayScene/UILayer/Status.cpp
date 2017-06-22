@@ -1,6 +1,6 @@
 /***************************************************************************
 *|
-*|	概要　　ステージクラスを定義する
+*|	概要　　ステータスクラスを定義する
 *|　作成者　GS2 16 中田湧介
 *|　作成日　2017/6/1
 *|___________________________________________________________________________
@@ -25,13 +25,15 @@ bool Status::init()
 		return false;
 	}
 
-	s_status[Rabbit] = Sprite::create("Images/Rabbit_status.png");
-	s_status[Gnome] = Sprite::create("Images/Gnome_status.png");
-	s_status[Phoenix] = Sprite::create("Images/Phoenix_status.png");
-	s_status[Slime] = Sprite::create("Images/Slime_status.png");
+	s_status[GameManager::Normal] = Sprite::create("Images/Player_status .png");
+	s_status[GameManager::Rabbit] = Sprite::create("Images/Rabbit_status.png");
+	s_status[GameManager::Gnome] = Sprite::create("Images/Gnome_status.png");
+	s_status[GameManager::Phoenix] = Sprite::create("Images/Phoenix_status.png");
+	s_status[GameManager::Slime] = Sprite::create("Images/Slime_status.png");
+	s_status[GameManager::Witch] = Sprite::create("Images/Witch_status.png");
 
 
-	for (int i = 1; i < 5; i++)
+	for (int i = 0; i < GameManager::MaxCharacterKind; i++)
 	{
 		s_status[i]->setScale(1.2f);
 		s_status[i]->setPosition(Vec2(GameManager::PlayerPos.x - 140, 200.0f));
@@ -52,7 +54,7 @@ bool Status::init()
 //__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/
 void Status::update(float delta)
 {
-	for (int i = 1; i < 5; i++)
+	for (int i = 0; i < GameManager::MaxCharacterKind; i++)
 	{
 		s_status[i]->setPositionY(GameManager::PlayerPos.y
 		+ GameManager::PlayerSize.y / 2);
@@ -66,7 +68,7 @@ void Status::update(float delta)
 void Status::StatusAction()
 {
 	//アクションが終わっているか
-	for (int i = 1; i < 5; i++)
+	for (int i = 0; i < GameManager::MaxCharacterKind; i++)
 	{
 		if (!s_status[i]->getActionByTag(1))
 		{
@@ -85,19 +87,23 @@ void Status::StatusAction()
 
 	switch (GameManager::Mold)
 	{
-	case Normal:
+	case GameManager::Normal:
+		s_status[GameManager::Normal]->runAction(m_status_action);
 		break;
-	case Rabbit:
-		s_status[Rabbit]->runAction(m_status_action);
+	case GameManager::Rabbit:
+		s_status[GameManager::Rabbit]->runAction(m_status_action);
 		break;
-	case Gnome:
-		s_status[Gnome]->runAction(m_status_action);
+	case GameManager::Gnome:
+		s_status[GameManager::Gnome]->runAction(m_status_action);
 		break;
-	case Phoenix:
-		s_status[Phoenix]->runAction(m_status_action);
+	case GameManager::Phoenix:
+		s_status[GameManager::Phoenix]->runAction(m_status_action);
 		break;
-	case Slime:
-		s_status[Slime]->runAction(m_status_action);
+	case GameManager::Slime:
+		s_status[GameManager::Slime]->runAction(m_status_action);
+		break;
+	case GameManager::Witch:
+		s_status[GameManager::Witch]->runAction(m_status_action);
 		break;
 	}
 

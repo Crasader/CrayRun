@@ -26,14 +26,14 @@ bool Rabbit::init()
 		return false;
 	}
 
-	GameManager::ScoreCorrection = 1.2f;
+	GameManager::ScoreCorrection = SCORECORRECTION;
 	// 普通の画像から変更
 	Texture2D* texture = TextureCache::sharedTextureCache()->addImage("Images/Rabbit2.png");
 
 	s_player->setTexture(texture);
 	s_player->setContentSize(texture->getContentSize());
 
-	JumpSize = 13.0f;
+	JumpSize = JUMPSIZE;
 	
 	return true;
 }
@@ -43,7 +43,7 @@ void Rabbit::Animation()
 	Texture2D* texture;	
 	
 	//ジャンプできるときかつジャンプをまだしていないとき（歩いてるとき）
-	if (JumpCnt == 0 && JumpFlag == true)
+	if (GameManager::JumpCnt == 0 && GameManager::JumpFlag == true)
 	{
 		switch (walkCnt / AnimationSpd % 6)
 		{

@@ -1,77 +1,279 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="..\Classes\AppDelegate.cpp" />
-    <ClCompile Include="..\Classes\EventListenerGesture.cpp" />
-    <ClCompile Include="..\Classes\GameManager.cpp" />
-    <ClCompile Include="..\Classes\InfoScene\InfoScene.cpp" />
-    <ClCompile Include="..\Classes\PauseScene\PauseScene.cpp" />
-    <ClCompile Include="..\Classes\PlayScene\BackgroundLayer\Background.cpp" />
-    <ClCompile Include="..\Classes\PlayScene\BackgroundLayer\BackgroundLayer.cpp" />
-    <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Character.cpp" />
-    <ClCompile Include="..\Classes\PlayScene\CharacterLayer\CharacterLayer.cpp" />
-    <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Enemy.cpp" />
-    <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Gnome.cpp" />
-    <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Phoenix.cpp" />
-    <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Rabbit.cpp" />
-    <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Slime.cpp" />
-    <ClCompile Include="..\Classes\PlayScene\PlayScene.cpp" />
-    <ClCompile Include="..\Classes\PlayScene\StageLayer\Coin.cpp" />
-    <ClCompile Include="..\Classes\PlayScene\StageLayer\CrayStage.cpp" />
-    <ClCompile Include="..\Classes\PlayScene\StageLayer\Mold.cpp" />
-    <ClCompile Include="..\Classes\PlayScene\StageLayer\Needle.cpp" />
-    <ClCompile Include="..\Classes\PlayScene\StageLayer\Slope.cpp" />
-    <ClCompile Include="..\Classes\PlayScene\StageLayer\Stage.cpp" />
-    <ClCompile Include="..\Classes\PlayScene\StageLayer\StageLayer.cpp" />
-    <ClCompile Include="..\Classes\PlayScene\UILayer\Distance.cpp" />
-    <ClCompile Include="..\Classes\PlayScene\UILayer\Score.cpp" />
-    <ClCompile Include="..\Classes\PlayScene\UILayer\Status.cpp" />
-    <ClCompile Include="..\Classes\PlayScene\UILayer\UILayer.cpp" />
-    <ClCompile Include="..\Classes\ResultScene\ResultLayer.cpp" />
-    <ClCompile Include="..\Classes\ResultScene\ResultScene.cpp" />
-    <ClCompile Include="..\Classes\ResultScene\ResultScore.cpp" />
-    <ClCompile Include="..\Classes\TitleScene\TitleLayer.cpp" />
-    <ClCompile Include="..\Classes\TitleScene\TitleScene.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="..\Classes\TitleScene\TitleCharacter.cpp" />
+    <ClCompile Include="..\Classes\PlayScene\BackgroundLayer\Background.cpp">
+      <Filter>ResultScene\PlayScene\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\BackgroundLayer\BackgroundLayer.cpp">
+      <Filter>ResultScene\PlayScene\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Character.cpp">
+      <Filter>ResultScene\PlayScene\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\CharacterLayer\CharacterLayer.cpp">
+      <Filter>ResultScene\PlayScene\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Gnome.cpp">
+      <Filter>ResultScene\PlayScene\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Phoenix.cpp">
+      <Filter>ResultScene\PlayScene\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Rabbit.cpp">
+      <Filter>ResultScene\PlayScene\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Slime.cpp">
+      <Filter>ResultScene\PlayScene\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\StageLayer\Coin.cpp">
+      <Filter>ResultScene\PlayScene\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\StageLayer\CrayStage.cpp">
+      <Filter>ResultScene\PlayScene\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\StageLayer\Needle.cpp">
+      <Filter>ResultScene\PlayScene\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\StageLayer\Mold.cpp">
+      <Filter>ResultScene\PlayScene\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\StageLayer\Stage.cpp">
+      <Filter>ResultScene\PlayScene\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\StageLayer\StageLayer.cpp">
+      <Filter>ResultScene\PlayScene\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\UILayer\Distance.cpp">
+      <Filter>ResultScene\PlayScene\Ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\UILayer\Score.cpp">
+      <Filter>ResultScene\PlayScene\Ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\UILayer\UILayer.cpp">
+      <Filter>ResultScene\PlayScene\Ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\UILayer\Status.cpp">
+      <Filter>ResultScene\PlayScene\Ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AppDelegate.cpp">
+      <Filter>Other</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\EventListenerGesture.cpp">
+      <Filter>Other</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameManager.cpp">
+      <Filter>Other</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Other</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\InfoScene\InfoScene.cpp">
+      <Filter>InfoScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PauseScene\PauseScene.cpp">
+      <Filter>PauseScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\PlayScene.cpp">
+      <Filter>ResultScene\PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TitleScene\TitleScene.cpp">
+      <Filter>TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TitleScene\TitleLayer.cpp">
+      <Filter>TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TitleScene\TitleCharacter.cpp">
+      <Filter>TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ResultScene\ResultLayer.cpp">
+      <Filter>ResultScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ResultScene\ResultScene.cpp">
+      <Filter>ResultScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ResultScene\ResultScore.cpp">
+      <Filter>ResultScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\StageLayer\Slope.cpp">
+      <Filter>ResultScene\PlayScene\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\CharacterLayer\Witch.cpp">
+      <Filter>ResultScene\PlayScene\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\StageLayer\CoinSprite.cpp">
+      <Filter>ResultScene\PlayScene\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\StageLayer\CrayStageSprite.cpp">
+      <Filter>ResultScene\PlayScene\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\StageLayer\NeedleSprite.cpp">
+      <Filter>ResultScene\PlayScene\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\StageLayer\SlopeSprite.cpp">
+      <Filter>ResultScene\PlayScene\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\StageLayer\Enemy.cpp">
+      <Filter>ResultScene\PlayScene\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayScene\StageLayer\EnemySprite.cpp">
+      <Filter>ResultScene\PlayScene\Stage</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Classes\AppDelegate.h" />
-    <ClInclude Include="..\Classes\EventListenerGesture.h" />
-    <ClInclude Include="..\Classes\GameManager.h" />
-    <ClInclude Include="..\Classes\InfoScene\InfoScene.h" />
-    <ClInclude Include="..\Classes\PauseScene\PauseScene.h" />
-    <ClInclude Include="..\Classes\PlayScene\BackgroundLayer\Background.h" />
-    <ClInclude Include="..\Classes\PlayScene\BackgroundLayer\BackgroundLayer.h" />
-    <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Character.h" />
-    <ClInclude Include="..\Classes\PlayScene\CharacterLayer\CharacterLayer.h" />
-    <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Enemy.h" />
-    <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Gnome.h" />
-    <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Phoenix.h" />
-    <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Rabbit.h" />
-    <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Slime.h" />
-    <ClInclude Include="..\Classes\PlayScene\PlayScene.h" />
-    <ClInclude Include="..\Classes\PlayScene\StageLayer\Coin.h" />
-    <ClInclude Include="..\Classes\PlayScene\StageLayer\CrayStage.h" />
-    <ClInclude Include="..\Classes\PlayScene\StageLayer\Mold.h" />
-    <ClInclude Include="..\Classes\PlayScene\StageLayer\Needle.h" />
-    <ClInclude Include="..\Classes\PlayScene\StageLayer\Slope.h" />
-    <ClInclude Include="..\Classes\PlayScene\StageLayer\Stage.h" />
-    <ClInclude Include="..\Classes\PlayScene\StageLayer\StageLayer.h" />
-    <ClInclude Include="..\Classes\PlayScene\UILayer\Distance.h" />
-    <ClInclude Include="..\Classes\PlayScene\UILayer\Score.h" />
-    <ClInclude Include="..\Classes\PlayScene\UILayer\Status.h" />
-    <ClInclude Include="..\Classes\PlayScene\UILayer\UILayer.h" />
-    <ClInclude Include="..\Classes\ResultScene\ResultLayer.h" />
-    <ClInclude Include="..\Classes\ResultScene\ResultScene.h" />
-    <ClInclude Include="..\Classes\ResultScene\ResultScore.h" />
-    <ClInclude Include="..\Classes\TitleScene\TitleLayer.h" />
-    <ClInclude Include="..\Classes\TitleScene\TitleScene.h" />
-    <ClInclude Include="main.h" />
-    <ClInclude Include="..\Classes\TitleScene\TitleCharacter.h" />
-    <ClInclude Include="..\Classes\SoundManager.h" />
+    <ClInclude Include="..\Classes\PlayScene\BackgroundLayer\Background.h">
+      <Filter>ResultScene\PlayScene\BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Gnome.h">
+      <Filter>ResultScene\PlayScene\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Character.h">
+      <Filter>ResultScene\PlayScene\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\CharacterLayer\CharacterLayer.h">
+      <Filter>ResultScene\PlayScene\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Phoenix.h">
+      <Filter>ResultScene\PlayScene\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Rabbit.h">
+      <Filter>ResultScene\PlayScene\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Slime.h">
+      <Filter>ResultScene\PlayScene\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\StageLayer\Coin.h">
+      <Filter>ResultScene\PlayScene\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\StageLayer\CrayStage.h">
+      <Filter>ResultScene\PlayScene\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\StageLayer\Needle.h">
+      <Filter>ResultScene\PlayScene\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\StageLayer\Mold.h">
+      <Filter>ResultScene\PlayScene\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\StageLayer\Stage.h">
+      <Filter>ResultScene\PlayScene\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\StageLayer\StageLayer.h">
+      <Filter>ResultScene\PlayScene\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\UILayer\Distance.h">
+      <Filter>ResultScene\PlayScene\Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\UILayer\Score.h">
+      <Filter>ResultScene\PlayScene\Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\UILayer\UILayer.h">
+      <Filter>ResultScene\PlayScene\Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\UILayer\Status.h">
+      <Filter>ResultScene\PlayScene\Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AppDelegate.h">
+      <Filter>Other</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\EventListenerGesture.h">
+      <Filter>Other</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameManager.h">
+      <Filter>Other</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>Other</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\InfoScene\InfoScene.h">
+      <Filter>InfoScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PauseScene\PauseScene.h">
+      <Filter>PauseScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\PlayScene.h">
+      <Filter>ResultScene\PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TitleScene\TitleScene.h">
+      <Filter>TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TitleScene\TitleLayer.h">
+      <Filter>TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TitleScene\TitleCharacter.h">
+      <Filter>TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ResultScene\ResultLayer.h">
+      <Filter>ResultScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ResultScene\ResultScene.h">
+      <Filter>ResultScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ResultScene\ResultScore.h">
+      <Filter>ResultScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\StageLayer\Slope.h">
+      <Filter>ResultScene\PlayScene\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SoundManager.h">
+      <Filter>Other</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\CharacterLayer\Witch.h">
+      <Filter>ResultScene\PlayScene\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\StageLayer\CoinSprite.h">
+      <Filter>ResultScene\PlayScene\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\StageLayer\CrayStageSprite.h">
+      <Filter>ResultScene\PlayScene\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\StageLayer\NeedleSprite.h">
+      <Filter>ResultScene\PlayScene\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\StageLayer\SlopeSprite.h">
+      <Filter>ResultScene\PlayScene\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\BackgroundLayer\BackgroundLayer.h">
+      <Filter>ResultScene\PlayScene\BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\StageLayer\Enemy.h">
+      <Filter>ResultScene\PlayScene\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayScene\StageLayer\EnemySprite.h">
+      <Filter>ResultScene\PlayScene\Stage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="TitleScene">
+      <UniqueIdentifier>{f80a2f25-fa07-4f30-8ec5-2e0fb3ef5089}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ResultScene">
+      <UniqueIdentifier>{eee2a328-9abc-4bd3-a7db-2f017396aa3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Other">
+      <UniqueIdentifier>{e91f2f66-9270-4a69-b0b0-18e95d4aedce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PauseScene">
+      <UniqueIdentifier>{e7d1450d-ad6a-4eef-a2f1-4ccd253ea80d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="InfoScene">
+      <UniqueIdentifier>{31fa656b-0c54-483b-8c96-24553b22dd0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ResultScene\PlayScene">
+      <UniqueIdentifier>{263d576d-e197-4aae-aedf-4766e617afcd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ResultScene\PlayScene\Stage">
+      <UniqueIdentifier>{60df3067-2328-4c80-b0cd-f6f34b1c6746}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ResultScene\PlayScene\Character">
+      <UniqueIdentifier>{d3480c37-cc7b-49c3-a576-b5c355f40074}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ResultScene\PlayScene\Ui">
+      <UniqueIdentifier>{f31bd71d-5b94-4124-9419-6458d9b15e49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ResultScene\PlayScene\BackGround">
+      <UniqueIdentifier>{74920a7a-a7d3-4fa4-8879-3dedf68eb5eb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

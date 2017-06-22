@@ -32,11 +32,14 @@ public:
 
 	//BGM
 	static int PlayBgm;
+
+	//ゲームマネージャ
+	static GameManager* gamemanager;
 private:
 	//毎フレーム呼ばれる
 	void update(float data)override;
 	cocos2d::Camera* m_camera;
-	cocos2d::Layer* uilayer;
+	UiLayer* uilayer;
 
 	//3.2.1のスプライト
 	cocos2d::Sprite* Number[3];
@@ -78,6 +81,15 @@ private:
 		}
 	}
 
+	//無敵常態を変更する
+	void InvincibleChenge() { GameManager::InvincibleFlag = false; }
+
 	//ゲームオーバー処理を通ったか
 	bool GameOverflag;
+
+
+
+	//カウントダウンが終わったか
+	bool m_CountDownFlag;
 };
+

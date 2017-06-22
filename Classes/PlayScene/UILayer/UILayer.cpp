@@ -117,7 +117,7 @@ void UiLayer::onButtonTouch(Ref * ref, ui::Widget::TouchEventType eventType)
 
 	if (PauseFlag == false)
 	{
-		if (GameManager::CountDownFlag == true)
+		if (m_CountDownFlag == true)
 		{
 			experimental::AudioEngine::play2d("Sounds/touch.mp3");
 			Scene* nextscene = PauseScene::create();

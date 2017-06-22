@@ -24,7 +24,7 @@ public:
 
 	CREATE_FUNC(UiLayer);
 
-
+	void ChangeCountDownFlag() { m_CountDownFlag = true; }
 private:
 
 	////毎フレーム呼び出される関数
@@ -35,14 +35,18 @@ private:
 	cocos2d::ui::Button* button;//ボタン
 
 	void onButtonTouch(cocos2d::Ref* ref, cocos2d::ui::Widget::TouchEventType eventType);
-	int b;
+
 	//デバック用
 	cocos2d::Label* n;
-
+	//
 	bool PauseFlag;
+
 
 	//ステータス
 	Status* status;
+
+	//カウントダウンが終わったか
+	bool m_CountDownFlag;
 };
 
 

@@ -39,15 +39,15 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	srand((unsigned)time(NULL));
 	//音楽ファイルを読み込み
 	AudioEngine::preload("Sounds/domovoice.mp3");
-	AudioEngine::preload("Sounds/RabbitVoice.mp3");
-	AudioEngine::preload("Sounds/Gnome_VoiceSE.mp3");
-	AudioEngine::preload("Sounds/phoenix_CrySE.mp3");
-	AudioEngine::preload("Sounds/SlimeSE.mp3");
+	//AudioEngine::preload("Sounds/RabbitVoice.mp3");
+	//AudioEngine::preload("Sounds/Gnome_VoiceSE.mp3");
+	//AudioEngine::preload("Sounds/phoenix_CrySE.mp3");
+	//AudioEngine::preload("Sounds/SlimeSE.mp3");
 	AudioEngine::preload("Sounds/jump04.ogg");
-	AudioEngine::preload("Sounds/ResultBGM.ogg");
+	//AudioEngine::preload("Sounds/ResultBGM.ogg");
 	AudioEngine::preload("Sounds/coin03.mp3");
 	AudioEngine::preload("Sounds/TitleBGMLoop.mp3");
-	AudioEngine::preload("Sounds/crash.mp3");
+	//AudioEngine::preload("Sounds/crash.mp3");
 
 	//AudioEngine::preload("Sounds/");
 
@@ -88,6 +88,8 @@ void AppDelegate::applicationDidEnterBackground() {
 
     //// if you use SimpleAudioEngine, it must be pause
     // SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
+	//全ての音楽を停止する
+	AudioEngine::pauseAll();
 }
 
 // this function will be called when the app is active again
@@ -95,9 +97,8 @@ void AppDelegate::applicationWillEnterForeground() {
     Director::getInstance()->startAnimation();
 
     // if you use SimpleAudioEngine, it must resume here
-     SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
-
-
+	//全ての音楽を再開する
+     AudioEngine::resumeAll();
 }
 
 

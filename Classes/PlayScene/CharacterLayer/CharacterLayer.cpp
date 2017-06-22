@@ -8,7 +8,7 @@
 /* ----  インクルード ---------- */
 #include "CharacterLayer.h"
 
-#include "audio/include/AudioEngine.h"
+
 /* ---- 名前空間を解放 -------------------- */
 USING_NS_CC;
 using namespace experimental;
@@ -25,18 +25,14 @@ bool CharacterLayer::init()
 		return false;
 
 	}
+
 	//レイヤーにノードを集約
 	character = Character::create();
 	this->addChild(character);
-	//敵生成
-	enemy.push_back(Enemy::create());
-	this->addChild(enemy[0]);
-
-
+	
 	//毎フレーム呼び出す
 	this->scheduleUpdate();
 
-	enemy[0]->scheduleUpdate();
 
 	// Register Touch Event
 	EventListenerTouchAllAtOnce* listener = EventListenerTouchAllAtOnce::create();
@@ -48,15 +44,8 @@ bool CharacterLayer::init()
 
 	_director->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 	//_touchListener = listener;
-
-
-
 	int FirstTouchCnt = 0;//最初のタッチからどれだけ経過したか
-	//bool FirstTouchFlag = false;//最初のタッチが呼ばれたか
 
-	FirstMultiTouchCnt = 0;
-	
-	
 
 	return true;
 }
@@ -84,34 +73,22 @@ void CharacterLayer::update(float date)
 
 	//プレイヤーと床の衝突判定
 	CollisionResponseFloor();
-	//ゴーレムはこの処理を無視する
-	if (GameManager::Mold != Gnome) {
-		//プレイヤーと粘土床の衝突判定
-		CollisionResponseCrayFloor();
-	}
-	//プレイヤーと斜面のあたり判定
-	CollisionResponseSlope();
 	//ジャンプするか調べる
 	JumpInvestigate();
-	//敵とプレイヤの当たり判定
-	CollisionResponseEnemy();
 	//サイズ変更
 	character->setScale();
 	//キャラクタ上方向上限
 	character->JumpBan();
 
-	if (static_cast<int>(GameManager::m_cameraposx - 480) % static_cast<int>(GameManager::MAP_SIZE.x) == 0)
-	{
-		//敵
-		enemy.push_back(Enemy::create());
-		this->addChild(enemy[GameManager::MapLoopCnt]);
-		//if (GameManager::MapLoopCnt > 2)
-		//{
-		//	//敵削除
-		//	enemy[GameManager::MapLoopCnt - 2]->removeFromParent();
-		//}
-	}
 
+
+
+
+	//ジャンプの命令が終わったことにする
+	if (GameManager::PlayerSpd.y < 4)
+	{
+		GameManager::JumpState = false;
+	}
 
 
 
@@ -180,28 +157,29 @@ void CharacterLayer::onTouchesMoved(const std::vector<cocos2d::Touch*>& touches,
 
 
 
-	//二回以上タッチされたら
+	////二回以上タッチされたら
 	if (m_touch_id >= 1)
 	{
 
-		if (FirstMultiTouchFlag == false)
-		{
-			for (int i = 0; i < EFFECTIVENESS_TOUCH; i++)
-			{
-				FirstPos[i] = touchpos[i];
-				SavePlayerPosx = GameManager::PlayerPos.x;
-			}
-			FirstMultiTouchFlag = true;
+	//	if (FirstMultiTouchFlag == false)
+	//	{
+	//		for (int i = 0; i < EFFECTIVENESS_TOUCH; i++)
+	//		{
+	//			FirstPos[i] = touchpos[i];
+	//			SavePlayerPosx = GameManager::PlayerPos.x;
+	//		}
+	//		FirstMultiTouchFlag = true;
+	//キャラクターのマルチタッチ判定
+		MultiTouchCharacter();
 		}
 
 
-		//キャラクターのマルチタッチ判定
-		MultiTouchCharacter();
+		
 
-		//初期化する
-		touchpos[0] = Vec2(0.0f, 0.0f);
-		touchpos[1] = Vec2(0.0f, 0.0f);
-	}
+	//	//初期化する
+	//	touchpos[0] = Vec2(0.0f, 0.0f);
+	//	touchpos[1] = Vec2(0.0f, 0.0f);
+	//}
 }
 
 /***************************************************************************
@@ -245,7 +223,7 @@ void CharacterLayer::MultiTouchCharacter()
 
 	//タッチがプレイヤーに当たったか
 	m_touch_collision[0] = GameManager::HitJudgment2(
-		touchpos[0]/* - Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2)*/, Vec2(0,0),
+		touchpos[0] /*- Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2)*/, Vec2(0,0),
 	Vec2(GameManager::PlayerPos.x - GameManager::PlayerSize.x/ 2 - GameManager::PlayerSize.x, 
 		GameManager::PlayerPos.y), GameManager::PlayerSize);
 	
@@ -253,6 +231,7 @@ void CharacterLayer::MultiTouchCharacter()
 	{
 		GameManager::PlayerSize.x = 16;
 		character->isScale = true;
+		PlaySandWicheSE();
 	}
 
 
@@ -266,6 +245,7 @@ void CharacterLayer::MultiTouchCharacter()
 	{
 		GameManager::PlayerSize.x = 16;
 		character->isScale = true;
+		PlaySandWicheSE();
 	}
 
 
@@ -278,6 +258,7 @@ void CharacterLayer::MultiTouchCharacter()
 	{
 		GameManager::PlayerSize.x = 16;
 		character->isScale = true;
+		PlaySandWicheSE();
 	}
 
 
@@ -293,7 +274,7 @@ void CharacterLayer::MultiTouchCharacter()
 	{
 		GameManager::PlayerSize.y = 32;
 		character->isScale = true;
-
+		PlaySandWicheSE();
 	}
 
 	//タッチ2がプレイヤーに当たったか
@@ -307,7 +288,7 @@ void CharacterLayer::MultiTouchCharacter()
 	{
 		GameManager::PlayerSize.y = 32;
 		character->isScale = true;
-
+		PlaySandWicheSE();
 	}
 
 
@@ -322,6 +303,7 @@ void CharacterLayer::MultiTouchCharacter()
 	{
 		GameManager::PlayerSize.y = 32;
 		character->isScale = true;
+		PlaySandWicheSE();
 
 	}
 
@@ -336,6 +318,7 @@ void CharacterLayer::MultiTouchCharacter()
 				character->isScale = true;
 
 		GameManager::PlayerSize.y = 32;
+		PlaySandWicheSE();
 	}
 	//タッチ2がプレイヤーに当たったか
 	m_touch_collision[1] = GameManager::HitJudgment2(
@@ -348,51 +331,11 @@ void CharacterLayer::MultiTouchCharacter()
 		character->isScale = true;
 
 		GameManager::PlayerSize.y = 32;
+		PlaySandWicheSE();
 	}
 
 
-	//挟んだ時音を鳴らす
-	if (character->isScale == true )
-	{
-		AudioEngine::play2d("Sounds/InterposePlayer.mp3");
-	}
-	////タッチが二つともプレイヤーに当たったか
-	//if (m_touch_collision[0] == true && m_touch_collision[1] == true)
-	//{
-	//	//移動した量
-	//	Vec2 MoveDistance[2];
-	//	Vec2 MoveDistance2;
-	//	//日本の指がついてから4F経ったか
 
-
-	//}
-		////タッチとプレイヤーのあたり判定
-		//m_touch_collision_direction[0] = GameManager::CollisionDetermination2(
-		//	touchpos[0] - Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2), TOUCH_SIZE,
-		//	GameManager::PlayerPos, GameManager::PlayerSize);
-
-		////タッチ2とプレイヤーのあたり判定
-		//m_touch_collision_direction[1] = GameManager::CollisionDetermination2(
-		//	touchpos[1] - Vec2(TOUCH_SIZE.x / 2, -TOUCH_SIZE.y / 2), TOUCH_SIZE,
-		//	GameManager::PlayerPos, GameManager::PlayerSize);
-
-
-		////上下に挟んでいるかつもとの大きさの場合
-		//if (m_touch_collision_direction[0] == up || m_touch_collision_direction[1] == under || m_touch_collision_direction[0] == under || m_touch_collision_direction[1] == up && character->isScaleY == false)
-		//{
-		//	//大きさ変更
-		//	GameManager::PlayerSize.y = 32.0f;
-		//	if(GameManager::Mold != Slime)
-		//	character->isScaleY = true;
-		//}
-		////左右に挟んでいるかつ元の大きさの場合
-		//else if (m_touch_collision_direction[0] == left || m_touch_collision_direction[1] == left || m_touch_collision_direction[0] == right || m_touch_collision_direction[1] == right && character->isScaleX == false)
-		//{
-		//	//大きさ変更
-		//	GameManager::PlayerSize.x = 32;
-		//	if (GameManager::Mold != Slime)
-		//		character->isScaleX = true;
-		//}
 }
 
 
@@ -411,59 +354,55 @@ void CharacterLayer::ChangeMold()
 	//前回と違うキャラクタタイプか
 	if (old_chara_kind != GameManager::Mold)
 	{
+		//他のボイスと混ざらないように再生中のボイスを止める
+		CharacterVoiceStop();
+
 		switch (GameManager::Mold)
 		{
-		case Normal:
+		case GameManager::Normal:
 			character->removeFromParent();
 			character = Character::create();
 			//ノームボイス再生
-			AudioEngine::play2d("Sounds/domovoice.mp3");
+			m_character_voice[GameManager::Normal] = AudioEngine::play2d("Sounds/domovoice.mp3");
 			//変更したので戻す
 			GameManager::ChangeMold = false;
 			break;
-		case Rabbit:
+		case GameManager::Rabbit:
 			character->removeFromParent();
 			character = Rabbit::create();
 			//ウサギボイス再生
-			AudioEngine::play2d("Sounds/RabbitVoice.mp3");
-
-			//変更したので戻す
-			//GameManager::ChangeMold = false;
+			m_character_voice[GameManager::Rabbit] = AudioEngine::play2d("Sounds/RabbitVoice.mp3");
 			break;
-		case Gnome:
+		case GameManager::Gnome:
 			//変更したので戻す
 			character->removeFromParent();
 			character = Gnome::create();
-			AudioEngine::play2d("Sounds/Gnome_VoiceSE.mp3");
-			//GameManager::ChangeMold = false;
+			m_character_voice[GameManager::Gnome] = AudioEngine::play2d("Sounds/Gnome_VoiceSE.mp3");
 			break;
-		case Phoenix:
+		case GameManager::Phoenix:
 			//変更したので戻す
 			character->removeFromParent();
 			character = Phoenix::create();
-			AudioEngine::play2d("Sounds/phoenix_CrySE.mp3");
-			//GameManager::ChangeMold = false;
+			m_character_voice[GameManager::Phoenix] = AudioEngine::play2d("Sounds/phoenix_CrySE.mp3");
 			break;
-		case Slime:
+		case GameManager::Slime:
 			character->removeFromParent();
 			character = Slime::create();
-			AudioEngine::play2d("Sounds/SlimeSE.mp3");
-			//変更したので戻す
-	       //GameManager::ChangeMold = false;
+			m_character_voice[GameManager::Slime] = AudioEngine::play2d("Sounds/SlimeSE.mp3");
 			break;
+		case GameManager::Witch:
+			character->removeFromParent();
+			character = Witch::create();
+			m_character_voice[GameManager::Witch] = AudioEngine::play2d("Sounds/Witch.mp3");
 		}
 		//変更したのでaddChildする
 		this->addChild(character);
 	}
-//	GameManager::ChangeMold = false;
 		//ジャンプ情報をリセットする
-		character->JumpCnt = 0;
-		character->JumpFlag = true;
+		GameManager::JumpCnt = 0;
+		GameManager::JumpFlag = true;
 		//今回のキャラタイプを保存する
 		old_chara_kind = GameManager::Mold;
-		
-
-	
 }
 
 
@@ -488,12 +427,18 @@ void CharacterLayer::CollisionResponseFloor()
 			(vec, GameManager::LAYRE_SIZE,
 				GameManager::PlayerPos, GameManager::PlayerSize))
 			{
-			case right:
-				GameManager::PlayerPos.x = vec.x + GameManager::LAYRE_SIZE.x + GameManager::PlayerSize.x / 2 + 1;
+			case GameManager::right:
+			
+				/*GameManager::PlayerPos.x = vec.x + GameManager::LAYRE_SIZE.x + GameManager::PlayerSize.x / 2 + 1;
 				GameManager::PlayerSpd.x = 0.0f;
-				hitcnt++;
+				hitcnt++;*/
 				break;
-			case left:
+
+			case GameManager::left:
+
+				//	ゲームオーバーにする
+				GameManager::GameOverFlag = true;
+
 				GameManager::PlayerPos.x = vec.x - GameManager::PlayerSize.x / 2;
 				//GameManager::RightFlag = true;
 				//GameManager::PlayerSpd.x = -6.0f;
@@ -502,21 +447,20 @@ void CharacterLayer::CollisionResponseFloor()
 				GameManager::PlayerSize.x = 32;
 				GameManager::PlayerPos.x += 16;*/
 
-				GameManager::GameOverFlag = true;
 
 				hitcnt++;
 				break;
-			case up:
+			case GameManager::up:
 				GameManager::PlayerPos.y = vec.y;
 				GameManager::PlayerSpd.y = 0.0f;
 				//ジャンプ可能にする
-				character->JumpCnt = 0;
-				character->JumpFlag = true;
+				GameManager::JumpCnt = 0;
+				GameManager::JumpFlag = true;
 				hitcnt++;
 
 			//	character->GroundFlag = true;
 				break;
-				case under:
+				case GameManager::under:
 				GameManager::PlayerPos.y = vec.y - GameManager::LAYRE_SIZE.y - GameManager::PlayerSize.y-10;
 				GameManager::PlayerSpd.y = 0.0f;
 				hitcnt++;
@@ -538,191 +482,10 @@ void CharacterLayer::CollisionResponseFloor()
 			//大きさを元に戻す処理を行う
 			character->FloormultipleFlag = false;
 		}
-
-
-
-
-
-		////地面にいるか
-		//std::vector<Vec2>::iterator Iterator2;
-		////////マップの数だけループ
-		////床の数だけループ
-		//for (Iterator2 = GameManager::AllFloorPos[GameManager::PlayerMapPos].begin(); Iterator2 != GameManager::AllFloorPos[GameManager::PlayerMapPos].end(); ++Iterator2)
-		//{
-		//	Vec2 vec = *Iterator2;
-		//	Direction hit_direction = GameManager::CollisionDetermination
-		//	(vec, GameManager::LAYRE_SIZE,
-		//		GameManager::PlayerPos , GameManager::PlayerSize);
-		//	if (hit_direction == up)
-		//	{
-		//		
-		//	}
-		//	else
-		//	{
-		//		character->GroundFlag = false;
-		//	}
-
-
-	//	}
-
 }
 
-/***************************************************************************
-*|	概要　	プレイヤーと粘土床の衝突判定
-*|	引数　　無し
-*|　戻り値　無し
-****************************************************************************/
-void CharacterLayer::CollisionResponseCrayFloor()
-{
-	std::vector<Vec2>::iterator Iterator;
-	std::vector<Vec2>::iterator IteratorSize;
-	//ループした回数
-	int g_loop_cnt = 0;
-	//////マップの数だけループ
-//	b = GameManager::CrayFloorSize[g_loop_cnt].y;
 
-	//床の数だけループ
-	for (Iterator = GameManager::AllCrayFloorPos[GameManager::PlayerMapPos].begin(); Iterator != GameManager::AllCrayFloorPos[GameManager::PlayerMapPos].end(); ++Iterator)
-	{
-		//イテレーターに最初の要素を教える
-		IteratorSize = GameManager::CrayFloorSize.begin();
-		//何個目を見ればいいか教える
-		IteratorSize += g_loop_cnt;
-		
-		if (IteratorSize == GameManager::CrayFloorSize.end())
-		{
-			GameManager::CrayFloorSize.insert(GameManager::CrayFloorSize.begin() + g_loop_cnt, Vec2(192, 320));
-			//GameManager::CrayFloorSize[g_loop_cnt] = Vec2(192, 320);
-		}
-		//イテレーターに最初の要素を教える
-		IteratorSize = GameManager::CrayFloorSize.begin();
-		//何個目を見ればいいか教える
-		IteratorSize += g_loop_cnt;
 
-		Vec2 vec = *Iterator;
-		switch (GameManager::CollisionDetermination
-		(vec + Vec2( /*GameManager::MAX_CRAYSTAGESIZE.x / 2 - (*IteratorSize).x / 2*/0.0f, -(GameManager::MAX_CRAYSTAGESIZE.y - (*IteratorSize).y)),(*IteratorSize),
-			GameManager::PlayerPos, GameManager::PlayerSize))
-		{
-		case right:
-			GameManager::PlayerPos.x = vec.x + GameManager::MAX_CRAYSTAGESIZE.x  -  (*IteratorSize).x / 2 - GameManager::PlayerSize.x / 2;
-			GameManager::PlayerSpd.x = 0.0f;
-			break;
-		case left:
-			GameManager::GameOverFlag = true;
-			////当たったので潰れる
-			//character->s_player->setAnchorPoint(Vec2(0, 0));
-			//GameManager::PlayerSize.x = 32;
-			//GameManager::PlayerPos.x += 96;
-			break;
-		case up:
-			GameManager::PlayerPos.y = vec.y  - GameManager::MAX_CRAYSTAGESIZE.y + (*IteratorSize).y;
-			GameManager::PlayerSpd.y = 0.0f;
-			//ジャンプ可能にする
-			character->JumpCnt = 0;
-			character->JumpFlag = true;
-			break;
-			case under:
-			GameManager::PlayerPos.y = vec.y - GameManager::MAX_CRAYSTAGESIZE.y - GameManager::PlayerSize.y - 3;
-			GameManager::PlayerSpd.y = 0.0f;
-			break;
-		default:
-			break;
-
-		}
-		//カウントを増やす
-		g_loop_cnt++;
-	}
-}
-
-/***************************************************************************
-*|	概要　	プレイヤーと斜面の衝突判定
-*|	引数　　無し
-*|　戻り値　無し
-****************************************************************************/
-void CharacterLayer::CollisionResponseSlope()
-{
-	//for (int i = 0; i <= GameManager::MapLoopCnt; i++)
-	//{
-		//最初の斜面右端を格納する
-		IteratorLeft = GameManager::AllLeftPos[GameManager::PlayerMapPos].begin();
-		//vectorの数だけループ
-		for (IteratorRight = GameManager::AllRightPos[GameManager::PlayerMapPos].begin(); IteratorRight != GameManager::AllRightPos[GameManager::PlayerMapPos].end(); ++IteratorRight)
-		{
-			//衝突判定（斜面）
-			Direction HitFlag = GameManager::DiagonalCollisionDetermination(*IteratorLeft, *IteratorRight, GameManager::PlayerPos /*+ Vec2(GameManager::PlayerSize.x /2,0.0f)*/);
-			//上に乗った時
-			if (HitFlag == up)
-			{
-				GameManager::PlayerSpd.y = 0.0f;
-				//埋まった分を押し出す
-				GameManager::PlayerPos.y = GameManager::SlopePosY;
-				//ジャンプ可能にする
-				character->JumpCnt = 0;
-				character->JumpFlag = true;
-
-			}
-			IteratorLeft++;
-		}
-
-	//}
-}
-
-/***************************************************************************
-*|	概要　  敵とプレイヤの当たり判定
-*|	引数　　無し
-*|　戻り値　無し
-****************************************************************************/
-void CharacterLayer::CollisionResponseEnemy()
-{
-	std::vector<Vec2>::iterator IteratorEnemy;
-	for (IteratorEnemy = enemy[GameManager::PlayerMapPos]->m_EnemyPos.begin(); IteratorEnemy != enemy[GameManager::PlayerMapPos]->m_EnemyPos.end(); ++IteratorEnemy)
-	{
-		switch (GameManager::CollisionDetermination
-		((*IteratorEnemy), GameManager::LAYRE_SIZE,
-			GameManager::PlayerPos, GameManager::PlayerSize))
-		{
-		case right:
-			if (GameManager::Mold != Phoenix) {
-				GameManager::PlayerPos.x = (*IteratorEnemy).x + GameManager::LAYRE_SIZE.x + GameManager::PlayerSize.x / 2 + 1;
-				GameManager::PlayerSpd.x = 0.0f;
-				GameManager::GameOverFlag = true;
-			}
-			break;
-		case left:
-			if (GameManager::Mold != Phoenix) {
-				/*GameManager::PlayerPos.x = GameManager::AllFloorPosx[i] - GameManager::PlayerSize.x / 2;*/
-				GameManager::RightFlag = true;
-				//GameManager::PlayerSpd.x = -6.0f;
-				GameManager::GameOverFlag = true;
-				//当たったので潰れる
-				character->s_player->setAnchorPoint(Vec2(0, 0));
-				GameManager::PlayerSize.x = 32;
-
-			}
-			break;
-		case up:
-			GameManager::PlayerPos.y = (*IteratorEnemy).y;
-			//ジャンプする
-			character->Jump();
-			//ジャンプ可能にする
-			character->JumpCnt = 0;
-			character->JumpFlag = true;
-			break;
-		case under:
-			if (GameManager::Mold != Phoenix) {
-				GameManager::PlayerPos.y = (*IteratorEnemy).y - GameManager::LAYRE_SIZE.y - GameManager::PlayerSize.y;
-				GameManager::PlayerSpd.y = 0.0f;
-				GameManager::GameOverFlag = true;
-			}
-			break;
-		default:
-			break;
-
-		}
-
-	}
-}
 
 
 /***************************************************************************
@@ -748,5 +511,17 @@ void CharacterLayer::JumpInvestigate()
 		FirstTouchFlag = false;
 		//最初のタッチカウントを初期化する
 		FirstTouchCnt = 0;
+
+		GameManager::JumpState = true;
 	}
+}
+
+/***************************************************************************
+*|	概要　	キャラクタボイスを全て止める関数
+*|	引数　　無し
+*|　戻り値　無し
+****************************************************************************/
+void CharacterLayer::CharacterVoiceStop()
+{
+	for (int i = 0; i < GameManager::MaxCharacterKind; i++) /*if (m_character_voice[i] != 0)*/AudioEngine::stop(m_character_voice[i]);
 }

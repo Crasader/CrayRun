@@ -28,6 +28,7 @@ bool Mold::init(){
 	//レイヤー取得
 	TMXLayer* layer2 = GameManager::map[GameManager::MapLoopCnt]->getLayer("MapLayer");
 
+
 	//一回目:レイヤーの数を調べる,2回目:座標を設定する
 	for (int i = 0; i < GameManager::MAP_SIZE.y / GameManager::LAYRE_SIZE.y; i++)
 	{
@@ -50,33 +51,37 @@ bool Mold::init(){
 					if (str == "mold")
 					{
 						//ランダムでキャラクターを作成する
-						switch (rand() % 4 + 1)
+						switch (rand() % 5 + 1 )
 						{
 
-						case Rabbit:
-							m_kind.push_back(Rabbit);
+						case GameManager::Rabbit:
+							m_kind.push_back(GameManager::Rabbit);
 							s_Mold.push_back(Sprite::create("Images/Rabbit_Model.png"));
 							s_BackMold.push_back (Sprite::create("Images/Rabbit_Model.png"));
 							break;
 
-						case Gnome:
-							m_kind.push_back(Gnome);
+						case GameManager::Gnome:
+							m_kind.push_back(GameManager::Gnome);
 							s_Mold.push_back(Sprite::create("Images/Gnome_Mold.png"));
 							s_BackMold.push_back( Sprite::create("Images/Gnome_Mold.png"));
 							break;
 
-						case Phoenix:
-							m_kind.push_back(Phoenix);
+						case GameManager::Phoenix:
+							m_kind.push_back(GameManager::Phoenix);
 							s_Mold.push_back(Sprite::create("Images/Phoenix_Mold.png"));
 							s_BackMold.push_back(Sprite::create("Images/Phoenix_Mold.png"));
 							break;
 
-						case Slime:
-							m_kind.push_back(Slime);
+						case GameManager::Slime:
+							m_kind.push_back(GameManager::Slime);
 							s_Mold.push_back(Sprite::create("Images/slime_Mold.png"));
 							s_BackMold.push_back(Sprite::create("Images/slime_Mold.png"));
 							break;
-
+						case GameManager::Witch:
+							m_kind.push_back(GameManager::Witch);
+							s_Mold.push_back(Sprite::create("Images/WitchMold.png"));
+							s_BackMold.push_back(Sprite::create("Images/WitchMold.png"));
+							break;
 						default:
 							break;
 						}

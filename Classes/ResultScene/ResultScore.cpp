@@ -156,7 +156,7 @@ void ResultScore::RankingNameSubstitution()
 		//L_PlayerName[i]->setScale(4.0f);
 		L_PlayerName[i]->setString(StringUtils::toString(RankingName[i]));
 		L_PlayerName[i]->setPosition(Vec2(730,-150 - (i * 82)));
-		L_PlayerName[i]->setColor(Color3B(256, 256, 256));
+		L_PlayerName[i]->setColor(Color3B(0.0f, 0.0f, 0.0f));
 		this->addChild(L_PlayerName[i]);
 	}
 }

@@ -20,4 +20,6 @@ public:
 
 	void Animation();
 private:
+	const float SCORECORRECTION = 1.1f;
+
 };

@@ -11,7 +11,7 @@
 #include "cocos2d.h"
 #include "../../GameManager.h"
 
-static const int MAX_NUMBER = 5;
+static const int MAX_NUMBER = 7;
 
 class Score :public cocos2d::Node
 {
