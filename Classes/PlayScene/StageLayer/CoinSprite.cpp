@@ -60,6 +60,39 @@ CoinSprite* CoinSprite::create(std::string filename,int point)
 
 }
 
+void CoinSprite::update(float data)
+{
+	////魔法使いなら
+	if (GameManager::Mold == GameManager::Witch)
+	{
+		CollisionAbsorptionCoin();
+
+		//吸収されるフラグが立っているなら
+		if (m_absorption_flag == true)
+		{
+			//魔法使いに吸収するコインを線形補間で動かす
+			AbsorptionCoin();
+		}
+	}
+
+	//コインのあたり判定
+	CollisionResponseCoin();
+}
+
+////__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/
+////	概　要：線形補間
+////	引　数：スタート、ゴール、線形補間の進行度
+////　　戻り値：移動速度
+////__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/
+cocos2d::Vec2 CoinSprite::Leap(cocos2d::Vec2 StartPosition, cocos2d::Vec2 GoalPosition, float Time)
+{
+	{
+		return cocos2d::Vec2((1 - Time) * StartPosition.x + GoalPosition.x * Time,
+			(1 - Time) * StartPosition.y + GoalPosition.y * Time);
+	}
+}
+
+
 
 ////__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/
 ////	概　要：魔法使いのコイン吸収するかの判定
@@ -68,14 +101,12 @@ CoinSprite* CoinSprite::create(std::string filename,int point)
 ////__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/
 void CoinSprite::CollisionAbsorptionCoin()
 {
-	
-	Vec2 a = this->getContentSize();
 	//プレイヤーとコインの当たり判定
 	if (GameManager::HitJudgment
 	(this->getPosition(), this->getContentSize(),
-	GameManager::PlayerPos - Vec2(0, AbsorptionSize.y/2)/* + Vec2(0.0f,GameManager::PlayerSize.y / 2)-Vec2(AbsorptionSize.x / 2 ,-AbsorptionSize.y / 2)*/, AbsorptionSize) == true)
+	GameManager::PlayerPos - Vec2(0, AbsorptionSize.y/2), AbsorptionSize) == true)
 	{
-		//吸収するものtosutu
+		//吸収するもコインとみなす
 		m_absorption_flag = true;
 	}
 
@@ -112,6 +143,7 @@ void CoinSprite::AbsorptionCoin()
 		//線形補間処理がどのくらい遊んでいるかを割合で求める
 		TimeStep = (FlameCnt - FlameTime) / ((SEdis / AbsorptionPos) + 1);
 
+
 		this->setPosition(Leap(m_startpos, m_endpos, TimeStep));
 
 		//速度を加速させる
@@ -130,24 +162,6 @@ void CoinSprite::AbsorptionCoin()
 
 }
 
-void CoinSprite::update(float data)
-{
-	////魔法使いなら
-	if (GameManager::Mold == GameManager::Witch)
-	{
-		CollisionAbsorptionCoin();
-
-		//吸収されるフラグが立っているなら
-		if (m_absorption_flag == true)
-		{
-			//魔法使いに吸収するコインを線形補間で動かす
-			AbsorptionCoin();
-		}
-	}
-
-	//コインのあたり判定
-	CollisionResponseCoin();
-}
 
 
 

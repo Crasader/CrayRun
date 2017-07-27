@@ -1,67 +1,67 @@
-/***************************************************************************
+ï»¿/***************************************************************************
 *|
-*|	ŠT—v@ƒŠƒUƒ‹ƒgƒXƒRƒAƒNƒ‰ƒX‚Ì’è‹`
-*|@ì¬Ò@GS2 16 ’†“c—N‰î
-*|@ì¬“ú@2017/5/10
+*|	æ¦‚è¦ã€€ãƒªã‚¶ãƒ«ãƒˆã‚¹ã‚³ã‚¢ã‚¯ãƒ©ã‚¹ã®å®šç¾©
+*|ã€€ä½œæˆè€…ã€€GS2 16 ä¸­ç”°æ¹§ä»‹
+*|ã€€ä½œæˆæ—¥ã€€2017/5/10
 *|___________________________________________________________________________
 ****************************************************************************/
-/* ----  ƒCƒ“ƒNƒ‹[ƒh ---------- */
+/* ----  ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ ---------- */
 //#include <stdlib.h>
 #include "ResultScore.h"
 
 int ResultScore::m_Score = 0;
 int ResultScore::m_distance = 0;
-//¡‰ñƒ‰ƒ“ƒLƒ“ƒOƒCƒ“‚µ‚½ƒvƒŒƒCƒ„[–¼
+//ä»Šå›ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã‚¤ãƒ³ã—ãŸãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼å
 std::string  ResultScore::Now_Player_Name;
 
 
-/* ---- –¼‘O‹óŠÔ‚ğ‰ğ•ú -------------------- */
+/* ---- åå‰ç©ºé–“ã‚’è§£æ”¾ -------------------- */
 USING_NS_CC;
 
 
 /***************************************************************************
-*|	ŠT—v@@‰Šú‰»ˆ—
-*|	ˆø”@@–³‚µ
-*|@–ß‚è’l@Šî’êƒNƒ‰ƒX‚Ì‰Šú‰»ˆ—‚ª¬Œ÷‚µ‚½‚©
+*|	æ¦‚è¦ã€€ã€€åˆæœŸåŒ–å‡¦ç†
+*|	å¼•æ•°ã€€ã€€ç„¡ã—
+*|ã€€æˆ»ã‚Šå€¤ã€€åŸºåº•ã‚¯ãƒ©ã‚¹ã®åˆæœŸåŒ–å‡¦ç†ãŒæˆåŠŸã—ãŸã‹
 ****************************************************************************/
 bool ResultScore::init()
 {
 	if (!Node::init()) {
 		return false;
 	}
-	////Šî”Õƒm[ƒh‚ğì¬‚·‚é
+	////åŸºç›¤ãƒãƒ¼ãƒ‰ã‚’ä½œæˆã™ã‚‹
 	//for (int i = 0; i < MAX_SCORE + 1; i++)
 	//{
 	//	node_number[i] = Node::create();
 	//}
 
-	//Šî”Õƒm[ƒh‚ğì¬‚·‚é
+	//åŸºç›¤ãƒãƒ¼ãƒ‰ã‚’ä½œæˆã™ã‚‹
 	for (int i = 0; i < 10 + 1; i++)
 	{
 		now_node_number[i] = Node::create();
 	}
-	//‰Šú‰»
+	//åˆæœŸåŒ–
 	now_number = 0;
 
-	////”š‚ÌƒXƒvƒ‰ƒCƒg‚ğì¬‚·‚é
+	////æ•°å­—ã®ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’ä½œæˆã™ã‚‹
 	s_now_number = Sprite::create("Images/Number.png");
 
-	////”š‚ÌƒXƒvƒ‰ƒCƒg‚ğì¬‚·‚é
+	////æ•°å­—ã®ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’ä½œæˆã™ã‚‹
 	//s_Number = Sprite::create("Images/Number.png");
-	//Å‘åŒ…”‚ğ‹L‰¯
+	//æœ€å¤§æ¡æ•°ã‚’è¨˜æ†¶
 	ScoreMaxDigit = SpriteCnt;
 
 
 	userDefault = cocos2d::UserDefault::getInstance();
 
-	//”wŒi
+	//èƒŒæ™¯
 	backcoin = Sprite::create("Images/ResultTexture.png");
 	backcoin->setPosition(Vec2(GameManager::SCREEN_SIZE.x / 2, GameManager::SCREEN_SIZE.y / 2));
 	backcoin->setVisible(false);
 	this->addChild(backcoin);
 
 
-	//‰Šú‰»
+	//åˆæœŸåŒ–
 	ActionSpd = 0.7f;
 
 
@@ -70,14 +70,14 @@ bool ResultScore::init()
 }
 
 /***************************************************************************
-*|	ŠT—v@@ƒ‰ƒ“ƒLƒ“ƒO‚ğæ“¾‚·‚é
-*|	ˆø”@@–³‚µ
-*|@–ß‚è’l@–³‚µ
+*|	æ¦‚è¦ã€€ã€€ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã‚’å–å¾—ã™ã‚‹
+*|	å¼•æ•°ã€€ã€€ç„¡ã—
+*|ã€€æˆ»ã‚Šå€¤ã€€ç„¡ã—
 ****************************************************************************/
 void ResultScore::ScoreAcquisition()
 {
 
-	//ƒ‰ƒ“ƒLƒ“ƒO‚Ì–¼‘Oƒf[ƒ^‚ğæ“¾‚·‚é
+	//ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã®åå‰ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—ã™ã‚‹
 	RankingName[First] = userDefault->getStringForKey("name1");
 	RankingName[Scound] = userDefault->getStringForKey("name2");
 	RankingName[Third] = userDefault->getStringForKey("name3");
@@ -85,7 +85,7 @@ void ResultScore::ScoreAcquisition()
 	RankingName[Fifth] = userDefault->getStringForKey("name5");
 
 
-	//ƒ‰ƒ“ƒLƒ“ƒO‚Ì’lƒf[ƒ^‚ğæ“¾‚·‚é
+	//ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã®å€¤ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—ã™ã‚‹
 	RankingScore[First] = userDefault->getIntegerForKey("ranking1");
 	RankingScore[Scound] = userDefault->getIntegerForKey("ranking2");
 	RankingScore[Third] = userDefault->getIntegerForKey("ranking3");
@@ -99,48 +99,46 @@ void ResultScore::ScoreAcquisition()
 //}
 
 /***************************************************************************
-*|	ŠT—v@@ƒXƒRƒA‚Ìƒ‰ƒ“ƒLƒ“ƒO‚ğ’²‚×‚é
-*|	ˆø”@@–³‚µ
-*|@–ß‚è’l@–³‚µ
+*|	æ¦‚è¦ã€€ã€€ã‚¹ã‚³ã‚¢ã®ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã‚’èª¿ã¹ã‚‹
+*|	å¼•æ•°ã€€ã€€ç„¡ã—
+*|ã€€æˆ»ã‚Šå€¤ã€€ç„¡ã—
 ****************************************************************************/
 void ResultScore::RankingSort()
 {
-	////‚ç‚ñ‚«‚ñ‚®‚ğƒ\[ƒg‚·‚é
+	////ã‚‰ã‚“ãã‚“ãã‚’ã‚½ãƒ¼ãƒˆã™ã‚‹
 	//qsort(RankingScore, 6, sizeof(int), compare_int);
 
-	//¡‰ñ‚ÌƒXƒRƒA‚ªƒ‰ƒ“ƒLƒ“ƒO‚Ì‚Ç‚±‚ÉˆÊ’u‚·‚é‚©‹‚ß‚é
+	//ä»Šå›ã®ã‚¹ã‚³ã‚¢ãŒãƒ©ãƒ³ã‚­ãƒ³ã‚°ã®ã©ã“ã«ä½ç½®ã™ã‚‹ã‹æ±‚ã‚ã‚‹
 	int NowRanking = Fifth;
 
-	//¡‰ñ‚ÌƒXƒRƒA
+	//ä»Šå›ã®ã‚¹ã‚³ã‚¢
 	int TotalScore = m_Score + m_distance;
 	
 	//if (RankingScore[Fifth] < TotalScore)
 	//{
-		//¡‰ñ‚ÌƒXƒRƒA‚Í‰½ˆÊ‚©
-		while ((RankingScore[NowRanking] <= TotalScore) && (NowRanking >= 0))
+		//ä»Šå›ã®ã‚¹ã‚³ã‚¢ã¯ä½•ä½ã‹
+		while (RankingScore[NowRanking] <= TotalScore)
 		{
 			NowRanking--;
+			if (NowRanking < 0)	break;
 		}
 
-		//‚¸‚ç‚µ‚·‚¬‚½‚Ì‚Å–ß‚·
+		//ãšã‚‰ã—ã™ããŸã®ã§æˆ»ã™
 		NowRanking++;
-
-
-		//ƒ‰ƒ“ƒLƒ“ƒO‚ğ“ü‚ê‘Ö‚¦‚é
-		//ƒ‰ƒ“ƒLƒ“ƒO‚Ì”‚©‚ç¡‰ñ‚ÌƒXƒRƒA‚ª“ü‚Á‚½‡ˆÊ‚ğˆø‚¢‚Äƒ‹[ƒv‚·‚é‰ñ”‚ğŒˆ‚ß‚é
+		//ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã‚’å…¥ã‚Œæ›¿ãˆã‚‹
+		//ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã®æ•°ã‹ã‚‰ä»Šå›ã®ã‚¹ã‚³ã‚¢ãŒå…¥ã£ãŸé †ä½ã‚’å¼•ã„ã¦ãƒ«ãƒ¼ãƒ—ã™ã‚‹å›æ•°ã‚’æ±ºã‚ã‚‹
 		for (int i = 0; i < 4 - NowRanking; i++)
 		{
-			//ƒ‰ƒ“ƒLƒ“ƒO‚ğ‚Ğ‚Æ‚Â‚¸‚Ã—‚Æ‚·
+			//ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã‚’ã²ã¨ã¤ãšã¥è½ã¨ã™
 			RankingScore[Fifth - i] = RankingScore[Fifth - i - 1];
-			//ƒ‰ƒ“ƒLƒ“ƒO‚Ì–¼‘O‚à•ÏX‚·‚é
+			//ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã®åå‰ã‚‚å¤‰æ›´ã™ã‚‹
 			RankingName[Fifth - i] = RankingName[Fifth - i - 1];
 		}
 
-		//¡‰ñ‚ÌƒXƒRƒA‚ğ‚¢‚ê‚é
+		//ä»Šå›ã®ã‚¹ã‚³ã‚¢ã‚’ã„ã‚Œã‚‹
 		RankingScore[NowRanking] = TotalScore;
 		RankingName[NowRanking] = Now_Player_Name;
-
-		//¡‰ñ‚Ì‡ˆÊ‚ğ‚Ù‚¼
+		//ä»Šå›ã®é †ä½ã‚’ã»ã
 	//	m_now_ranking[] = NowRanking;
 //	}
 }
@@ -148,7 +146,7 @@ void ResultScore::RankingSort()
 
 void ResultScore::RankingNameSubstitution()
 {
-	//ƒfƒoƒbƒN
+	//ãƒ‡ãƒãƒƒã‚¯
 	for (int i = 0; i < 5; i++)
 	{
 		String* a = String::createWithFormat("%d", i);
@@ -164,20 +162,20 @@ void ResultScore::RankingNameSubstitution()
 
 
 /***************************************************************************
-*|	ŠT—v@@ƒXƒRƒA‚ğ•Û‘¶‚·‚é
-*|	ˆø”@@–³‚µ
-*|@–ß‚è’l@–³‚µ
+*|	æ¦‚è¦ã€€ã€€ã‚¹ã‚³ã‚¢ã‚’ä¿å­˜ã™ã‚‹
+*|	å¼•æ•°ã€€ã€€ç„¡ã—
+*|ã€€æˆ»ã‚Šå€¤ã€€ç„¡ã—
 ****************************************************************************/
 void ResultScore::ScoreResister()
 {
-	//ƒ‰ƒ“ƒLƒ“ƒO‚Ì’l‚ğ•Û‘¶‚·‚é
+	//ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã®å€¤ã‚’ä¿å­˜ã™ã‚‹
 	userDefault->setIntegerForKey("ranking1", RankingScore[First]);
 	userDefault->setIntegerForKey("ranking2", RankingScore[Scound] );
 	userDefault->setIntegerForKey("ranking3", RankingScore[Third] );
 	userDefault->setIntegerForKey("ranking4", RankingScore[Fourth]);
 	userDefault->setIntegerForKey("ranking5", RankingScore[Fifth]);
 
-	//ƒ‰ƒ“ƒLƒ“ƒO‚Ì–¼‘O‚ğ•Û‘¶‚·‚é
+	//ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã®åå‰ã‚’ä¿å­˜ã™ã‚‹
 	userDefault->setStringForKey("name1", RankingName[First]);
 	userDefault->setStringForKey("name2", RankingName[Scound]);
 	userDefault->setStringForKey("name3", RankingName[Third]);
@@ -190,9 +188,9 @@ void ResultScore::ScoreResister()
 
 
 /***************************************************************************
-*|	ŠT—v@@ƒXƒRƒA‚ÌƒXƒvƒ‰ƒCƒgİ’è
-*|	ˆø”@@–³‚µ
-*|@–ß‚è’l@–³‚µ
+*|	æ¦‚è¦ã€€ã€€ã‚¹ã‚³ã‚¢ã®ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆè¨­å®š
+*|	å¼•æ•°ã€€ã€€ç„¡ã—
+*|ã€€æˆ»ã‚Šå€¤ã€€ç„¡ã—
 ****************************************************************************/
 void ResultScore::ScoreIndicate(int Ranking)
 {
@@ -201,42 +199,42 @@ void ResultScore::ScoreIndicate(int Ranking)
 
 
 	int j;
-	//Œ…”‚ğ‰Šú‰»‚·‚é
+	//æ¡æ•°ã‚’åˆæœŸåŒ–ã™ã‚‹
 	Digit = 1;
-	//‘ÎÛ‚ÌƒXƒRƒA‚ğ•Û‘¶‚·‚é
+	//å¯¾è±¡ã®ã‚¹ã‚³ã‚¢ã‚’ä¿å­˜ã™ã‚‹
 	SaveScore = RankingScore[Ranking];
 	SaveScore2 = RankingScore[Ranking];
 
-	////¡‰ñ‚ÌƒXƒRƒA‚Ìê‡
+	////ä»Šå›ã®ã‚¹ã‚³ã‚¢ã®å ´åˆ
 	//if (Ranking == 5)
 	//{
 	//	SaveScore = m_Score;
 	//	SaveScore2 = m_Score;
 	//}
 
-	//ƒXƒRƒA‚ª‰½Œ…‚ ‚é‚Ì‚©‹‚ß‚é
-	//®”‚ª‚È‚­‚È‚é‚Ü‚Å10‚Åœ–@‚·‚é
+	//ã‚¹ã‚³ã‚¢ãŒä½•æ¡ã‚ã‚‹ã®ã‹æ±‚ã‚ã‚‹
+	//æ•´æ•°ãŒãªããªã‚‹ã¾ã§10ã§é™¤æ³•ã™ã‚‹
 
-	//ƒXƒRƒA‚ª0‚¶‚á‚È‚¢‚Æ‚«
+	//ã‚¹ã‚³ã‚¢ãŒ0ã˜ã‚ƒãªã„ã¨ã
 	if ((SaveScore2 - SaveScore != SaveScore2))
 	{
 		while (SaveScore2 - SaveScore != SaveScore2)
 		{
 			SaveScore /= 10;
-			//‰½‰ñƒ‹[ƒv‚µ‚½‚©ƒJƒEƒ“ƒg‚·‚é
+			//ä½•å›ãƒ«ãƒ¼ãƒ—ã—ãŸã‹ã‚«ã‚¦ãƒ³ãƒˆã™ã‚‹
 			Digit *= 10;
 
 		}
-		//¬”‚É‚È‚é‚Ü‚Å‚©‚¯‚½‚ªAŒ…”‚ğ’m‚è‚½‚¢‚Ì‚Å10‚ÅŠ„‚é
+		//å°æ•°ã«ãªã‚‹ã¾ã§ã‹ã‘ãŸãŒã€æ¡æ•°ã‚’çŸ¥ã‚ŠãŸã„ã®ã§10ã§å‰²ã‚‹
 		Digit /= 10;
 	}
 
 
 
-	//‘ÎÛ‚ÌƒXƒRƒA‚ğ•Û‘¶‚·‚é
+	//å¯¾è±¡ã®ã‚¹ã‚³ã‚¢ã‚’ä¿å­˜ã™ã‚‹
 	SaveScore = RankingScore[Ranking];
 	SaveScore2 = RankingScore[Ranking];
-	//¡‰ñ‚ÌƒXƒRƒA‚Ìê‡
+	//ä»Šå›ã®ã‚¹ã‚³ã‚¢ã®å ´åˆ
 	if (Ranking == 5)
 	{
 		SaveScore = m_Score;
@@ -245,62 +243,62 @@ void ResultScore::ScoreIndicate(int Ranking)
 	j = 0;
 	while (Digit != 0)
 	{
-		//c‚è‚Ì’l‚ª0‚É‚È‚éAuDigitŒ…‚Ì’l‚ğ‹‚ß‚év‚ÅƒGƒ‰[‚É‚È‚é
-		//c‚è‚Ì’l‚ª0‚É‚È‚éAŒ…”•ª‚Ì0‚ğ•\¦‚µ‚Ä
+		//æ®‹ã‚Šã®å€¤ãŒ0ã«ãªã‚‹æ™‚ã€ã€ŒDigitæ¡ã®å€¤ã‚’æ±‚ã‚ã‚‹ã€ã§ã‚¨ãƒ©ãƒ¼ã«ãªã‚‹
+		//æ®‹ã‚Šã®å€¤ãŒ0ã«ãªã‚‹æ™‚ã€æ¡æ•°åˆ†ã®0ã‚’è¡¨ç¤ºã—ã¦
 		if (SaveScore2 <= 0)
 		{
-			//DigitŒ…‚Ì’l‚ğ‹‚ß‚é
+			//Digitæ¡ã®å€¤ã‚’æ±‚ã‚ã‚‹
 			SaveScore = 0;
 		}
 		else
 		{
-			//DigitŒ…‚Ì’l‚ğ‹‚ß‚é
+			//Digitæ¡ã®å€¤ã‚’æ±‚ã‚ã‚‹
 			SaveScore /= Digit;
 		}
 
-		//ƒ‰ƒ“ƒLƒ“ƒO‚É‚æ‚Á‚Ä‰æ‘œ‚ğ•Ï‚¦‚é
+		//ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã«ã‚ˆã£ã¦ç”»åƒã‚’å¤‰ãˆã‚‹
 		switch (Ranking)
 		{
 		case First:
-			//”š‚ÌƒXƒvƒ‰ƒCƒg‚ğì¬‚·‚é
+			//æ•°å­—ã®ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’ä½œæˆã™ã‚‹
 			s_Number = Sprite::create("Images/Number1.png");
 			break;
 		case Scound:
-			//”š‚ÌƒXƒvƒ‰ƒCƒg‚ğì¬‚·‚é
+			//æ•°å­—ã®ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’ä½œæˆã™ã‚‹
 			s_Number = Sprite::create("Images/Number2.png");
 			break;
 		case Third:
-			//”š‚ÌƒXƒvƒ‰ƒCƒg‚ğì¬‚·‚é
+			//æ•°å­—ã®ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’ä½œæˆã™ã‚‹
 			s_Number = Sprite::create("Images/Number3.png");
 			break;
 		default:
-			//”š‚ÌƒXƒvƒ‰ƒCƒg‚ğì¬‚·‚é
+			//æ•°å­—ã®ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’ä½œæˆã™ã‚‹
 			s_Number = Sprite::create("Images/Number.png");
 			break;
 		}
 
 
-		//ƒŒƒNƒg‚ğİ’è‚·‚é
+		//ãƒ¬ã‚¯ãƒˆã‚’è¨­å®šã™ã‚‹
 		s_Number->setTextureRect(Rect(SaveScore * 64, 0, 64, 64));
 		//if (Ranking == 5)
 		//{
-		//	//À•W
+		//	//åº§æ¨™
 		//	s_Number->setPosition(Vec2(400 * j /*- 960*/, 200));
 		//}
 		/*else
 		{*/
-			//À•W
+			//åº§æ¨™
 		s_Number->setPosition(Vec2(300 + 64 * j /*+ 960*/, -150 - (Ranking * 82)));
 		//}
 
-		//Šî”Õƒm[ƒh‚É‚Ô‚ç‰º‚°‚é
+		//åŸºç›¤ãƒãƒ¼ãƒ‰ã«ã¶ã‚‰ä¸‹ã’ã‚‹
 		node_number[Ranking]->addChild(s_Number);
 		this->addChild(node_number[Ranking]);
 
-		//ƒXƒRƒA‚©‚ç‹‚ß‚½’l‚ğˆø‚­
+		//ã‚¹ã‚³ã‚¢ã‹ã‚‰æ±‚ã‚ãŸå€¤ã‚’å¼•ã
 		SaveScore2 -= SaveScore * Digit;
 		SaveScore = SaveScore2;
-		//Ÿ‚ÍDigit-1Œ…‚ğŒ©‚é
+		//æ¬¡ã¯Digit-1æ¡ã‚’è¦‹ã‚‹
 		Digit /= 10;
 		j++;
 	}
@@ -308,50 +306,50 @@ void ResultScore::ScoreIndicate(int Ranking)
 
 
 /***************************************************************************
-*|	ŠT—v@@ƒXƒRƒA‚ÌƒXƒvƒ‰ƒCƒgİ’è
-*|	ˆø”@@–³‚µ
-*|@–ß‚è’l@–³‚µ
+*|	æ¦‚è¦ã€€ã€€ã‚¹ã‚³ã‚¢ã®ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆè¨­å®š
+*|	å¼•æ•°ã€€ã€€ç„¡ã—
+*|ã€€æˆ»ã‚Šå€¤ã€€ç„¡ã—
 ****************************************************************************/
 void ResultScore::ScoreIndicate2(int Score)
 {
 
 	int j;
-	//Œ…”‚ğ‰Šú‰»‚·‚é
+	//æ¡æ•°ã‚’åˆæœŸåŒ–ã™ã‚‹
 	Digit = 1;
-	//‘ÎÛ‚ÌƒXƒRƒA‚ğ•Û‘¶‚·‚é
+	//å¯¾è±¡ã®ã‚¹ã‚³ã‚¢ã‚’ä¿å­˜ã™ã‚‹
 	SaveScore = Score;
 	SaveScore2 = Score;
 
-	////¡‰ñ‚ÌƒXƒRƒA‚Ìê‡
+	////ä»Šå›ã®ã‚¹ã‚³ã‚¢ã®å ´åˆ
 	//if (Ranking == 5)
 	//{
 	//	SaveScore = m_Score;
 	//	SaveScore2 = m_Score;
 	//}
 
-	//ƒXƒRƒA‚ª‰½Œ…‚ ‚é‚Ì‚©‹‚ß‚é
-	//®”‚ª‚È‚­‚È‚é‚Ü‚Å10‚Åœ–@‚·‚é
+	//ã‚¹ã‚³ã‚¢ãŒä½•æ¡ã‚ã‚‹ã®ã‹æ±‚ã‚ã‚‹
+	//æ•´æ•°ãŒãªããªã‚‹ã¾ã§10ã§é™¤æ³•ã™ã‚‹
 
-	//ƒXƒRƒA‚ª0‚¶‚á‚È‚¢‚Æ‚«
+	//ã‚¹ã‚³ã‚¢ãŒ0ã˜ã‚ƒãªã„ã¨ã
 	if ((SaveScore2 - SaveScore != SaveScore2))
 	{
 		while (SaveScore2 - SaveScore != SaveScore2)
 		{
 			SaveScore /= 10;
-			//‰½‰ñƒ‹[ƒv‚µ‚½‚©ƒJƒEƒ“ƒg‚·‚é
+			//ä½•å›ãƒ«ãƒ¼ãƒ—ã—ãŸã‹ã‚«ã‚¦ãƒ³ãƒˆã™ã‚‹
 			Digit *= 10;
 
 		}
-		//¬”‚É‚È‚é‚Ü‚Å‚©‚¯‚½‚ªAŒ…”‚ğ’m‚è‚½‚¢‚Ì‚Å10‚ÅŠ„‚é
+		//å°æ•°ã«ãªã‚‹ã¾ã§ã‹ã‘ãŸãŒã€æ¡æ•°ã‚’çŸ¥ã‚ŠãŸã„ã®ã§10ã§å‰²ã‚‹
 		Digit /= 10;
 	}
 
 
 
-	//‘ÎÛ‚ÌƒXƒRƒA‚ğ•Û‘¶‚·‚é
+	//å¯¾è±¡ã®ã‚¹ã‚³ã‚¢ã‚’ä¿å­˜ã™ã‚‹
 	SaveScore = Score;
 	SaveScore2 = Score;
-	////¡‰ñ‚ÌƒXƒRƒA‚Ìê‡
+	////ä»Šå›ã®ã‚¹ã‚³ã‚¢ã®å ´åˆ
 	//if (Ranking == 5)
 	//{
 	//	SaveScore = m_Score;
@@ -360,44 +358,44 @@ void ResultScore::ScoreIndicate2(int Score)
 	j = 0;
 	while (Digit != 0)
 	{
-		//c‚è‚Ì’l‚ª0‚É‚È‚éAuDigitŒ…‚Ì’l‚ğ‹‚ß‚év‚ÅƒGƒ‰[‚É‚È‚é
-		//c‚è‚Ì’l‚ª0‚É‚È‚éAŒ…”•ª‚Ì0‚ğ•\¦‚µ‚Ä
+		//æ®‹ã‚Šã®å€¤ãŒ0ã«ãªã‚‹æ™‚ã€ã€ŒDigitæ¡ã®å€¤ã‚’æ±‚ã‚ã‚‹ã€ã§ã‚¨ãƒ©ãƒ¼ã«ãªã‚‹
+		//æ®‹ã‚Šã®å€¤ãŒ0ã«ãªã‚‹æ™‚ã€æ¡æ•°åˆ†ã®0ã‚’è¡¨ç¤ºã—ã¦
 		if (SaveScore2 <= 0)
 		{
-			//DigitŒ…‚Ì’l‚ğ‹‚ß‚é
+			//Digitæ¡ã®å€¤ã‚’æ±‚ã‚ã‚‹
 			SaveScore = 0;
 		}
 		else
 		{
-			//DigitŒ…‚Ì’l‚ğ‹‚ß‚é
+			//Digitæ¡ã®å€¤ã‚’æ±‚ã‚ã‚‹
 			SaveScore /= Digit;
 		}
 
 	
-			//”š‚ÌƒXƒvƒ‰ƒCƒg‚ğì¬‚·‚é
+			//æ•°å­—ã®ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’ä½œæˆã™ã‚‹
 		s_now_number = Sprite::create("Images/Number1_1.png");
-		//ƒŒƒNƒg‚ğİ’è‚·‚é
+		//ãƒ¬ã‚¯ãƒˆã‚’è¨­å®šã™ã‚‹
 		s_now_number->setTextureRect(Rect(SaveScore * 64, 0, 64, 64));
 
-		//À•W
+		//åº§æ¨™
 		s_now_number->setPosition(Vec2(1100 + 64 * j , 450 - (now_number * 140)));
 
 
-		//Šî”Õƒm[ƒh‚É‚Ô‚ç‰º‚°‚é
+		//åŸºç›¤ãƒãƒ¼ãƒ‰ã«ã¶ã‚‰ä¸‹ã’ã‚‹
 		now_node_number[now_number]->addChild(s_now_number);
 		this->addChild(now_node_number[now_number]);
 
 		
-		//ƒXƒRƒA‚©‚ç‹‚ß‚½’l‚ğˆø‚­
+		//ã‚¹ã‚³ã‚¢ã‹ã‚‰æ±‚ã‚ãŸå€¤ã‚’å¼•ã
 		SaveScore2 -= SaveScore * Digit;
 		SaveScore = SaveScore2;
-		//Ÿ‚ÍDigit-1Œ…‚ğŒ©‚é
+		//æ¬¡ã¯Digit-1æ¡ã‚’è¦‹ã‚‹
 		Digit /= 10;
 		j++;
 	}
 }
 
-//¡‰ñ‚ÌƒXƒRƒA‚ÌƒAƒNƒVƒ‡ƒ“
+//ä»Šå›ã®ã‚¹ã‚³ã‚¢ã®ã‚¢ã‚¯ã‚·ãƒ§ãƒ³
 void ResultScore::ScoreAction(int cnt)
 {
 	
@@ -418,7 +416,7 @@ void ResultScore::ScoreAction(int cnt)
 }
 
 
-//¡‰ñ‚ÌƒXƒRƒA‚ÌÁ‚¦‚éƒAƒNƒVƒ‡ƒ“
+//ä»Šå›ã®ã‚¹ã‚³ã‚¢ã®æ¶ˆãˆã‚‹ã‚¢ã‚¯ã‚·ãƒ§ãƒ³
 void ResultScore::ResultOutAction()
 {
 
@@ -440,12 +438,12 @@ void ResultScore::ResultOutAction()
 //void ResultScore::CallRankingActuin()
 //{
 //
-//	//ƒ‰ƒ“ƒLƒ“ƒO‚ÌƒAƒNƒVƒ‡ƒ“
+//	//ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã®ã‚¢ã‚¯ã‚·ãƒ§ãƒ³
 //	RankingAction(-1);
 //	RankingOutoFlag == false;
 //}
 
-//ƒ‰ƒ“ƒLƒ“ƒO‚ÌƒAƒNƒVƒ‡ƒ“
+//ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã®ã‚¢ã‚¯ã‚·ãƒ§ãƒ³
 void ResultScore::RankingAction(int cnt)
 {
 	backcoin->setVisible(true);
@@ -462,7 +460,7 @@ void ResultScore::RankingAction(int cnt)
 	if (cnt < 5)
 	{
 		node_number[cnt]->runAction(ScoreAction3);
-		//ƒ‰ƒ“ƒLƒ“ƒO‚Ì–¼‘O‚ÌƒAƒNƒVƒ‡ƒ“
+		//ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã®åå‰ã®ã‚¢ã‚¯ã‚·ãƒ§ãƒ³
 		L_PlayerName[cnt]->runAction(ScoreAction4);
 	}
 	else

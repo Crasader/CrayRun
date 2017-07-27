@@ -44,11 +44,7 @@ private:
 	bool m_Move_Flag;//移動するか
 	int m_point;//スコアに入るポイント
 	//線形補間
-	cocos2d::Vec2 Leap(cocos2d::Vec2 StartPosition, cocos2d::Vec2 GoalPosition, float Time)
-	{
-		return cocos2d::Vec2((1 - Time) * StartPosition.x + GoalPosition.x * Time,
-			(1 - Time) * StartPosition.y + GoalPosition.y * Time);
-	}
+	cocos2d::Vec2 Leap(cocos2d::Vec2 StartPosition, cocos2d::Vec2 GoalPosition, float Time);
 
 	
 

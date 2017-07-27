@@ -123,7 +123,7 @@ void StageLayer::MapCreate()
 		MapName << "Map/EasyMap" << NowMap << ".tmx";
 		//マップチップ
 		GameManager::map.push_back(TMXTiledMap::create(MapName.str()));
-		//GameManager::map.push_back(TMXTiledMap::create("Map/EasyMap3.tmx"));
+		//GameManager::map.push_back(TMXTiledMap::create("Map/NewMap1.tmx"));
 	}
 	else
 	{

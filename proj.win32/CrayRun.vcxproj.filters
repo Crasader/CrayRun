@@ -85,9 +85,6 @@
     <ClCompile Include="..\Classes\TitleScene\TitleCharacter.cpp">
       <Filter>TitleScene</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\ResultScene\ResultLayer.cpp">
-      <Filter>ResultScene</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\ResultScene\ResultScene.cpp">
       <Filter>ResultScene</Filter>
     </ClCompile>
@@ -117,6 +114,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\PlayScene\StageLayer\EnemySprite.cpp">
       <Filter>ResultScene\PlayScene\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ResultScene\ResultLayer.cpp">
+      <Filter>ResultScene\PlayScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -275,5 +275,8 @@
     <Filter Include="ResultScene\PlayScene\BackGround">
       <UniqueIdentifier>{74920a7a-a7d3-4fa4-8879-3dedf68eb5eb}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
 </Project>

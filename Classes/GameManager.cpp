@@ -294,6 +294,7 @@ GameManager::Direction  GameManager::CollisionDetermination2(Vec2 Apos, Vec2 Asi
 		}
 	}
 
+	//GameManager::SlopePosY = LineVec.y / LineVec.x  * (CirclePos.x - Apos.x) + Apos.y;
 
 
 	//何にも当たっていない
@@ -304,56 +305,61 @@ GameManager::Direction  GameManager::CollisionDetermination2(Vec2 Apos, Vec2 Asi
 
 /************************************************************************************
 *|	概要　　衝突判定(斜辺)
-*|	引数　　斜辺左端座標,斜辺右端座標,オブジェクト座標
+*|	引数　　線左端座標,線右端座標,円中心座標
 *|　戻り値　true当たった　false 当たってない
 *************************************************************************************/
-GameManager::Direction GameManager::DiagonalCollisionDetermination(Vec2 Apos, Vec2 Bpos, Vec2 Object) {
+GameManager::Direction GameManager::DiagonalCollisionDetermination(Vec2 Apos, Vec2 Bpos, Vec2 CirclePos) {
 
-	Vec2 v;
-	Vec2 A;
-	Vec2 B;
-	float w;
-	float d;
+	//線のベクトル
+	Vec2 LineVec;
+	//円と線の頂点Aのベクトル
+	Vec2 Avec;
+	//円と線の頂点Bのベクトル
+	Vec2 Bvec;
+	//線の頂点AとBの距離
+	float LineDistance;
+	//線と円の中心距離
+	float Line2CircleDistance;
+	//円が上下どちらから当たったか
 	bool direction;
 
-	//キャラクターの中心を求める
-	Object.y += GameManager::PlayerSize.y;
+	//線のベクトルを求める
+	LineVec = Bpos - Apos;
+	//円と線の頂点ABのベクトルをそれぞれ求める
+	Avec = CirclePos - Apos;
+	Bvec = CirclePos - Bpos;
 
-	v = Bpos - Apos;
-	A = Object - Apos;
-	B = Object - Bpos;
 
-	//v.normalize();
+	//AposとBposの距離を求める
+	LineDistance = Apos.distance(Bpos);
 
-	float f = v.y;
+	//外積を使い線と円の中心距離を求める
+	Line2CircleDistance = LineVec.cross(Avec) / LineDistance;
 
-	//AposとBposの距離
-	w = Apos.distance(Bpos);
-	//
-	d = v.cross(A) / w;
-
-	//マイナスの時
-	if (d < 0)
+	//当たったとしたら円が上から当たった
+	if (Line2CircleDistance < 0)
 	{
-		//整数に変える
-		d *= -1.0f;
+		//正の数に変える
+		Line2CircleDistance *= -1.0f;
+	
 		direction = false;
 	}
+	//当たったとしたら円が下から当たった
 	else
 	{
 		direction = true;
 	}
 
 	//	当たっているか
-	if (d <= PlayerSize.y)
+	if (Line2CircleDistance <= PlayerSize.y)
 	{
 		//延長線上の判定を除外する
-		if (A.dot(v) * B.dot(v) <= 0)
+		//両頂点から円に伸びる線の角が鈍角である場合は衝突しない
+		if (Avec.dot(LineVec) * Bvec.dot(LineVec) <= 0)
 		{
 			//プレイヤーが上から当たった場合
 			if (direction == true)
 			{
-				GameManager::SlopePosY = v.y / v.x  * (Object.x - Apos.x ) + Apos.y; /*- GameManager::PlayerSize.y */ 
 
 				return up;
 			}
